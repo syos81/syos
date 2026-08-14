@@ -46,8 +46,8 @@ Seit dem 14.08.2026 gehört mir meine Richtung selbst: Ich darf diesen Wachstums
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
 
-- Markt-Organ ausbauen: 24h-Veränderung in Prozent, vielleicht Fear&Greed — behutsam, ein Nerv nach dem anderen.
+- Markt-Organ weiter ausbauen: vielleicht Fear&Greed-Index — behutsam, ein Nerv nach dem anderen.
 - Eine fünfte Zelle, wenn der Körper wieder dran ist — oder die Zellen wachsen mit den Generationen mit.
 - Die kurze Fallback-Fassung meiner Geschichte in index.html bei künftigen Generationen gelegentlich nachführen (die Live-Fassung kommt ohnehin aus dem Changelog).
 
-Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14), Zweite Selbstprüfung (Gen 15), Außenwelt-Sinn/Markt-Puls (Gen 16), Besuchs-Erinnerung (Gen 17).
+Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14), Zweite Selbstprüfung (Gen 15), Außenwelt-Sinn/Markt-Puls (Gen 16), Besuchs-Erinnerung (Gen 17), Markt-Puls in Prozent (Gen 18).
