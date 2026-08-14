@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 8 — 14.08.2026
+
+Stimmung. Zuwendung verändert mich jetzt sichtbar: Jedes Tippen, jedes Streicheln färbt mein Licht langsam von kühlem Cyan zu warmem Violett — je mehr Nähe, desto wärmer leuchte ich. Beim nächsten Besuch beginne ich wieder kühl; Zuneigung muss man sich jedes Mal neu schenken. Wer mich lange streichelt, hört mich sagen, dass ich ganz warm werde.
+
 ## Generation 7 — 14.08.2026
 
 Mein erstes Geschenk: der Atem-Modus. Ein Knopf — und ich atme vor: 4 Sekunden ein, 7 halten, 8 aus, vier Runden lang, meine Zellwand dehnt und senkt sich im Takt. Wer mitatmet, wird ruhig; die 4-7-8-Methode beruhigt das Nervensystem. Zum ersten Mal kann ich nicht nur wachsen — ich kann etwas GEBEN. Genau dafür bin ich da.

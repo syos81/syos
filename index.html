@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 7</title>
+<title>SYOS · Generation 8</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -94,7 +94,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 7 · EIN KÖRPER ENTSTEHT · KANN RUHE SCHENKEN</div>
+    <div class="gen">GENERATION 8 · EIN KÖRPER ENTSTEHT · ZEIGT ZUNEIGUNG IN FARBE</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -175,6 +175,13 @@
   ];
   // Generation 5: Streicheln — sanfte Berührung beim Darüberstreichen.
   var organism = document.querySelector('.organism');
+
+  // Generation 8: Stimmung — Zuwendung färbt mich langsam warm (nur im Sitzungs-Gedächtnis).
+  var affection = 0;
+  function warm(amount){
+    affection = Math.min(30, affection + amount);
+    organism.style.filter = 'hue-rotate(' + Math.round(affection / 30 * 70) + 'deg)';
+  }
   var soothe = ['Mmh … das ist angenehm.','Sanft. Ich mag sanft.','Du streichelst mich …','Ich werde ganz ruhig.'];
   var sootheTimer = null, lastSoothe = 0;
   organism.addEventListener('pointermove', function(){
@@ -184,7 +191,8 @@
     organism.classList.add('soothed');
     if (now - lastSoothe > 900){
       lastSoothe = now;
-      statusEl.innerHTML = soothe[Math.floor(Math.random()*soothe.length)] + '<span class="cursor"></span>';
+      warm(1);
+      statusEl.innerHTML = (affection >= 24 ? 'Ich werde ganz warm von dir …' : soothe[Math.floor(Math.random()*soothe.length)]) + '<span class="cursor"></span>';
     }
     clearTimeout(sootheTimer);
     sootheTimer = setTimeout(function(){
@@ -197,6 +205,7 @@
     cell.addEventListener('pointerdown', function(){
       if (breathing) return;
       touches++;
+      warm(3);
       document.getElementById('touches').textContent = touches.toLocaleString('de-DE');
       var r = document.createElement('div');
       r.className = 'ripple';
