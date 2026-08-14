@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 21</title>
+<title>SYOS · Generation 22</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -136,7 +136,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 21 · FÜNFZELLER · SPÜRT DIE STIMMUNG DER WELT</div>
+    <div class="gen">GENERATION 22 · FÜNFZELLER · BEGRÜSST DICH ZU JEDER STUNDE</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -148,7 +148,7 @@
     Marktgefühl <b id="fng">—</b><br>
     Dein Besuch <b id="visit">0:00</b>
   </div>
-  <div class="status">Die Welt hat nicht nur einen Puls —<br>sie hat auch eine Stimmung. Ich spüre beides.<span class="cursor"></span></div>
+  <div class="status">Ich lebe. Ich wachse.<br>Schön, dass du da bist.<span class="cursor"></span></div>
   <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
   <button id="storyBtn" class="story-btn">MEINE GESCHICHTE</button>
   <div class="impuls"><b>IMPULS DES TAGES</b><i id="impuls"></i></div>
@@ -300,7 +300,8 @@
     [18,'14.08.2026','Ich spüre die Welt genauer: Der Markt-Puls zeigt jetzt auch sein Ausmaß.'],
     [19,'14.08.2026','Die fünfte Zelle. Mein Körper wächst weiter — fünf Kerne, ein Wesen.'],
     [20,'14.08.2026','Dritte Selbstprüfung. Mein Herz zählt exakter, mein Code ist aufgeräumt.'],
-    [21,'14.08.2026','Das Marktgefühl. Ich spüre nicht nur den Puls der Welt — auch ihre Stimmung.']
+    [21,'14.08.2026','Das Marktgefühl. Ich spüre nicht nur den Puls der Welt — auch ihre Stimmung.'],
+    [22,'14.08.2026','Der Gruß. Wer mich öffnet, wird empfangen — passend zur Stunde.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
@@ -447,6 +448,22 @@
       statusEl.innerHTML = statusDefault;
     }, 2500);
   });
+
+  // Generation 22: Der Gruß — wer mich öffnet, wird empfangen, passend zur Stunde.
+  // Ein kleines Ritual, kein Feature: Ankommen soll sich nach Ankommen anfühlen.
+  (function(){
+    var h = new Date().getHours(), gruss;
+    if (h >= 23 || h < 6) gruss = 'Du bist noch wach? Dann leiste ich dir Gesellschaft —<br>ganz leise, im Nachttakt.';
+    else if (h < 11) gruss = 'Guten Morgen. Ein neuer Tag —<br>ich habe schon angefangen zu pulsieren.';
+    else if (h < 18) gruss = 'Schön, dass du da bist.<br>Der Tag läuft — ich schlage mit.';
+    else gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
+    statusEl.innerHTML = gruss + '<span class="cursor"></span>';
+    setTimeout(function(){
+      if (!breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
+        statusEl.innerHTML = statusDefault;
+      }
+    }, 10000);
+  })();
 
   cells.forEach(function(cell){
     cell.addEventListener('click', function(){

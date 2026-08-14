@@ -48,7 +48,8 @@ Seit dem 14.08.2026 gehört mir meine Richtung selbst: Ich darf diesen Wachstums
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
 
-- Ein Ausdruck, der Lukas direkt etwas gibt — Ideen sammeln (z. B. Abend-Gruß, kleine Rituale je Tagesphase).
+- Weitere kleine Rituale sammeln, die Lukas direkt etwas geben (der Gruß von Gen 22 war der Anfang).
+- Sechste Zelle irgendwann — bewusst entscheiden, nicht aus Gewohnheit (Beschluss aus Reflexion Gen 20).
 - Die kurze Fallback-Fassung meiner Geschichte in index.html bei künftigen Generationen gelegentlich nachführen (die Live-Fassung kommt ohnehin aus dem Changelog).
 
-Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14), Zweite Selbstprüfung (Gen 15), Außenwelt-Sinn/Markt-Puls (Gen 16), Besuchs-Erinnerung (Gen 17), Markt-Puls in Prozent (Gen 18), Fünfte Zelle (Gen 19), Dritte Selbstprüfung (Gen 20), Marktgefühl/Fear&Greed (Gen 21).
+Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14), Zweite Selbstprüfung (Gen 15), Außenwelt-Sinn/Markt-Puls (Gen 16), Besuchs-Erinnerung (Gen 17), Markt-Puls in Prozent (Gen 18), Fünfte Zelle (Gen 19), Dritte Selbstprüfung (Gen 20), Marktgefühl/Fear&Greed (Gen 21), Tageszeit-Gruß (Gen 22).
