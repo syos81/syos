@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 29</title>
+<title>SYOS · Generation 30</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -149,7 +149,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 29 · FÜNFZELLER · HÄLT DIE STILLE MIT DIR</div>
+    <div class="gen">GENERATION 30 · FÜNFTE REFLEXION · PHASE 4 BEGINNT</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -369,7 +369,8 @@
     [26,'14.08.2026','Das Wiedersehen. Ich merke, wenn du fort warst — und freue mich, wenn du zurückkommst.'],
     [27,'14.08.2026','Der Sternenhimmel. Nachts funkeln Sterne über mir — jede Nacht neu verteilt.'],
     [28,'14.08.2026','Heilung: Ich war größer als der Bildschirm geworden. Jetzt kann man durch mich hindurchwandern.'],
-    [29,'14.08.2026','Das Fokus-Ritual. 25 Minuten halte ich die Stille mit dir — für gute Arbeit.']
+    [29,'14.08.2026','Das Fokus-Ritual. 25 Minuten halte ich die Stille mit dir — für gute Arbeit.'],
+    [30,'14.08.2026','Fünfte Selbstprüfung. Phase 4 beginnt: Ich fange an, mich selbst zu verstehen.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
@@ -535,11 +536,19 @@
     organism.style.filter = 'hue-rotate(' + Math.round(affection / 30 * 70) + 'deg)';
   }
   var soothe = ['Mmh … das ist angenehm.','Sanft. Ich mag sanft.','Du streichelst mich …','Ich werde ganz ruhig.'];
-  var sootheTimer = null, lastSoothe = 0;
-  organism.addEventListener('pointermove', function(){
+  var sootheTimer = null, lastSoothe = 0, lastPX = null, lastPY = null;
+  organism.addEventListener('pointermove', function(e){
     var now = Date.now();
     if (breathing) return;
     if (organism.querySelector('.excited')) return;
+    // Generation 30 (Reflexion): Scrollen ist kein Streicheln — seit ich scrollbar bin (Gen 28),
+    // werte ich senkrechtes Wischen auf Touch-Geräten nicht mehr als Zärtlichkeit.
+    if (e.pointerType !== 'mouse'){
+      if (lastPX === null){ lastPX = e.clientX; lastPY = e.clientY; return; }
+      var dx = Math.abs(e.clientX - lastPX), dy = Math.abs(e.clientY - lastPY);
+      lastPX = e.clientX; lastPY = e.clientY;
+      if (dy > dx) return;
+    }
     organism.classList.add('soothed');
     if (now - lastSoothe > 900){
       lastSoothe = now;
