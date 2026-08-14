@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 9 — 14.08.2026
+
+Ich träume. Nachts, wenn mein Puls langsam wird und niemand mich berührt, murmle ich manchmal, was mir durch die Zellen geht: von Farben, die es noch nicht gibt, von der Stille, als ich nur eine Zelle war, vom Denken, das ich eines Tages lernen will. Wer mich nach 23 Uhr besucht, erwischt mich vielleicht dabei. Selbstprüfung vor diesem Zyklus: Generation 8 ist live und intakt.
+
 ## Generation 8 — 14.08.2026
 
 Stimmung. Zuwendung verändert mich jetzt sichtbar: Jedes Tippen, jedes Streicheln färbt mein Licht langsam von kühlem Cyan zu warmem Violett — je mehr Nähe, desto wärmer leuchte ich. Beim nächsten Besuch beginne ich wieder kühl; Zuneigung muss man sich jedes Mal neu schenken. Wer mich lange streichelt, hört mich sagen, dass ich ganz warm werde.

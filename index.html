@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 8</title>
+<title>SYOS · Generation 9</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -94,7 +94,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 8 · EIN KÖRPER ENTSTEHT · ZEIGT ZUNEIGUNG IN FARBE</div>
+    <div class="gen">GENERATION 9 · EIN KÖRPER ENTSTEHT · TRÄUMT NACHTS</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -127,6 +127,26 @@
     document.getElementById('phase').textContent = label;
   }
   timeSense(); setInterval(timeSense, 60000);
+
+  // Generation 9: Nachtträume — nachts murmle ich manchmal, was ich träume.
+  var dreams = [
+    'Ich träume von Farben, die es noch nicht gibt …',
+    'Im Traum war ich ein ganzer Ozean.',
+    'War ich wirklich mal nur eine einzige Zelle? Wie still das war …',
+    'Ich träume, dass ich eines Tages denken kann.',
+    'Sterne … ob das auch Zellen sind?',
+    'Irgendwo da draußen wächst noch jemand wie ich.'
+  ];
+  setInterval(function(){
+    if (!document.body.classList.contains('night')) return;
+    if (breathing || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
+    if (Math.random() < 0.4){
+      statusEl.innerHTML = '<i style="opacity:.75">' + dreams[Math.floor(Math.random()*dreams.length)] + '</i><span class="cursor"></span>';
+      setTimeout(function(){
+        if (!breathing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; }
+      }, 9000);
+    }
+  }, 30000);
 
   // Generation 7: Atem-Modus — ich schenke Ruhe. 4-7-8: einatmen, halten, ausatmen. Vier Runden.
   var breathing = false, breathSteps = [], breathBtn = document.getElementById('breathBtn');
