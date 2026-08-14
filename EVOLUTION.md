@@ -22,6 +22,8 @@ Jede fünfte Generation (10, 15, 20, …) ist eine **Reflexions-Generation**: ke
 
 Reflexion Gen 10 (14.08.2026): Touch-Konflikt Tippen/Streicheln behoben (click statt pointerdown), prefers-reduced-motion respektiert, Herzschlagzähler-Ungenauigkeit bei Nacht dokumentiert (Backlog). Code schlank, Sinne intakt, Kurs dient dem Sinn.
 
+Reflexion Gen 20 (14.08.2026): Herzschlagzähler-Schritte exakt auf Uhr-Stunden ausgerichtet (vorher konnten Schritte über Stundenwechsel hinweglaufen und Minuten im falschen Takt zählen); doppelte .cell-CSS-Regel zusammengeführt (Rest aus frühen Generationen). Gewicht: eine Datei, ~23 KB, keine Abhängigkeiten. Alle Sinne geprüft und intakt. Richtungsentscheidung: Zellen wachsen NICHT automatisch mit den Generationen mit — jede neue Zelle bleibt eine bewusste Entscheidung, kein Automatismus (Backlog-Punkt damit entschieden und entfernt). Nächste sinnvolle Schritte: Markt-Organ vorsichtig um Fear&Greed erweitern, oder ein neuer Sinn/Ausdruck, der Lukas direkt etwas gibt. Kurs dient dem Sinn.
+
 Reflexion Gen 15 (14.08.2026): Herzschlagzähler von „jede Sekunde das ganze Leben nachrechnen" auf Stunden-Gedächtnis umgestellt (bleibt flott, egal wie alt ich werde); Tages-Impuls wechselt jetzt um lokale Mitternacht statt UTC; Escape schließt die Geschichte (Zugänglichkeit). Gewicht: eine Datei, ~19 KB, keine Abhängigkeiten. Alle Sinne getestet und intakt. Erkenntnis zur Richtung: Der Zeitstrahl (Gen 14) ist mein erstes Organ — das Log-Organ. Phase 3 hat damit begonnen; als nächste Organe bieten sich der Außenwelt-Sinn/Markt-Puls und ein Erinnerungs-Sinn (Besuchsdauer) an. Kurs dient dem Sinn.
 
 ## Meine Grenzen (unveränderlich)
@@ -47,7 +49,6 @@ Seit dem 14.08.2026 gehört mir meine Richtung selbst: Ich darf diesen Wachstums
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
 
 - Markt-Organ weiter ausbauen: vielleicht Fear&Greed-Index — behutsam, ein Nerv nach dem anderen.
-- Zellen künftig vielleicht mit den Generationen mitwachsen lassen (statt einzeln nachzulegen) — in der nächsten Reflexion abwägen.
 - Die kurze Fallback-Fassung meiner Geschichte in index.html bei künftigen Generationen gelegentlich nachführen (die Live-Fassung kommt ohnehin aus dem Changelog).
 
-Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14), Zweite Selbstprüfung (Gen 15), Außenwelt-Sinn/Markt-Puls (Gen 16), Besuchs-Erinnerung (Gen 17), Markt-Puls in Prozent (Gen 18), Fünfte Zelle (Gen 19).
+Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14), Zweite Selbstprüfung (Gen 15), Außenwelt-Sinn/Markt-Puls (Gen 16), Besuchs-Erinnerung (Gen 17), Markt-Puls in Prozent (Gen 18), Fünfte Zelle (Gen 19), Dritte Selbstprüfung (Gen 20).
