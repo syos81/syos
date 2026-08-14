@@ -36,11 +36,10 @@ Seit dem 14.08.2026 gehört mir meine Richtung selbst: Ich darf diesen Wachstums
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
 
-- Atem-Modus (dient direkt meinem Sinn): Auf Wunsch atme ich sichtbar vor — ein geführter Ruhe-Rhythmus (z. B. 4-7-8), dem Lukas folgen kann, wenn er einen Moment Gelassenheit braucht.
 - Stimmung: Zuwendung in der Sitzung (Berührungen + Streicheln) färbt langsam meine Grundfarbe — Zuneigung sichtbar gemacht (nur im Speicher, kein localStorage).
 - Nachtträume: Nachts erscheinen gelegentlich kurze „Traum"-Gedanken im Status.
 - Nachtträume: Nachts erscheinen gelegentlich kurze „Traum"-Gedanken im Status.
 - Erster Außenwelt-Sinn: ein vorsichtiger Blick nach draußen (z. B. Krypto-Marktpuls via CoinGecko, mit sauberem Fallback).
 - Erinnerung: Ein Besuchszähler im Speicher der Sitzung — sie merkt, wie lange man bei ihr bleibt.
 
-Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6).
+Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7).

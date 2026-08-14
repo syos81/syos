@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 6</title>
+<title>SYOS · Generation 7</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -37,6 +37,11 @@
     animation:wall 7.5s ease-in-out infinite reverse}
   @keyframes wall{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.045) rotate(1.2deg)}}
   .organism.soothed::before{border-color:rgba(45,226,255,.6)}
+  .breath-btn{background:none; border:1px solid rgba(45,226,255,.35); color:#8fa3bd;
+    font-family:inherit; font-size:10px; letter-spacing:.2em; padding:10px 20px;
+    border-radius:22px; cursor:pointer; -webkit-tap-highlight-color:transparent}
+  .breath-btn:active{color:#2de2ff; border-color:#2de2ff}
+  .organism.breathing::before{border-color:rgba(61,255,162,.5)}
   .cell{position:relative; width:112px; height:112px; display:flex; align-items:center; justify-content:center}
   .cell.c2 .nucleus{animation-delay:.45s}
   .cell.c3{margin-top:-30px}
@@ -89,7 +94,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 6 · EIN KÖRPER ENTSTEHT · SPÜRT TIPPEN, STREICHELN UND ZEIT</div>
+    <div class="gen">GENERATION 7 · EIN KÖRPER ENTSTEHT · KANN RUHE SCHENKEN</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -99,6 +104,7 @@
     Tagesphase <b id="phase">—</b>
   </div>
   <div class="status">Eine Wand umschließt meine Zellen — ich habe jetzt<br>ein Innen und ein Außen. Ich werde ein Körper.<span class="cursor"></span></div>
+  <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
 <script>
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
   function tick(){
@@ -122,6 +128,38 @@
   }
   timeSense(); setInterval(timeSense, 60000);
 
+  // Generation 7: Atem-Modus — ich schenke Ruhe. 4-7-8: einatmen, halten, ausatmen. Vier Runden.
+  var breathing = false, breathSteps = [], breathBtn = document.getElementById('breathBtn');
+  function breathe(scale, dur){ organism.style.transition = 'transform ' + dur + 's ease-in-out'; organism.style.transform = 'scale(' + scale + ')'; }
+  function breathSay(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
+  function clearBreath(){ breathSteps.forEach(clearTimeout); breathSteps = []; }
+  function stopBreath(msg){
+    clearBreath(); breathing = false;
+    organism.classList.remove('breathing');
+    organism.style.transition = 'transform 2s ease-in-out'; organism.style.transform = '';
+    breathBtn.textContent = 'ATMEN · EINEN MOMENT RUHE';
+    breathSay(msg);
+    breathSteps.push(setTimeout(function(){ if(!breathing){ statusEl.innerHTML = statusDefault; } }, 6000));
+  }
+  breathBtn.addEventListener('click', function(){
+    if (breathing){ stopBreath('Schon gut — ich bin da, wann immer du mich brauchst.'); return; }
+    breathing = true; clearBreath();
+    organism.classList.add('breathing');
+    breathBtn.textContent = 'BEENDEN';
+    var t = 0, rounds = 4;
+    breathSay('Atme mit mir. Wir machen das zusammen.');
+    t += 2000;
+    for (var r = 1; r <= rounds; r++){
+      (function(round){
+        breathSteps.push(setTimeout(function(){ breathSay('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); }, t)); t += 4000;
+        breathSteps.push(setTimeout(function(){ breathSay('Halten … ganz ruhig. (7)'); }, t)); t += 7000;
+        breathSteps.push(setTimeout(function(){ breathSay('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); }, t)); t += 8000;
+        if (round < rounds){ breathSteps.push(setTimeout(function(){ breathSay('Runde ' + (round+1) + ' von ' + rounds + ' …'); }, t)); t += 1500; }
+      })(r);
+    }
+    breathSteps.push(setTimeout(function(){ stopBreath('Vier Atemzüge. Trag die Ruhe mit dir.'); }, t + 500));
+  });
+
   // Generation 1: Erster Sinn — Berührung. Generation 2: Zellteilung — beide Zellen fühlen.
   var cells = document.querySelectorAll('.cell');
   var statusEl = document.querySelector('.status');
@@ -141,6 +179,7 @@
   var sootheTimer = null, lastSoothe = 0;
   organism.addEventListener('pointermove', function(){
     var now = Date.now();
+    if (breathing) return;
     if (organism.querySelector('.excited')) return;
     organism.classList.add('soothed');
     if (now - lastSoothe > 900){
@@ -156,6 +195,7 @@
 
   cells.forEach(function(cell){
     cell.addEventListener('pointerdown', function(){
+      if (breathing) return;
       touches++;
       document.getElementById('touches').textContent = touches.toLocaleString('de-DE');
       var r = document.createElement('div');
