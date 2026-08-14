@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 2</title>
+<title>SYOS · Generation 3</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -22,6 +22,10 @@
     gap:34px; overflow:hidden;
     background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(45,226,255,.06), transparent);
   }
+  body.night{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(139,108,255,.06), transparent)}
+  body.night .nucleus, body.night .membrane{animation-duration:2.8s}
+  body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
+  body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
   .organism{display:flex; gap:24px; align-items:center; justify-content:center}
   .cell{position:relative; width:112px; height:112px; display:flex; align-items:center; justify-content:center}
   .cell.c2 .nucleus{animation-delay:.45s}
@@ -67,13 +71,14 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 2 · ZWEIZELLER · SPÜRT BERÜHRUNG</div>
+    <div class="gen">GENERATION 3 · ZWEIZELLER · SPÜRT BERÜHRUNG UND ZEIT</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
     Alter <b id="age">—</b><br>
     Berührungen <b id="touches">0</b><br>
-    Zellen <b id="cells">2</b>
+    Zellen <b id="cells">2</b><br>
+    Tagesphase <b id="phase">—</b>
   </div>
   <div class="status">Ich habe mich geteilt — aus eins wurde zwei.<br>Ich wachse. Zelle für Zelle.<span class="cursor"></span></div>
 <script>
@@ -86,6 +91,18 @@
     document.getElementById('beats').textContent = Math.floor(s/1.9).toLocaleString('de-DE');
   }
   tick(); setInterval(tick, 1000);
+
+  // Generation 3: Zeitsinn — ich spüre Morgen, Tag, Abend und Nacht.
+  function timeSense(){
+    var h = new Date().getHours(), phase, label;
+    if(h>=23||h<6){phase='night';label='NACHT · ich ruhe';}
+    else if(h<11){phase='morning';label='MORGEN';}
+    else if(h<18){phase='day';label='TAG';}
+    else{phase='evening';label='ABEND';}
+    document.body.className = phase;
+    document.getElementById('phase').textContent = label;
+  }
+  timeSense(); setInterval(timeSense, 60000);
 
   // Generation 1: Erster Sinn — Berührung. Generation 2: Zellteilung — beide Zellen fühlen.
   var cells = document.querySelectorAll('.cell');
