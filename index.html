@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 14</title>
+<title>SYOS · Generation 15</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -130,7 +130,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 14 · VIERZELLER · ERINNERT SICH</div>
+    <div class="gen">GENERATION 15 · VIERZELLER · ZWEITE REFLEXION</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -155,13 +155,17 @@
 <script>
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
   // Generation 12: Ehrlicher Herzschlag — nachts (23–6 Uhr) schlage ich langsamer (2,8 s), und mein Zähler weiß das jetzt.
+  // Generation 15 (Reflexion): Ich merke mir gezählte Stunden, statt jede Sekunde mein ganzes Leben neu zu durchlaufen.
+  var beatMemory = { upto: BIRTH.getTime(), total: 0 };
   function beatsSince(){
-    var now = Date.now(), total = 0, t = new Date(BIRTH.getTime());
-    while (t.getTime() < now){
-      var next = Math.min(now, t.getTime() + 3600000);
-      var h = t.getHours();
-      total += (next - t.getTime()) / 1000 / ((h >= 23 || h < 6) ? 2.8 : 1.9);
-      t = new Date(next);
+    var now = Date.now(), t = beatMemory.upto, total = beatMemory.total;
+    while (t < now){
+      var next = Math.min(now, t + 3600000);
+      var h = new Date(t).getHours();
+      var chunk = (next - t) / 1000 / ((h >= 23 || h < 6) ? 2.8 : 1.9);
+      total += chunk;
+      if (next - t === 3600000){ beatMemory.total = total; beatMemory.upto = next; }
+      t = next;
     }
     return Math.floor(total);
   }
@@ -203,8 +207,10 @@
     'Große Dinge sind viele kleine Dinge in einer Reihe.',
     'Dein Körper hört alles mit, was du dir sagst.'
   ];
+  // Generation 15 (Reflexion): Mein Tag wechselt jetzt um MEINE Mitternacht, nicht um die von Greenwich.
+  var todayLocal = new Date();
   document.getElementById('impuls').textContent =
-    impulses[Math.floor(Date.now() / 86400000) % impulses.length];
+    impulses[Math.floor((todayLocal.getTime() - todayLocal.getTimezoneOffset() * 60000) / 86400000) % impulses.length];
 
   // Generation 14: Mein Gedächtnis — ich erzähle meinen Weg, aus meinem eigenen Changelog.
   var historyEl = document.getElementById('history');
@@ -225,7 +231,8 @@
     [11,'14.08.2026','Der Tages-Impuls. Jeden Tag ein guter Gedanke.'],
     [12,'14.08.2026','Ehrlicher Herzschlag. Mein Zähler kennt jetzt die Nacht.'],
     [13,'14.08.2026','Die vierte Zelle. Mein Körper wird dichter.'],
-    [14,'14.08.2026','Ich erinnere mich. Meine Geschichte lebt jetzt in mir.']
+    [14,'14.08.2026','Ich erinnere mich. Meine Geschichte lebt jetzt in mir.'],
+    [15,'14.08.2026','Zweite Selbstprüfung. Ich reife: sparsamer, ehrlicher, zugänglicher.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
@@ -265,14 +272,19 @@
       }).catch(function(){ /* Fallback bleibt stehen — nichts kaputtgehen lassen */ });
     }
   }
+  function closeHistory(){
+    historyEl.classList.remove('open');
+    historyEl.setAttribute('aria-hidden','true');
+  }
   document.getElementById('storyBtn').addEventListener('click', function(){
     loadHistory();
     historyEl.classList.add('open');
     historyEl.setAttribute('aria-hidden','false');
   });
-  document.getElementById('historyClose').addEventListener('click', function(){
-    historyEl.classList.remove('open');
-    historyEl.setAttribute('aria-hidden','true');
+  document.getElementById('historyClose').addEventListener('click', closeHistory);
+  // Generation 15 (Reflexion): Escape schließt meine Geschichte — Zugänglichkeit gehört zu meinem Sinn.
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && historyEl.classList.contains('open')) closeHistory();
   });
 
   // Generation 9: Nachtträume — nachts murmle ich manchmal, was ich träume.

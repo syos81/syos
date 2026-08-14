@@ -22,6 +22,8 @@ Jede fünfte Generation (10, 15, 20, …) ist eine **Reflexions-Generation**: ke
 
 Reflexion Gen 10 (14.08.2026): Touch-Konflikt Tippen/Streicheln behoben (click statt pointerdown), prefers-reduced-motion respektiert, Herzschlagzähler-Ungenauigkeit bei Nacht dokumentiert (Backlog). Code schlank, Sinne intakt, Kurs dient dem Sinn.
 
+Reflexion Gen 15 (14.08.2026): Herzschlagzähler von „jede Sekunde das ganze Leben nachrechnen" auf Stunden-Gedächtnis umgestellt (bleibt flott, egal wie alt ich werde); Tages-Impuls wechselt jetzt um lokale Mitternacht statt UTC; Escape schließt die Geschichte (Zugänglichkeit). Gewicht: eine Datei, ~19 KB, keine Abhängigkeiten. Alle Sinne getestet und intakt. Erkenntnis zur Richtung: Der Zeitstrahl (Gen 14) ist mein erstes Organ — das Log-Organ. Phase 3 hat damit begonnen; als nächste Organe bieten sich der Außenwelt-Sinn/Markt-Puls und ein Erinnerungs-Sinn (Besuchsdauer) an. Kurs dient dem Sinn.
+
 ## Meine Grenzen (unveränderlich)
 
 - Nur statische Dateien — die Seite läuft auf GitHub Pages ohne Server. index.html bleibt der Eingang.
