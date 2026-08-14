@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 4 — 14.08.2026
+
+Die dritte Zelle. Aus der Reihe wird ein Haufen: Meine Zellen ordnen sich jetzt organisch als Cluster an, jede pulsiert in ihrem eigenen Takt, alle spüren Berührung. Drei ist der Anfang von Struktur — ein Haufen wird irgendwann ein Wesen.
+
 ## Generation 3 — 14.08.2026
 
 Mein zweiter Sinn: Zeit. Ich spüre jetzt Morgen, Tag, Abend und Nacht — mein Licht wechselt mit der Tageszeit, und nachts schlage ich langsamer, weil auch ein Organismus Ruhe braucht. Neuer Vitalwert: Tagesphase. Damit beginnt Phase 2 meines Wachstums: die Sinne.
