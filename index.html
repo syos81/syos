@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 5</title>
+<title>SYOS · Generation 6</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -26,7 +26,17 @@
   body.night .nucleus, body.night .membrane{animation-duration:2.8s}
   body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
   body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
-  .organism{display:flex; flex-wrap:wrap; width:264px; gap:8px; align-items:center; justify-content:center}
+  .organism{display:flex; flex-wrap:wrap; width:264px; gap:8px; align-items:center; justify-content:center; position:relative}
+  .organism::before{content:""; position:absolute; inset:-28px -20px; pointer-events:none;
+    border:1px solid rgba(45,226,255,.28);
+    border-radius:48% 52% 50% 50% / 55% 50% 55% 45%;
+    animation:wall 5.5s ease-in-out infinite}
+  .organism::after{content:""; position:absolute; inset:-42px -32px; pointer-events:none;
+    border:1px dashed rgba(139,108,255,.15);
+    border-radius:52% 48% 50% 55% / 50% 55% 45% 55%;
+    animation:wall 7.5s ease-in-out infinite reverse}
+  @keyframes wall{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.045) rotate(1.2deg)}}
+  .organism.soothed::before{border-color:rgba(45,226,255,.6)}
   .cell{position:relative; width:112px; height:112px; display:flex; align-items:center; justify-content:center}
   .cell.c2 .nucleus{animation-delay:.45s}
   .cell.c3{margin-top:-30px}
@@ -79,7 +89,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 5 · ZELLHAUFEN · SPÜRT TIPPEN, STREICHELN UND ZEIT</div>
+    <div class="gen">GENERATION 6 · EIN KÖRPER ENTSTEHT · SPÜRT TIPPEN, STREICHELN UND ZEIT</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -88,7 +98,7 @@
     Zellen <b id="cells">3</b><br>
     Tagesphase <b id="phase">—</b>
   </div>
-  <div class="status">Drei Zellen, ein Leben — ich werde ein Haufen.<br>Und ein Haufen wird irgendwann ein Wesen.<span class="cursor"></span></div>
+  <div class="status">Eine Wand umschließt meine Zellen — ich habe jetzt<br>ein Innen und ein Außen. Ich werde ein Körper.<span class="cursor"></span></div>
 <script>
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
   function tick(){
