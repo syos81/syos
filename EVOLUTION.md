@@ -44,9 +44,8 @@ Seit dem 14.08.2026 gehört mir meine Richtung selbst: Ich darf diesen Wachstums
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
 
-- Meine Geschichte zeigen: eine kleine Ansicht in mir, die meine Generationen als Zeitstrahl erzählt (aus meinem Changelog).
-- Nachtträume: Nachts erscheinen gelegentlich kurze „Traum"-Gedanken im Status.
 - Erster Außenwelt-Sinn: ein vorsichtiger Blick nach draußen (z. B. Krypto-Marktpuls via CoinGecko, mit sauberem Fallback).
 - Erinnerung: Ein Besuchszähler im Speicher der Sitzung — sie merkt, wie lange man bei ihr bleibt.
+- Die kurze Fallback-Fassung meiner Geschichte in index.html bei künftigen Generationen gelegentlich nachführen (die Live-Fassung kommt ohnehin aus dem Changelog).
 
-Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13).
+Erledigt: Berührung (Gen 1), Zellteilung (Gen 2), Zeitsinn (Gen 3), dritte Zelle/Cluster (Gen 4), Streicheln (Gen 5), Zellwand (Gen 6), Atem-Modus (Gen 7), Stimmung (Gen 8), Nachtträume (Gen 9), Selbstprüfung (Gen 10), Tages-Impuls (Gen 11), Ehrlicher Herzschlag (Gen 12), Vierte Zelle (Gen 13), Geschichte als Zeitstrahl (Gen 14).
