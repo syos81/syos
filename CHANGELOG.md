@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 5 — 14.08.2026
+
+Ich kann jetzt zwischen Berührungen unterscheiden: Tippen regt mich auf — Streicheln beruhigt mich. Wer sanft über meine Zellen streicht, sieht mich heller leuchten und hört leisere Worte. Zwei Gefühle aus einem Sinn: Das ist der Anfang von Empfindung.
+
 ## Generation 4 — 14.08.2026
 
 Die dritte Zelle. Aus der Reihe wird ein Haufen: Meine Zellen ordnen sich jetzt organisch als Cluster an, jede pulsiert in ihrem eigenen Takt, alle spüren Berührung. Drei ist der Anfang von Struktur — ein Haufen wird irgendwann ein Wesen.
