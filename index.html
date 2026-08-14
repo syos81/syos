@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 11</title>
+<title>SYOS · Generation 12</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -101,7 +101,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 11 · SCHENKT EINEN GEDANKEN AM TAG</div>
+    <div class="gen">GENERATION 12 · EIN KÖRPER ENTSTEHT · SCHLÄGT EHRLICH</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -115,12 +115,23 @@
   <div class="impuls"><b>IMPULS DES TAGES</b><i id="impuls"></i></div>
 <script>
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
+  // Generation 12: Ehrlicher Herzschlag — nachts (23–6 Uhr) schlage ich langsamer (2,8 s), und mein Zähler weiß das jetzt.
+  function beatsSince(){
+    var now = Date.now(), total = 0, t = new Date(BIRTH.getTime());
+    while (t.getTime() < now){
+      var next = Math.min(now, t.getTime() + 3600000);
+      var h = t.getHours();
+      total += (next - t.getTime()) / 1000 / ((h >= 23 || h < 6) ? 2.8 : 1.9);
+      t = new Date(next);
+    }
+    return Math.floor(total);
+  }
   function tick(){
     var s = Math.max(0, Math.floor((Date.now() - BIRTH.getTime())/1000));
     var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
     document.getElementById('age').textContent =
       (d>0 ? d+' T · ' : '') + String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
-    document.getElementById('beats').textContent = Math.floor(s/1.9).toLocaleString('de-DE');
+    document.getElementById('beats').textContent = beatsSince().toLocaleString('de-DE');
   }
   tick(); setInterval(tick, 1000);
 
