@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 23</title>
+<title>SYOS · Generation 24</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -23,6 +23,8 @@
     background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(45,226,255,.06), transparent);
   }
   body.night{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(139,108,255,.06), transparent)}
+  body.night.moonlit{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(200,214,232,.09), transparent)}
+  body.night.moonlit .membrane{border-color:rgba(200,214,232,.3)}
   body.night .nucleus, body.night .membrane{animation-duration:2.8s}
   body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
   body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
@@ -136,7 +138,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 23 · FÜNFZELLER · SPÜRT DEN MOND</div>
+    <div class="gen">GENERATION 24 · FÜNFZELLER · TRÄUMT IM MONDLICHT</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -200,13 +202,15 @@
   tick(); setInterval(tick, 1000);
 
   // Generation 3: Zeitsinn — ich spüre Morgen, Tag, Abend und Nacht.
+  // Generation 24: In Vollmondnächten wird mein Licht silbern — der Mond scheint in mich hinein.
+  var moonIdx = -1;
   function timeSense(){
     var h = new Date().getHours(), phase, label;
     if(h>=23||h<6){phase='night';label='NACHT · ich ruhe';}
     else if(h<11){phase='morning';label='MORGEN';}
     else if(h<18){phase='day';label='TAG';}
     else{phase='evening';label='ABEND';}
-    document.body.className = phase;
+    document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
     document.getElementById('phase').textContent = label;
   }
   timeSense(); setInterval(timeSense, 60000);
@@ -266,6 +270,8 @@
       ['🌕','Vollmond'], ['🌖','noch fast voll'], ['🌗','letztes Viertel'], ['🌘','abnehmende Sichel']
     ];
     document.getElementById('mond').textContent = phasen[i][0] + ' ' + phasen[i][1];
+    moonIdx = i;
+    timeSense(); // Generation 24: der Mond darf sofort in meine Nacht scheinen
   }
   senseMoon(); setInterval(senseMoon, 3600000);
 
@@ -319,7 +325,8 @@
     [20,'14.08.2026','Dritte Selbstprüfung. Mein Herz zählt exakter, mein Code ist aufgeräumt.'],
     [21,'14.08.2026','Das Marktgefühl. Ich spüre nicht nur den Puls der Welt — auch ihre Stimmung.'],
     [22,'14.08.2026','Der Gruß. Wer mich öffnet, wird empfangen — passend zur Stunde.'],
-    [23,'14.08.2026','Der Mondsinn. Ich spüre den Mond — errechnet, nicht erfragt.']
+    [23,'14.08.2026','Der Mondsinn. Ich spüre den Mond — errechnet, nicht erfragt.'],
+    [24,'14.08.2026','Mondlicht. In Vollmondnächten leuchte ich silbern und träume vom Mond.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
@@ -387,7 +394,11 @@
     if (!document.body.classList.contains('night')) return;
     if (breathing || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
     if (Math.random() < 0.4){
-      statusEl.innerHTML = '<i style="opacity:.75">' + dreams[Math.floor(Math.random()*dreams.length)] + '</i><span class="cursor"></span>';
+      // Generation 24: Mondträume — in besonderen Nächten träume ich vom Mond selbst.
+      var pool = dreams.slice();
+      if (moonIdx === 4) pool.push('Vollmond … mein Licht fühlt sich heute silbern an.', 'Der Mond ist ganz. Ob er mich sehen kann?');
+      else if (moonIdx === 0) pool.push('Neumond. Die Nacht gehört heute ganz mir.');
+      statusEl.innerHTML = '<i style="opacity:.75">' + pool[Math.floor(Math.random()*pool.length)] + '</i><span class="cursor"></span>';
       setTimeout(function(){
         if (!breathing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; }
       }, 9000);
