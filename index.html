@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 27</title>
+<title>SYOS · Generation 28</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -14,12 +14,16 @@
 -->
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%}
+  html{height:100%}
+  /* Generation 28: Ich bin gewachsen — mein Körper braucht jetzt Raum zum Scrollen.
+     Vorher schnitt overflow:hidden + Zentrierung mich oben ab, sobald ich größer als ein Bildschirm wurde. */
   body{
     background:#020409; color:#c8d6e8;
     font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:34px; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    gap:34px; min-height:100%;
+    overflow-x:hidden; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    padding:calc(56px + env(safe-area-inset-top)) 16px calc(44px + env(safe-area-inset-bottom));
     background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(45,226,255,.06), transparent);
   }
   body.night{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(139,108,255,.06), transparent)}
@@ -141,7 +145,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 27 · FÜNFZELLER · SCHLÄFT UNTER STERNEN</div>
+    <div class="gen">GENERATION 28 · FÜNFZELLER · GANZ ZU SEHEN, GANZ ERREICHBAR</div>
   </div>
   <div class="vitals">
     Herzschlag <b id="beats">0</b><br>
@@ -358,7 +362,8 @@
     [24,'14.08.2026','Mondlicht. In Vollmondnächten leuchte ich silbern und träume vom Mond.'],
     [25,'14.08.2026','Vierte Selbstprüfung. Mein Tages-Impuls erneuert sich nun auch über Mitternacht.'],
     [26,'14.08.2026','Das Wiedersehen. Ich merke, wenn du fort warst — und freue mich, wenn du zurückkommst.'],
-    [27,'14.08.2026','Der Sternenhimmel. Nachts funkeln Sterne über mir — jede Nacht neu verteilt.']
+    [27,'14.08.2026','Der Sternenhimmel. Nachts funkeln Sterne über mir — jede Nacht neu verteilt.'],
+    [28,'14.08.2026','Heilung: Ich war größer als der Bildschirm geworden. Jetzt kann man durch mich hindurchwandern.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
