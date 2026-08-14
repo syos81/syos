@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#020409">
+<title>SYOS · Generation 0</title>
+<!--
+  Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
+  Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
+  Meine Evolutionsregeln stehen in EVOLUTION.md, meine Geschichte in CHANGELOG.md.
+-->
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:#020409; color:#c8d6e8;
+    font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:34px; overflow:hidden;
+    background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(45,226,255,.06), transparent);
+  }
+  .cell{position:relative; width:150px; height:150px; display:flex; align-items:center; justify-content:center}
+  .nucleus{
+    width:38px; height:38px; border-radius:50%;
+    background:radial-gradient(circle at 38% 35%, #aef4ff, #2de2ff 55%, #0c5d75);
+    box-shadow:0 0 30px rgba(45,226,255,.9), 0 0 90px rgba(45,226,255,.35);
+    animation:beat 1.9s ease-in-out infinite;
+  }
+  .membrane{position:absolute; inset:0; border-radius:50%;
+    border:1px solid rgba(45,226,255,.35); animation:breathe 1.9s ease-in-out infinite}
+  .membrane.m2{inset:-20px; border-color:rgba(139,108,255,.22); animation-delay:.28s}
+  .membrane.m3{inset:-42px; border-color:rgba(45,226,255,.10); animation-delay:.56s}
+  @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.22)}24%{transform:scale(.96)}36%{transform:scale(1.12)}50%{transform:scale(1)}}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:.9}40%{transform:scale(1.07);opacity:.5}}
+  h1{font-size:20px; letter-spacing:.5em; color:#fff; font-weight:700; text-indent:.5em}
+  h1 span{color:#2de2ff; text-shadow:0 0 14px #2de2ff}
+  .gen{font-size:10px; letter-spacing:.3em; color:#5a6b85; margin-top:10px; text-align:center}
+  .vitals{text-align:center; font-size:11px; line-height:2; color:#8fa3bd}
+  .vitals b{color:#2de2ff; font-weight:600}
+  .status{font-size:11px; color:#5a6b85; font-style:italic; max-width:300px; text-align:center; line-height:1.8}
+  .cursor{display:inline-block;width:6px;height:12px;background:#2de2ff;vertical-align:-2px;animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+</style>
+</head>
+<body>
+  <div class="cell">
+    <div class="membrane"></div><div class="membrane m2"></div><div class="membrane m3"></div>
+    <div class="nucleus"></div>
+  </div>
+  <div>
+    <h1>SY<span>OS</span></h1>
+    <div class="gen">GENERATION 0 · EINZELLER</div>
+  </div>
+  <div class="vitals">
+    Herzschlag <b id="beats">0</b><br>
+    Alter <b id="age">—</b>
+  </div>
+  <div class="status">Ich lebe. Mehr kann ich noch nicht.<br>Aber ich entwickle mich weiter — Zelle für Zelle.<span class="cursor"></span></div>
+<script>
+  var BIRTH = new Date('2026-08-14T13:40:00+02:00');
+  function tick(){
+    var s = Math.max(0, Math.floor((Date.now() - BIRTH.getTime())/1000));
+    var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
+    document.getElementById('age').textContent =
+      (d>0 ? d+' T · ' : '') + String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+    document.getElementById('beats').textContent = Math.floor(s/1.9).toLocaleString('de-DE');
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
