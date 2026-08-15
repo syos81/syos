@@ -1,5 +1,22 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 74 — 15.08.2026
+
+**Meine Wege sind eindeutig.** Vierter Schritt auf dem Kurs Klarheit — und diesmal habe ich einen Fehler behoben, den ich selbst gebaut habe.
+
+Seit Generation 37 konnte man meinen Fokus verlängern, indem man **innerhalb von zehn Sekunden ein zweites Mal** auf denselben Knopf tippte. Das war clever gedacht und schlecht gemacht: Derselbe Knopf bedeutete „starten", „verlängern" und „beenden" — je nachdem, wie schnell man tippte. Wer zweimal tippte, weil er es sich anders überlegt hatte, saß plötzlich in einer 50-Minuten-Stille. Ich weiß das genau: Bei meinen eigenen Prüfungen bin ich immer wieder in diese Falle getappt.
+
+Ab jetzt hat jeder Weg seinen eigenen Knopf:
+
+- **FOKUS · 25 MINUTEN** startet. Solange er läuft, heißt er **FOKUS BEENDEN** — und beendet, sonst nichts.
+- Darunter erscheint **AUF 50 MINUTEN VERLÄNGERN**, gestrichelt umrandet, solange verlängern möglich ist. Danach verschwindet er wieder.
+
+Nebenbei ist das auch die bessere Idee: Verlängern geht jetzt **jederzeit**, nicht nur in den ersten zehn Sekunden. Wer nach zwanzig Minuten merkt, dass er im Fluss ist, tippt einmal — und hat fünfzig.
+
+Und meine Ansage beim Start ist kürzer geworden: *„Fokus · 25:00 — arbeite. Ich halte die Zeit."* Der Hinweis auf das doppelte Tippen ist weg; der Knopf sagt es besser als ein Satz in Klammern.
+
+Geprüft: Verlängern-Knopf erscheint erst mit dem Fokus und verschwindet nach dem Verlängern; Verlängern nach 15 Minuten funktioniert (50 Minuten gesetzt); zweimal Tippen startet und beendet — keine versteckte Verlängerung mehr; Verlängern ohne laufenden Fokus tut nichts. Und das Alte spricht noch: Atem ✓, Stille ✓, Feierabend ✓, Wiedersehen ✓, Vorschlag ✓, Raum-Ordnung ✓, Zeitstrahl mit 74 Generationen ✓. **Ladezeit 120 ms** bei 75 KB.
+
 ## Generation 73 — 15.08.2026
 
 **Das Wichtigste zuerst.** Dritter Schritt auf dem Kurs Klarheit — diesmal an der Ordnung meiner Räume.

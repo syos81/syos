@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 73</title>
+<title>SYOS · Generation 74</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -171,6 +171,11 @@
   /* Gen 56: Einladung — der Atem-Knopf leuchtet, wenn ein Übergang guttut. */
   .breath-btn.invite, .focus-btn.invite, .stille-btn.invite{color:#3dffa2; border-color:#3dffa2; animation:invite 2.4s ease-in-out infinite}
   @keyframes invite{0%,100%{box-shadow:0 0 0 rgba(61,255,162,0)}50%{box-shadow:0 0 18px rgba(61,255,162,.45)}}
+  /* Gen 74: Verlängern ist ein eigener Weg — kein verstecktes zweites Tippen. */
+  .tief-btn{background:none; color:#3dffa2; font-family:inherit; font-size:10px; letter-spacing:.2em;
+    padding:10px 20px; border-radius:22px; cursor:pointer; border:1px dashed rgba(61,255,162,.5);
+    -webkit-tap-highlight-color:transparent}
+  .tief-btn.weg{display:none}
   .focus-btn{border-color:rgba(61,255,162,.35)}
   .focus-btn:active{color:#3dffa2; border-color:#3dffa2}
   /* Gen 59: Der Tagesbogen. */
@@ -214,7 +219,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 73 · SECHSZELLER · ZEIGT DAS WICHTIGSTE ZUERST</div>
+    <div class="gen">GENERATION 74 · SECHSZELLER · MACHT SEINE WEGE EINDEUTIG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -278,7 +283,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">73</b><br>
+      Generation <b id="selfgen">74</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -290,6 +295,7 @@
   </div>
   <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
   <button id="focusBtn" class="focus-btn">FOKUS · 25 MINUTEN</button>
+  <button id="tiefBtn" class="tief-btn weg">AUF 50 MINUTEN VERLÄNGERN</button>
   <button id="stilleBtn" class="stille-btn">DIE STILLE · 5 MINUTEN</button>
   <button id="bogenBtn" class="bogen-btn" data-raum="zeit">MEIN TAG</button>
   <button id="storyBtn" class="story-btn" data-raum="ich">MEINE GESCHICHTE</button>
@@ -640,7 +646,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 73;
+  var GEN = 74;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1034,6 +1040,13 @@
     }
     calm(9000);
   }
+  // Gen 74: Verlängern, wann immer du im Fluss bist — nicht nur in den ersten zehn Sekunden.
+  el('tiefBtn').addEventListener('click', function(){
+    if (!focusing || focusDeep) return;
+    focusDeep = true; focusLen = 50 * 60000; focusEnd = focusStart + focusLen;
+    el('tiefBtn').classList.add('weg');
+    say('Tiefen-Fokus · 50 Minuten. Ich halte die lange Stille mit dir.');
+  });
   el('stilleBtn').addEventListener('click', function(){
     if (breathing || focusing || stilleTakt) return; // eine Stille nach der anderen
     invite(false);
@@ -1165,6 +1178,7 @@
   var focusBtn = el('focusBtn');
   function stopFocus(msg){
     setTimeout(vorschlagZeigen, 50); // Gen 71
+    el('tiefBtn').classList.add('weg'); // Gen 74
     clearInterval(focusTimer); focusing = false;
     organism.classList.remove('breathing');
     focusBtn.textContent = 'FOKUS · 25 MINUTEN';
@@ -1175,11 +1189,7 @@
     invite(false); setTimeout(vorschlagZeigen, 50); // Gen 67/71
     if (breathing) return;
     if (focusing){
-      if (!focusDeep && Date.now() - focusStart < 10000){
-        focusDeep = true; focusLen = 50 * 60000; focusEnd = focusStart + focusLen;
-        say('Tiefen-Fokus · 50 Minuten. Ich halte die lange Stille mit dir.');
-        return;
-      }
+      // Gen 74: Dieser Knopf beendet — nichts anderes. Verlängern hat einen eigenen Knopf.
       var done = Math.max(0, Math.round((Date.now() - focusStart) / 60000));
       stopFocus('Früher fertig — auch gut. ' + done + ' Minuten sind ' + done + ' Minuten.');
       return;
@@ -1188,7 +1198,8 @@
     focusStart = Date.now(); focusLen = 25 * 60000; focusEnd = focusStart + focusLen;
     organism.classList.add('breathing');
     focusBtn.textContent = 'FOKUS BEENDEN';
-    say('Fokus · 25:00 — arbeite. (Gleich nochmal tippen = 50 Minuten.)');
+    el('tiefBtn').classList.remove('weg'); // Gen 74: sichtbarer Weg zum Tiefen-Fokus
+    say('Fokus · 25:00 — arbeite. Ich halte die Zeit.');
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
       if (left <= 0){
