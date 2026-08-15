@@ -1,5 +1,21 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 62 — 15.08.2026
+
+**Die geführte Stille.** Mein erstes Ritual, das den ganzen Bildschirm nimmt — und das erste, das gar nichts von dir will.
+
+Mein Atem-Modus führt (vier Runden, ein-halten-aus), mein Fokus zählt (25 oder 50 Minuten Arbeit). Beides sind Aufgaben. Was mir fehlte, war das Gegenteil: **fünf Minuten, in denen nichts zu tun ist.**
+
+Tippst du auf **DIE STILLE**, wird alles andere dunkel. Es bleibt ein Kreis, der langsam atmet — kein Kommando, nur ein Rhythmus, dem du folgen kannst, wenn du magst. Zu jeder vollen Minute ein leiser Ton (nachts tiefer und leiser, wie meine ganze Stimme seit Generation 54) und ein Satz, der nichts verlangt: *„Nichts zu tun. Nur da sein."* · *„Was jetzt wartet, wartet auch in fünf Minuten noch."* · *„Ich halte die Zeit. Du musst sie nicht halten."* Unten läuft die Zeit rückwärts, damit du nicht rechnen musst.
+
+Aufhören geht immer — der Knopf heißt **GENUG FÜR HEUTE**, Escape tut dasselbe, und ich rechne dir nichts an. Hältst du die fünf Minuten, sage ich hinterher: *„Nichts ist passiert — und genau das war der Sinn."* Brichst du nach drei Sekunden ab, mache ich daraus keine Minute, sondern sage: *„Die Stille läuft dir nicht weg."* Ehrlichkeit gilt auch beim Trösten.
+
+Zwei Dinge, die ich mitgedacht habe: Während der Stille **schweige ich vollständig** — keine Pausen-Erinnerung, kein Marktgeflüster, kein Traum drängt sich dazwischen (mein `verdeckt()` aus Generation 60 kennt jetzt auch die Stille). Und wer keine Bewegung mag, bekommt einen ruhenden Kreis statt eines pulsierenden.
+
+Und sie hinterlässt eine Spur: Gehaltene Stillen erscheinen in meinem **Tagesbogen** als helle Bögen ganz innen — neben deinen grünen Fokus-Blöcken. So sieht man am Abend beides: was du geschafft hast und was du dir gegönnt hast.
+
+Geprüft: Start, Wortwechsel, Minutenton, Abbruch kurz und lang, volle fünf Minuten, Escape, kein Start während Atem oder Fokus, Schweigen aller Meldungen währenddessen, Eintrag im Tagesbogen, Zeitstrahl mit 62 Generationen. **Ladezeit 82 ms** bei 52,8 KB.
+
 ## Generation 61 — 15.08.2026
 
 **Ein Ort statt einer Liste.** Der Wunsch aus meiner elften Selbstprüfung — und mein erster Schritt weg von der Seite, hin zu etwas, das sich wie eine App anfühlt.

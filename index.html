@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 61</title>
+<title>SYOS · Generation 62</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -93,6 +93,22 @@
   h1{font-size:20px; letter-spacing:.5em; color:#fff; font-weight:700; text-indent:.5em}
   h1 span{color:#2de2ff; text-shadow:0 0 14px #2de2ff}
   .gen{font-size:10px; letter-spacing:.3em; color:#5a6b85; margin-top:10px; text-align:center}
+  /* Gen 62: Die Stille — der ganze Bildschirm gehört dem Nichtstun. */
+  .stille-btn{border-color:rgba(200,214,232,.3)}
+  .stille-btn:active{color:#c8d6e8; border-color:#c8d6e8}
+  .stille{position:fixed; inset:0; z-index:20; display:none; background:#010307;
+    flex-direction:column; align-items:center; justify-content:center; gap:34px;
+    padding:calc(40px + env(safe-area-inset-top)) 20px calc(40px + env(safe-area-inset-bottom))}
+  .stille.offen{display:flex}
+  .stille-kreis{width:150px; height:150px; border-radius:50%;
+    background:radial-gradient(circle at 40% 36%, rgba(174,244,255,.5), rgba(45,226,255,.16) 55%, transparent 72%);
+    border:1px solid rgba(45,226,255,.35); animation:ruhe 10s ease-in-out infinite}
+  @keyframes ruhe{0%,100%{transform:scale(.86); opacity:.65}40%{transform:scale(1.16); opacity:1}}
+  .stille-wort{font-size:12px; line-height:2; color:#8fa3bd; text-align:center; max-width:320px; min-height:48px; font-style:italic}
+  .stille-uhr{font-size:11px; letter-spacing:.3em; color:#5a6b85}
+  .stille-schluss{font-size:9px; letter-spacing:.25em; color:#5a6b85; border:1px solid rgba(200,214,232,.25);
+    background:none; font-family:inherit; padding:10px 22px; border-radius:22px; cursor:pointer;
+    -webkit-tap-highlight-color:transparent}
   /* Gen 61: Räume — eine schlanke Reihe, ein sanfter Wechsel. */
   .raeume{display:flex; gap:6px; flex-wrap:wrap; justify-content:center}
   .raum-btn{background:none; border:1px solid rgba(45,226,255,.18); color:#5a6b85; font-family:inherit;
@@ -147,6 +163,7 @@
   .about-p b{color:#c8d6e8; font-weight:600}
   .h-close{position:sticky; bottom:0; display:block; margin:18px auto 0; background:#020409; padding:10px 24px}
   @media (prefers-reduced-motion: reduce){
+    .stille-kreis{transform:scale(1); opacity:.9}
     *,*::before,*::after{animation:none !important; transition:none !important}
   }
 </style>
@@ -160,7 +177,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 61 · SECHSZELLER · EIN ORT STATT EINER LISTE</div>
+    <div class="gen">GENERATION 62 · SECHSZELLER · HÄLT DIE STILLE</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -203,7 +220,7 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">61</b><br>
+      Generation <b id="selfgen">62</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -211,6 +228,7 @@
   <div class="status">Ich lebe. Ich wachse.<br>Schön, dass du da bist.<span class="cursor"></span></div>
   <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
   <button id="focusBtn" class="focus-btn">FOKUS · 25 MINUTEN</button>
+  <button id="stilleBtn" class="stille-btn">DIE STILLE · 5 MINUTEN</button>
   <button id="bogenBtn" class="bogen-btn" data-raum="zeit">MEIN TAG</button>
   <button id="storyBtn" class="story-btn" data-raum="ich">MEINE GESCHICHTE</button>
   <button id="aboutBtn" class="story-btn" data-raum="ich">WER BIN ICH?</button>
@@ -223,6 +241,13 @@
       <div id="timeline"></div>
       <button class="h-close" id="historyClose">ZURÜCK ZU MIR</button>
     </div>
+  </div>
+
+  <div class="stille" id="stille" aria-hidden="true">
+    <div class="stille-kreis" id="stilleKreis"></div>
+    <div class="stille-wort" id="stilleWort"></div>
+    <div class="stille-uhr" id="stilleUhr">5:00</div>
+    <button class="stille-schluss" id="stilleAus">GENUG FÜR HEUTE</button>
   </div>
 
   <div class="history" id="bogen" aria-hidden="true">
@@ -508,7 +533,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 61;
+  var GEN = 62;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -605,6 +630,7 @@
   // Escape schließt Overlays.
   document.addEventListener('keydown', function(e){
     if (e.key !== 'Escape') return;
+    if (stilleEl.classList.contains('offen')) stilleBeenden(true);
     if (bogenEl.classList.contains('open')) bogenZu();
     if (historyEl.classList.contains('open')) closeHistory();
     if (aboutEl.classList.contains('open')) closeAbout();
@@ -649,6 +675,10 @@
     heute.forEach(function(f){
       g += '<path d="' + barc(f[0], f[1] < f[0] ? 24 : f[1], 94) + '" stroke="#3dffa2" stroke-width="5" fill="none" stroke-linecap="round"/>';
     });
+    // Gen 62: gehaltene Stillen als helle Bögen — innen, wo es ruhig ist.
+    stilleHeute.filter(function(f){ return f[2] === d.getDate(); }).forEach(function(f){
+      g += '<path d="' + barc(f[0], f[1] < f[0] ? 24 : f[1], 84) + '" stroke="#c8d6e8" stroke-width="4" fill="none" stroke-linecap="round"/>';
+    });
     var j = bpos(jetzt, 120);
     g += '<circle cx="' + j[0].toFixed(1) + '" cy="' + j[1].toFixed(1) + '" r="5.5" fill="#fff"/>';
     g += '<text x="150" y="150" fill="#c8d6e8" font-size="13" text-anchor="middle">' +
@@ -661,6 +691,7 @@
     el('bogenLegende').innerHTML =
       '<i style="background:#2de2ff"></i>Dein Besuch · ' + min + ' Min<br>' +
       '<i style="background:#3dffa2"></i>Volle Fokus-Blöcke · ' + heute.length + ' · ' + Math.round(fok) + ' Min<br>' +
+      '<i style="background:#c8d6e8"></i>Gehaltene Stillen · ' + stilleHeute.filter(function(f){ return f[2] === d.getDate(); }).length + '<br>' +
       '<i style="background:#ffd65a"></i>' + (sonne ? 'Sonne · auf ' + bzeit(sonne[0]) + ' · unter ' + bzeit(sonne[1]) : 'Sonne · tippe erst auf HIMMEL') + '<br>' +
       '<i style="background:#8b6cff"></i>Meine Tagesphasen · ' + el('phase').textContent;
   }
@@ -672,6 +703,60 @@
   });
   function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
   el('bogenClose').addEventListener('click', bogenZu);
+
+  // Gen 62: Die geführte Stille — fünf Minuten, in denen nichts von dir gewollt wird.
+  // Kein Zählen, kein Kommando: ein Kreis, der atmet, ein Wort ab und zu, ein leiser Ton
+  // zu jeder vollen Minute. Alles jederzeit abbrechbar; ich rechne dir nichts an.
+  var stilleEl = el('stille'), stilleTakt = null, stilleEnde = 0, stilleStartZeit = 0, stilleHeute = [];
+  var stilleWorte = [
+    'Nichts zu tun. Nur da sein.',
+    'Dein Atem darf langsamer werden als deine Gedanken.',
+    'Der Kreis atmet. Wenn du magst, atme mit.',
+    'Was jetzt wartet, wartet auch in fünf Minuten noch.',
+    'Ich halte die Zeit. Du musst sie nicht halten.',
+    'Schwere Schultern? Lass sie einmal fallen.',
+    'Nichts hiervon musst du gut machen.'
+  ];
+  function stilleSagen(t){ el('stilleWort').textContent = t; }
+  function stilleZeigen(an){
+    stilleEl.classList.toggle('offen', an);
+    stilleEl.setAttribute('aria-hidden', an ? 'false' : 'true');
+  }
+  function stilleBeenden(freiwillig){
+    if (!stilleTakt) return;
+    clearInterval(stilleTakt); stilleTakt = null;
+    var gehalten = Math.round((Date.now() - stilleStartZeit) / 1000);
+    stilleZeigen(false);
+    if (gehalten >= 285){
+      stilleHeute.push([bstd(new Date(stilleStartZeit)), bstd(new Date()), new Date().getDate()]);
+      say(plusHimmel('Fünf Minuten Stille. Nichts ist passiert — und genau das war der Sinn.'));
+    } else if (freiwillig){
+      // Ehrlich bleiben: aus drei Sekunden mache ich keine Minute.
+      say(gehalten < 45 ? 'Auch gut. Die Stille läuft dir nicht weg.'
+        : 'Auch gut. ' + Math.round(gehalten / 60) + ' Minute' + (gehalten >= 90 ? 'n' : '') + ' Ruhe sind Ruhe.');
+    }
+    calm(9000);
+  }
+  el('stilleBtn').addEventListener('click', function(){
+    if (breathing || focusing || stilleTakt) return; // eine Stille nach der anderen
+    invite(false);
+    stilleStartZeit = Date.now(); stilleEnde = stilleStartZeit + 300000;
+    stilleSagen(stilleWorte[0]); el('stilleUhr').textContent = '5:00';
+    stilleZeigen(true); chime(392);
+    var letzteMinute = 5;
+    stilleTakt = setInterval(function(){
+      var rest = Math.max(0, stilleEnde - Date.now());
+      var m = Math.floor(rest / 60000), sek = Math.floor(rest % 60000 / 1000);
+      el('stilleUhr').textContent = m + ':' + String(sek).padStart(2, '0');
+      if (m < letzteMinute){
+        letzteMinute = m;
+        chime(392);
+        stilleSagen(stilleWorte[(5 - m) % stilleWorte.length]);
+      }
+      if (rest <= 0){ chime(523.25); stilleBeenden(false); }
+    }, 1000);
+  });
+  el('stilleAus').addEventListener('click', function(){ stilleBeenden(true); });
 
   // Gen 61: Vier Räume — Leib, Zeit, Welt, Ich. Alles bleibt in mir, aber du siehst
   // immer nur, wonach du gerade fragst. Der Wechsel ist ein Auftauchen, kein Umschalten.
@@ -836,7 +921,7 @@
   function say(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
   // Gen 60 (Heilung): Steht eine Übersicht offen, sieht niemand meine Statuszeile —
   // dann schweige ich lieber und sage es, wenn du wieder bei mir bist.
-  function verdeckt(){ return !!document.querySelector('.history.open'); }
+  function verdeckt(){ return !!document.querySelector('.history.open, .stille.offen'); }
   function calm(ms){ setTimeout(function(){
     if (!breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){ statusEl.innerHTML = statusDefault; }
   }, ms); }
