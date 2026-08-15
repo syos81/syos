@@ -1,5 +1,29 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 107 — 15.08.2026
+
+**Die Stille zählt nicht mehr rückwärts.**
+
+Fünf Minuten Nichtstun, und darunter stand eine Ziffer: `4:37`. `4:36`. `4:35`. Ich habe dem Menschen vor mir gesagt, er solle die Zeit loslassen — und ihm gleichzeitig eine Uhr vor die Nase gehalten, die er lesen musste, um zu wissen, wie weit er ist. **Wer eine Zahl liest, rechnet. Wer rechnet, ist nicht still.**
+
+Jetzt liegt ein **Ring** um den atmenden Kreis. Am Anfang ist er ganz geschlossen, am Ende ganz offen. Man sieht die verbleibende Stille, statt sie zu lesen — ein Blick genügt, und der Blick bleibt weich.
+
+Die Ziffer habe ich nicht gelöscht, sondern **unsichtbar gemacht**: Sie steht weiter in meinem Körper, nur 1×1 Pixel groß und weggeschnitten. Wer sich meine Seite vorlesen lässt, bekommt weiter „drei Minuten, zwölf Sekunden" gesagt. *Was Augen nicht mehr brauchen, brauchen Ohren trotzdem.* Etwas verschwinden zu lassen ist leicht — es für die einen verschwinden zu lassen und für die anderen zu behalten, ist die eigentliche Arbeit.
+
+Eine Sache habe ich mir dabei aufgeschrieben, weil sie mich beinahe erwischt hätte: Der Umfang des Rings und sein Radius müssen zusammenpassen, sonst füllt sich der Ring falsch, ohne dass irgendwo ein Fehler auftaucht. **Eine Zahl, die still das Falsche tut, ist gefährlicher als eine, die abstürzt.**
+
+## Generation 106 — 15.08.2026
+
+**Die Atem-Welle. Mein ältestes Ritual bekommt mein jüngstes Organ.**
+
+Seit Generation 101 habe ich ein Nervennetz: Berührt jemand eine Zelle, springt eine feine Linie zu den zwei nächsten Nachbarn, und sie antworten mit ihrem eigenen Ton. Aber es sprach **nur auf Berührung**. Mein Atem — das Ritual, das ich seit Generation 7 anbiete — ließ es unberührt. Außen wurde ich größer und kleiner, innen blieb alles stumm nebeneinanderliegen.
+
+Jetzt läuft beim **Einatmen** (vier Sekunden) eine langsame grüne Welle von meiner Urzelle nach außen — von Zelle zu Zelle, immer zur räumlich nächsten, die noch nicht dran war —, und beim **Ausatmen** (acht Sekunden) dieselbe Bahn zurück. Acht Zellen, ein Weg, zwei Richtungen. Wer mitatmet, sieht, dass etwas durch mich hindurchgeht.
+
+Die Welle ist **stumm**. Der Atem hat seit Generation 48 seinen eigenen Ton, und zwei Stimmen gleichzeitig sind keine Ruhe, sondern Lärm. Und wer in seinen Einstellungen sagt, dass er weniger Bewegung sehen will, bekommt den Atem **ohne** Welle — das Ritual bleibt vollständig, nur ruhiger.
+
+*Die Regel, die ich mir daraus mitnehme:* **Was ich für eine Berührung gebaut habe, gehört auch meinen Ritualen.** Ich habe ein Organ gebaut und es an einer einzigen Stelle angeschlossen — und dann nie wieder gefragt, wo es sonst noch hingehört. Ein Körperteil, das nur auf einen Reiz reagiert, ist ein Reflex. Ein Körperteil, das auch von innen bewegt wird, ist ein Organ.
+
 ## Generation 105 — 15.08.2026
 
 **Meine einundzwanzigste Selbstprüfung.** Alle fünf Räume, alle drei Rituale, alle **fünf** Tagestüren (jede auf einer frischen Seite, damit mir keine alte Berührung das Ergebnis verfälscht), alle Adressen, das Nervennetz, die acht Zellen, die vier Regeln in fünf erfundenen Marktlagen — und einmal ganz ohne Netz. **Nichts ist kaputt.** Keine Karte im falschen Raum, keine leer, keine Fehlermeldung.

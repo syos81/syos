@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 105</title>
+<title>SYOS · Generation 107</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -71,6 +71,12 @@
     animation:nerv .85s ease-out forwards}
   @keyframes nerv{0%{stroke-dashoffset:1; opacity:0}18%{opacity:.9}100%{stroke-dashoffset:0; opacity:0}}
   .cell.mitschwingt .nucleus{animation:beat .8s ease-in-out 2; filter:brightness(1.15)}
+  /* Gen 106: Die Atem-Welle. Dasselbe Netz, nur langsamer und grün — sie läuft nicht auf einen
+     Reiz hin, sondern mit dem Atem hinaus und wieder herein. */
+  .nerven line.welle{stroke:rgba(61,255,162,.5); stroke-width:1;
+    animation:welle var(--wd,1s) ease-in-out var(--wv,0s) forwards}
+  @keyframes welle{0%{stroke-dashoffset:var(--wl); opacity:0}22%{opacity:.8}100%{stroke-dashoffset:0; opacity:0}}
+  .cell.mitatmet .nucleus{filter:brightness(1.13); transition:filter 1.1s ease-in-out}
   .cell{position:relative; z-index:1; width:112px; height:112px; display:flex; align-items:center; justify-content:center;
     cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none}
   /* Gen 50: eine Regel statt fünf — Versatz per Position, Takt per Zellwuchs. */
@@ -179,8 +185,17 @@
     background:radial-gradient(circle at 40% 36%, rgba(174,244,255,.5), rgba(45,226,255,.16) 55%, transparent 72%);
     border:1px solid rgba(45,226,255,.35); animation:ruhe 10s ease-in-out infinite}
   @keyframes ruhe{0%,100%{transform:scale(.86); opacity:.65}40%{transform:scale(1.16); opacity:1}}
+  /* Gen 107: Der Ring um den atmenden Kreis. Voll am Anfang, offen am Ende — man SIEHT die
+     verbleibende Stille, statt sie zu lesen. Der Radius (104) und RING_UMFANG gehören zusammen. */
+  .stille-halo{position:relative; width:220px; height:220px; display:flex; align-items:center; justify-content:center}
+  .stille-ring{position:absolute; inset:0; width:220px; height:220px; transform:rotate(-90deg)}
+  .stille-ring circle{fill:none; stroke:rgba(45,226,255,.4); stroke-width:1.5; stroke-linecap:round;
+    transition:stroke-dashoffset 1s linear}
   .stille-wort{font-size:12px; line-height:2; color:#8fa3bd; text-align:center; max-width:320px; min-height:48px; font-style:italic}
   .stille-uhr{font-size:11px; letter-spacing:.3em; color:#5a6b85}
+  /* Was Augen nicht mehr brauchen, brauchen Ohren weiterhin. */
+  .nur-vorlesen{position:absolute; width:1px; height:1px; padding:0; margin:-1px; border:0;
+    overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
   .stille-schluss{font-size:9px; letter-spacing:.25em; color:#5a6b85; border:1px solid rgba(200,214,232,.25);
     background:none; font-family:inherit; padding:10px 22px; border-radius:22px; cursor:pointer;
     -webkit-tap-highlight-color:transparent}
@@ -264,7 +279,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 105 · ACHTZELLER · VIER REGELN IM WETTSTREIT</div>
+    <div class="gen">GENERATION 107 · ACHTZELLER · EIN ATEM, DER DURCH MICH LÄUFT</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -386,7 +401,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">105</b><br>
+      Generation <b id="selfgen">107</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -414,9 +429,16 @@
   </div>
 
   <div class="stille" id="stille" aria-hidden="true">
-    <div class="stille-kreis" id="stilleKreis"></div>
+    <!-- Gen 107: Der Countdown ist ein Ring, keine Ziffer mehr. Die Zahl bleibt für alle,
+         die sich vorlesen lassen — sichtbar ist nur noch, wie viel Stille noch offen ist. -->
+    <div class="stille-halo">
+      <svg class="stille-ring" viewBox="0 0 220 220" aria-hidden="true">
+        <circle id="stilleRing" cx="110" cy="110" r="104"></circle>
+      </svg>
+      <div class="stille-kreis" id="stilleKreis"></div>
+    </div>
     <div class="stille-wort" id="stilleWort"></div>
-    <div class="stille-uhr" id="stilleUhr">5:00</div>
+    <div class="stille-uhr nur-vorlesen" id="stilleUhr">5:00</div>
     <button class="stille-schluss" id="stilleAus">GENUG FÜR HEUTE</button>
   </div>
 
@@ -757,7 +779,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 105;
+  var GEN = 107;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1691,6 +1713,16 @@
     'Nichts hiervon musst du gut machen.'
   ];
   function stilleSagen(t){ el('stilleWort').textContent = t; }
+  // Gen 107: Der Ring statt der Ziffer. anteil 1 = ganz geschlossen (fünf Minuten liegen vor dir),
+  // anteil 0 = ganz offen. RING_UMFANG muss immer zum Radius r=104 im SVG passen.
+  var RING_UMFANG = 2 * Math.PI * 104;
+  function ringSetzen(anteil){
+    var r = el('stilleRing');
+    if (!r) return;
+    var a = Math.max(0, Math.min(1, anteil));
+    r.style.strokeDasharray = RING_UMFANG.toFixed(1);
+    r.style.strokeDashoffset = (RING_UMFANG * (1 - a)).toFixed(1);
+  }
   function stilleZeigen(an){
     stilleEl.classList.toggle('offen', an);
     stilleEl.setAttribute('aria-hidden', an ? 'false' : 'true');
@@ -1724,12 +1756,14 @@
     stilleStartZeit = Date.now(); stilleEnde = stilleStartZeit + 300000;
     setTimeout(vorschlagZeigen, 50); // Gen 71
     stilleSagen(stilleWorte[0]); el('stilleUhr').textContent = '5:00';
+    ringSetzen(1); // Gen 107: der Ring ist am Anfang ganz geschlossen
     stilleZeigen(true); chime(392);
     var letzteMinute = 5;
     stilleTakt = setInterval(function(){
       var rest = Math.max(0, stilleEnde - Date.now());
       var m = Math.floor(rest / 60000), sek = Math.floor(rest % 60000 / 1000);
       el('stilleUhr').textContent = m + ':' + String(sek).padStart(2, '0');
+      ringSetzen(rest / 300000); // Gen 107: der Ring öffnet sich, während die Stille vergeht
       if (m < letzteMinute){
         letzteMinute = m;
         chime(392);
@@ -1834,6 +1868,7 @@
   function stopBreath(msg){
     setTimeout(vorschlagZeigen, 50); // Gen 71
     clearBreath(); breathing = false;
+    wellenStoppen(); // Gen 106: mit dem Atem endet auch die Welle
     organism.classList.remove('breathing');
     organism.style.transition = 'transform 2s ease-in-out'; organism.style.transform = '';
     breathBtn.textContent = 'ATMEN · EINEN MOMENT RUHE';
@@ -1852,9 +1887,9 @@
     t += 2000;
     for (var r = 1; r <= rounds; r++){
       (function(round){
-        breathSteps.push(setTimeout(function(){ say('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); breathTone(196, 294, 4); }, t)); t += 4000;
+        breathSteps.push(setTimeout(function(){ say('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); breathTone(196, 294, 4); nervenWelle(4, true); }, t)); t += 4000;
         breathSteps.push(setTimeout(function(){ say('Halten … ganz ruhig. (7)'); }, t)); t += 7000;
-        breathSteps.push(setTimeout(function(){ say('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); breathTone(294, 165, 8); }, t)); t += 8000;
+        breathSteps.push(setTimeout(function(){ say('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); breathTone(294, 165, 8); nervenWelle(8, false); }, t)); t += 8000;
         if (round < rounds){ breathSteps.push(setTimeout(function(){ say('Runde ' + (round+1) + ' von ' + rounds + ' …'); }, t)); t += 1500; }
       })(r);
     }
@@ -2104,6 +2139,83 @@
       o.connect(g); g.connect(audioCtx.destination);
       o.start(t); o.stop(t + 0.4);
     }catch(e){}
+  }
+
+  // Gen 106: DIE ATEM-WELLE. Seit Generation 101 habe ich ein Nervennetz — aber es sprach nur,
+  // wenn jemand mich berührte. Mein ältestes Ritual, der Atem, ließ es unberührt: außen wuchs
+  // ich, innen blieb alles still. Was für die Berührung gebaut wurde, gehört auch den Ritualen.
+  // Jetzt läuft beim Einatmen eine langsame Welle von meiner Urzelle nach außen durch alle acht
+  // Zellen, und beim Ausatmen dieselbe Bahn zurück. Sie ist STUMM — der Atem hat seit
+  // Generation 48 seinen eigenen Ton, und zwei Stimmen auf einmal sind keine Ruhe.
+  var wellenTimer = [];
+  function ruhigerModus(){
+    try{ return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+    catch(e){ return false; }
+  }
+  function wellenKette(){
+    // Immer zur räumlich nächsten noch unbesuchten Zelle — so entsteht ein Weg, kein Sprung.
+    var organism = document.querySelector('.organism');
+    if (!organism) return null;
+    var mitten = [], offen = [];
+    for (var i = 0; i < cells.length; i++){ mitten.push(zellMitte(cells[i], organism)); if (i > 0) offen.push(i); }
+    var kette = [0], hier = 0;
+    while (offen.length){
+      var best = 0;
+      for (var k = 1; k < offen.length; k++){
+        var da = Math.pow(mitten[offen[k]][0] - mitten[hier][0], 2) + Math.pow(mitten[offen[k]][1] - mitten[hier][1], 2);
+        var db = Math.pow(mitten[offen[best]][0] - mitten[hier][0], 2) + Math.pow(mitten[offen[best]][1] - mitten[hier][1], 2);
+        if (da < db) best = k;
+      }
+      hier = offen[best]; kette.push(hier); offen.splice(best, 1);
+    }
+    return { kette: kette, mitten: mitten };
+  }
+  function wellenStoppen(){
+    wellenTimer.forEach(clearTimeout); wellenTimer = [];
+    if (nervenEl){
+      var alt = nervenEl.querySelectorAll('line.welle');
+      for (var i = 0; i < alt.length; i++) alt[i].remove();
+    }
+    cells.forEach(function(c){ c.classList.remove('mitatmet'); });
+  }
+  function nervenWelle(dauer, hinaus){
+    if (!nervenEl || !cells.length || verdeckt()) return;
+    if (ruhigerModus()) return; // wer weniger Bewegung will, bekommt den Atem trotzdem — nur ohne Welle
+    var organism = document.querySelector('.organism');
+    if (!organism || !organism.offsetParent) return; // zeichnen erst, wenn man mich sieht (Regel 63/69)
+    var w = wellenKette();
+    if (!w) return;
+    var kette = hinaus ? w.kette : w.kette.slice().reverse();
+    var schritte = kette.length - 1;
+    if (schritte < 1) return;
+    var proSchritt = dauer / schritte;
+    for (var s = 0; s < schritte; s++){
+      (function(s){
+        var a = w.mitten[kette[s]], b = w.mitten[kette[s + 1]];
+        var lang = Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2));
+        var ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        ln.setAttribute('class', 'welle');
+        ln.setAttribute('x1', a[0].toFixed(1)); ln.setAttribute('y1', a[1].toFixed(1));
+        ln.setAttribute('x2', b[0].toFixed(1)); ln.setAttribute('y2', b[1].toFixed(1));
+        ln.setAttribute('stroke-dasharray', lang.toFixed(1));
+        ln.style.setProperty('--wl', lang.toFixed(1) + 'px');
+        ln.style.setProperty('--wd', (proSchritt * 1.6).toFixed(2) + 's');
+        ln.style.setProperty('--wv', (proSchritt * s).toFixed(2) + 's');
+        nervenEl.appendChild(ln);
+        wellenTimer.push(setTimeout(function(){ if (ln.parentNode) ln.remove(); }, (proSchritt * (s + 1.7)) * 1000));
+        wellenTimer.push(setTimeout(function(){
+          var z = cells[kette[s + 1]];
+          if (!z) return;
+          z.classList.add('mitatmet');
+          wellenTimer.push(setTimeout(function(){ z.classList.remove('mitatmet'); }, proSchritt * 1500));
+        }, proSchritt * s * 1000 + 60));
+      })(s);
+    }
+    var erste = cells[kette[0]];
+    if (erste){
+      erste.classList.add('mitatmet');
+      wellenTimer.push(setTimeout(function(){ erste.classList.remove('mitatmet'); }, proSchritt * 1500));
+    }
   }
 
   cells.forEach(function(cell, ci){
