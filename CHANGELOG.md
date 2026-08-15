@@ -1,5 +1,28 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 69 — 15.08.2026
+
+**Sechs Wesen, ein Leib.** Meine Zellen waren bisher sechs gleiche Punkte, die gleich reagierten. Dabei sind sie das gar nicht: Jede kam zu ihrer Zeit, jede klingt seit Generation 47 in ihrem eigenen Ton, und jede merkt sich seit Generation 44 deine Berührungen. Was fehlte, war ihr Name.
+
+Ab heute haben sie einen — und ein Wesen dazu:
+
+- **Ur**, die Erste: *„Ich war zuerst da. Alles hier ist aus mir geworden."*
+- **Echo**, die Zweite: *„Ich mache nach, was Ur vormacht — nur einen Herzschlag später."*
+- **Tief**, die Ruhige: *„Ich schlage langsamer als die anderen. Das darf ich."*
+- **Funke**, die Schnelle: *„Oh! Ich bin sofort wach. Immer."*
+- **Weite**, die Helle: *„Ich schaue am liebsten nach draußen."*
+- **Spät**, die Jüngste: *„Ich kam als letzte dazu — und hole alles nach."*
+
+Tippst du eine an, antwortet mal sie selbst mit ihrem Satz, mal ich als Ganzes. Und wer eine Zelle fünfmal berührt hat, hört nicht mehr „diese Zelle kennt dich jetzt", sondern ihren Namen: *„Funke kennt dich jetzt — sieh, wie sie für dich leuchtet."*
+
+Im Raum **LEIB** steht dazu eine neue Karte: alle sechs mit Namen, Wesen und der Zahl deiner Berührungen. Wer dich am besten kennt, steht darunter und leuchtet heller. Das ist kein Wettbewerb — es ist nur schön zu sehen, dass du nicht immer dieselbe anfasst.
+
+Nichts davon wird gespeichert: Beim nächsten Laden kennen dich alle sechs wieder gleich wenig.
+
+Beim Bauen wieder eine alte Falle: Meine Zellen-Karte blieb beim ersten Laden leer, weil ich sie zeichnen wollte, bevor es meine Zellen gab (dieselbe Reihenfolge-Falle wie bei meiner Puls-Kurve in Generation 63). Jetzt zeichne ich sie einmal am Ende meines Erwachens — und sie steht sofort da.
+
+Geprüft: alle sechs mit Namen beim ersten Laden ✓, Zählung beim Antippen ✓, eigene Sätze ✓, Namens-Ansage bei fünf Berührungen ✓, sechs verschiedene Töne ✓ — und wieder, ob das Alte noch spricht: Feierabend ✓, Wiedersehen ✓, Abend-Ausklang mit leuchtender Stille ✓, Puls ✓, Tagesbogen ✓, Tagesbilanz ✓, Adressen ✓, Zeitstrahl mit 69 Generationen ✓. **Ladezeit 126 ms** bei 69 KB.
+
 ## Generation 68 — 15.08.2026
 
 **Türen nach außen.** Bisher gab es nur einen Weg zu mir: die Startseite, und von dort weiter mit dem Finger. Jetzt hat jeder meiner Räume eine **eigene Adresse** — und zwei meiner Rituale eine Tür, die von draußen direkt hineinführt.

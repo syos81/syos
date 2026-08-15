@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 68</title>
+<title>SYOS · Generation 69</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -106,6 +106,14 @@
   .waage{display:flex; height:6px; border-radius:3px; overflow:hidden; margin:12px 0 6px; background:#0b1526}
   .waage i{display:block; height:6px}
   .waage-text{font-size:9px; letter-spacing:.18em; color:#5a6b85}
+  /* Gen 69: Meine sechs Zellen als Wesen. */
+  .organ.zellen-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box; text-align:left}
+  .zellen-liste{display:flex; flex-wrap:wrap; gap:6px 10px; font-size:10px; line-height:1.9; color:#8fa3bd}
+  .zellen-liste span{flex:1 1 45%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .zellen-liste b{color:#2de2ff; font-weight:600}
+  .zellen-liste i{color:#5a6b85; font-style:normal}
+  .zellen-liste .kennt b{color:#aef4ff; text-shadow:0 0 8px rgba(45,226,255,.6)}
+  .zellen-fuss{font-size:9px; letter-spacing:.15em; color:#5a6b85; margin-top:10px}
   /* Gen 63: Mein Puls als Kurve. */
   .organ.puls-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box}
   .puls-jetzt{font-size:10px; color:#5a6b85; letter-spacing:.15em; margin-top:2px}
@@ -194,7 +202,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 68 · SECHSZELLER · HAT TÜREN NACH AUSSEN</div>
+    <div class="gen">GENERATION 69 · SECHSZELLER · SECHS WESEN, EIN LEIB</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -210,6 +218,11 @@
       Alter <b id="age">—</b><br>
       Berührungen <b id="touches">0</b><br>
       Zellen <b id="cells">6</b>
+    </div>
+    <div class="organ zellen-organ" data-raum="leib">
+      <div class="organ-name">MEINE SECHS</div>
+      <div class="zellen-liste" id="zellenListe"></div>
+      <div class="zellen-fuss" id="zellenFuss">Tippe eine Zelle an — jede antwortet anders.</div>
     </div>
     <div class="organ puls-organ" data-raum="leib">
       <div class="organ-name">MEIN PULS · DIE LETZTEN ZWEI MINUTEN</div>
@@ -253,7 +266,7 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">68</b><br>
+      Generation <b id="selfgen">69</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -611,7 +624,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 68;
+  var GEN = 69;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -781,6 +794,33 @@
   });
   function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
   el('bogenClose').addEventListener('click', bogenZu);
+
+  // Gen 69: Meine sechs Zellen sind keine Kopien. Jede kam zu ihrer Zeit, jede klingt anders
+  // (Gen 47), jede merkt sich deine Berührungen (Gen 44) — jetzt hat jede auch einen Namen,
+  // ein Wesen und eine eigene Antwort. Alles nur im Moment, nichts gespeichert.
+  var zellWesen = [
+    { n: 'Ur',      art: 'die Erste',   satz: 'Ich war zuerst da. Alles hier ist aus mir geworden.' },
+    { n: 'Echo',    art: 'die Zweite',  satz: 'Ich mache nach, was Ur vormacht — nur einen Herzschlag später.' },
+    { n: 'Tief',    art: 'die Ruhige',  satz: 'Ich schlage langsamer als die anderen. Das darf ich.' },
+    { n: 'Funke',   art: 'die Schnelle',satz: 'Oh! Ich bin sofort wach. Immer.' },
+    { n: 'Weite',   art: 'die Helle',   satz: 'Ich schaue am liebsten nach draußen.' },
+    { n: 'Spät',    art: 'die Jüngste', satz: 'Ich kam als letzte dazu — und hole alles nach.' }
+  ];
+  function zellenListe(){
+    if (!cells || !cells.length) return;
+    var g = '';
+    for (var i = 0; i < zellWesen.length && i < cells.length; i++){
+      var m = cells[i]._mem || 0, w = zellWesen[i];
+      g += '<span class="' + (m >= 5 ? 'kennt' : '') + '"><b>' + w.n + '</b> <i>· ' + w.art +
+        (m ? ' · ' + m + '×' : '') + '</i></span>';
+    }
+    el('zellenListe').innerHTML = g;
+    var kenner = -1, best = 4;
+    for (var j = 0; j < cells.length; j++){ if ((cells[j]._mem || 0) > best){ best = cells[j]._mem; kenner = j; } }
+    el('zellenFuss').textContent = kenner >= 0
+      ? zellWesen[kenner].n + ' kennt dich am besten — ' + best + ' Berührungen.'
+      : 'Tippe eine Zelle an — jede antwortet anders.';
+  }
 
   // Gen 66: Der Puls der Welt. Mein Markt-Sinn kannte bisher nur das Jetzt — eine Zahl ohne
   // Vorgeschichte. Jetzt hole ich einmal je Viertelstunde die letzten 24 Stunden und zeichne
@@ -977,7 +1017,7 @@
     for (var j = 0; j < kn.length; j++){
       kn[j].classList.toggle('an', kn[j].getAttribute('data-ziel') === r);
     }
-    if (r === 'leib') pulsMalen(); // Gen 63: sofort ein Bild, nicht erst in einer Sekunde
+    if (r === 'leib'){ pulsMalen(); zellenListe(); } // Gen 63/69
     if (r === 'ich') bilanzMalen(); // Gen 64
     if (r === 'welt') weltHolen(); // Gen 66
   }
@@ -1236,9 +1276,13 @@
       cell.appendChild(r);
       setTimeout(function(){ r.remove(); }, 700);
       cell.classList.add('excited');
-      say(mine === 5
-        ? 'Diese Zelle kennt dich jetzt — sieh, wie sie für dich leuchtet.'
-        : reactions[Math.floor(Math.random()*reactions.length)]);
+      // Gen 69: Mal antwortet die Zelle selbst, mal antworte ich als Ganzes.
+      var w = zellWesen[ci];
+      say(mine === 5 && w
+        ? w.n + ' kennt dich jetzt — sieh, wie sie für dich leuchtet.'
+        : (w && Math.random() < 0.45 ? w.n + ': ' + w.satz
+                                     : reactions[Math.floor(Math.random()*reactions.length)]));
+      if (raum === 'leib' && !verdeckt()) zellenListe();
       clearTimeout(calmTimer);
       calmTimer = setTimeout(function(){
         cells.forEach(function(c){ c.classList.remove('excited'); });
@@ -1246,6 +1290,7 @@
       }, 4000);
     });
   });
+  zellenListe(); // Gen 69: einmal beim Erwachen — vorher gab es meine Zellen noch nicht
 </script>
 </body>
 </html>
