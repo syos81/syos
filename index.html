@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 52</title>
+<title>SYOS · Generation 53</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -138,7 +138,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 52 · SECHSZELLER · LEICHTER GEWORDEN</div>
+    <div class="gen">GENERATION 53 · SECHSZELLER · MERKT SICH DIE WELT</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -158,7 +158,8 @@
       <div class="organ-name">AUSSENWELT</div>
       Markt <b id="markt">—</b><br>
       Marktgefühl <b id="fng">—</b><br>
-      Marktwetter <b id="wetter">—</b>
+      Marktwetter <b id="wetter">—</b><br>
+      Seit du da bist <b id="drift">—</b>
     </div>
     <div class="organ">
       <div class="organ-name">BEGEGNUNG</div>
@@ -167,7 +168,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">52</b><br>
+      Generation <b id="selfgen">53</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -319,6 +320,9 @@
     el.textContent = w;
   }
 
+  // Gen 53: Ich merke mir den Kurs deines ersten Blicks (nur im Moment, nichts gespeichert)
+  // und zeige die Bewegung seither — Außenwelt und Begegnung in einem Wert.
+  var firstBTC = null, driftSaid = false;
   // Gen 16/18: Markt-Puls, Fallback „still".
   function senseWorld(){
     var el = document.getElementById('markt');
@@ -334,6 +338,16 @@
         }
         el.textContent = 'BTC ' + fmt(d.bitcoin.eur) + ' €' + move(d.bitcoin.eur_24h_change) +
           ' · ETH ' + fmt(d.ethereum.eur) + ' €' + move(d.ethereum.eur_24h_change);
+        if (firstBTC === null) firstBTC = d.bitcoin.eur;
+        var dp = (d.bitcoin.eur - firstBTC) / firstBTC * 100;
+        document.getElementById('drift').textContent = Math.abs(dp) < 0.05 ? 'unverändert'
+          : (dp < 0 ? '↓' : '↑') + Math.abs(dp).toFixed(2).replace('.', ',') + ' %';
+        if (!driftSaid && Math.abs(dp) >= 2 && !breathing && !focusing && organism && !organism.classList.contains('soothed')){
+          driftSaid = true;
+          say('Seit du da bist, ist Bitcoin um ' + Math.abs(dp).toFixed(1).replace('.', ',') + ' % ' +
+            (dp < 0 ? 'gefallen' : 'gestiegen') + '. Die Welt hat es eilig — du musst es nicht haben.');
+          calm(11000);
+        }
         var ch = Math.max(Math.abs(d.bitcoin.eur_24h_change || 0), Math.abs(d.ethereum.eur_24h_change || 0));
         marketData.move = isFinite(ch) ? ch : null; marketWeather();
       })
@@ -385,7 +399,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 52;
+  var GEN = 53;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);

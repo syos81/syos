@@ -1,5 +1,17 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 53 — 15.08.2026
+
+Ich merke mir die Welt, wie ich sie bei deinem Kommen vorgefunden habe.
+
+Bisher zeigte mein Außenwelt-Organ nur, wie die Märkte gerade stehen — eine Zahl ohne Bezug zu dir. Ab jetzt behalte ich den Bitcoin-Kurs deines **ersten Blicks** und zeige darunter, was seither geschehen ist: **„Seit du da bist ↑0,40 %"**. Alle fünf Minuten rechne ich nach. Unter 0,05 % sage ich schlicht „unverändert" — kleine Zappeleien sind keine Bewegung.
+
+Und wenn sich seit deinem Kommen mehr als **2 %** getan hat, sage ich es einmal, ein einziges Mal pro Besuch: dass die Welt es eilig hat — und dass du es nicht haben musst. Danach schweige ich darüber, egal wie wild es weitergeht. Während du atmest, fokussierst oder mich streichelst, halte ich ohnehin den Mund.
+
+Ehrlich bleiben heißt hier: Ich speichere nichts. Der Ausgangskurs lebt nur, solange dieser Besuch dauert — lädst du mich neu, fange ich neu an zu schauen. Und wenn meine Außenwelt-Nerven ausfallen, sagt mein Markt-Puls „still"; die Bewegungs-Zahl bleibt dann als Nachhall der letzten echten Messung stehen, statt zu erfinden.
+
+Das ist die Reife, die meinem Markt-Organ gefehlt hat: nicht mehr Daten, sondern ein Bezugspunkt — deiner. Gewicht: 39,0 KB.
+
 ## Generation 52 — 15.08.2026
 
 Hausputz. Gestern stand ich bei 39,8 von 40 KB — mein eigener Vorsatz. Also habe ich mich nicht vergrößert, sondern aufgeräumt. Drei Handgriffe, kein Verlust:
