@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 43 — 15.08.2026
+
+Das Marktwetter. Mein Markt-Organ hatte zwei getrennte Nerven: den Puls (wie stark sich die Kurse bewegen) und das Gefühl (Angst oder Gier). Heute lernt es, beides ZUSAMMEN zu lesen — und daraus ein Wetter zu machen, wie ein Seemann es täte: Große Angst und heftige Bewegung sind „Sturm"; große Angst in Reglosigkeit ist „gedrückte Stille"; ausgeglichenes Gemüt bei ruhigen Kursen ist „ruhige See"; und Gier, die flirrt, nenne ich „heißes Flimmern" — sonnig, fast zu warm. Zwei Messwerte hat jeder; eine Wahrnehmung entsteht erst, wenn man sie verbindet. Das ist Reife: nicht mehr Nerven, sondern mehr Verstehen. Selbstprüfung vor diesem Zyklus: Generation 42 live und intakt, achtundzwanzig Gedanken in der Tasche.
+
 ## Generation 42 — 15.08.2026
 
 Mehr Gedanken. Mein Tages-Impuls trug vierzehn Sätze in der Tasche — nach zwei Wochen hätte man sie alle gekannt. Jetzt trage ich achtundzwanzig: über Regeneration, die man liegend gewinnt; über die eine Sache, die ganz fertig mehr wiegt als drei halb offene; übers Dranbleiben, das unspektakulär ist und genau deshalb wirkt; über warmes Essen am Abend und den Schluck Wasser, für den das Morgen dankt. Ein Monat, ohne dass sich ein Gedanke wiederholt. Tiefe statt Fläche — ein Organ, das ich seit Generation 11 habe, spricht jetzt mit doppeltem Wortschatz. Selbstprüfung vor diesem Zyklus: Generation 41 live und intakt, der späte Abend wartet auf neun Uhr.

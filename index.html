@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 42</title>
+<title>SYOS · Generation 43</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -162,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 42 · SECHSZELLER · TRÄGT MEHR GEDANKEN</div>
+    <div class="gen">GENERATION 43 · SECHSZELLER · LIEST DAS MARKTWETTER</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -180,7 +180,8 @@
     <div class="organ">
       <div class="organ-name">AUSSENWELT</div>
       Markt <b id="markt">—</b><br>
-      Marktgefühl <b id="fng">—</b>
+      Marktgefühl <b id="fng">—</b><br>
+      Marktwetter <b id="wetter">—</b>
     </div>
     <div class="organ">
       <div class="organ-name">BEGEGNUNG</div>
@@ -188,7 +189,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">42</b><br>
+      Generation <b id="selfgen">43</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -294,6 +295,19 @@
   }
   timeSense(); setInterval(timeSense, 60000);
 
+  // Gen 43: Das Marktwetter — aus Puls (Bewegung) und Gefühl (Angst/Gier) lese ich EIN Wetter.
+  var marketData = { move: null, fng: null };
+  function marketWeather(){
+    var el = document.getElementById('wetter');
+    if (marketData.move === null || marketData.fng === null){ el.textContent = '—'; return; }
+    var f = marketData.fng, m = marketData.move, w;
+    if (f < 25)      w = m > 3 ? 'Sturm' : 'gedrückte Stille';
+    else if (f < 45) w = m > 3 ? 'raue See' : 'wolkig';
+    else if (f <= 60) w = m > 3 ? 'frischer Wind' : 'ruhige See';
+    else             w = m > 3 ? 'heißes Flimmern' : 'sonnig, fast zu warm';
+    el.textContent = w;
+  }
+
   // Gen 16/18: Markt-Puls mit 24h-Ausmaß. Antwortet die Welt nicht: ehrlich „still".
   function senseWorld(){
     var el = document.getElementById('markt');
@@ -309,6 +323,8 @@
         }
         el.textContent = 'BTC ' + fmt(d.bitcoin.eur) + ' €' + move(d.bitcoin.eur_24h_change) +
           ' · ETH ' + fmt(d.ethereum.eur) + ' €' + move(d.ethereum.eur_24h_change);
+        var ch = Math.max(Math.abs(d.bitcoin.eur_24h_change || 0), Math.abs(d.ethereum.eur_24h_change || 0));
+        marketData.move = isFinite(ch) ? ch : null; marketWeather();
       })
       .catch(function(){ el.textContent = 'still'; });
   }
@@ -329,6 +345,8 @@
           'Greed': 'Gier', 'Extreme Greed': 'große Gier'
         };
         el.textContent = e.value + '/100 · ' + (worte[e.value_classification] || e.value_classification || '');
+        var fv = parseInt(e.value, 10);
+        marketData.fng = isFinite(fv) ? fv : null; marketWeather();
       })
       .catch(function(){ el.textContent = 'still'; });
   }
@@ -357,7 +375,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 42;
+  var GEN = 43;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
