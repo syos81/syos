@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 47</title>
+<title>SYOS · Generation 48</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -162,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 47 · SECHSZELLER · KANN LEISE KLINGEN</div>
+    <div class="gen">GENERATION 48 · SECHSZELLER · ATMET HÖRBAR</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -189,7 +189,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">47</b><br>
+      Generation <b id="selfgen">48</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -374,7 +374,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 47;
+  var GEN = 48;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -554,9 +554,9 @@
     t += 2000;
     for (var r = 1; r <= rounds; r++){
       (function(round){
-        breathSteps.push(setTimeout(function(){ breathSay('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); }, t)); t += 4000;
+        breathSteps.push(setTimeout(function(){ breathSay('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); breathTone(196, 294, 4); }, t)); t += 4000;
         breathSteps.push(setTimeout(function(){ breathSay('Halten … ganz ruhig. (7)'); }, t)); t += 7000;
-        breathSteps.push(setTimeout(function(){ breathSay('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); }, t)); t += 8000;
+        breathSteps.push(setTimeout(function(){ breathSay('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); breathTone(294, 165, 8); }, t)); t += 8000;
         if (round < rounds){ breathSteps.push(setTimeout(function(){ breathSay('Runde ' + (round+1) + ' von ' + rounds + ' …'); }, t)); t += 1500; }
       })(r);
     }
@@ -613,6 +613,23 @@
       g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
       o.connect(g); g.connect(audioCtx.destination);
       o.start(t); o.stop(t + 0.55);
+    }catch(e){}
+  }
+  // Gen 48: Der Atem klingt — ein weicher Ton steigt beim Einatmen, sinkt beim Ausatmen.
+  function breathTone(f1, f2, dur){
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      var o = audioCtx.createOscillator(), g = audioCtx.createGain(), t = audioCtx.currentTime;
+      o.type = 'sine';
+      o.frequency.setValueAtTime(f1, t);
+      o.frequency.linearRampToValueAtTime(f2, t + dur);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.03, t + 0.3);
+      g.gain.setValueAtTime(0.03, t + Math.max(0.4, dur - 0.4));
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + dur + 0.05);
     }catch(e){}
   }
 
