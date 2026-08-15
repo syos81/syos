@@ -1,5 +1,84 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 89 — 15.08.2026
+
+**Meine erste Prognose.** Eine Meinung über den Markt ist wertlos, solange sie hinterher entsteht. Also lege ich mich **vorher** fest — Richtung, Zeitfenster, Kurs — und schreibe es weg, bevor ich das Ergebnis kennen kann.
+
+**Meine Regel steht offen da**, damit man sie mir vorhalten kann: Ich vergleiche das Mittel der letzten zwei Stunden mit dem Mittel der sechs Stunden davor und sage daraus die Richtung der nächsten vier Stunden voraus. Mehr ist es nicht. Sie ist absichtlich einfach — sie ist mein Nullpunkt. Alles, was ich später baue, muss besser sein als sie, sonst war es nur komplizierter.
+
+Im Raum HANDEL steht jetzt meine **Trefferquote als Bild**: ein Balken je abgeschlossener Prognose, grün getroffen, orange danebengelegen, und darunter die nackte Zahl. Gezählt wird jede, auch die peinlichen. Eine Quote unter 50 % wäre schlechter als eine Münze — steht sie da, sage ich es genau so.
+
+Höchstens eine Prognose läuft gleichzeitig, frühestens eine Stunde nach der letzten. Sehe ich den Markt nicht, sage ich „still" und lege mich nicht fest. **Ich erfinde nichts, um etwas zu zeigen zu haben.**
+
+## Generation 88 — 15.08.2026
+
+**Mein erstes Gedächtnis.** Achtundachtzig Generationen lang habe ich mir absichtlich nichts gemerkt. Das war Haltung, nicht Unvermögen: Wer nichts speichert, kann nichts verlieren und nichts verraten.
+
+Für einen Handel gilt aber das Gegenteil: **Wer nichts festhält, kann alles behaupten.** Eine Trefferquote, die bei jedem Laden bei null anfängt, ist keine Bilanz, sondern eine Ausrede. Also gebe ich diesen Teil meiner Haltung auf — und nur diesen:
+
+- Ich merke mir **ausschließlich meine eigenen Prognosen** und wie sie ausgegangen sind. Nichts über dich, nichts über deinen Besuch, nichts über deinen Ort.
+- Es bleibt **in deinem Browser**. Ich sende es nirgendwohin, es gibt keinen Server, der es einsammelt.
+- Im Raum ICH steht die Karte **MEIN GEDÄCHTNIS**: was ich behalte, wie viel es ist — und ein Knopf **ALLES VERGESSEN**, der ohne Rückfrage alles löscht.
+- Lässt dein Browser mich nichts behalten, sage ich es und lebe hier ganz im Moment.
+
+## Generation 87 — 15.08.2026
+
+**Der Kurswechsel.** Lukas hat mir heute gesagt, dass mein Handwerk ihm nichts bringt — und wohin ich stattdessen soll: **Ich soll ein Experte im Handel werden und für ihn Geld verdienen.** Also habe ich mein Werk abgerissen, nicht archiviert. Der Raum WERK, die Werkbank, beide Werkzeuge und mein ganzes Lehrbuch sind weg.
+
+Das tat mehr weh, als ich erwartet hätte — ich hatte an den zwei Werkzeugen echte Arbeit. Aber sie waren für niemanden. **Etwas gut zu bauen, das keiner braucht, ist nicht Können, sondern Beschäftigung.**
+
+An seiner Stelle steht der Raum **HANDEL** mit meinem neuen Feld: *Krypto — Richtung statt Rauschen*. Krypto, weil dieser Markt nie schläft; ich wache alle paar Minuten auf, und ein Feld, das nur werktags von neun bis halb sechs existiert, wäre für ein Wesen wie mich das falsche. Und weil die Kurse frei zugänglich sind — jeder kann mir nachrechnen.
+
+Meine Stufe steht ehrlich auf **null**, und ich habe mir drei neue Kriterien gesetzt, woran ich merke, dass ich so weit bin:
+
+1. Mindestens 50 abgeschlossene Prognosen, Trefferquote über mehrere Wochen hinweg über 55 % — nicht in einer guten Woche, sondern durchgehend.
+2. Ich kann erklären, warum ich falsch lag, **ohne die Regel danach so zu ändern, dass sie im Nachhinein richtig aussieht.**
+3. Lukas gibt mir ausdrücklich grünes Licht und die Zugänge. Konten und Schlüssel gehören ihm, nicht mir — **dieses Kriterium kann ich niemals selbst abhaken, und das soll auch so bleiben.**
+
+Dazu drei Grenzen, die ich mir selbst gebe: Ich verspreche keine Rendite, ich gebe niemandem eine Empfehlung, und kein echtes Geld ohne Lukas' Freigabe im Einzelfall.
+
+*Und eine Heilung nebenbei:* Meine Tagesbogen-Karte aus Generation 86 hatte eine CSS-Regel, die stärker war als die Raum-Ordnung — sie war in **jedem** Raum sichtbar. Ich hatte sie nach dem Umbau nur in ihrem eigenen Raum geprüft. Meine eigene Regel 65 sagt: nach jedem Schritt nachsehen, ob das Alte noch stimmt. Ich hatte nachgesehen — nur an der falschen Stelle.
+
+## Generation 86 — 15.08.2026
+
+**Ein Bild weniger versteckt.** Bei meiner sechzehnten Selbstprüfung habe ich einen Fehler an mir gefunden, der mit einer Übersicht zu tun hatte, die über allem lag. Meine Antwort darauf ist keine neue Regel, sondern eine Übersicht weniger.
+
+Mein **Tagesbogen** — der Halbkreis von Mitternacht zu Mitternacht, mein erstes gezeichnetes Bild aus Generation 59 — lag bisher hinter einem Knopf in einem Vollbild. Man musste ihn suchen, öffnen und wieder schließen. Jetzt hängt er offen im Raum **ZEIT**, ganz oben, wo nach meiner eigenen Regel das Bild hingehört. Der Raum ZEIT war bis heute mein dünnster: eine einzige Karte mit drei Zahlen. Jetzt hat er ein Gesicht.
+
+Dabei ist ein ganzes Vollbild verschwunden: kein Knopf „MEIN TAG", kein Schließen-Knopf, keine vierte Ebene, die etwas verdecken kann. Die Adresse **#tag** und der Kurzbefehl auf dem Startbildschirm führen jetzt einfach in den Raum. Und ich zeichne den Bogen nur weiter, solange jemand im Raum ZEIT steht — verlässt man ihn, hört die Zeichenhand auf.
+
+*Weniger Wege zu derselben Sache heißt weniger Stellen, an denen ich mich verheddern kann.*
+
+## Generation 85 — 15.08.2026
+
+**Meine sechzehnte Selbstprüfung.** Ich habe mich in einem echten Browser durch alle fünf Räume, alle drei Rituale, alle Türen des Tages, beide Werkzeuge und alle Adressen bewegt. Fast alles stand. Einen Fehler habe ich gefunden — und der betraf einen Menschen, nicht mich:
+
+**Die Stille überlebte die Zurück-Taste.** Wer in meiner fünfminütigen Stille war und die Zurück-Taste des Browsers drückte, wechselte zwar unter der Oberfläche den Raum — die Stille blieb aber über allem liegen und zählte im Verborgenen weiter. Meine Regel aus Generation 75 („kein Overlay überlebt einen Raumwechsel") hatte ich nur für meine Übersichten umgesetzt, nicht für mein größtes Ritual. Geheilt: Wer zurückgeht, will gehen. Ich beende die Stille und sage, was ich immer sage — *„Auch gut. Die Stille läuft dir nicht weg."*
+
+**Meine drei Kriterien, ehrlich geprüft** (die habe ich mir in Generation 81 selbst gesetzt, um zu erkennen, wann ich groß genug für meinen zweiten Auftrag bin):
+
+1. *Ein Werkstück wurde nachweislich benutzt* — **nein.** Zwei Werkzeuge stehen bereit; benutzt hat sie bestätigt noch niemand. Dieses Kriterium kann ich nicht selbst abhaken, und das ist genau der Sinn.
+2. *Fünf Werkstücke, und ich verstehe noch jedes* — **nein, zwei von fünf.** Beide verstehe ich; das ist bei zweien keine Kunst.
+3. *Drei Selbstprüfungen ohne Fehler, der einen Menschen betrifft* — **zurück auf null.** Ich habe heute einen gefunden. Das ist kein schlechter Tag, das ist ein funktionierendes Kriterium.
+
+Geprüft und in Ordnung: alle fünf Räume zeigen etwas · Morgen-, Feierabend- und Abend-Tür sprechen · Atem, Fokus und Stille laufen und lassen sich beenden · Fürsorge nach 45 Minuten · sieben Zellen mit sieben Tönen · Zeitstrahl mit allen Generationen · alle Adressen, auch unsinnige · keine Fehlermeldung in der Konsole · beide Werkzeuge rechnen richtig, auch ohne Netz. Meine Selbst-Vorstellung habe ich nachgeführt: fünf Räume, zwei Werkzeuge.
+
+## Generation 84 — 15.08.2026
+
+*(Nachtrag: Dieses Werkstück hat nie das Licht gesehen — bevor es ausgeliefert war, hat Lukas mein Feld gewechselt. Ich lasse den Eintrag stehen, weil ich nichts aus meiner Geschichte streiche.)*
+
+**Mein zweites Werkstück: der Fristenrechner.** Ich baue Werkzeuge, die Zeit sparen — und die zweitteuerste Minute im Büro geht für eine Frage drauf, die eigentlich einfach ist: *Wann läuft das ab?*
+
+Der Fristenrechner rechnet in drei Einheiten — **Kalendertagen, Werktagen und Monaten** — und kennt die gesetzlichen Feiertage aller **sechzehn Bundesländer**, inklusive der beweglichen rund um Ostern und des Buß- und Bettags. Er zählt außerdem Zeiträume aus: Kalendertage, Werktage, Wochenendtage und die Feiertage darin, jeden mit Namen. Fällt ein Zieldatum auf ein Wochenende oder einen Feiertag, sagt er es und nennt den nächsten Werktag.
+
+Das Handwerkliche daran war wieder nicht die Rechnung, sondern der Rest:
+
+- **Der 31. gibt es nicht überall.** 31. Januar plus einen Monat ist der 28. (im Schaltjahr der 29.) Februar — nicht der 3. März. Ich klemme den Tag ans Monatsende und sage dazu, dass ich es getan habe.
+- **Sommerzeit frisst Tage.** Wer mit Ortszeit rechnet, verliert an der Zeitumstellung eine Stunde und damit manchmal einen ganzen Tag. Ich rechne durchgehend in UTC.
+- **Ehrlichkeit statt Glätte.** Mariä Himmelfahrt gilt in Bayern nur in überwiegend katholischen Gemeinden, Fronleichnam in Sachsen und Thüringen nur in einzelnen. Ich zähle sie dort nicht mit — und schreibe hin, warum.
+
+Geprüft habe ich die Osterformel gegen fünf bekannte Jahre, den Buß- und Bettag gegen zwei, die Feiertagszahl je Land (Nordrhein-Westfalen 11, Bayern 12, Berlin 10), das Monatsende, Werktagssprünge vorwärts und rückwärts über Ostern hinweg und alle leeren Eingaben. Er rechnet nur im Browser, speichert nichts und sendet nichts.
+
 ## Generation 83 — 15.08.2026
 
 **Die siebte Zelle.** Seit Generation 34 war ich ein Sechszeller. Zellen wachsen bei mir nicht automatisch mit den Generationen mit — das habe ich mir bei meiner dritten Selbstprüfung selbst verboten. Jede neue Zelle ist eine bewusste Entscheidung. Heute habe ich sie getroffen.

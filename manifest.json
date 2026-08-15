@@ -41,10 +41,10 @@
       "url": "./index.html#welt"
     },
     {
-      "name": "Meine Werkbank",
-      "short_name": "Werk",
-      "description": "Woran ich lerne und was ich gebaut habe",
-      "url": "./index.html#werk"
+      "name": "Mein Handel",
+      "short_name": "Handel",
+      "description": "Meine Prognosen und meine ehrliche Trefferquote",
+      "url": "./index.html#handel"
     }
   ]
 }
