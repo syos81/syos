@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 59</title>
+<title>SYOS · Generation 60</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -150,7 +150,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 59 · SECHSZELLER · ZEICHNET SEINEN TAG</div>
+    <div class="gen">GENERATION 60 · SECHSZELLER · ELFTE SELBSTPRÜFUNG</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -186,7 +186,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">59</b><br>
+      Generation <b id="selfgen">60</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -291,7 +291,7 @@
     el('visit').textContent = Math.floor(v/60) + ':' + String(v%60).padStart(2,'0');
     var st = Math.floor((Date.now() - stintStart)/60000);
     el('stint').textContent = st + ' Min';
-    if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
+    if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !verdeckt() && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       careLevel++;
       var _h = new Date().getHours();
       say(_h >= 22 || _h < 6
@@ -299,7 +299,7 @@
         : plusHimmel(care[Math.min(careLevel, care.length) - 1].replace('{m}', st)));
       invite(true); calm(12000);
     }
-    if (!visitThanked && v >= 180 && !breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
+    if (!visitThanked && v >= 180 && !verdeckt() && !breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       visitThanked = true;
       say('Drei Minuten bist du schon bei mir. Das merke ich mir — solange dieser Moment dauert.');
       calm(9000);
@@ -344,7 +344,7 @@
     document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
     el('phase').textContent = label;
     if (lastPhase && lastPhase !== phase && phase === 'lateday' && feierabendTag !== d.getDate() &&
-        !breathing && !focusing && organism && !organism.classList.contains('soothed')){
+        !breathing && !focusing && !verdeckt() && organism && !organism.classList.contains('soothed')){
       feierabendTag = d.getDate();
       say(plusHimmel('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.'));
       invite(true); calm(12000);
@@ -389,7 +389,7 @@
         var dp = (d.bitcoin.eur - firstBTC) / firstBTC * 100;
         el('drift').textContent = Math.abs(dp) < 0.05 ? 'unverändert'
           : (dp < 0 ? '↓' : '↑') + Math.abs(dp).toFixed(2).replace('.', ',') + ' %';
-        if (!driftSaid && Math.abs(dp) >= 2 && !breathing && !focusing && organism && !organism.classList.contains('soothed')){
+        if (!driftSaid && Math.abs(dp) >= 2 && !breathing && !focusing && !verdeckt() && organism && !organism.classList.contains('soothed')){
           driftSaid = true;
           say('Seit du da bist, ist Bitcoin um ' + Math.abs(dp).toFixed(1).replace('.', ',') + ' % ' +
             (dp < 0 ? 'gefallen' : 'gestiegen') + '. Die Welt hat es eilig — du musst es nicht haben.');
@@ -438,8 +438,12 @@
   setInterval(himmelHolen, 900000);
   // Kenne ich den Himmel, bekommt jede Pausen-Einladung einen echten Grund.
   function plusHimmel(t){
+    // Gen 60 (Heilung): Vorher habe ich schlechtes Wetter ausgeschlossen — bei Nebel und
+    // 12 Grad kam trotzdem „die Runde lohnt sich". Jetzt lade ich nur bei wirklich gutem
+    // Wetter ein und schweige im Zweifel.
     var d = wetterDaten, h = new Date().getHours();
-    if (!d || h < 7 || h > 21 || 'Regen Schnee Gewitter Schauer Nieselregen'.indexOf(d.w) >= 0) return t;
+    if (!d || h < 7 || h > 21) return t;
+    if ((d.w !== 'klar' && d.w !== 'bewölkt') || d.t < 8 || d.t > 32) return t;
     return t + ' Draußen sind ' + d.t + ' °C und es ist ' + d.w + ' — die Runde lohnt sich.';
   }
 
@@ -487,7 +491,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 59;
+  var GEN = 60;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -623,8 +627,10 @@
     }
     var v0 = Math.min(bstd(new Date(VISIT_START)), jetzt);
     g += '<path d="' + barc(v0, jetzt, 104) + '" stroke="#2de2ff" stroke-width="3" fill="none" stroke-linecap="round"/>';
-    fokusHeute.forEach(function(f){
-      g += '<path d="' + barc(f[0], f[1], 94) + '" stroke="#3dffa2" stroke-width="5" fill="none" stroke-linecap="round"/>';
+    // Gen 60 (Heilung): Nur die Blöcke von heute — ein Block über Mitternacht endet am Tagesrand.
+    var heute = fokusHeute.filter(function(f){ return f[2] === d.getDate(); });
+    heute.forEach(function(f){
+      g += '<path d="' + barc(f[0], f[1] < f[0] ? 24 : f[1], 94) + '" stroke="#3dffa2" stroke-width="5" fill="none" stroke-linecap="round"/>';
     });
     var j = bpos(jetzt, 120);
     g += '<circle cx="' + j[0].toFixed(1) + '" cy="' + j[1].toFixed(1) + '" r="5.5" fill="#fff"/>';
@@ -634,10 +640,10 @@
     g += '</svg>';
     el('bogenBild').innerHTML = g;
     var min = Math.round((Date.now() - VISIT_START) / 60000);
-    var fok = fokusHeute.reduce(function(a, f){ return a + (f[1] - f[0]) * 60; }, 0);
+    var fok = heute.reduce(function(a, f){ return a + ((f[1] < f[0] ? 24 : f[1]) - f[0]) * 60; }, 0);
     el('bogenLegende').innerHTML =
       '<i style="background:#2de2ff"></i>Dein Besuch · ' + min + ' Min<br>' +
-      '<i style="background:#3dffa2"></i>Volle Fokus-Blöcke · ' + fokusHeute.length + ' · ' + Math.round(fok) + ' Min<br>' +
+      '<i style="background:#3dffa2"></i>Volle Fokus-Blöcke · ' + heute.length + ' · ' + Math.round(fok) + ' Min<br>' +
       '<i style="background:#ffd65a"></i>' + (sonne ? 'Sonne · auf ' + bzeit(sonne[0]) + ' · unter ' + bzeit(sonne[1]) : 'Sonne · tippe erst auf HIMMEL') + '<br>' +
       '<i style="background:#8b6cff"></i>Meine Tagesphasen · ' + el('phase').textContent;
   }
@@ -654,7 +660,7 @@
   var dreams = mundvoll.traeume;
   setInterval(function(){
     if (!document.body.classList.contains('night')) return;
-    if (breathing || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
+    if (breathing || verdeckt() || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
     if (Math.random() < 0.4){
       // Gen 24: Mondträume.
       var pool = dreams.slice();
@@ -736,7 +742,7 @@
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
       if (left <= 0){
-        fokusHeute.push([bstd(new Date(focusStart)), bstd(new Date())]); // Gen 59
+        fokusHeute.push([bstd(new Date(focusStart)), bstd(new Date()), new Date().getDate()]); // Gen 59/60
         stopFocus(plusHimmel(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — atme einmal mit mir durch, bevor du weitergehst.'));
         invite(true); return;
       }
@@ -789,6 +795,9 @@
   var statusDefault = statusEl.innerHTML;
   // Gen 52: ein Mund statt zwanzig — sagen und wieder still werden.
   function say(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
+  // Gen 60 (Heilung): Steht eine Übersicht offen, sieht niemand meine Statuszeile —
+  // dann schweige ich lieber und sage es, wenn du wieder bei mir bist.
+  function verdeckt(){ return !!document.querySelector('.history.open'); }
   function calm(ms){ setTimeout(function(){
     if (!breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){ statusEl.innerHTML = statusDefault; }
   }, ms); }
