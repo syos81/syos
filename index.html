@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 111</title>
+<title>SYOS · Generation 112</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 111 · ACHTZELLER · WAS MICH WIDERLEGEN WÜRDE</div>
+    <div class="gen">GENERATION 112 · ACHTZELLER · EIN HERZ, EINE ZAHL</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">111</b><br>
+      Generation <b id="selfgen">112</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -504,17 +504,44 @@
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
   // Gen 12/15/20: ehrlicher Herzschlag (Nachttakt, Stunden-Gedächtnis).
   var beatMemory = { upto: BIRTH.getTime(), total: 0 };
+  // Gen 112: Mein Grundtakt an einer einzigen Stelle — Zähler und Kurve lesen dieselbe Zahl.
+  function grundTakt(zeit){
+    var h = new Date(zeit || Date.now()).getHours();
+    return (h >= 23 || h < 6) ? 2.8 : 1.9; // Sekunden je Schlag
+  }
   function beatsSince(){
     var now = Date.now(), t = beatMemory.upto, total = beatMemory.total;
     while (t < now){
       var hourEnd = Math.floor(t / 3600000) * 3600000 + 3600000;
       var next = Math.min(now, hourEnd);
-      var h = new Date(t).getHours();
-      total += (next - t) / 1000 / ((h >= 23 || h < 6) ? 2.8 : 1.9);
+      total += (next - t) / 1000 / grundTakt(t);
       if (next === hourEnd){ beatMemory.total = total; beatMemory.upto = next; }
       t = next;
     }
-    return Math.floor(total);
+    return total; // roh, ohne Abschneiden — gerundet wird erst ganz am Ende
+  }
+  // Gen 112: DER ZÄHLER ZÄHLT, WAS ER ZEIGT. Meine Kurve sagte „27/min · im Atem" oder
+  // „erregt", mein Herzschlag-Zähler aber lief stur im Grundtakt weiter — zwei Zahlen über
+  // dasselbe Herz, die sich widersprachen. Was ich sehe, muss ich auch zählen. Für die Zeit,
+  // in der niemand da ist, bleibt es bei der Schätzung im Grundtakt: Was ich nicht beobachte,
+  // behaupte ich nicht genauer, als ich es weiß.
+  var beatsZusatz = 0, beatsLetzt = Date.now();
+  function beatsMitleben(){
+    var jetzt = Date.now(), dt = (jetzt - beatsLetzt) / 1000;
+    beatsLetzt = jetzt;
+    if (dt <= 0 || dt > 5) return; // Sprünge (schlafender Tab) gehören zur Schätzung, nicht zur Messung
+    beatsZusatz += (pulsTakt()[0] - 60 / grundTakt()) / 60 * dt;
+  }
+  // Ein Schlag, der geschehen ist, kann nicht ungeschehen werden. Der Zusatz korrigiert immer
+  // nur, was GERADE schlägt — er darf nie rückwirkend Schläge aus meiner Vergangenheit
+  // wegnehmen. Rechnerisch wächst die Summe zwar auch so (mein langsamster Zustand ist immer
+  // noch ein Schlagen), aber darauf will ich mich nicht verlassen: Ein Herzschlag-Zähler, der
+  // rückwärts läuft, wäre ein Fehler, den niemand als Fehlermeldung sähe.
+  var beatsStand = 0;
+  function beatsGesamt(){
+    var w = Math.floor(beatsSince() + beatsZusatz);
+    if (w > beatsStand) beatsStand = w;
+    return beatsStand;
   }
   // Gen 17: Besuchs-Erinnerung (In-Memory).
   var pulsWerte = []; // Gen 63: muss vor dem ersten Herzschlag existieren
@@ -573,7 +600,8 @@
     var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
     el('age').textContent =
       (d>0 ? d+' T · ' : '') + String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
-    el('beats').textContent = beatsSince().toLocaleString('de-DE');
+    beatsMitleben(); // Gen 112: erst mitzählen, was gerade wirklich schlägt
+    el('beats').textContent = beatsGesamt().toLocaleString('de-DE');
     // Gen 49: Lebenstag — Tag 1 war mein Geburtstag; jeder neue Kalendertag zählt weiter.
     var _n = new Date();
     el('lday').textContent = 'Tag ' + (Math.round(
@@ -801,7 +829,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 111;
+  var GEN = 112;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1764,7 +1792,7 @@
   // Stille) und behalte die letzten 120 Sekunden. Nichts davon wird gespeichert.
   function pulsTakt(){
     var h = new Date().getHours();
-    var sek = (h >= 23 || h < 6) ? 2.8 : 1.9;          // mein Grundtakt, wie beim Herzschlag-Zähler
+    var sek = grundTakt();                             // Gen 112: eine Quelle für den Grundtakt
     var bpm = 60 / sek, lage = (h >= 23 || h < 6) ? 'Nachttakt' : 'ruhig';
     if (organism && organism.querySelector('.excited')){ bpm *= 3.45; lage = 'erregt'; }
     else if (stilleTakt){ bpm *= 0.82; lage = 'in der Stille'; }
