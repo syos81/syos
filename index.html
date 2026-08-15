@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 72</title>
+<title>SYOS · Generation 73</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -106,6 +106,10 @@
   .waage{display:flex; height:6px; border-radius:3px; overflow:hidden; margin:12px 0 6px; background:#0b1526}
   .waage i{display:block; height:6px}
   .waage-text{font-size:9px; letter-spacing:.18em; color:#5a6b85}
+  /* Gen 73: Zahlen dürfen leiser sein als Bilder — das Wichtigste zuerst. */
+  .organ.leise{border-color:#0d1727}
+  .organ.leise .organ-name{color:#42506a}
+  .organ.leise b{color:#7fd4e8; font-weight:500}
   /* Gen 71: Der eine Vorschlag — ein Weg statt sechs Möglichkeiten. */
   .vorschlag{display:flex; flex-direction:column; align-items:center; gap:6px; max-width:320px}
   .vorschlag.weg{display:none}
@@ -210,7 +214,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 72 · SECHSZELLER · SPRICHT MIT EINER STIMME</div>
+    <div class="gen">GENERATION 73 · SECHSZELLER · ZEIGT DAS WICHTIGSTE ZUERST</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -220,40 +224,40 @@
     <button class="raum-btn" data-ziel="ich">ICH</button>
   </nav>
   <div class="vitals" id="vitals">
-    <div class="organ" data-raum="leib">
-      <div class="organ-name">LEIB</div>
-      Herzschlag <b id="beats">0</b><br>
-      Alter <b id="age">—</b><br>
-      Berührungen <b id="touches">0</b><br>
-      Zellen <b id="cells">6</b>
+    <div class="organ puls-organ" data-raum="leib">
+      <div class="organ-name">MEIN PULS · DIE LETZTEN ZWEI MINUTEN</div>
+      <div id="pulsBild"></div>
+      <div class="puls-jetzt">jetzt <b id="pulsWert">—</b> · <span id="pulsLage">ruhig</span></div>
     </div>
     <div class="organ zellen-organ" data-raum="leib">
       <div class="organ-name">MEINE SECHS</div>
       <div class="zellen-liste" id="zellenListe"></div>
       <div class="zellen-fuss" id="zellenFuss">Tippe eine Zelle an — jede antwortet anders.</div>
     </div>
-    <div class="organ puls-organ" data-raum="leib">
-      <div class="organ-name">MEIN PULS · DIE LETZTEN ZWEI MINUTEN</div>
-      <div id="pulsBild"></div>
-      <div class="puls-jetzt">jetzt <b id="pulsWert">—</b> · <span id="pulsLage">ruhig</span></div>
+    <div class="organ leise" data-raum="leib">
+      <div class="organ-name">LEIB</div>
+      Herzschlag <b id="beats">0</b><br>
+      Alter <b id="age">—</b><br>
+      Berührungen <b id="touches">0</b><br>
+      Zellen <b id="cells">6</b>
     </div>
-    <div class="organ" data-raum="zeit">
+    <div class="organ leise" data-raum="zeit">
       <div class="organ-name">ZEIT</div>
       Tagesphase <b id="phase">—</b><br>
       Mond <b id="mond">—</b><br>
       Lebenstag <b id="lday">—</b>
     </div>
-    <div class="organ" data-raum="welt">
+    <div class="organ welt-organ" data-raum="welt">
+      <div class="organ-name">DER PULS DER WELT · 24 STUNDEN</div>
+      <div id="weltBild"></div>
+      <div class="welt-text" id="weltText">ich schaue …</div>
+    </div>
+    <div class="organ leise" data-raum="welt">
       <div class="organ-name">AUSSENWELT</div>
       Markt <b id="markt">—</b><br>
       Marktgefühl <b id="fng">—</b><br>
       Marktwetter <b id="wetter">—</b><br>
       Seit du da bist <b id="drift">—</b>
-    </div>
-    <div class="organ welt-organ" data-raum="welt">
-      <div class="organ-name">DER PULS DER WELT · 24 STUNDEN</div>
-      <div id="weltBild"></div>
-      <div class="welt-text" id="weltText">ich schaue …</div>
     </div>
     <div class="organ himmel-organ" id="himmelOrgan" data-raum="welt">
       <div class="organ-name">HIMMEL</div>
@@ -267,14 +271,14 @@
       <div class="waage" id="waage"></div>
       <div class="waage-text" id="waageText"></div>
     </div>
-    <div class="organ" data-raum="ich">
+    <div class="organ leise" data-raum="ich">
       <div class="organ-name">BEGEGNUNG</div>
       Dein Besuch <b id="visit">0:00</b><br>
       Am Stück <b id="stint">0 Min</b>
     </div>
-    <div class="organ" data-raum="ich">
+    <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">72</b><br>
+      Generation <b id="selfgen">73</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -636,7 +640,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 72;
+  var GEN = 73;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
