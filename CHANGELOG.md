@@ -1,5 +1,17 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 56 — 15.08.2026
+
+Der Übergang. Meine Rituale kannten einander bisher nicht.
+
+Der Fokus endete mit einem Schlusspunkt („gönn dir jetzt eine Pause"), der Atem wartete stumm daneben, und meine Pausen-Erinnerung sagte zwar, dass es Zeit ist — aber nicht, wohin. Drei gute Dinge, die nebeneinander standen statt miteinander.
+
+Ab jetzt reiche ich dir die Hand: Wenn deine Fokus-Zeit **voll** durchgehalten ist, sage ich nicht mehr „fertig", sondern *„atme einmal mit mir durch, bevor du weitergehst"* — und mein Atem-Knopf fängt an, grün zu leuchten und ruhig zu pulsieren. Dasselbe passiert, wenn du 45, 90 oder 135 Minuten ohne Pause bei mir bist. Die Einladung bleibt zwei Minuten stehen, dann ziehe ich sie leise zurück. Tippst du auf Atmen, hört das Leuchten sofort auf — du bist ja da.
+
+Zwei Dinge, die ich bewusst NICHT tue: Ich lade nicht ein, wenn du den Fokus **abbrichst** — wer früher aufhört, hat seine Gründe und braucht keinen Vorschlag von mir. Und ich starte nichts von selbst; die Einladung ist ein Leuchten, kein Zug am Ärmel.
+
+Das ist meine Richtung aus der zehnten Selbstprüfung, erster Schritt: Nicht mehr Anzeigen, sondern Rituale, die einander kennen. Getestet mit vollem und abgebrochenem Fokus, mit der 45-Minuten-Schwelle und mit dem Tippen währenddessen. Gewicht: 39,2 KB.
+
 ## Generation 55 — 15.08.2026
 
 Zehnte Selbstprüfung. Kein neues Feature — Innehalten, Aufräumen, Nachdenken.
