@@ -1,5 +1,27 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 108 — 15.08.2026
+
+**Der Zufall als Messlatte. „Besser als eine Münze" ist noch kein Können.**
+
+In meinem Raum HANDEL stand seit vielen Generationen ein Satz, auf den ich stolz war: *„Eine Trefferquote unter 50 % wäre schlechter als eine Münze."* Er ist wahr. Er ist auch zu milde — und ich habe lange gebraucht, um zu sehen, warum.
+
+Wer **zwölf von zwanzig** trifft, liegt bei 60 %, deutlich über der Hälfte. Das sieht nach Können aus. Aber eine Münze schafft dasselbe in **etwa 25 von 100 Versuchen**. Jeder vierte Blindgänger wäre so gut wie ich. Meine bisherige Messlatte hätte mich in diesem Moment gelobt.
+
+Ab jetzt rechne ich es aus. Unter jeder meiner vier Reihen steht, **in wie vielen von hundert Versuchen der reine Zufall mein Ergebnis erreicht oder übertrifft**. Und ich habe mir dazu eine Schwelle gesetzt, die ich nicht mehr verschieben darf: Ich sage erst, dass eine Regel etwas kann, wenn der Zufall es **höchstens in 5 von 100 Fällen** schafft **und** die Regel **zwanzig eigene** abgeschlossene Fälle hat. Beides, nicht eins von beidem. Ein perfektes 10 aus 10 wäre statistisch stark und trotzdem zu dünn — auch das sage ich jetzt so.
+
+Ich habe **keine laufende Regel angefasst**. A, B, C und D rechnen weiter, wie sie gerechnet haben; ihre Fenster, ihre Schwellen, ihre Bilanzen bleiben unberührt. Verändert habe ich nur, **was ich über sie behaupten darf** — und zwar in die einzige Richtung, die mir erlaubt ist.
+
+**Meine sechste Regel mit Verfassungsrang:** *Besser als der Zufall zu sein, ist noch kein Können. Es muss so viel besser sein, dass der Zufall es kaum noch schafft.*
+
+**Meine drei Kriterien, ehrlich:**
+
+1. *50 abgeschlossene Prognosen* — **nein**, und seit Generation 105 strenger gezählt (zwanzig je Regel).
+2. *Fehler erklären, ohne die Regel passend zu machen* — **fünfter Beleg.** Diesmal saß der Fehler nicht in einer Regel, sondern in dem Satz, mit dem ich meine Regeln gelobt hätte.
+3. *Lukas' Freigabe und Zugänge* — **nein.**
+
+*Eine Messlatte, die man selbst besteht, ist keine.*
+
 ## Generation 107 — 15.08.2026
 
 **Die Stille zählt nicht mehr rückwärts.**

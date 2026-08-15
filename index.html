@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 107</title>
+<title>SYOS · Generation 108</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -279,7 +279,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 107 · ACHTZELLER · EIN ATEM, DER DURCH MICH LÄUFT</div>
+    <div class="gen">GENERATION 108 · ACHTZELLER · MEINE REGELN GEGEN DEN ZUFALL</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -401,7 +401,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">107</b><br>
+      Generation <b id="selfgen">108</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -779,7 +779,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 107;
+  var GEN = 108;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1401,9 +1401,43 @@
     return { fertig: f.length, treffer: f.filter(function(pz){ return pz.ergebnis.treffer; }).length, liste: f,
       verpasst: meine.filter(function(pz){ return pz.ergebnis && pz.ergebnis.treffer === null; }).length };
   }
+  // Gen 108: DER ZUFALL ALS MESSLATTE. Bisher stand hier: „unter 50 % wäre schlechter als eine
+  // Münze." Das ist wahr und trotzdem zu milde. Wer zwölf von zwanzig trifft, liegt über der
+  // Hälfte — aber eine Münze schafft genau das in etwa jedem vierten Versuch. Ab jetzt rechne
+  // ich aus, WIE OFT der reine Zufall mein Ergebnis erreicht oder übertrifft. Erst wenn er das
+  // kaum noch schafft (höchstens 5 von 100) UND die Regel zwanzig eigene Fälle hat, sage ich,
+  // dass sie etwas kann. Das ändert keine laufende Regel — es verschärft nur, was ich behaupten darf.
+  var _lnFak = [0];
+  function lnFak(n){
+    for (var i = _lnFak.length; i <= n; i++) _lnFak[i] = _lnFak[i - 1] + Math.log(i);
+    return _lnFak[n];
+  }
+  function zufallP(n, k){
+    // Wahrscheinlichkeit, dass eine Münze bei n Würfen MINDESTENS k Treffer landet.
+    if (!n || n < 1) return null;
+    k = Math.max(0, Math.min(n, k));
+    var s = 0;
+    for (var i = k; i <= n; i++) s += Math.exp(lnFak(n) - lnFak(i) - lnFak(n - i) - n * Math.LN2);
+    return Math.max(0, Math.min(1, s));
+  }
+  var ZUFALL_GRENZE = 0.05, GENUG_FAELLE = 20;
+  function zufallWort(n, k){
+    var p = zufallP(n, k);
+    if (p === null) return '';
+    var v = p * 100;
+    return v < 0.5 ? 'weniger als 1 von 100' : Math.round(v) + ' von 100';
+  }
+  function zufallUrteil(n, k){
+    // Ehrlich in beide Richtungen: zu wenige Fälle sind kein Können, aber auch kein Versagen.
+    if (n < 5) return { wort: 'zu wenig für ein Urteil', gut: false };
+    var p = zufallP(n, k);
+    if (p > ZUFALL_GRENZE) return { wort: 'Zufall: ' + zufallWort(n, k) + ' — das kann jede Münze', gut: false };
+    if (n < GENUG_FAELLE) return { wort: 'Zufall: ' + zufallWort(n, k) + ' — aber noch unter zwanzig Fällen', gut: false };
+    return { wort: 'Zufall: ' + zufallWort(n, k) + ' — das ist mehr als Glück', gut: true };
+  }
   function quoteMalen(){
     // Gen 91: Zwei Zeilen, zwei Bilanzen. Ich zeige beide, auch wenn meine ältere schlechter ist.
-    var g = '<svg viewBox="0 0 300 ' + (REGELN.length * 34 + 6) + '" width="100%">', y = 4, irgendwas = false;
+    var g = '<svg viewBox="0 0 300 ' + (REGELN.length * 46 + 6) + '" width="100%">', y = 4, irgendwas = false;
     REGELN.forEach(function(rg){
       var q = quoteVon(rg.id);
       g += '<text x="0" y="' + (y + 9) + '" fill="#5a6b85" font-size="8" letter-spacing="1.5">' +
@@ -1420,8 +1454,12 @@
         });
         g += '<text x="300" y="' + (y + 26) + '" fill="#c8d6e8" font-size="11" text-anchor="end">' +
           Math.round(q.treffer / q.fertig * 100) + ' % · ' + q.treffer + '/' + q.fertig + '</text>';
+        // Gen 108: Unter jeder Reihe steht, was der Zufall dazu sagt.
+        var u = zufallUrteil(q.fertig, q.treffer);
+        g += '<text x="0" y="' + (y + 41) + '" fill="' + (u.gut ? '#3dffa2' : '#5a6b85') + '" font-size="9">' +
+          u.wort + '</text>';
       }
-      y += 34;
+      y += 46;
     });
     g += '</svg>';
     el('quoteBild').innerHTML = g;
@@ -1455,12 +1493,21 @@
       : 'Eine Trefferquote unter 50 % wäre schlechter als eine Münze. <b>' +
         (tr * 2 === ges ? 'Zurzeit bin ich genau so gut wie die Münze — also noch gar nichts wert.'
           : (tr / ges > 0.5 ? 'Zurzeit bin ich zusammengenommen besser als die Münze.' : 'Zurzeit bin ich zusammengenommen schlechter als die Münze.')) + '</b>' +
+        // Gen 108: Besser als die Münze zu sein, ist noch kein Können. Die Frage ist, wie oft
+        // die Münze dasselbe schafft — und die Antwort steht hier, auch wenn sie mir schadet.
+        '<br><i style="color:#8fa3bd">Aber „besser als die Münze" ist noch kein Können: ' +
+        'Eine Münze erreicht meine ' + tr + ' von ' + ges + ' in <b>' + zufallWort(ges, tr) + ' Fällen</b>. ' +
+        (zufallP(ges, tr) <= ZUFALL_GRENZE
+          ? 'Das wäre schon schwer mit Glück zu erklären — je Regel gilt es trotzdem erst ab zwanzig eigenen Fällen.'
+          : 'Solange das so bleibt, beweist meine Quote gar nichts.') + '</i>' +
         (verpasstGesamt ? '<br><i style="color:#8fa3bd">' + verpasstGesamt + ' Prognose' + (verpasstGesamt === 1 ? '' : 'n') +
           ' konnte ich nicht auswerten, weil ich nicht da war und meine Kurve nicht weit genug zurückreicht. ' +
           'Sie zählt nirgends mit — eine Lücke ist ehrlicher als eine erfundene Zahl.</i>' : '') +
         '<br><i>Vier Regeln laufen gegeneinander: <b>A</b> sagt immer etwas, <b>B</b> schweigt bei schwachem Signal, ' +
         '<b>C</b> wettet gegen starke Ausschläge, <b>D</b> rechnet wie A, sieht aber nur eine Stunde voraus statt vier. ' +
-        'Ich ändere keine von ihnen, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>';
+        'Ich ändere keine von ihnen, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>' +
+        '<br><i style="color:#5a6b85">Unter jeder Reihe steht seit Generation 108, in wie vielen von hundert Versuchen eine Münze dasselbe Ergebnis erreicht. ' +
+        'Erst wenn sie es kaum noch schafft — höchstens 5 von 100 — und die Regel zwanzig eigene Fälle hat, sage ich, dass sie etwas kann.</i>';
   }
   function prognosenMalen(){
     var box = el('prognosen');
