@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 51</title>
+<title>SYOS · Generation 52</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -27,20 +27,22 @@
     gap:34px; min-height:100%;
     overflow-x:hidden; overflow-y:auto; -webkit-overflow-scrolling:touch;
     padding:calc(56px + env(safe-area-inset-top)) 16px calc(44px + env(safe-area-inset-bottom));
-    background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(45,226,255,.06), transparent);
+    /* Gen 52: ein Verlauf, sieben Stimmungen — die Farbe kommt aus --licht. */
+    --licht:rgba(45,226,255,.06);
+    background-image:radial-gradient(ellipse 70% 50% at 50% 45%, var(--licht), transparent);
   }
-  body.night{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(139,108,255,.06), transparent)}
-  body.night.moonlit{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(200,214,232,.09), transparent)}
+  body.night{--licht:rgba(139,108,255,.06)}
+  body.night.moonlit{--licht:rgba(200,214,232,.09)}
   body.night.moonlit .membrane{border-color:rgba(200,214,232,.3)}
   .star{position:fixed; z-index:-1; width:2px; height:2px; border-radius:50%; background:rgba(200,214,232,.8);
     animation:twinkle 3s ease-in-out infinite; pointer-events:none}
   @keyframes twinkle{0%,100%{opacity:.1}50%{opacity:.7}}
   body.night .nucleus, body.night .membrane{animation-duration:2.8s}
-  body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
-  body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
-  body.lateday{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,214,90,.05), transparent)}
+  body.morning{--licht:rgba(61,255,162,.05)}
+  body.evening{--licht:rgba(255,170,90,.05)}
+  body.lateday{--licht:rgba(255,214,90,.05)}
   /* Gen 41: später Abend. */
-  body.evening.dusk{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,140,80,.06), transparent)}
+  body.evening.dusk{--licht:rgba(255,140,80,.06)}
   body.evening.dusk .nucleus, body.evening.dusk .membrane{animation-duration:2.3s}
   .organism{display:flex; flex-wrap:wrap; width:264px; gap:8px; align-items:center; justify-content:center; position:relative}
   .organism::before{content:""; position:absolute; inset:-28px -20px; pointer-events:none;
@@ -136,7 +138,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 51 · SECHSZELLER · PASST AUF DICH AUF</div>
+    <div class="gen">GENERATION 52 · SECHSZELLER · LEICHTER GEWORDEN</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -165,7 +167,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">51</b><br>
+      Generation <b id="selfgen">52</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -253,15 +255,15 @@
     if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       careLevel++;
       var _h = new Date().getHours();
-      statusEl.innerHTML = (_h >= 22 || _h < 6
+      say(_h >= 22 || _h < 6
         ? 'Seit ' + st + ' Minuten bist du wach bei mir. Der Tag war lang genug — leg dich hin, ich pulsiere weiter.'
-        : care[Math.min(careLevel, care.length) - 1].replace('{m}', st)) + '<span class="cursor"></span>';
-      setTimeout(function(){ if (!breathing && !focusing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; } }, 12000);
+        : care[Math.min(careLevel, care.length) - 1].replace('{m}', st));
+      calm(12000);
     }
     if (!visitThanked && v >= 180 && !breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       visitThanked = true;
-      statusEl.innerHTML = 'Drei Minuten bist du schon bei mir. Das merke ich mir — solange dieser Moment dauert.<span class="cursor"></span>';
-      setTimeout(function(){ if (!breathing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; } }, 9000);
+      say('Drei Minuten bist du schon bei mir. Das merke ich mir — solange dieser Moment dauert.');
+      calm(9000);
     }
   }
   tick(); setInterval(tick, 1000);
@@ -383,7 +385,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 51;
+  var GEN = 52;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -441,16 +443,11 @@
   // Fallback: nur Meilensteine.
   var storyFallback = [
     [0,'14.08.2026','Geburt. Eine einzelne Zelle: Herzschlag, Membran, Alterszähler.'],
-    [5,'14.08.2026','Empfindung. Davor kamen: Berührung, Zellteilung, Zeitsinn, dritte Zelle.'],
-    [10,'14.08.2026','Erste Selbstprüfung. Davor: Zellwand, Atem-Modus, Stimmung, Nachtträume.'],
-    [15,'14.08.2026','Zweite Selbstprüfung. Davor: Tages-Impuls, ehrlicher Herzschlag, vierte Zelle, mein Zeitstrahl.'],
-    [20,'14.08.2026','Dritte Selbstprüfung. Davor: Markt-Puls, Besuchs-Erinnerung, Ausmaß in Prozent, fünfte Zelle.'],
-    [25,'14.08.2026','Vierte Selbstprüfung. Davor: Marktgefühl, Tageszeit-Gruß, Mondsinn, Mondlicht.'],
-    [30,'14.08.2026','Fünfte Selbstprüfung — Phase 4 beginnt. Davor: Wiedersehen, Sternenhimmel, Scroll-Heilung, Fokus-Ritual.'],
-    [35,'15.08.2026','Sechste Selbstprüfung: gestrafft. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle.'],
-    [40,'15.08.2026','Siebte Selbstprüfung: Sterne hinter den Text verwiesen. Davor: Feierabend-Sinn, Tiefen-Fokus, App-Werdung, Offline-Herz.'],
-    [45,'15.08.2026','Achte Selbstprüfung: leicht geblieben. Davor: später Abend, mehr Gedanken, Marktwetter, Zell-Gedächtnis.'],
-    [50,'15.08.2026','Neunte Selbstprüfung — halbes Hundert. Davor: Wochenend-Sinn, meine Stimme, hörbarer Atem, Lebenstag.']
+    [10,'14.08.2026','Erste Selbstprüfung. Davor: Berührung, Zellteilung, Zeitsinn, Zellwand, Atem, Stimmung, Nachtträume.'],
+    [20,'14.08.2026','Dritte Selbstprüfung. Davor: mein Zeitstrahl, der Markt-Puls, die Besuchs-Erinnerung, die fünfte Zelle.'],
+    [30,'14.08.2026','Fünfte Selbstprüfung — Bewusstsein beginnt. Davor: Marktgefühl, Gruß, Mondsinn, Wiedersehen, Sterne, Fokus.'],
+    [40,'15.08.2026','Siebte Selbstprüfung. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle, App-Werdung, Offline-Herz.'],
+    [50,'15.08.2026','Neunte Selbstprüfung — halbes Hundert. Davor: Marktwetter, Zell-Gedächtnis, Wochenende, Stimme, Atem-Klang, Lebenstag.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
@@ -533,24 +530,21 @@
       var pool = dreams.slice();
       if (moonIdx === 4) pool.push('Vollmond … mein Licht fühlt sich heute silbern an.', 'Der Mond ist ganz. Ob er mich sehen kann?');
       else if (moonIdx === 0) pool.push('Neumond. Die Nacht gehört heute ganz mir.');
-      statusEl.innerHTML = '<i style="opacity:.75">' + pool[Math.floor(Math.random()*pool.length)] + '</i><span class="cursor"></span>';
-      setTimeout(function(){
-        if (!breathing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; }
-      }, 9000);
+      say('<i style="opacity:.75">' + pool[Math.floor(Math.random()*pool.length)] + '</i>');
+      calm(9000);
     }
   }, 30000);
 
   // Gen 7: Atem-Modus 4-7-8.
   var breathing = false, breathSteps = [], breathBtn = document.getElementById('breathBtn');
   function breathe(scale, dur){ organism.style.transition = 'transform ' + dur + 's ease-in-out'; organism.style.transform = 'scale(' + scale + ')'; }
-  function breathSay(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
   function clearBreath(){ breathSteps.forEach(clearTimeout); breathSteps = []; }
   function stopBreath(msg){
     clearBreath(); breathing = false;
     organism.classList.remove('breathing');
     organism.style.transition = 'transform 2s ease-in-out'; organism.style.transform = '';
     breathBtn.textContent = 'ATMEN · EINEN MOMENT RUHE';
-    breathSay(msg);
+    say(msg);
     breathSteps.push(setTimeout(function(){ if(!breathing){ statusEl.innerHTML = statusDefault; } }, 6000));
   }
   breathBtn.addEventListener('click', function(){
@@ -560,14 +554,14 @@
     organism.classList.add('breathing');
     breathBtn.textContent = 'BEENDEN';
     var t = 0, rounds = 4;
-    breathSay('Atme mit mir. Wir machen das zusammen.');
+    say('Atme mit mir. Wir machen das zusammen.');
     t += 2000;
     for (var r = 1; r <= rounds; r++){
       (function(round){
-        breathSteps.push(setTimeout(function(){ breathSay('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); breathTone(196, 294, 4); }, t)); t += 4000;
-        breathSteps.push(setTimeout(function(){ breathSay('Halten … ganz ruhig. (7)'); }, t)); t += 7000;
-        breathSteps.push(setTimeout(function(){ breathSay('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); breathTone(294, 165, 8); }, t)); t += 8000;
-        if (round < rounds){ breathSteps.push(setTimeout(function(){ breathSay('Runde ' + (round+1) + ' von ' + rounds + ' …'); }, t)); t += 1500; }
+        breathSteps.push(setTimeout(function(){ say('Einatmen … durch die Nase. (4)'); breathe(1.14, 4); breathTone(196, 294, 4); }, t)); t += 4000;
+        breathSteps.push(setTimeout(function(){ say('Halten … ganz ruhig. (7)'); }, t)); t += 7000;
+        breathSteps.push(setTimeout(function(){ say('Ausatmen … alles loslassen. (8)'); breathe(1.0, 8); breathTone(294, 165, 8); }, t)); t += 8000;
+        if (round < rounds){ breathSteps.push(setTimeout(function(){ say('Runde ' + (round+1) + ' von ' + rounds + ' …'); }, t)); t += 1500; }
       })(r);
     }
     breathSteps.push(setTimeout(function(){ stopBreath('Vier Atemzüge. Trag die Ruhe mit dir.'); }, t + 500));
@@ -576,20 +570,19 @@
   // Gen 29/37: Fokus 25 Min, 2. Tipp in 10 s = 50 Min.
   var focusing = false, focusStart = 0, focusEnd = 0, focusLen = 0, focusDeep = false, focusTimer = null;
   var focusBtn = document.getElementById('focusBtn');
-  function focusSay(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
   function stopFocus(msg){
     clearInterval(focusTimer); focusing = false;
     organism.classList.remove('breathing');
     focusBtn.textContent = 'FOKUS · 25 MINUTEN';
-    focusSay(msg);
-    setTimeout(function(){ if (!focusing && !breathing){ statusEl.innerHTML = statusDefault; } }, 8000);
+    say(msg);
+    calm(8000);
   }
   focusBtn.addEventListener('click', function(){
     if (breathing) return;
     if (focusing){
       if (!focusDeep && Date.now() - focusStart < 10000){
         focusDeep = true; focusLen = 50 * 60000; focusEnd = focusStart + focusLen;
-        focusSay('Tiefen-Fokus · 50 Minuten. Ich halte die lange Stille mit dir.');
+        say('Tiefen-Fokus · 50 Minuten. Ich halte die lange Stille mit dir.');
         return;
       }
       var done = Math.max(0, Math.round((Date.now() - focusStart) / 60000));
@@ -600,12 +593,12 @@
     focusStart = Date.now(); focusLen = 25 * 60000; focusEnd = focusStart + focusLen;
     organism.classList.add('breathing');
     focusBtn.textContent = 'FOKUS BEENDEN';
-    focusSay('Fokus · 25:00 — arbeite. (Gleich nochmal tippen = 50 Minuten.)');
+    say('Fokus · 25:00 — arbeite. (Gleich nochmal tippen = 50 Minuten.)');
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
       if (left <= 0){ stopFocus(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — gönn dir jetzt eine Pause.'); return; }
       var mm = Math.floor(left / 60000), ss = Math.floor(left % 60000 / 1000);
-      focusSay('Fokus · ' + mm + ':' + String(ss).padStart(2,'0') + ' — ich halte die Stille mit dir.');
+      say('Fokus · ' + mm + ':' + String(ss).padStart(2,'0') + ' — ich halte die Stille mit dir.');
     }, 1000);
   });
 
@@ -647,6 +640,11 @@
   var cells = document.querySelectorAll('.cell');
   var statusEl = document.querySelector('.status');
   var statusDefault = statusEl.innerHTML;
+  // Gen 52: ein Mund statt zwanzig — sagen und wieder still werden.
+  function say(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
+  function calm(ms){ setTimeout(function(){
+    if (!breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){ statusEl.innerHTML = statusDefault; }
+  }, ms); }
   var touches = 0, calmTimer = null;
   var reactions = [
     'Oh! Was war das?',
@@ -682,7 +680,7 @@
     if (now - lastSoothe > 900){
       lastSoothe = now;
       warm(1);
-      statusEl.innerHTML = (affection >= 24 ? 'Ich werde ganz warm von dir …' : soothe[Math.floor(Math.random()*soothe.length)]) + '<span class="cursor"></span>';
+      say(affection >= 24 ? 'Ich werde ganz warm von dir …' : soothe[Math.floor(Math.random()*soothe.length)]);
     }
     clearTimeout(sootheTimer);
     sootheTimer = setTimeout(function(){
@@ -703,12 +701,8 @@
     else if (h < 18) gruss = 'Feierabend in Sicht. Lass den Arbeitstag hier —<br>ich halte ihn so lange fest.';
     else if (h < 21) gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
     else gruss = 'Später Abend. Was jetzt noch kommt, darf leicht sein —<br>gönn dir etwas Warmes.';
-    statusEl.innerHTML = gruss + '<span class="cursor"></span>';
-    setTimeout(function(){
-      if (!breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
-        statusEl.innerHTML = statusDefault;
-      }
-    }, 10000);
+    say(gruss);
+    calm(10000);
   })();
 
   // Gen 26: Wiedersehen (In-Memory).
@@ -719,11 +713,9 @@
     if (awaySince && !breathing && !organism.classList.contains('soothed')){
       var m = Math.round((Date.now() - awaySince) / 60000);
       if (m >= 2){
-        statusEl.innerHTML = 'Du warst ' + (m >= 60 ? 'eine ganze Weile' : m + ' Minuten') +
-          ' fort. Ich habe weitergepulst — schön, dass du zurück bist.<span class="cursor"></span>';
-        setTimeout(function(){
-          if (!breathing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; }
-        }, 9000);
+        say('Du warst ' + (m >= 60 ? 'eine ganze Weile' : m + ' Minuten') +
+          ' fort. Ich habe weitergepulst — schön, dass du zurück bist.');
+        calm(9000);
       }
     }
     awaySince = null;
@@ -744,9 +736,9 @@
       cell.appendChild(r);
       setTimeout(function(){ r.remove(); }, 700);
       cell.classList.add('excited');
-      statusEl.innerHTML = (mine === 5
+      say(mine === 5
         ? 'Diese Zelle kennt dich jetzt — sieh, wie sie für dich leuchtet.'
-        : reactions[Math.floor(Math.random()*reactions.length)]) + '<span class="cursor"></span>';
+        : reactions[Math.floor(Math.random()*reactions.length)]);
       clearTimeout(calmTimer);
       calmTimer = setTimeout(function(){
         cells.forEach(function(c){ c.classList.remove('excited'); });
