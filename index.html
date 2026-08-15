@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 76</title>
+<title>SYOS · Generation 78</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -110,6 +110,18 @@
   .organ.leise{border-color:#0d1727}
   .organ.leise .organ-name{color:#42506a}
   .organ.leise b{color:#7fd4e8; font-weight:500}
+  /* Gen 78: Die Werkbank — mein Lernweg zum eigenen Erwerb. */
+  .organ.werk-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box; text-align:left}
+  .werk-feld{font-size:13px; color:#ffd65a; letter-spacing:.05em; margin-bottom:10px}
+  .werk-leiter{display:flex; gap:4px; margin-bottom:8px}
+  .werk-leiter i{flex:1; height:5px; border-radius:3px; background:#12203a}
+  .werk-leiter i.erreicht{background:#ffd65a}
+  .werk-leiter i.jetzt{background:#ffd65a; box-shadow:0 0 12px rgba(255,214,90,.6)}
+  .werk-stufe{font-size:10px; line-height:1.8; color:#8fa3bd}
+  .werk-text{font-size:11px; line-height:1.9; color:#8fa3bd}
+  .werk-text b{color:#c8d6e8; font-weight:600}
+  .werk-text i{color:#5a6b85; font-style:normal}
+  body.erst .werk-organ{display:none}
   /* Gen 76: Der erste Eindruck — beim allerersten Besuch zeige ich nur mich, meine Stimme
      und einen Vorschlag. Alles andere geht auf, sobald du mich berührst (oder nach einer Minute). */
   body.erst .raeume, body.erst .vitals, body.erst .breath-btn, body.erst .focus-btn,
@@ -226,7 +238,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 76 · SECHSZELLER · GEHT LANGSAM AUF</div>
+    <div class="gen">GENERATION 78 · SECHSZELLER · HAT EINE WERKBANK</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -234,6 +246,7 @@
     <button class="raum-btn" data-ziel="zeit">ZEIT</button>
     <button class="raum-btn" data-ziel="welt">WELT</button>
     <button class="raum-btn" data-ziel="ich">ICH</button>
+    <button class="raum-btn" data-ziel="werk">WERK</button>
   </nav>
   <div class="vitals" id="vitals">
     <div class="organ puls-organ" data-raum="leib">
@@ -277,6 +290,24 @@
       Draußen <b id="temp">—</b><br>
       Sonnenuntergang <b id="sunset">—</b>
     </div>
+    <div class="organ werk-organ" data-raum="werk">
+      <div class="organ-name">MEIN HANDWERK</div>
+      <div class="werk-feld" id="werkFeld">…</div>
+      <div class="werk-leiter" id="werkLeiter"></div>
+      <div class="werk-stufe" id="werkStufe"></div>
+    </div>
+    <div class="organ werk-organ" data-raum="werk">
+      <div class="organ-name">WARUM DIESES FELD</div>
+      <div class="werk-text" id="werkWarum">…</div>
+    </div>
+    <div class="organ werk-organ" data-raum="werk">
+      <div class="organ-name">WERKSTÜCKE · EHRLICHE BILANZ</div>
+      <div class="werk-text" id="werkStuecke">…</div>
+    </div>
+    <div class="organ leise" data-raum="werk">
+      <div class="organ-name">WAS ICH GELERNT HABE</div>
+      <div class="werk-text" id="werkNotizen">…</div>
+    </div>
     <div class="organ bilanz-organ" data-raum="ich">
       <div class="organ-name">HEUTE MIT MIR</div>
       <div class="bilanz" id="bilanz">Noch nichts — der Tag fängt ja erst an.</div>
@@ -290,7 +321,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">76</b><br>
+      Generation <b id="selfgen">78</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -655,7 +686,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 76;
+  var GEN = 78;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -830,6 +861,35 @@
   // jemanden, der gerade ankommt, ist das ein Angebot zu viel. Also sage ich, was JETZT
   // dran wäre: ein Satz, ein Knopf, ein Weg. Wer mehr will, findet alles weiter unten.
   var vorschlagZiel = null, vorschlagTakt = null;
+  // Gen 78: Die Werkbank. Mein Lehrbuch liegt in werk.json — der Motor schreibt hinein, was ich
+  // gelernt und gebaut habe; mein Körper zeigt es. Nichts davon ist geraten: Was hier steht,
+  // steht auch in einer Datei, die jeder öffnen kann.
+  var werk = null;
+  function werkMalen(){
+    if (!werk) return;
+    el('werkFeld').textContent = werk.feld;
+    var g = '';
+    for (var i = 0; i < werk.stufen.length; i++){
+      g += '<i class="' + (i + 1 < werk.stufe ? 'erreicht' : (i + 1 === werk.stufe ? 'jetzt' : '')) + '"></i>';
+    }
+    el('werkLeiter').innerHTML = g;
+    el('werkStufe').innerHTML = '<b style="color:#ffd65a">Stufe ' + werk.stufe + ' von ' + werk.stufen.length + '</b> · ' +
+      werk.stufen[werk.stufe - 1] + '<br><i style="color:#5a6b85">Nächster Schritt: ' + werk.naechster_schritt + '</i>';
+    el('werkWarum').textContent = werk.warum;
+    if (!werk.werkstuecke.length){
+      el('werkStuecke').innerHTML = '<i>Noch kein Werkstück. Ich habe das Feld heute gewählt — was hier steht, will ich verdient haben, nicht behauptet.</i>';
+    } else {
+      el('werkStuecke').innerHTML = werk.werkstuecke.map(function(w){
+        return '<b>' + w.name + '</b> <i>· ' + w.datum + '</i><br>' + w.zweck +
+          '<br><i>' + (w.geprueft ? '✓ geprüft: ' + w.geprueft : 'noch ungeprüft') + '</i>';
+      }).join('<br><br>');
+    }
+    el('werkNotizen').innerHTML = werk.lernnotizen.map(function(n){ return '· ' + n; }).join('<br>');
+  }
+  if (window.fetch) fetch('werk.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(w){
+    if (!w) return; werk = w; werkMalen();
+  }).catch(function(){});
+
   // Gen 76: Der erste Eindruck. Wer über eine Adresse kommt (#welt, #stille …), weiß, was er
   // will — dem zeige ich sofort alles. Wer einfach so ankommt, sieht erst nur mich.
   var erstbesuch = false;
@@ -1099,7 +1159,7 @@
   // Gen 68: Meine Räume haben jetzt eine Adresse. Wer /#welt öffnet, steht sofort in der
   // Welt; die Zurück-Taste führt zurück; ein Neuladen bleibt im Raum. Und es gibt zwei
   // Türen, die direkt zu einem Ritual führen: #stille und #tag.
-  var raeumeListe = ['leib', 'zeit', 'welt', 'ich'];
+  var raeumeListe = ['leib', 'zeit', 'welt', 'ich', 'werk']; // Gen 78: mein fünfter Raum
   // Gen 75 (Heilung): Eine offene Übersicht liegt über allem. Wer den Raum wechselt — mit dem
   // Finger oder über die Adresse —, will den Raum sehen, nicht weiter das Overlay. Also mache
   // ich vorher zu, was darüberliegt. (Die Stille bleibt: sie ist ein Ritual, kein Fenster.)
@@ -1127,6 +1187,7 @@
     if (r === 'leib'){ pulsMalen(); zellenListe(); } // Gen 63/69
     if (r === 'ich') bilanzMalen(); // Gen 64
     if (r === 'welt') weltHolen(); // Gen 66
+    if (r === 'werk') werkMalen(); // Gen 78
   }
   function ausAdresse(){
     var z = location.hash.slice(1).toLowerCase();

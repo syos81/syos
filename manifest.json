@@ -39,6 +39,12 @@
       "short_name": "Welt",
       "description": "Märkte, Stimmung und der Himmel über dir",
       "url": "./index.html#welt"
+    },
+    {
+      "name": "Meine Werkbank",
+      "short_name": "Werk",
+      "description": "Woran ich lerne und was ich gebaut habe",
+      "url": "./index.html#werk"
     }
   ]
 }
