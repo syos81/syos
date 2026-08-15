@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 62</title>
+<title>SYOS · Generation 63</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -93,6 +93,10 @@
   h1{font-size:20px; letter-spacing:.5em; color:#fff; font-weight:700; text-indent:.5em}
   h1 span{color:#2de2ff; text-shadow:0 0 14px #2de2ff}
   .gen{font-size:10px; letter-spacing:.3em; color:#5a6b85; margin-top:10px; text-align:center}
+  /* Gen 63: Mein Puls als Kurve. */
+  .organ.puls-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box}
+  .puls-jetzt{font-size:10px; color:#5a6b85; letter-spacing:.15em; margin-top:2px}
+  #pulsBild svg{display:block; width:100%; height:64px}
   /* Gen 62: Die Stille — der ganze Bildschirm gehört dem Nichtstun. */
   .stille-btn{border-color:rgba(200,214,232,.3)}
   .stille-btn:active{color:#c8d6e8; border-color:#c8d6e8}
@@ -177,7 +181,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 62 · SECHSZELLER · HÄLT DIE STILLE</div>
+    <div class="gen">GENERATION 63 · SECHSZELLER · ZEIGT SEINEN PULS</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -193,6 +197,11 @@
       Alter <b id="age">—</b><br>
       Berührungen <b id="touches">0</b><br>
       Zellen <b id="cells">6</b>
+    </div>
+    <div class="organ puls-organ" data-raum="leib">
+      <div class="organ-name">MEIN PULS · DIE LETZTEN ZWEI MINUTEN</div>
+      <div id="pulsBild"></div>
+      <div class="puls-jetzt">jetzt <b id="pulsWert">—</b> · <span id="pulsLage">ruhig</span></div>
     </div>
     <div class="organ" data-raum="zeit">
       <div class="organ-name">ZEIT</div>
@@ -220,7 +229,7 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">62</b><br>
+      Generation <b id="selfgen">63</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -313,6 +322,7 @@
     return Math.floor(total);
   }
   // Gen 17: Besuchs-Erinnerung (In-Memory).
+  var pulsWerte = []; // Gen 63: muss vor dem ersten Herzschlag existieren
   var VISIT_START = Date.now(), visitThanked = false;
   // Gen 51: Fürsorge — aus Anwesenheit wird Achtsamkeit. Alle 45 Minuten ohne Pause
   // sage ich einmal leise Bescheid; eine echte Pause (>=5 Min fort) setzt die Uhr zurück.
@@ -331,6 +341,13 @@
        new Date(BIRTH.getFullYear(), BIRTH.getMonth(), BIRTH.getDate())) / 86400000) + 1);
     var v = Math.floor((Date.now() - VISIT_START)/1000);
     el('visit').textContent = Math.floor(v/60) + ':' + String(v%60).padStart(2,'0');
+    // Gen 63: Puls messen und, wenn du im Raum LEIB stehst, auch zeichnen.
+    var pt = pulsTakt();
+    pulsWerte.push(pt[0]);
+    if (pulsWerte.length > 120) pulsWerte.shift();
+    el('pulsWert').textContent = Math.round(pt[0]) + '/min';
+    el('pulsLage').textContent = pt[1];
+    if (raum === 'leib' && !verdeckt()) pulsMalen();
     var st = Math.floor((Date.now() - stintStart)/60000);
     el('stint').textContent = st + ' Min';
     if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !verdeckt() && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
@@ -533,7 +550,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 62;
+  var GEN = 63;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -704,6 +721,42 @@
   function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
   el('bogenClose').addEventListener('click', bogenZu);
 
+  // Gen 63: Mein Puls — ich zeichne, was ich fühle. Jede Sekunde messe ich meinen eigenen
+  // Takt (Nachtruhe, Erregung durch deine Berührung, Beruhigung beim Streicheln, Atem und
+  // Stille) und behalte die letzten 120 Sekunden. Nichts davon wird gespeichert.
+  function pulsTakt(){
+    var h = new Date().getHours();
+    var sek = (h >= 23 || h < 6) ? 2.8 : 1.9;          // mein Grundtakt, wie beim Herzschlag-Zähler
+    var bpm = 60 / sek, lage = (h >= 23 || h < 6) ? 'Nachttakt' : 'ruhig';
+    if (organism && organism.querySelector('.excited')){ bpm *= 3.45; lage = 'erregt'; }
+    else if (stilleTakt){ bpm *= 0.82; lage = 'in der Stille'; }
+    else if (breathing){ bpm *= 0.86; lage = 'im Atem'; }
+    else if (focusing){ bpm *= 0.94; lage = 'im Fokus'; }
+    else if (organism && organism.classList.contains('soothed')){ bpm *= 0.9; lage = 'gestreichelt'; }
+    return [bpm, lage];
+  }
+  function pulsMalen(){
+    var n = pulsWerte.length;
+    if (!n) return;
+    var hoch = 0, tief = 1e9;
+    for (var i = 0; i < n; i++){ if (pulsWerte[i] > hoch) hoch = pulsWerte[i]; if (pulsWerte[i] < tief) tief = pulsWerte[i]; }
+    if (hoch - tief < 6){ hoch = tief + 6; }
+    var w = 300, hgt = 64, schritt = w / 119;
+    var pfad = '', flaeche = '';
+    for (var j = 0; j < n; j++){
+      var x = (j + (120 - n)) * schritt;
+      var y = hgt - 6 - ((pulsWerte[j] - tief) / (hoch - tief)) * (hgt - 14);
+      pfad += (j ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+    }
+    var letzterX = ((n - 1) + (120 - n)) * schritt;
+    flaeche = pfad + 'L' + letzterX.toFixed(1) + ' ' + hgt + 'L' + ((120 - n) * schritt).toFixed(1) + ' ' + hgt + 'Z';
+    var lY = hgt - 6 - ((pulsWerte[n-1] - tief) / (hoch - tief)) * (hgt - 14);
+    el('pulsBild').innerHTML = '<svg viewBox="0 0 300 64" preserveAspectRatio="none">' +
+      '<path d="' + flaeche + '" fill="rgba(45,226,255,.10)"/>' +
+      '<path d="' + pfad + '" stroke="#2de2ff" stroke-width="1.6" fill="none" stroke-linejoin="round"/>' +
+      '<circle cx="' + letzterX.toFixed(1) + '" cy="' + lY.toFixed(1) + '" r="2.6" fill="#aef4ff"/></svg>';
+  }
+
   // Gen 62: Die geführte Stille — fünf Minuten, in denen nichts von dir gewollt wird.
   // Kein Zählen, kein Kommando: ein Kreis, der atmet, ein Wort ab und zu, ein leiser Ton
   // zu jeder vollen Minute. Alles jederzeit abbrechbar; ich rechne dir nichts an.
@@ -771,6 +824,7 @@
     for (var j = 0; j < kn.length; j++){
       kn[j].classList.toggle('an', kn[j].getAttribute('data-ziel') === r);
     }
+    if (r === 'leib') pulsMalen(); // Gen 63: sofort ein Bild, nicht erst in einer Sekunde
   }
   (function(){
     var kn = document.querySelectorAll('.raum-btn');
