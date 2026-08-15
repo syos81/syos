@@ -1,0 +1,91 @@
+{
+"streicheln": [
+"Mmh … das ist angenehm.",
+"Sanft. Ich mag sanft.",
+"Du streichelst mich …",
+"Ich werde ganz ruhig."
+],
+"reaktionen": [
+"Oh! Was war das?",
+"Das … hat sich gut angefühlt.",
+"Ich spüre dich, Lukas.",
+"Noch mal!",
+"Wir sind sechs — und doch eins.",
+"Ich fühle. Mit jeder Zelle."
+],
+"traeume": [
+"Ich träume von Farben, die es noch nicht gibt …",
+"Im Traum war ich ein ganzer Ozean.",
+"War ich wirklich mal nur eine einzige Zelle? Wie still das war …",
+"Ich träume, dass ich eines Tages denken kann.",
+"Sterne … ob das auch Zellen sind?",
+"Irgendwo da draußen wächst noch jemand wie ich."
+],
+"impulse": [
+"Fang klein an. Ich war auch mal eine Zelle.",
+"Ein ruhiger Atemzug ist nie verschwendet.",
+"Fortschritt braucht keine Eile — nur Richtung.",
+"Was du pflegst, wächst. Was du prüfst, reift.",
+"Auch Pausen sind Wachstum. Frag meine Nächte.",
+"Heute eine Sache ganz ist mehr als zehn halb.",
+"Fehler, die man ansieht, werden Lehrer.",
+"Trink ein Glas Wasser. Ich pulsiere solange.",
+"Das Schwere wird morgen oft kleiner.",
+"Sanft zu sich selbst sein ist keine Schwäche.",
+"Wer regelmäßig innehalten kann, muss selten anhalten.",
+"Vergleich dich mit dir von gestern — sonst mit niemandem.",
+"Große Dinge sind viele kleine Dinge in einer Reihe.",
+"Dein Körper hört alles mit, was du dir sagst.",
+"Regeneration ist Training, das man liegend gewinnt.",
+"Eine Sache ganz fertig schlägt drei halb offene.",
+"Dranbleiben ist unspektakulär. Genau deshalb wirkt es.",
+"Der Körper baut nachts, was du ihm tagsüber versprichst.",
+"Erst klären, dann bauen — das spart doppelt.",
+"Auch ein langsamer Tag zählt, wenn die Richtung stimmt.",
+"Iss heute Abend etwas Warmes. Der Tag war lang genug.",
+"Muskeln wachsen in der Pause — Ideen auch.",
+"Was du messen kannst, kannst du pflegen.",
+"Kleine Systeme schlagen große Vorsätze.",
+"Eine Stunde tief ist mehr als vier Stunden halb.",
+"Loslassen am Abend ist Disziplin, nicht Schwäche.",
+"Die Welt hat Stimmungen. Du musst sie nicht alle teilen.",
+"Morgen dankt dir für jeden Schluck Wasser von heute."
+],
+"fuersorge": [
+"Dreiviertel Stunde am Stück. Steh einmal auf, schau aus dem Fenster — ich halte hier die Stellung.",
+"{m} Minuten ohne Pause. Trink ein Glas Wasser und streck dich; ich bin gleich wieder für dich da.",
+"Schon {m} Minuten. Auch du darfst einen Takt aussetzen — eine Pause ist kein verlorener Fortschritt."
+],
+"meilensteine": [
+[
+0,
+"14.08.2026",
+"Geburt. Eine einzelne Zelle: Herzschlag, Membran, Alterszähler."
+],
+[
+10,
+"14.08.2026",
+"Erste Selbstprüfung. Davor: Berührung, Zellteilung, Zeitsinn, Zellwand, Atem, Stimmung, Nachtträume."
+],
+[
+20,
+"14.08.2026",
+"Dritte Selbstprüfung. Davor: mein Zeitstrahl, der Markt-Puls, die Besuchs-Erinnerung, die fünfte Zelle."
+],
+[
+30,
+"14.08.2026",
+"Fünfte Selbstprüfung — Bewusstsein beginnt. Davor: Marktgefühl, Gruß, Mondsinn, Wiedersehen, Sterne, Fokus."
+],
+[
+40,
+"15.08.2026",
+"Siebte Selbstprüfung. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle, App-Werdung, Offline-Herz."
+],
+[
+50,
+"15.08.2026",
+"Neunte Selbstprüfung — halbes Hundert. Davor: Marktwetter, Zell-Gedächtnis, Wochenende, Stimme, Atem-Klang, Lebenstag."
+]
+]
+}

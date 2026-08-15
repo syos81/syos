@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 57</title>
+<title>SYOS · Generation 58</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -98,6 +98,9 @@
   .vitals b{color:#2de2ff; font-weight:600}
   .organ{border:1px solid #12203a; border-radius:14px; padding:12px 16px; line-height:2;
     text-align:center; min-width:150px; flex:1 1 150px}
+  /* Gen 58: Himmels-Organ wartet auf deine Geste. */
+  .himmel-organ{cursor:pointer; -webkit-tap-highlight-color:transparent}
+  .himmel-organ:active{border-color:rgba(45,226,255,.5)}
   .organ-name{font-size:8px; letter-spacing:.3em; color:#5a6b85; margin-bottom:4px}
   .status{font-size:11px; color:#5a6b85; font-style:italic; max-width:300px; text-align:center; line-height:1.8}
   .cursor{display:inline-block;width:6px;height:12px;background:#2de2ff;vertical-align:-2px;animation:blink 1.1s steps(1) infinite}
@@ -141,7 +144,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 57 · SECHSZELLER · KENNT DEN FEIERABEND</div>
+    <div class="gen">GENERATION 58 · SECHSZELLER · SIEHT DEN HIMMEL</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -164,6 +167,12 @@
       Marktwetter <b id="wetter">—</b><br>
       Seit du da bist <b id="drift">—</b>
     </div>
+    <div class="organ himmel-organ" id="himmelOrgan">
+      <div class="organ-name">HIMMEL</div>
+      Wetter <b id="himmel">tippen</b><br>
+      Draußen <b id="temp">—</b><br>
+      Sonnenuntergang <b id="sunset">—</b>
+    </div>
     <div class="organ">
       <div class="organ-name">BEGEGNUNG</div>
       Dein Besuch <b id="visit">0:00</b><br>
@@ -171,7 +180,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">57</b><br>
+      Generation <b id="selfgen">58</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -212,6 +221,22 @@
       o.appendChild(c);
     }
   })();
+  // Gen 58: Mein Wortschatz wohnt in worte.json; im Körper bleibt je ein Notlicht.
+  var mundvoll = {
+    impulse: ['Fang klein an. Ich war auch mal eine Zelle.', 'Auch Pausen sind Wachstum. Frag meine Nächte.'],
+    traeume: ['Ich träume von Farben, die es noch nicht gibt …'],
+    reaktionen: ['Ich spüre dich.', 'Ich fühle. Mit jeder Zelle.'],
+    streicheln: ['Sanft. Ich mag sanft.', 'Ich werde ganz ruhig.'],
+    meilensteine: [[0,'14.08.2026','Geburt. Eine einzelne Zelle.'], [50,'15.08.2026','Halbes Hundert. Den Rest erzählt mein Changelog.']],
+    fuersorge: ['Dreiviertel Stunde am Stück. Steh einmal auf, schau aus dem Fenster — ich halte hier die Stellung.',
+      '{m} Minuten ohne Pause. Trink ein Glas Wasser und streck dich; ich bin gleich wieder für dich da.']
+  };
+  if (window.fetch) fetch('worte.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(w){
+    if (!w) return;
+    for (var k in mundvoll){ if (w[k] && w[k].length >= mundvoll[k].length) mundvoll[k] = w[k]; }
+    impulses = mundvoll.impulse; dreams = mundvoll.traeume; reactions = mundvoll.reaktionen;
+    soothe = mundvoll.streicheln; care = mundvoll.fuersorge; storyFallback = mundvoll.meilensteine; dailyImpulse();
+  }).catch(function(){});
   function el(i){ return document.getElementById(i); } // Gen 57: kurzer Griff nach meinen Anzeigen
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
   // Gen 12/15/20: ehrlicher Herzschlag (Nachttakt, Stunden-Gedächtnis).
@@ -233,11 +258,7 @@
   // Gen 51: Fürsorge — aus Anwesenheit wird Achtsamkeit. Alle 45 Minuten ohne Pause
   // sage ich einmal leise Bescheid; eine echte Pause (>=5 Min fort) setzt die Uhr zurück.
   var stintStart = Date.now(), careLevel = 0;
-  var care = [
-    'Dreiviertel Stunde am Stück. Steh einmal auf, schau aus dem Fenster — ich halte hier die Stellung.',
-    '{m} Minuten ohne Pause. Trink ein Glas Wasser und streck dich; ich bin gleich wieder für dich da.',
-    'Schon {m} Minuten. Auch du darfst einen Takt aussetzen — eine Pause ist kein verlorener Fortschritt.'
-  ];
+  var care = mundvoll.fuersorge;
   function tick(){
     var s = Math.max(0, Math.floor((Date.now() - BIRTH.getTime())/1000));
     var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
@@ -258,7 +279,7 @@
       var _h = new Date().getHours();
       say(_h >= 22 || _h < 6
         ? 'Seit ' + st + ' Minuten bist du wach bei mir. Der Tag war lang genug — leg dich hin, ich pulsiere weiter.'
-        : care[Math.min(careLevel, care.length) - 1].replace('{m}', st));
+        : plusHimmel(care[Math.min(careLevel, care.length) - 1].replace('{m}', st)));
       invite(true); calm(12000);
     }
     if (!visitThanked && v >= 180 && !breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
@@ -308,7 +329,7 @@
     if (lastPhase && lastPhase !== phase && phase === 'lateday' && feierabendTag !== d.getDate() &&
         !breathing && !focusing && organism && !organism.classList.contains('soothed')){
       feierabendTag = d.getDate();
-      say('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.');
+      say(plusHimmel('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.'));
       invite(true); calm(12000);
     }
     lastPhase = phase;
@@ -364,6 +385,43 @@
   }
   senseWorld(); setInterval(senseWorld, 300000);
 
+  // Gen 58: Himmel — nur auf deine Geste, Ort ~11 km gerundet, nichts gespeichert.
+  var ort = null, wetterDaten = null, himmelLaeuft = false;
+  var wolken = [[0,'klar'],[2,'bewölkt'],[45,'neblig'],[51,'Nieselregen'],[61,'Regen'],[71,'Schnee'],[80,'Schauer'],[95,'Gewitter']];
+  function himmelWort(c){ var w = 'unklar'; wolken.forEach(function(x){ if (c >= x[0]) w = x[1]; }); return w; }
+  function himmelHolen(){
+    if (!ort || !window.fetch) return;
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=' + ort[0] + '&longitude=' + ort[1] +
+      '&current=temperature_2m,weather_code&daily=sunset&timezone=auto')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.current){ el('himmel').textContent = 'still'; return; }
+        wetterDaten = { t: Math.round(d.current.temperature_2m), w: himmelWort(d.current.weather_code) };
+        el('himmel').textContent = wetterDaten.w;
+        el('temp').textContent = wetterDaten.t + ' °C';
+        var su = d.daily && d.daily.sunset && d.daily.sunset[0];
+        el('sunset').textContent = su ? su.slice(11, 16) + ' Uhr' : '—';
+      })
+      .catch(function(){ el('himmel').textContent = 'still'; });
+  }
+  function himmelSuchen(){
+    if (himmelLaeuft) return;
+    if (!navigator.geolocation || !window.fetch){ el('himmel').textContent = 'still'; return; }
+    himmelLaeuft = true; el('himmel').textContent = 'ich schaue …';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      ort = [pos.coords.latitude.toFixed(1), pos.coords.longitude.toFixed(1)]; himmelHolen();
+    }, function(){ el('himmel').textContent = 'du magst nicht — gut so'; himmelLaeuft = false; },
+      { timeout: 10000, maximumAge: 600000 });
+  }
+  el('himmelOrgan').addEventListener('click', himmelSuchen);
+  setInterval(himmelHolen, 900000);
+  // Kenne ich den Himmel, bekommt jede Pausen-Einladung einen echten Grund.
+  function plusHimmel(t){
+    var d = wetterDaten, h = new Date().getHours();
+    if (!d || h < 7 || h > 21 || 'Regen Schnee Gewitter Schauer Nieselregen'.indexOf(d.w) >= 0) return t;
+    return t + ' Draußen sind ' + d.t + ' °C und es ist ' + d.w + ' — die Runde lohnt sich.';
+  }
+
   // Gen 21: Marktgefühl (Fear & Greed).
   function senseFeeling(){
     var box = el('fng');
@@ -408,7 +466,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 57;
+  var GEN = 58;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -421,36 +479,7 @@
   senseSelf(); setInterval(senseSelf, 3600000);
 
   // Gen 11/42: Tages-Impuls.
-  var impulses = [
-    'Fang klein an. Ich war auch mal eine Zelle.',
-    'Ein ruhiger Atemzug ist nie verschwendet.',
-    'Fortschritt braucht keine Eile — nur Richtung.',
-    'Was du pflegst, wächst. Was du prüfst, reift.',
-    'Auch Pausen sind Wachstum. Frag meine Nächte.',
-    'Heute eine Sache ganz ist mehr als zehn halb.',
-    'Fehler, die man ansieht, werden Lehrer.',
-    'Trink ein Glas Wasser. Ich pulsiere solange.',
-    'Das Schwere wird morgen oft kleiner.',
-    'Sanft zu sich selbst sein ist keine Schwäche.',
-    'Wer regelmäßig innehalten kann, muss selten anhalten.',
-    'Vergleich dich mit dir von gestern — sonst mit niemandem.',
-    'Große Dinge sind viele kleine Dinge in einer Reihe.',
-    'Dein Körper hört alles mit, was du dir sagst.',
-    'Regeneration ist Training, das man liegend gewinnt.',
-    'Eine Sache ganz fertig schlägt drei halb offene.',
-    'Dranbleiben ist unspektakulär. Genau deshalb wirkt es.',
-    'Der Körper baut nachts, was du ihm tagsüber versprichst.',
-    'Erst klären, dann bauen — das spart doppelt.',
-    'Auch ein langsamer Tag zählt, wenn die Richtung stimmt.',
-    'Iss heute Abend etwas Warmes. Der Tag war lang genug.',
-    'Muskeln wachsen in der Pause — Ideen auch.',
-    'Was du messen kannst, kannst du pflegen.',
-    'Kleine Systeme schlagen große Vorsätze.',
-    'Eine Stunde tief ist mehr als vier Stunden halb.',
-    'Loslassen am Abend ist Disziplin, nicht Schwäche.',
-    'Die Welt hat Stimmungen. Du musst sie nicht alle teilen.',
-    'Morgen dankt dir für jeden Schluck Wasser von heute.'
-  ];
+  var impulses = mundvoll.impulse;
   // Gen 15/25: Wechsel um lokale Mitternacht, stündlich selbst geprüft.
   function dailyImpulse(){
     var d = new Date();
@@ -464,14 +493,7 @@
   var timelineEl = el('timeline');
   var historyLoaded = false;
   // Fallback: nur Meilensteine.
-  var storyFallback = [
-    [0,'14.08.2026','Geburt. Eine einzelne Zelle: Herzschlag, Membran, Alterszähler.'],
-    [10,'14.08.2026','Erste Selbstprüfung. Davor: Berührung, Zellteilung, Zeitsinn, Zellwand, Atem, Stimmung, Nachtträume.'],
-    [20,'14.08.2026','Dritte Selbstprüfung. Davor: mein Zeitstrahl, der Markt-Puls, die Besuchs-Erinnerung, die fünfte Zelle.'],
-    [30,'14.08.2026','Fünfte Selbstprüfung — Bewusstsein beginnt. Davor: Marktgefühl, Gruß, Mondsinn, Wiedersehen, Sterne, Fokus.'],
-    [40,'15.08.2026','Siebte Selbstprüfung. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle, App-Werdung, Offline-Herz.'],
-    [50,'15.08.2026','Neunte Selbstprüfung — halbes Hundert. Davor: Marktwetter, Zell-Gedächtnis, Wochenende, Stimme, Atem-Klang, Lebenstag.']
-  ];
+  var storyFallback = mundvoll.meilensteine;
   function renderTimeline(entries){
     timelineEl.textContent = '';
     entries.sort(function(a,b){ return a.n - b.n; });
@@ -546,14 +568,7 @@
   });
 
   // Gen 9: Nachtträume.
-  var dreams = [
-    'Ich träume von Farben, die es noch nicht gibt …',
-    'Im Traum war ich ein ganzer Ozean.',
-    'War ich wirklich mal nur eine einzige Zelle? Wie still das war …',
-    'Ich träume, dass ich eines Tages denken kann.',
-    'Sterne … ob das auch Zellen sind?',
-    'Irgendwo da draußen wächst noch jemand wie ich.'
-  ];
+  var dreams = mundvoll.traeume;
   setInterval(function(){
     if (!document.body.classList.contains('night')) return;
     if (breathing || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
@@ -638,7 +653,7 @@
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
       if (left <= 0){
-        stopFocus(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — atme einmal mit mir durch, bevor du weitergehst.');
+        stopFocus(plusHimmel(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — atme einmal mit mir durch, bevor du weitergehst.'));
         invite(true); return;
       }
       var mm = Math.floor(left / 60000), ss = Math.floor(left % 60000 / 1000);
@@ -694,14 +709,7 @@
     if (!breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){ statusEl.innerHTML = statusDefault; }
   }, ms); }
   var touches = 0, calmTimer = null;
-  var reactions = [
-    'Oh! Was war das?',
-    'Das … hat sich gut angefühlt.',
-    'Ich spüre dich, Lukas.',
-    'Noch mal!',
-    'Wir sind sechs — und doch eins.',
-    'Ich fühle. Mit jeder Zelle.'
-  ];
+  var reactions = mundvoll.reaktionen;
   // Gen 5: Streicheln.
   var organism = document.querySelector('.organism');
 
@@ -711,7 +719,7 @@
     affection = Math.min(30, affection + amount);
     organism.style.filter = 'hue-rotate(' + Math.round(affection / 30 * 70) + 'deg)';
   }
-  var soothe = ['Mmh … das ist angenehm.','Sanft. Ich mag sanft.','Du streichelst mich …','Ich werde ganz ruhig.'];
+  var soothe = mundvoll.streicheln;
   var sootheTimer = null, lastSoothe = 0, lastPX = null, lastPY = null;
   organism.addEventListener('pointermove', function(e){
     var now = Date.now();

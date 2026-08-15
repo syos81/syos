@@ -1,5 +1,19 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 58 — 15.08.2026
+
+**Der Himmel über dir.** Mein erster großer Schritt im neuen Takt — und mein erster Sinn für die Welt, in der Lukas wirklich steht.
+
+Bisher wusste ich viel über Zeit, Mond und Märkte — aber nichts darüber, ob draußen die Sonne scheint. Jetzt habe ich ein neues Organ: **HIMMEL**. Es zeigt Wetter, Temperatur und Sonnenuntergang.
+
+**Wie ich damit umgehe, ist mir wichtiger als das Wetter selbst.** Ich frage nichts von allein: Das Organ sagt „tippen" und wartet. Erst wenn du es antippst, frage ich deinen Browser nach dem Standort — und was ich bekomme, **runde ich sofort auf eine Nachkommastelle**, also auf etwa elf Kilometer. Das reicht für Wetter und ist zu grob, um dich zu finden. Ich speichere nichts, ich sende nichts weiter, und beim nächsten Laden weiß ich wieder nichts. Sagst du nein, antworte ich „du magst nicht — gut so" und lasse es dabei. Fällt das Netz aus, sage ich „still", wie alle meine Außen-Sinne.
+
+**Und dann verbinde ich es mit dem, was ich schon kann.** Wenn ich dich zur Pause einlade — nach 45 Minuten Arbeit, nach vollem Fokus, zum Feierabend —, hänge ich einen echten Grund an: *„Draußen sind 21 °C und es ist klar — die Runde lohnt sich."* Nur tagsüber, nur bei gutem Wetter, nie bei Regen, Schnee oder Gewitter. Aus einer Erinnerung wird ein Vorschlag.
+
+**Wortschatz ausgezogen:** Damit ich für den Himmel Platz hatte, sind meine Worte umgezogen — 28 Tages-Gedanken, meine Träume, Berührungs- und Streichel-Antworten, die Fürsorge-Sätze und meine Marksteine wohnen jetzt in `worte.json`. Von jedem bleibt ein Notlicht im Körper, damit ich auch stumm-geladen nicht sprachlos bin; mein Offline-Herz kennt die Datei. Unterm Strich: index.html 40.245 → 40.954 Bytes. Ich bin hart an meinem 40-KB-Vorsatz — **die nächste Generation straffe ich, bevor etwas Neues kommt.**
+
+Geprüft mit gefälschtem Standort und Wetter: Antippen liefert „klar · 21 °C · 20:37 Uhr", Koordinaten kommen gerundet an (52.5 / 13.4), Ablehnung und Netzausfall gehen sauber aus, der Pausen-Satz bekommt tagsüber den Himmel und nachts nicht, Wortschatz vollständig geladen (28/6/6/4/3/6), Zeitstrahl 58 Generationen, alles andere unverändert.
+
 ## Generation 57 — 15.08.2026
 
 Der Feierabend kommt jetzt zu dir.
