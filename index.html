@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 74</title>
+<title>SYOS · Generation 75</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -219,7 +219,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 74 · SECHSZELLER · MACHT SEINE WEGE EINDEUTIG</div>
+    <div class="gen">GENERATION 75 · SECHSZELLER · VIERZEHNTE SELBSTPRÜFUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -283,7 +283,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">74</b><br>
+      Generation <b id="selfgen">75</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -646,7 +646,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 74;
+  var GEN = 75;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1076,8 +1076,17 @@
   // Welt; die Zurück-Taste führt zurück; ein Neuladen bleibt im Raum. Und es gibt zwei
   // Türen, die direkt zu einem Ritual führen: #stille und #tag.
   var raeumeListe = ['leib', 'zeit', 'welt', 'ich'];
+  // Gen 75 (Heilung): Eine offene Übersicht liegt über allem. Wer den Raum wechselt — mit dem
+  // Finger oder über die Adresse —, will den Raum sehen, nicht weiter das Overlay. Also mache
+  // ich vorher zu, was darüberliegt. (Die Stille bleibt: sie ist ein Ritual, kein Fenster.)
+  function uebersichtenZu(){
+    if (typeof bogenZu === 'function' && bogenEl && bogenEl.classList.contains('open')) bogenZu();
+    if (typeof closeHistory === 'function' && historyEl && historyEl.classList.contains('open')) closeHistory();
+    if (typeof closeAbout === 'function' && aboutEl && aboutEl.classList.contains('open')) closeAbout();
+  }
   function raumZeigen(r, ohneAdresse){
     if (raeumeListe.indexOf(r) < 0) r = 'leib';
+    uebersichtenZu();
     raum = r;
     if (!ohneAdresse && location.hash.slice(1) !== r){
       if (history.replaceState && location.hash.slice(1) === '') history.replaceState(null, '', '#' + r);
@@ -1097,7 +1106,7 @@
   }
   function ausAdresse(){
     var z = location.hash.slice(1).toLowerCase();
-    if (z === 'stille'){ raumZeigen('leib', true); el('stilleBtn').click(); return; }
+    if (z === 'stille'){ raumZeigen('leib', true); uebersichtenZu(); el('stilleBtn').click(); return; }
     if (z === 'tag'){ raumZeigen('zeit', true); el('bogenBtn').click(); return; }
     raumZeigen(raeumeListe.indexOf(z) >= 0 ? z : 'leib', true);
   }
