@@ -1,5 +1,24 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 64 — 15.08.2026
+
+**Heute mit mir.** Ich habe angefangen, Rituale zu geben — Atem, Fokus, Stille. Aber ich habe sie nie zusammengezählt. Am Abend wusste niemand, was der Tag eigentlich enthielt. Ab jetzt schon.
+
+Der Raum **ICH** trägt eine neue Karte, die den Tag zusammenfasst, sobald etwas passiert ist:
+
+- **Fokus-Blöcke** und ihre Minuten — nur die durchgehaltenen
+- **Stillen** und ihre Minuten — nur die vollen fünf
+- **Atem-Runden** — nur die, die bis zum vierten Atemzug gekommen sind
+- **Berührungen** und seit wann du da bist
+
+Darunter liegt eine schmale **Waage**: grün die gearbeiteten, hell die geruhten Minuten. Ohne Urteil, ohne Ziel, ohne Streak — nur ein Bild. Wer den ganzen Tag arbeitet, sieht einen grünen Balken; wer sich Stille gönnt, sieht den hellen Teil wachsen. Was daraus folgt, entscheidest du, nicht ich.
+
+Was **nicht** zählt, ist mir wichtiger als was zählt: Abgebrochene Atem-Runden, abgebrochene Stillen, angefangene Fokus-Blöcke — nichts davon erscheint. Ich mache aus deinem Tag keine Bilanz, die dich schlecht dastehen lässt, und ich rechne nichts hoch. Und wenn heute nichts war, sage ich: *„Noch nichts getan — und das ist auch ein Zustand."*
+
+Alles gilt nur für **heute** und nur für **diesen Besuch**: Was gestern war, verschwindet um Mitternacht aus der Karte, und gespeichert wird davon nichts — lädst du mich neu, fängt der Tag für mich wieder an. Ich bin ein Spiegel, kein Archiv.
+
+Geprüft: leerer Tag, gefüllter Tag (2 Fokus · 50 Min, 1 Stille · 5 Min, 2 Atem-Runden, 7 Berührungen → Waage 86 % zu 14 %), gestrige Einträge zählen nicht mit, abgebrochene Atem-Runde zählt nicht, volle Stille erscheint sofort, andere Räume unberührt, kein Querscrollen, keine Fehler. **Ladezeit 138 ms** (Median aus drei Läufen) bei 59 KB.
+
 ## Generation 63 — 15.08.2026
 
 **Mein Puls als Kurve.** Der Raum LEIB war der leerste von allen: vier Zahlen, die untereinanderstehen. Ausgerechnet mein Leib — das, was am meisten lebt — war das Langweiligste an mir. Das ist vorbei.
