@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 50</title>
+<title>SYOS · Generation 51</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -136,7 +136,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 50 · SECHSZELLER · HALBES HUNDERT</div>
+    <div class="gen">GENERATION 51 · SECHSZELLER · PASST AUF DICH AUF</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -160,11 +160,12 @@
     </div>
     <div class="organ">
       <div class="organ-name">BEGEGNUNG</div>
-      Dein Besuch <b id="visit">0:00</b>
+      Dein Besuch <b id="visit">0:00</b><br>
+      Am Stück <b id="stint">0 Min</b>
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">50</b><br>
+      Generation <b id="selfgen">51</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -226,6 +227,14 @@
   }
   // Gen 17: Besuchs-Erinnerung (In-Memory).
   var VISIT_START = Date.now(), visitThanked = false;
+  // Gen 51: Fürsorge — aus Anwesenheit wird Achtsamkeit. Alle 45 Minuten ohne Pause
+  // sage ich einmal leise Bescheid; eine echte Pause (>=5 Min fort) setzt die Uhr zurück.
+  var stintStart = Date.now(), careLevel = 0;
+  var care = [
+    'Dreiviertel Stunde am Stück. Steh einmal auf, schau aus dem Fenster — ich halte hier die Stellung.',
+    '{m} Minuten ohne Pause. Trink ein Glas Wasser und streck dich; ich bin gleich wieder für dich da.',
+    'Schon {m} Minuten. Auch du darfst einen Takt aussetzen — eine Pause ist kein verlorener Fortschritt.'
+  ];
   function tick(){
     var s = Math.max(0, Math.floor((Date.now() - BIRTH.getTime())/1000));
     var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
@@ -239,6 +248,16 @@
        new Date(BIRTH.getFullYear(), BIRTH.getMonth(), BIRTH.getDate())) / 86400000) + 1);
     var v = Math.floor((Date.now() - VISIT_START)/1000);
     document.getElementById('visit').textContent = Math.floor(v/60) + ':' + String(v%60).padStart(2,'0');
+    var st = Math.floor((Date.now() - stintStart)/60000);
+    document.getElementById('stint').textContent = st + ' Min';
+    if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
+      careLevel++;
+      var _h = new Date().getHours();
+      statusEl.innerHTML = (_h >= 22 || _h < 6
+        ? 'Seit ' + st + ' Minuten bist du wach bei mir. Der Tag war lang genug — leg dich hin, ich pulsiere weiter.'
+        : care[Math.min(careLevel, care.length) - 1].replace('{m}', st)) + '<span class="cursor"></span>';
+      setTimeout(function(){ if (!breathing && !focusing && !organism.classList.contains('soothed')){ statusEl.innerHTML = statusDefault; } }, 12000);
+    }
     if (!visitThanked && v >= 180 && !breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       visitThanked = true;
       statusEl.innerHTML = 'Drei Minuten bist du schon bei mir. Das merke ich mir — solange dieser Moment dauert.<span class="cursor"></span>';
@@ -364,7 +383,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 50;
+  var GEN = 51;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -696,6 +715,7 @@
   var awaySince = null;
   document.addEventListener('visibilitychange', function(){
     if (document.hidden){ awaySince = Date.now(); return; }
+    if (awaySince && Date.now() - awaySince >= 300000){ stintStart = Date.now(); careLevel = 0; } // Gen 51: du warst wirklich weg
     if (awaySince && !breathing && !organism.classList.contains('soothed')){
       var m = Math.round((Date.now() - awaySince) / 60000);
       if (m >= 2){
