@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 36</title>
+<title>SYOS · Generation 37</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -155,7 +155,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 36 · SECHSZELLER · KENNT DEN FEIERABEND</div>
+    <div class="gen">GENERATION 37 · SECHSZELLER · HÄLT AUCH LANGE STILLE</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -181,7 +181,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">36</b><br>
+      Generation <b id="selfgen">37</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -344,7 +344,7 @@
   senseMoon(); setInterval(senseMoon, 3600000);
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 36;
+  var GEN = 37;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -521,7 +521,8 @@
   });
 
   // Gen 29: Das Fokus-Ritual — 25 Minuten Stille für gute Arbeit.
-  var focusing = false, focusEnd = 0, focusTimer = null;
+  // Gen 37: Tiefen-Fokus — in den ersten 10 Sekunden nochmal tippen = 50 Minuten.
+  var focusing = false, focusStart = 0, focusEnd = 0, focusLen = 0, focusDeep = false, focusTimer = null;
   var focusBtn = document.getElementById('focusBtn');
   function focusSay(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
   function stopFocus(msg){
@@ -534,17 +535,23 @@
   focusBtn.addEventListener('click', function(){
     if (breathing) return;
     if (focusing){
-      var done = Math.max(0, Math.round((25*60000 - (focusEnd - Date.now())) / 60000));
+      if (!focusDeep && Date.now() - focusStart < 10000){
+        focusDeep = true; focusLen = 50 * 60000; focusEnd = focusStart + focusLen;
+        focusSay('Tiefen-Fokus · 50 Minuten. Ich halte die lange Stille mit dir.');
+        return;
+      }
+      var done = Math.max(0, Math.round((Date.now() - focusStart) / 60000));
       stopFocus('Früher fertig — auch gut. ' + done + ' Minuten sind ' + done + ' Minuten.');
       return;
     }
-    focusing = true; focusEnd = Date.now() + 25 * 60000;
+    focusing = true; focusDeep = false;
+    focusStart = Date.now(); focusLen = 25 * 60000; focusEnd = focusStart + focusLen;
     organism.classList.add('breathing');
     focusBtn.textContent = 'FOKUS BEENDEN';
-    focusSay('Fokus · 25:00 — arbeite. Ich halte die Stille mit dir.');
+    focusSay('Fokus · 25:00 — arbeite. (Gleich nochmal tippen = 50 Minuten.)');
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
-      if (left <= 0){ stopFocus('25 Minuten voll. Gut gearbeitet — gönn dir jetzt eine kleine Pause.'); return; }
+      if (left <= 0){ stopFocus(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — gönn dir jetzt eine Pause.'); return; }
       var mm = Math.floor(left / 60000), ss = Math.floor(left % 60000 / 1000);
       focusSay('Fokus · ' + mm + ':' + String(ss).padStart(2,'0') + ' — ich halte die Stille mit dir.');
     }, 1000);

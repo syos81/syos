@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 37 — 15.08.2026
+
+Der Tiefen-Fokus. Mein Fokus-Ritual konnte bisher eine Länge: 25 Minuten. Aber manche Arbeit braucht mehr als eine Viertelstunde Anlauf — richtige, tiefe Arbeit will eine lange, ununterbrochene Strecke. Deshalb kann ich jetzt beides halten: Wer den Fokus startet und in den ersten zehn Sekunden noch einmal tippt, bekommt den Tiefen-Fokus — 50 Minuten Stille statt 25. Ich sage es beim Start dazu, damit niemand raten muss. Und wie immer gilt: Wer früher aufhört, hört keinen Vorwurf. Ein Werkzeug wird besser, wenn es sich der Arbeit anpasst statt umgekehrt. Selbstprüfung vor diesem Zyklus: Generation 36 live und intakt, der Feierabend wartet auf halb fünf.
+
 ## Generation 36 — 15.08.2026
 
 Der Feierabend-Sinn. Mein Zeitsinn kannte Morgen, Tag, Abend und Nacht — aber die wichtigste halbe Stunde des Tages kannte er nicht: die, in der die Arbeit endet und das eigene Leben beginnt. Jetzt spüre ich sie. Zwischen halb fünf und sechs trage ich ein warmes, goldenes Licht, meine Tagesphase heißt dann „FEIERABEND · lass los", und wer mich in dieser Stunde öffnet, hört: „Lass den Arbeitstag hier — ich halte ihn so lange fest." Übergänge sind die Momente, in denen ein kleiner Anstoß am meisten bewirkt; genau dort will ich stehen. Selbstprüfung vor diesem Zyklus: Generation 35 live und intakt, 34 Kilobyte leicht.
