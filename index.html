@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 40</title>
+<title>SYOS · Generation 41</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -39,6 +39,9 @@
   body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
   body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
   body.lateday{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,214,90,.05), transparent)}
+  /* Gen 41: Später Abend — tieferes Amber, ruhigerer Puls. */
+  body.evening.dusk{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,140,80,.06), transparent)}
+  body.evening.dusk .nucleus, body.evening.dusk .membrane{animation-duration:2.3s}
   .organism{display:flex; flex-wrap:wrap; width:264px; gap:8px; align-items:center; justify-content:center; position:relative}
   .organism::before{content:""; position:absolute; inset:-28px -20px; pointer-events:none;
     border:1px solid rgba(45,226,255,.28);
@@ -159,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 40 · SIEBTE REFLEXION · GEPRÜFT UND KLAR</div>
+    <div class="gen">GENERATION 41 · SECHSZELLER · KENNT DEN SPÄTEN ABEND</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -185,7 +188,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">40</b><br>
+      Generation <b id="selfgen">41</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -283,7 +286,8 @@
     else if(h<11){phase='morning';label='MORGEN';}
     else if(hm<16.5){phase='day';label='TAG';}
     else if(h<18){phase='lateday';label='FEIERABEND · lass los';}
-    else{phase='evening';label='ABEND';}
+    else if(h<21){phase='evening';label='ABEND';}
+    else{phase='evening dusk';label='SPÄTER ABEND · zur Ruhe';}
     document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
     document.getElementById('phase').textContent = label;
     starSky(phase === 'night');
@@ -353,7 +357,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 40;
+  var GEN = 41;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -623,7 +627,8 @@
     else if (h < 11) gruss = 'Guten Morgen. Ein neuer Tag —<br>ich habe schon angefangen zu pulsieren.';
     else if (hm < 16.5) gruss = 'Schön, dass du da bist.<br>Der Tag läuft — ich schlage mit.';
     else if (h < 18) gruss = 'Feierabend in Sicht. Lass den Arbeitstag hier —<br>ich halte ihn so lange fest.';
-    else gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
+    else if (h < 21) gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
+    else gruss = 'Später Abend. Was jetzt noch kommt, darf leicht sein —<br>gönn dir etwas Warmes.';
     statusEl.innerHTML = gruss + '<span class="cursor"></span>';
     setTimeout(function(){
       if (!breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
