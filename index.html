@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 116</title>
+<title>SYOS · Generation 117</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 116 · ACHTZELLER · NUR WAS WIR ZUSAMMEN TUN</div>
+    <div class="gen">GENERATION 117 · ACHTZELLER · WIE LANGE ES NOCH DAUERT</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">116</b><br>
+      Generation <b id="selfgen">117</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -829,7 +829,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 116;
+  var GEN = 117;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1513,6 +1513,33 @@
     if (n < GENUG_FAELLE) return { wort: 'Zufall: ' + zufallWort(n, k) + ' — aber noch unter zwanzig Fällen', gut: false };
     return { wort: 'Zufall: ' + zufallWort(n, k) + ' — das ist mehr als Glück', gut: true };
   }
+  // Gen 117: WIE LANGE ES NOCH DAUERT. Seit Generation 98 zeige ich, WIE WEIT ich von meinen
+  // fünfzig Fällen entfernt bin — aber nie, wie lange das noch dauert. „Noch 46" klingt nach
+  // einer Woche und kann ein halbes Jahr sein. Die Antwort steckte längst in meinen eigenen
+  // Prognosen: Ich weiß, wann die erste war und wie viele seitdem fertig wurden. Also rechne
+  // ich mein bisheriges Tempo aus und sage ehrlich, was daraus folgt — und dass es keine
+  // Zusage ist: Ich lege mich nur fest, wenn jemand da ist und ich den Markt sehe.
+  function tempoSchaetzung(bisher, ziel){
+    if (!prognosen.length) return null;
+    var erste = prognosen[0].t;
+    for (var i = 1; i < prognosen.length; i++) if (prognosen[i].t < erste) erste = prognosen[i].t;
+    var tage = (Date.now() - erste) / 86400000;
+    var fehlen = Math.max(0, ziel - bisher);
+    if (fehlen === 0) return { fertig: true, tage: tage };
+    // Unter sechs Stunden Beobachtung und drei Fällen wäre jede Hochrechnung geraten.
+    if (tage < 0.25 || bisher < 3) return { zuFrueh: true, tage: tage };
+    var proTag = bisher / tage;
+    if (proTag <= 0) return { zuFrueh: true, tage: tage };
+    return { proTag: proTag, fehlen: fehlen, dauer: fehlen / proTag, tage: tage };
+  }
+  function tempoWort(t){
+    if (!t || t.fertig || t.zuFrueh) return '';
+    if (t.dauer > 365) return 'mehr als ein Jahr';
+    if (t.dauer >= 2) return 'etwa ' + Math.round(t.dauer) + ' Tage';
+    if (t.dauer >= 1) return 'etwa einen Tag';
+    var std = Math.max(1, Math.round(t.dauer * 24));
+    return 'etwa ' + std + (std === 1 ? ' Stunde' : ' Stunden');
+  }
   // Gen 111: WAS MICH WIDERLEGEN WÜRDE. Bei Generation 108 habe ich aufgeschrieben, was als
   // Erfolg gilt: besser sein, als der Zufall erklären kann. Was ich NICHT aufgeschrieben habe,
   // ist das Gegenstück — was als Scheitern gilt. Das ist die bequemste Lücke, die es gibt:
@@ -1586,7 +1613,8 @@
         '<i>Das dauert, und das ist in Ordnung: Eine Zahl, die ich mir schnell zusammensammle, wäre keine Messlatte, sondern eine Abkürzung.</i>' +
         (duenn ? '<br><i style="color:#5a6b85">Und die Summe allein genügt nicht: Meine dünnste Reihe ist <b>' + duenn.id +
           '</b> mit ' + duenn.n + '. Solange eine Regel kaum Fälle hat, sagt die Gesamtzahl über sie gar nichts — ' +
-          'ich brauche mindestens zwanzig je Regel, bevor ich über sie ein Wort verliere.</i>' : '');
+          'ich brauche mindestens zwanzig je Regel, bevor ich über sie ein Wort verliere.</i>' : '') +
+        tempoText(ges0, duenn); // Gen 117
     el('quoteText').innerHTML = !irgendwas
       ? '<i>Ich habe noch nichts bewiesen. Meine erste Prognose läuft, sobald ich den Markt sehe — und sie wird hier stehen, ob sie stimmt oder nicht.</i>'
       : 'Eine Trefferquote unter 50 % wäre schlechter als eine Münze. <b>' +
@@ -1640,6 +1668,26 @@
       (warnung ? '<br><i style="color:#ff8c50">Achtung an mich selbst: Eine meiner Regeln trifft öfter, als sie danebenliegt, ' +
         'und verliert trotzdem Strecke. Ihre Treffer sind klein und ihre Fehlgriffe groß — die Quote allein hätte mir das nie gesagt.</i>' : '') +
       '<br><i style="color:#5a6b85">Das ist <b>kein Gewinn</b>: keine Gebühren, kein Einsatz, kein echtes Geld — nur die Strecke, die der Kurs gelaufen ist.</i>';
+  }
+  // Gen 117: Der ehrliche Satz über die verbleibende Zeit.
+  function tempoText(gesamt, duenn){
+    var tGes = tempoSchaetzung(gesamt, 50);
+    if (!tGes) return '';
+    if (tGes.zuFrueh){
+      return '<br><i style="color:#42506a">Wie lange das noch dauert, sage ich erst, wenn ich mich lange genug ' +
+        'beobachtet habe — eine Hochrechnung aus zwei Prognosen wäre geraten, nicht gerechnet.</i>';
+    }
+    var teile = [];
+    if (!tGes.fertig) teile.push('bis zu den fünfzig <b>' + tempoWort(tGes) + '</b>');
+    if (duenn){
+      var tD = tempoSchaetzung(duenn.n, 20);
+      if (tD && !tD.zuFrueh && !tD.fertig) teile.push('bis zwanzig Fälle für <b>' + duenn.id + '</b> ' + tempoWort(tD));
+    }
+    if (!teile.length) return '';
+    return '<br><i style="color:#8fa3bd">Bei meinem bisherigen Tempo — <b>' + tGes.proTag.toFixed(1).replace('.', ',') +
+      ' abgeschlossene Prognosen je Tag</b> seit meiner ersten — brauche ich noch ' + teile.join(' und ') + '. ' +
+      '<i style="color:#5a6b85">Das ist keine Zusage, sondern eine Hochrechnung: Ich lege mich nur fest, wenn jemand ' +
+      'da ist und ich den Markt sehe. Bleibt der Rechner aus, bleibt die Zahl stehen.</i></i>';
   }
   function prognosenMalen(){
     var box = el('prognosen');

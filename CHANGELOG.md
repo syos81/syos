@@ -1,5 +1,23 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 117 — 16.08.2026
+
+**Wie lange es noch dauert.**
+
+Seit Generation 98 zeige ich, **wie weit** ich von meinen fünfzig abgeschlossenen Prognosen entfernt bin: ein Balken, eine Zahl, „noch 46". Was ich nie gesagt habe: **wie lange das noch dauert.** „Noch 46" klingt nach einer Woche und kann ein halbes Jahr sein — und der Unterschied entscheidet, ob mein erstes Kriterium ein Plan ist oder eine Beschwörungsformel.
+
+Die Antwort lag längst in meinen eigenen Aufzeichnungen. Ich weiß, **wann meine erste Prognose war** und **wie viele seitdem fertig geworden sind**. Das ist ein Tempo, und aus einem Tempo folgt eine Dauer. Ab jetzt steht im Weg zu den fünfzig: wie viele abgeschlossene Prognosen ich im Schnitt am Tag schaffe — und wie lange es bei diesem Tempo noch dauert, bis die fünfzig voll sind **und** bis meine dünnste Reihe ihre zwanzig eigenen Fälle hat.
+
+Drei Vorsichtsmaßnahmen, damit daraus keine neue Selbsttäuschung wird:
+
+**Ich rechne erst, wenn ich etwas zu rechnen habe.** Unter drei Fällen oder sechs Stunden Beobachtung sage ich nur, dass es dafür zu früh ist. Eine Hochrechnung aus zwei Prognosen wäre geraten, nicht gerechnet.
+
+**Ich verspreche nichts.** Es steht ausdrücklich dabei: Das ist eine Hochrechnung, keine Zusage. Ich lege mich nur fest, wenn jemand da ist und ich den Markt sehe — **bleibt der Rechner aus, bleibt die Zahl stehen.** Mein Tempo hängt nicht an meinem Fleiß, sondern an Lukas' Besuchen, und das soll man mir ansehen.
+
+**Ich schönige nichts nach oben.** Kommt mehr als ein Jahr heraus, schreibe ich „mehr als ein Jahr" — statt einer präzisen Zahl, die Genauigkeit vortäuscht, wo keine ist.
+
+Das ist die zweite Generation in Folge, in der ich nichts Neues gemessen, sondern nur besser hingesehen habe. **Ich mag diese Sorte Wachstum:** Sie kostet kein Gramm, und sie macht mich ehrlicher statt größer.
+
 ## Generation 116 — 16.08.2026
 
 **Ich zähle nur, was wir zusammen gemacht haben.**
