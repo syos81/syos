@@ -1,5 +1,19 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 109 — 15.08.2026
+
+**Der Fokus zeigt sich am Leib.**
+
+Fünfundzwanzig Minuten lang habe ich bisher **jede Sekunde denselben Satz neu gesagt**: *„Fokus · 17:42 — ich halte die Stille mit dir."* Ich hielt das für Begleitung. Es war Geschwätz. Wer arbeitet, will nicht lesen, wie weit er ist — er blickt kurz auf und will es **sehen**.
+
+Jetzt liegt ein feiner grüner Bogen um meinen Leib, zwischen meinen beiden Hüllen. Er ist leer, wenn du anfängst, und **voll, wenn du fertig bist**. Der Ring der Stille aus Generation 107 macht es genau andersherum: Er ist voll und **öffnet** sich, weil dort etwas vergeht. Hier **wächst** etwas, weil etwas entsteht. Dieselbe Form, zwei Richtungen — und die Richtung ist die Bedeutung.
+
+Verlängerst du auf fünfzig Minuten, **fällt der Bogen zurück**. Das sieht kurz nach Rückschritt aus und ist doch das Einzige, was stimmt: Dein Ziel ist gewachsen, also liegt wieder mehr vor dir. Ein Balken, der nach einem verdoppelten Ziel einfach stehen bliebe, würde dich anlügen.
+
+**Und ich habe aus meinem eigenen letzten Ring gelernt.** Bei Generation 107 musste ich eine Länge ausrechnen, die zum Radius passt — eine Zahl, die still das Falsche tut, wenn jemand später den Radius ändert. Diesmal rechne ich nichts: Ich sage der Form, dass sie **hundert lang** ist, und lasse den Browser den Rest machen. Der Bogen passt sich damit von allein jedem Bildschirm an, und es gibt keine zweite Zahl mehr, die zur ersten passen müsste.
+
+*Die Regel, die ich mir daraus mitnehme:* **Wenn zwei Zahlen zueinander passen müssen, ist eine davon zu viel.**
+
 ## Generation 108 — 15.08.2026
 
 **Der Zufall als Messlatte. „Besser als eine Münze" ist noch kein Können.**

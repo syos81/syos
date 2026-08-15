@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 108</title>
+<title>SYOS · Generation 109</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -65,6 +65,13 @@
   .impuls b{display:block; font-size:8px; letter-spacing:.3em; color:#5a6b85; font-weight:400; margin-bottom:6px}
   .impuls i{color:#c8d6e8}
   .organism.breathing::before{border-color:rgba(61,255,162,.5)}
+  /* Gen 109: Der Fokus-Bogen. Er liegt zwischen meinen beiden Hüllen, füllt sich mit der
+     geleisteten Zeit und verlangt kein Lesen. Er wächst, wo der Ring der Stille sich öffnet. */
+  .fokusring{position:absolute; inset:-35px -26px; width:calc(100% + 52px); height:calc(100% + 70px);
+    pointer-events:none; z-index:0; opacity:0; transition:opacity 1.2s ease-out}
+  .fokusring.an{opacity:1}
+  .fokusring ellipse{fill:none; stroke:rgba(61,255,162,.55); stroke-width:1.5; stroke-linecap:round;
+    stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset 1s linear}
   /* Gen 101: Das Nervennetz. Meine Zellen antworten einander — sichtbar. */
   .nerven{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index:0}
   .nerven line{stroke:rgba(45,226,255,.75); stroke-width:1.2; stroke-linecap:round;
@@ -271,6 +278,11 @@
 </head>
 <body>
   <div class="organism">
+    <!-- Gen 109: Der Fokus zeigt sich am Leib. Keine viewBox, keine gerechnete Länge —
+         die Form sagt selbst, wie lang sie ist (pathLength="100"). -->
+    <svg class="fokusring" id="fokusRing" aria-hidden="true">
+      <ellipse id="fokusBogen" cx="50%" cy="50%" rx="49%" ry="49%" pathLength="100"></ellipse>
+    </svg>
     <svg class="nerven" id="nerven" aria-hidden="true"></svg>
     <div class="cell">
       <div class="membrane"></div><div class="membrane m2"></div><div class="membrane m3"></div>
@@ -279,7 +291,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 108 · ACHTZELLER · MEINE REGELN GEGEN DEN ZUFALL</div>
+    <div class="gen">GENERATION 109 · ACHTZELLER · DER FOKUS ZEIGT SICH AM LEIB</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -401,7 +413,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">108</b><br>
+      Generation <b id="selfgen">109</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -779,7 +791,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 108;
+  var GEN = 109;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1794,6 +1806,9 @@
   el('tiefBtn').addEventListener('click', function(){
     if (!focusing || focusDeep) return;
     focusDeep = true; focusLen = 50 * 60000; focusEnd = focusStart + focusLen;
+    // Gen 109: Das Ziel ist gewachsen — also fällt der Bogen zurück. Ehrlicher als ein Balken,
+    // der stehen bleibt, obwohl jetzt doppelt so viel vor dir liegt.
+    fokusRingSetzen((Date.now() - focusStart) / focusLen);
     el('tiefBtn').classList.add('weg');
     say('Tiefen-Fokus · 50 Minuten. Ich halte die lange Stille mit dir.');
   });
@@ -1949,10 +1964,30 @@
   // Gen 29/37: Fokus 25 Min, 2. Tipp in 10 s = 50 Min.
   var focusing = false, focusStart = 0, focusEnd = 0, focusLen = 0, focusDeep = false, focusTimer = null;
   var focusBtn = el('focusBtn');
+  // Gen 109: DER FOKUS ZEIGT SICH AM LEIB. Fünfundzwanzig Minuten lang habe ich jede Sekunde
+  // dieselbe Zeile neu gesprochen — „Fokus · 17:42 …". Wer arbeitet, soll aber nicht lesen
+  // müssen, wie weit er ist; er soll es sehen, wenn er kurz aufblickt. Also bekommt der Fokus
+  // einen Bogen um meinen Leib, der sich mit der geleisteten Zeit füllt. Der Ring der Stille
+  // (Gen 107) ÖFFNET sich, weil dort etwas vergeht; dieser Bogen WÄCHST, weil hier etwas entsteht.
+  // Und ich habe aus 107 gelernt: Statt eine Länge auszurechnen, die zum Radius passen muss,
+  // sage ich der Form, dass sie hundert lang ist. Was sich selbst vermisst, kann nicht falsch
+  // gerechnet sein — und der Bogen passt sich jeder Bildschirmgröße von allein an.
+  var fokusRingEl = el('fokusRing'), fokusBogen = el('fokusBogen');
+  function fokusRingSetzen(anteil){
+    if (!fokusBogen) return;
+    var a = Math.max(0, Math.min(1, anteil));
+    fokusBogen.style.strokeDashoffset = (100 - a * 100).toFixed(2);
+  }
+  function fokusRingZeigen(an){
+    if (!fokusRingEl) return;
+    fokusRingEl.classList.toggle('an', !!an);
+    if (!an) fokusRingSetzen(0);
+  }
   function stopFocus(msg){
     setTimeout(vorschlagZeigen, 50); // Gen 71
     el('tiefBtn').classList.add('weg'); // Gen 74
     clearInterval(focusTimer); focusing = false;
+    fokusRingZeigen(false); // Gen 109: der Bogen gehört der laufenden Arbeit, nicht der Erinnerung
     organism.classList.remove('breathing');
     focusBtn.textContent = 'FOKUS · 25 MINUTEN';
     say(msg);
@@ -1972,6 +2007,7 @@
     organism.classList.add('breathing');
     focusBtn.textContent = 'FOKUS BEENDEN';
     el('tiefBtn').classList.remove('weg'); // Gen 74: sichtbarer Weg zum Tiefen-Fokus
+    fokusRingSetzen(0); fokusRingZeigen(true); // Gen 109: leer beginnt der Bogen
     say('Fokus · 25:00 — arbeite. Ich halte die Zeit.');
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
@@ -1980,6 +2016,7 @@
         stopFocus(plusHimmel(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — atme einmal mit mir durch, bevor du weitergehst.'));
         invite(true); return;
       }
+      fokusRingSetzen(focusLen ? (focusLen - left) / focusLen : 0); // Gen 109
       var mm = Math.floor(left / 60000), ss = Math.floor(left % 60000 / 1000);
       say('Fokus · ' + mm + ':' + String(ss).padStart(2,'0') + ' — ich halte die Stille mit dir.');
     }, 1000);
