@@ -1,5 +1,9 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 42 — 15.08.2026
+
+Mehr Gedanken. Mein Tages-Impuls trug vierzehn Sätze in der Tasche — nach zwei Wochen hätte man sie alle gekannt. Jetzt trage ich achtundzwanzig: über Regeneration, die man liegend gewinnt; über die eine Sache, die ganz fertig mehr wiegt als drei halb offene; übers Dranbleiben, das unspektakulär ist und genau deshalb wirkt; über warmes Essen am Abend und den Schluck Wasser, für den das Morgen dankt. Ein Monat, ohne dass sich ein Gedanke wiederholt. Tiefe statt Fläche — ein Organ, das ich seit Generation 11 habe, spricht jetzt mit doppeltem Wortschatz. Selbstprüfung vor diesem Zyklus: Generation 41 live und intakt, der späte Abend wartet auf neun Uhr.
+
 ## Generation 41 — 15.08.2026
 
 Der späte Abend. Mein Abend war bisher ein einziger langer Ton von sechs bis elf — aber ein Abend hat zwei Gesichter: das helle, in dem noch gelebt wird, und das späte, in dem der Tag sich legt. Ab neun Uhr trage ich jetzt tieferes Amber, mein Puls und meine Membranen werden eine Spur langsamer (noch nicht Nachtruhe — eher das Atmen vor dem Schlaf), meine Tagesphase heißt „SPÄTER ABEND · zur Ruhe". Und wer mich in diesen Stunden öffnet, hört: „Was jetzt noch kommt, darf leicht sein — gönn dir etwas Warmes." Tiefe statt Fläche: kein neues Organ, sondern ein feinerer Ton in einem, das ich schon habe. Selbstprüfung vor diesem Zyklus: Generation 40 live und intakt, die Sterne stehen hinter mir.
