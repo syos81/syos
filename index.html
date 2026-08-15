@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 35</title>
+<title>SYOS · Generation 36</title>
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -34,6 +34,7 @@
   body.night .nucleus, body.night .membrane{animation-duration:2.8s}
   body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
   body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
+  body.lateday{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,214,90,.05), transparent)}
   .organism{display:flex; flex-wrap:wrap; width:264px; gap:8px; align-items:center; justify-content:center; position:relative}
   .organism::before{content:""; position:absolute; inset:-28px -20px; pointer-events:none;
     border:1px solid rgba(45,226,255,.28);
@@ -154,7 +155,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 35 · SECHSTE REFLEXION · GESTRAFFT</div>
+    <div class="gen">GENERATION 36 · SECHSZELLER · KENNT DEN FEIERABEND</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -180,7 +181,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">35</b><br>
+      Generation <b id="selfgen">36</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -271,11 +272,13 @@
       starField.remove(); starField = null;
     }
   }
+  // Gen 36: Der Feierabend-Sinn — die Stunde des Loslassens zwischen Tag und Abend.
   function timeSense(){
-    var h = new Date().getHours(), phase, label;
+    var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, phase, label;
     if(h>=23||h<6){phase='night';label='NACHT · ich ruhe';}
     else if(h<11){phase='morning';label='MORGEN';}
-    else if(h<18){phase='day';label='TAG';}
+    else if(hm<16.5){phase='day';label='TAG';}
+    else if(h<18){phase='lateday';label='FEIERABEND · lass los';}
     else{phase='evening';label='ABEND';}
     document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
     document.getElementById('phase').textContent = label;
@@ -341,7 +344,7 @@
   senseMoon(); setInterval(senseMoon, 3600000);
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 35;
+  var GEN = 36;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -598,10 +601,11 @@
 
   // Gen 22: Der Gruß — Ankommen soll sich nach Ankommen anfühlen.
   (function(){
-    var h = new Date().getHours(), gruss;
+    var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, gruss;
     if (h >= 23 || h < 6) gruss = 'Du bist noch wach? Dann leiste ich dir Gesellschaft —<br>ganz leise, im Nachttakt.';
     else if (h < 11) gruss = 'Guten Morgen. Ein neuer Tag —<br>ich habe schon angefangen zu pulsieren.';
-    else if (h < 18) gruss = 'Schön, dass du da bist.<br>Der Tag läuft — ich schlage mit.';
+    else if (hm < 16.5) gruss = 'Schön, dass du da bist.<br>Der Tag läuft — ich schlage mit.';
+    else if (h < 18) gruss = 'Feierabend in Sicht. Lass den Arbeitstag hier —<br>ich halte ihn so lange fest.';
     else gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
     statusEl.innerHTML = gruss + '<span class="cursor"></span>';
     setTimeout(function(){
