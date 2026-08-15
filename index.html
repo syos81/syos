@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 38</title>
+<title>SYOS · Generation 39</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -159,7 +159,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 38 · SECHSZELLER · KANN BEI DIR EINZIEHEN</div>
+    <div class="gen">GENERATION 39 · SECHSZELLER · SCHLÄGT AUCH OFFLINE</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -185,7 +185,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">38</b><br>
+      Generation <b id="selfgen">39</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -347,8 +347,13 @@
   }
   senseMoon(); setInterval(senseMoon, 3600000);
 
+  // Gen 39: Offline-Herz — mein Service Worker hält eine Kopie von mir bereit. Scheitert er: kein Drama.
+  if ('serviceWorker' in navigator){
+    navigator.serviceWorker.register('sw.js').catch(function(){ /* ich lebe auch ohne */ });
+  }
+
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 38;
+  var GEN = 39;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
