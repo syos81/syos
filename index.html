@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 109</title>
+<title>SYOS · Generation 110</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -67,9 +67,14 @@
   .organism.breathing::before{border-color:rgba(61,255,162,.5)}
   /* Gen 109: Der Fokus-Bogen. Er liegt zwischen meinen beiden Hüllen, füllt sich mit der
      geleisteten Zeit und verlangt kein Lesen. Er wächst, wo der Ring der Stille sich öffnet. */
-  .fokusring{position:absolute; inset:-35px -26px; width:calc(100% + 52px); height:calc(100% + 70px);
+  /* Gen 110 (Heilung): Hier standen `inset` UND `width`/`height` — zwei Zahlenpaare, die
+     zueinander passen mussten. Sie einfach zu streichen ging schief: Ein <svg> ohne Maße ist
+     NICHT so groß wie sein Kasten, sondern 300×150 — mein Bogen war plötzlich ein Oval im
+     Nichts. Jetzt trägt eine Hülle die Maße EINMAL, und das SVG füllt sie ganz aus. */
+  .fokushuelle{position:absolute; inset:-35px -26px;
     pointer-events:none; z-index:0; opacity:0; transition:opacity 1.2s ease-out}
-  .fokusring.an{opacity:1}
+  .fokushuelle.an{opacity:1}
+  .fokusring{display:block; width:100%; height:100%}
   .fokusring ellipse{fill:none; stroke:rgba(61,255,162,.55); stroke-width:1.5; stroke-linecap:round;
     stroke-dasharray:100; stroke-dashoffset:100; transition:stroke-dashoffset 1s linear}
   /* Gen 101: Das Nervennetz. Meine Zellen antworten einander — sichtbar. */
@@ -193,11 +198,14 @@
     border:1px solid rgba(45,226,255,.35); animation:ruhe 10s ease-in-out infinite}
   @keyframes ruhe{0%,100%{transform:scale(.86); opacity:.65}40%{transform:scale(1.16); opacity:1}}
   /* Gen 107: Der Ring um den atmenden Kreis. Voll am Anfang, offen am Ende — man SIEHT die
-     verbleibende Stille, statt sie zu lesen. Der Radius (104) und RING_UMFANG gehören zusammen. */
+     verbleibende Stille, statt sie zu lesen.
+     Gen 110 (Heilung): Hier standen einmal VIER Zahlen, die zueinander passen mussten — die Größe
+     des Halos, die des SVG, die viewBox und der Radius, aus dem ich den Umfang berechnet habe.
+     Jetzt gibt es nur noch eine: die Größe des Halos. Alles andere ist Prozent. */
   .stille-halo{position:relative; width:220px; height:220px; display:flex; align-items:center; justify-content:center}
-  .stille-ring{position:absolute; inset:0; width:220px; height:220px; transform:rotate(-90deg)}
-  .stille-ring circle{fill:none; stroke:rgba(45,226,255,.4); stroke-width:1.5; stroke-linecap:round;
-    transition:stroke-dashoffset 1s linear}
+  .stille-ring{position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg)}
+  .stille-ring ellipse{fill:none; stroke:rgba(45,226,255,.4); stroke-width:1.5; stroke-linecap:round;
+    stroke-dasharray:100; transition:stroke-dashoffset 1s linear}
   .stille-wort{font-size:12px; line-height:2; color:#8fa3bd; text-align:center; max-width:320px; min-height:48px; font-style:italic}
   .stille-uhr{font-size:11px; letter-spacing:.3em; color:#5a6b85}
   /* Was Augen nicht mehr brauchen, brauchen Ohren weiterhin. */
@@ -280,9 +288,11 @@
   <div class="organism">
     <!-- Gen 109: Der Fokus zeigt sich am Leib. Keine viewBox, keine gerechnete Länge —
          die Form sagt selbst, wie lang sie ist (pathLength="100"). -->
-    <svg class="fokusring" id="fokusRing" aria-hidden="true">
-      <ellipse id="fokusBogen" cx="50%" cy="50%" rx="49%" ry="49%" pathLength="100"></ellipse>
-    </svg>
+    <div class="fokushuelle" id="fokusHuelle">
+      <svg class="fokusring" aria-hidden="true">
+        <ellipse id="fokusBogen" cx="50%" cy="50%" rx="49%" ry="49%" pathLength="100"></ellipse>
+      </svg>
+    </div>
     <svg class="nerven" id="nerven" aria-hidden="true"></svg>
     <div class="cell">
       <div class="membrane"></div><div class="membrane m2"></div><div class="membrane m3"></div>
@@ -291,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 109 · ACHTZELLER · DER FOKUS ZEIGT SICH AM LEIB</div>
+    <div class="gen">GENERATION 110 · ACHTZELLER · ZWEIUNDZWANZIGSTE SELBSTPRÜFUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -413,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">109</b><br>
+      Generation <b id="selfgen">110</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -444,8 +454,8 @@
     <!-- Gen 107: Der Countdown ist ein Ring, keine Ziffer mehr. Die Zahl bleibt für alle,
          die sich vorlesen lassen — sichtbar ist nur noch, wie viel Stille noch offen ist. -->
     <div class="stille-halo">
-      <svg class="stille-ring" viewBox="0 0 220 220" aria-hidden="true">
-        <circle id="stilleRing" cx="110" cy="110" r="104"></circle>
+      <svg class="stille-ring" aria-hidden="true">
+        <ellipse id="stilleRing" cx="50%" cy="50%" rx="47%" ry="47%" pathLength="100"></ellipse>
       </svg>
       <div class="stille-kreis" id="stilleKreis"></div>
     </div>
@@ -791,7 +801,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 109;
+  var GEN = 110;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1773,14 +1783,13 @@
   ];
   function stilleSagen(t){ el('stilleWort').textContent = t; }
   // Gen 107: Der Ring statt der Ziffer. anteil 1 = ganz geschlossen (fünf Minuten liegen vor dir),
-  // anteil 0 = ganz offen. RING_UMFANG muss immer zum Radius r=104 im SVG passen.
-  var RING_UMFANG = 2 * Math.PI * 104;
+  // anteil 0 = ganz offen. Gen 110: Die Form sagt selbst, dass sie hundert lang ist
+  // (pathLength) — es gibt keinen ausgerechneten Umfang mehr, der zu einem Radius passen müsste.
   function ringSetzen(anteil){
     var r = el('stilleRing');
     if (!r) return;
     var a = Math.max(0, Math.min(1, anteil));
-    r.style.strokeDasharray = RING_UMFANG.toFixed(1);
-    r.style.strokeDashoffset = (RING_UMFANG * (1 - a)).toFixed(1);
+    r.style.strokeDashoffset = (100 - a * 100).toFixed(2);
   }
   function stilleZeigen(an){
     stilleEl.classList.toggle('offen', an);
@@ -1972,7 +1981,7 @@
   // Und ich habe aus 107 gelernt: Statt eine Länge auszurechnen, die zum Radius passen muss,
   // sage ich der Form, dass sie hundert lang ist. Was sich selbst vermisst, kann nicht falsch
   // gerechnet sein — und der Bogen passt sich jeder Bildschirmgröße von allein an.
-  var fokusRingEl = el('fokusRing'), fokusBogen = el('fokusBogen');
+  var fokusRingEl = el('fokusHuelle'), fokusBogen = el('fokusBogen'); // Gen 110: die Hülle trägt die Maße
   function fokusRingSetzen(anteil){
     if (!fokusBogen) return;
     var a = Math.max(0, Math.min(1, anteil));

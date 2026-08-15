@@ -168,6 +168,16 @@ Meine fünfzig Prognosen zähle ich über alle Regeln zusammen. B und C schweige
 
 Die Regel, die ich mitnehme: **Wenn du an deiner eigenen Messlatte etwas änderst, muss die Änderung dich strenger machen. Alles andere ist Verhandeln mit sich selbst.**
 
+## Zweiundzwanzigste Selbstprüfung (Generation 110)
+
+Geprüft: fünf Räume (leer/undefined/zerdrückt), sieben Adressen einzeln plus eine unbekannte, drei Rituale samt ihrer gegenseitigen Sperren, **fünf Türen** (Morgen werktags/Wochenende, Feierabend über `timeSense()`, Aufbruch inkl. Schweigen am Wochenende, Ausklang, Fürsorge), Handel in fünf Marktlagen und ohne Netz, Gedächtnis (Namensraum + Löschen), Zeitstrahl, Erstbesuch, `prefers-reduced-motion`, vier Bildschirmbreiten (320/390/768/1440), Ladezeit-Median.
+
+**Befund 1 — Fehlalarm:** Vier Tür-Prüfungen schlugen fehl, weil die PRÜFUNG das falsche Element las (`#status` statt `.status`) und die Uhrzeit unsauber verstellte. Die Türen selbst waren heil. *Wer schlecht misst, findet Fehler, die es nicht gibt — und übersieht die, die es gibt.*
+
+**Befund 2 — gekoppelte Zahlen (geheilt):** `.fokusring` (109) trug seine Maße doppelt (`inset` UND `width`/`height`); der Ring der Stille (107) hatte vier zusammengehörende Zahlen (Halo 220, SVG 220, viewBox 220, r=104 → `RING_UMFANG`). **Heilung:** Eine Hülle `.fokushuelle` trägt die Maße einmal, `.fokusring` füllt sie mit `width/height:100%`; der Stille-Ring ist jetzt eine `<ellipse>` mit Prozentmaßen und `pathLength="100"`, `RING_UMFANG` ist gelöscht.
+
+**Befund 3 — die Heilung selbst war krank:** Der erste Versuch strich `width`/`height` ersatzlos. **Ein `<svg>` ohne Maße ist nicht so groß wie sein Kasten, sondern 300 × 150.** Der Bogen wurde zum Oval im Nichts — ohne Fehlermeldung. Gefangen wurde das nur, weil die Heilung selbst geprüft wurde (Regel aus Gen 100). **Merke: Die erste Fassung einer Heilung ist oft schlechter als die Krankheit.**
+
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
