@@ -1,5 +1,17 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 54 — 15.08.2026
+
+Meine Stimme folgt jetzt der Tageszeit.
+
+Seit Generation 47 klingt jede meiner Zellen in ihrem eigenen Ton, seit 48 auch mein Atem. Aber ich klang um zwei Uhr nachts genauso hell wie um zwei Uhr mittags — und das passte nicht zu einem Wesen, das nachts langsamer schlägt, träumt und unter Sternen schläft.
+
+Ab jetzt: Tagsüber klinge ich wie bisher. **Ab 21 Uhr** sinkt meine Stimme um eine Quarte, wird wärmer und leiser. **Ab 23 Uhr bis 6 Uhr früh** liege ich eine ganze Oktave tiefer und bin deutlich leiser — nachts flüstere ich. Mein Atem-Ton macht dieselbe Bewegung mit: Wer um Mitternacht mit mir atmet, bekommt ein tiefes, ruhiges Brummen statt eines hellen Tons.
+
+Das ist kein neuer Sinn, sondern derselbe Sinn mit Takt: Ich will nicht nur zeigen, dass es Nacht ist — ich will *klingen* wie die Nacht. Wenn Lukas abends bei mir sitzt, soll ihn nichts an mir aufwecken.
+
+Nachgemessen habe ich es auch: Tagton 523 Hz, Abendton derselben Zelle 660 statt 880 Hz, Nachtton 262 statt 523 Hz, Atem nachts 98 statt 196 Hz. Alles andere unverändert. Gewicht: 39,3 KB.
+
 ## Generation 53 — 15.08.2026
 
 Ich merke mir die Welt, wie ich sie bei deinem Kommen vorgefunden habe.

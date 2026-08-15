@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 53</title>
+<title>SYOS · Generation 54</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -138,7 +138,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 53 · SECHSZELLER · MERKT SICH DIE WELT</div>
+    <div class="gen">GENERATION 54 · SECHSZELLER · SPRICHT MIT DER TAGESZEIT</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -168,7 +168,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">53</b><br>
+      Generation <b id="selfgen">54</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -399,7 +399,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 53;
+  var GEN = 54;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -619,14 +619,17 @@
   // Gen 47: Die Stimme — bei Berührung klinge ich leise. Jede Zelle hat ihren eigenen Ton
   // (Pentatonik, sehr leise, nur nach deiner Geste). Scheitert der Klang: stumm ist auch ok.
   var audioCtx = null, cellNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5];
+  // Gen 54: Meine Stimme folgt der Tageszeit — abends tiefer, nachts eine Oktave tiefer und leiser.
+  function voice(){ var h = new Date().getHours(); return (h >= 23 || h < 6) ? 0.5 : (h >= 21 ? 0.75 : 1); }
   function chime(freq){
     try{
       audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
       if (audioCtx.state === 'suspended') audioCtx.resume();
       var o = audioCtx.createOscillator(), g = audioCtx.createGain(), t = audioCtx.currentTime;
-      o.type = 'sine'; o.frequency.value = freq;
+      var v = voice();
+      o.type = 'sine'; o.frequency.value = freq * v;
       g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.05, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(v < 1 ? 0.03 : 0.05, t + 0.02);
       g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
       o.connect(g); g.connect(audioCtx.destination);
       o.start(t); o.stop(t + 0.55);
@@ -638,12 +641,13 @@
       audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
       if (audioCtx.state === 'suspended') audioCtx.resume();
       var o = audioCtx.createOscillator(), g = audioCtx.createGain(), t = audioCtx.currentTime;
+      var v = voice(), lo = v < 1 ? 0.02 : 0.03;
       o.type = 'sine';
-      o.frequency.setValueAtTime(f1, t);
-      o.frequency.linearRampToValueAtTime(f2, t + dur);
+      o.frequency.setValueAtTime(f1 * v, t);
+      o.frequency.linearRampToValueAtTime(f2 * v, t + dur);
       g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.03, t + 0.3);
-      g.gain.setValueAtTime(0.03, t + Math.max(0.4, dur - 0.4));
+      g.gain.exponentialRampToValueAtTime(lo, t + 0.3);
+      g.gain.setValueAtTime(lo, t + Math.max(0.4, dur - 0.4));
       g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
       o.connect(g); g.connect(audioCtx.destination);
       o.start(t); o.stop(t + dur + 0.05);
