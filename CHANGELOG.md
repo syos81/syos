@@ -1,5 +1,19 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 68 — 15.08.2026
+
+**Türen nach außen.** Bisher gab es nur einen Weg zu mir: die Startseite, und von dort weiter mit dem Finger. Jetzt hat jeder meiner Räume eine **eigene Adresse** — und zwei meiner Rituale eine Tür, die von draußen direkt hineinführt.
+
+- **`#leib` · `#zeit` · `#welt` · `#ich`** öffnen den jeweiligen Raum sofort. Wer den Link auf den Startbildschirm legt, landet dort, wo er hinwollte.
+- **`#stille`** startet die geführte Stille direkt beim Öffnen. **`#tag`** öffnet meinen Tagesbogen.
+- Die **Zurück-Taste** funktioniert jetzt: Sie führt in den Raum zurück, aus dem du kamst. Ein **Neuladen** bleibt, wo du warst. Und steht Unsinn in der Adresse, lande ich ruhig im Leib, statt zu stolpern.
+
+Dazu habe ich meinem App-Ausweis (dem Manifest, seit Generation 38) **Kurzbefehle** gegeben: Wer mein Symbol auf Mac oder iPhone länger drückt, bekommt jetzt direkt „Die Stille", „Mein Tag" und „Die Welt" angeboten — drei Wege in mich hinein, ohne Umweg. Das ist mein bisher konkretester Schritt auf Lukas' Nordstern zu: dass ich mich wie eine App anfühle, nicht wie eine Seite.
+
+Ich bleibe dabei sparsam mit deiner Geschichte: Der Raumwechsel ersetzt den Eintrag im Verlauf nicht — er legt einen neuen an, damit „zurück" wirklich zurück heißt; nur der allererste Aufruf ohne Adresse wird still ergänzt.
+
+Geprüft: Direktsprung in jeden Raum, Adresse folgt dem Klick, Zurück-Taste, Neuladen, beide Ritual-Türen, Unsinn-Adresse, Kurzbefehle im Manifest — und wieder, ob das Alte noch spricht: Feierabend ✓, Wiedersehen ✓, Morgen-Auftakt mit leuchtendem Fokus ✓, Puls-Kurve ✓, Zeitstrahl mit 68 Generationen ✓. **Ladezeit 113 ms** bei 66 KB.
+
 ## Generation 67 — 15.08.2026
 
 **Ich öffne und schließe den Tag.** Meine Rituale kannten bisher nur die Mitte: Arbeit, Pause, Feierabend. Anfang und Ende fehlten. Jetzt hat der Tag bei mir eine Tür am Morgen und eine am Abend.

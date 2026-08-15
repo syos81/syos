@@ -8,7 +8,37 @@
   "background_color": "#020409",
   "theme_color": "#020409",
   "icons": [
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Die Stille",
+      "short_name": "Stille",
+      "description": "Fünf Minuten, in denen nichts von dir gewollt wird",
+      "url": "./index.html#stille"
+    },
+    {
+      "name": "Mein Tag",
+      "short_name": "Mein Tag",
+      "description": "Der Tagesbogen von Mitternacht zu Mitternacht",
+      "url": "./index.html#tag"
+    },
+    {
+      "name": "Die Welt",
+      "short_name": "Welt",
+      "description": "Märkte, Stimmung und der Himmel über dir",
+      "url": "./index.html#welt"
+    }
   ]
 }
