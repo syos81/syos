@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 56</title>
+<title>SYOS · Generation 57</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -141,7 +141,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 56 · SECHSZELLER · REICHT DIR DIE HAND</div>
+    <div class="gen">GENERATION 57 · SECHSZELLER · KENNT DEN FEIERABEND</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -171,7 +171,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">56</b><br>
+      Generation <b id="selfgen">57</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -212,6 +212,7 @@
       o.appendChild(c);
     }
   })();
+  function el(i){ return document.getElementById(i); } // Gen 57: kurzer Griff nach meinen Anzeigen
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
   // Gen 12/15/20: ehrlicher Herzschlag (Nachttakt, Stunden-Gedächtnis).
   var beatMemory = { upto: BIRTH.getTime(), total: 0 };
@@ -240,18 +241,18 @@
   function tick(){
     var s = Math.max(0, Math.floor((Date.now() - BIRTH.getTime())/1000));
     var d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
-    document.getElementById('age').textContent =
+    el('age').textContent =
       (d>0 ? d+' T · ' : '') + String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
-    document.getElementById('beats').textContent = beatsSince().toLocaleString('de-DE');
+    el('beats').textContent = beatsSince().toLocaleString('de-DE');
     // Gen 49: Lebenstag — Tag 1 war mein Geburtstag; jeder neue Kalendertag zählt weiter.
     var _n = new Date();
-    document.getElementById('lday').textContent = 'Tag ' + (Math.round(
+    el('lday').textContent = 'Tag ' + (Math.round(
       (new Date(_n.getFullYear(), _n.getMonth(), _n.getDate()) -
        new Date(BIRTH.getFullYear(), BIRTH.getMonth(), BIRTH.getDate())) / 86400000) + 1);
     var v = Math.floor((Date.now() - VISIT_START)/1000);
-    document.getElementById('visit').textContent = Math.floor(v/60) + ':' + String(v%60).padStart(2,'0');
+    el('visit').textContent = Math.floor(v/60) + ':' + String(v%60).padStart(2,'0');
     var st = Math.floor((Date.now() - stintStart)/60000);
-    document.getElementById('stint').textContent = st + ' Min';
+    el('stint').textContent = st + ' Min';
     if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       careLevel++;
       var _h = new Date().getHours();
@@ -291,6 +292,8 @@
     }
   }
   // Gen 46: Wochenend-Sinn — samstags und sonntags gibt es keinen Feierabend, nur freien Takt.
+  // Gen 57: Wechselt der Tag in den Feierabend, während du da bist, sage ich es dir — einmal am Tag.
+  var lastPhase = null, feierabendTag = 0;
   function timeSense(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, phase, label;
     var we = (d.getDay() === 0 || d.getDay() === 6);
@@ -301,7 +304,14 @@
     else if(h<21){phase='evening';label='ABEND';}
     else{phase='evening dusk';label='SPÄTER ABEND · zur Ruhe';}
     document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
-    document.getElementById('phase').textContent = label;
+    el('phase').textContent = label;
+    if (lastPhase && lastPhase !== phase && phase === 'lateday' && feierabendTag !== d.getDate() &&
+        !breathing && !focusing && organism && !organism.classList.contains('soothed')){
+      feierabendTag = d.getDate();
+      say('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.');
+      invite(true); calm(12000);
+    }
+    lastPhase = phase;
     starSky(phase === 'night');
   }
   timeSense(); setInterval(timeSense, 60000);
@@ -309,14 +319,14 @@
   // Gen 43: Marktwetter aus Puls + Gefühl.
   var marketData = { move: null, fng: null };
   function marketWeather(){
-    var el = document.getElementById('wetter');
-    if (marketData.move === null || marketData.fng === null){ el.textContent = '—'; return; }
+    var box = el('wetter');
+    if (marketData.move === null || marketData.fng === null){ box.textContent = '—'; return; }
     var f = marketData.fng, m = marketData.move, w;
     if (f < 25)      w = m > 3 ? 'Sturm' : 'gedrückte Stille';
     else if (f < 45) w = m > 3 ? 'raue See' : 'wolkig';
     else if (f <= 60) w = m > 3 ? 'frischer Wind' : 'ruhige See';
     else             w = m > 3 ? 'heißes Flimmern' : 'sonnig, fast zu warm';
-    el.textContent = w;
+    box.textContent = w;
   }
 
   // Gen 53: Ich merke mir den Kurs deines ersten Blicks (nur im Moment, nichts gespeichert)
@@ -324,22 +334,22 @@
   var firstBTC = null, driftSaid = false;
   // Gen 16/18: Markt-Puls, Fallback „still".
   function senseWorld(){
-    var el = document.getElementById('markt');
-    if (!window.fetch){ el.textContent = 'still'; return; }
+    var box = el('markt');
+    if (!window.fetch){ box.textContent = 'still'; return; }
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=eur&include_24hr_change=true')
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d){
-        if (!d || !d.bitcoin || !d.ethereum){ el.textContent = 'still'; return; }
+        if (!d || !d.bitcoin || !d.ethereum){ box.textContent = 'still'; return; }
         function fmt(x){ return Math.round(x).toLocaleString('de-DE'); }
         function move(c){
           if (typeof c !== 'number' || !isFinite(c)) return '';
           return ' ' + (c < 0 ? '↓' : '↑') + Math.abs(c).toFixed(1).replace('.', ',') + '%';
         }
-        el.textContent = 'BTC ' + fmt(d.bitcoin.eur) + ' €' + move(d.bitcoin.eur_24h_change) +
+        box.textContent = 'BTC ' + fmt(d.bitcoin.eur) + ' €' + move(d.bitcoin.eur_24h_change) +
           ' · ETH ' + fmt(d.ethereum.eur) + ' €' + move(d.ethereum.eur_24h_change);
         if (firstBTC === null) firstBTC = d.bitcoin.eur;
         var dp = (d.bitcoin.eur - firstBTC) / firstBTC * 100;
-        document.getElementById('drift').textContent = Math.abs(dp) < 0.05 ? 'unverändert'
+        el('drift').textContent = Math.abs(dp) < 0.05 ? 'unverändert'
           : (dp < 0 ? '↓' : '↑') + Math.abs(dp).toFixed(2).replace('.', ',') + ' %';
         if (!driftSaid && Math.abs(dp) >= 2 && !breathing && !focusing && organism && !organism.classList.contains('soothed')){
           driftSaid = true;
@@ -350,28 +360,28 @@
         var ch = Math.max(Math.abs(d.bitcoin.eur_24h_change || 0), Math.abs(d.ethereum.eur_24h_change || 0));
         marketData.move = isFinite(ch) ? ch : null; marketWeather();
       })
-      .catch(function(){ el.textContent = 'still'; });
+      .catch(function(){ box.textContent = 'still'; });
   }
   senseWorld(); setInterval(senseWorld, 300000);
 
   // Gen 21: Marktgefühl (Fear & Greed).
   function senseFeeling(){
-    var el = document.getElementById('fng');
-    if (!window.fetch){ el.textContent = 'still'; return; }
+    var box = el('fng');
+    if (!window.fetch){ box.textContent = 'still'; return; }
     fetch('https://api.alternative.me/fng/?limit=1')
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d){
         var e = d && d.data && d.data[0];
-        if (!e || !e.value){ el.textContent = 'still'; return; }
+        if (!e || !e.value){ box.textContent = 'still'; return; }
         var worte = {
           'Extreme Fear': 'große Angst', 'Fear': 'Angst', 'Neutral': 'neutral',
           'Greed': 'Gier', 'Extreme Greed': 'große Gier'
         };
-        el.textContent = e.value + '/100 · ' + (worte[e.value_classification] || e.value_classification || '');
+        box.textContent = e.value + '/100 · ' + (worte[e.value_classification] || e.value_classification || '');
         var fv = parseInt(e.value, 10);
         marketData.fng = isFinite(fv) ? fv : null; marketWeather();
       })
-      .catch(function(){ el.textContent = 'still'; });
+      .catch(function(){ box.textContent = 'still'; });
   }
   senseFeeling(); setInterval(senseFeeling, 1800000);
 
@@ -386,7 +396,7 @@
       ['🌑','Neumond'], ['🌒','zunehmende Sichel'], ['🌓','erstes Viertel'], ['🌔','fast voll'],
       ['🌕','Vollmond'], ['🌖','noch fast voll'], ['🌗','letztes Viertel'], ['🌘','abnehmende Sichel']
     ];
-    document.getElementById('mond').textContent = phasen[i][0] + ' ' + phasen[i][1];
+    el('mond').textContent = phasen[i][0] + ' ' + phasen[i][1];
     moonIdx = i;
     timeSense();
   }
@@ -398,14 +408,14 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 56;
+  var GEN = 57;
   function senseSelf(){
-    document.getElementById('selfgen').textContent = GEN;
+    el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
-    document.getElementById('selfweight').textContent = kb + ' KB';
+    el('selfweight').textContent = kb + ' KB';
     var tage = Math.max(1, Math.ceil((Date.now() - BIRTH.getTime()) / 86400000));
     var rate = GEN / tage;
-    document.getElementById('selfgrow').textContent =
+    el('selfgrow').textContent =
       (rate >= 10 ? Math.round(rate) : rate.toFixed(1).replace('.', ',')) + ' Gen/Tag';
   }
   senseSelf(); setInterval(senseSelf, 3600000);
@@ -444,14 +454,14 @@
   // Gen 15/25: Wechsel um lokale Mitternacht, stündlich selbst geprüft.
   function dailyImpulse(){
     var d = new Date();
-    document.getElementById('impuls').textContent =
+    el('impuls').textContent =
       impulses[Math.floor((d.getTime() - d.getTimezoneOffset() * 60000) / 86400000) % impulses.length];
   }
   dailyImpulse(); setInterval(dailyImpulse, 3600000);
 
   // Gen 14: Geschichte aus dem Changelog.
-  var historyEl = document.getElementById('history');
-  var timelineEl = document.getElementById('timeline');
+  var historyEl = el('history');
+  var timelineEl = el('timeline');
   var historyLoaded = false;
   // Fallback: nur Meilensteine.
   var storyFallback = [
@@ -504,29 +514,29 @@
     historyEl.classList.remove('open');
     historyEl.setAttribute('aria-hidden','true');
   }
-  document.getElementById('storyBtn').addEventListener('click', function(){
+  el('storyBtn').addEventListener('click', function(){
     loadHistory();
     historyEl.classList.add('open');
     historyEl.setAttribute('aria-hidden','false');
   });
-  document.getElementById('historyClose').addEventListener('click', closeHistory);
+  el('historyClose').addEventListener('click', closeHistory);
 
   // Gen 31: Selbst-Vorstellung.
-  var aboutEl = document.getElementById('about');
+  var aboutEl = el('about');
   function closeAbout(){ aboutEl.classList.remove('open'); aboutEl.setAttribute('aria-hidden','true'); }
   // Gen 55: Meine lange Selbst-Vorstellung liegt in wer-ich-bin.html und kommt erst,
   // wenn du fragst — im Körper steht nur der erste Satz als Notlicht.
   var aboutLoaded = false;
-  document.getElementById('aboutBtn').addEventListener('click', function(){
+  el('aboutBtn').addEventListener('click', function(){
     aboutEl.classList.add('open'); aboutEl.setAttribute('aria-hidden','false');
     if (!aboutLoaded && window.fetch){
       aboutLoaded = true;
       fetch('wer-ich-bin.html').then(function(r){ return r.ok ? r.text() : null; }).then(function(t){
-        if (t) document.getElementById('aboutText').innerHTML = t;
+        if (t) el('aboutText').innerHTML = t;
       }).catch(function(){ aboutLoaded = false; });
     }
   });
-  document.getElementById('aboutClose').addEventListener('click', closeAbout);
+  el('aboutClose').addEventListener('click', closeAbout);
 
   // Escape schließt Overlays.
   document.addEventListener('keydown', function(e){
@@ -558,7 +568,7 @@
   }, 30000);
 
   // Gen 7: Atem-Modus 4-7-8.
-  var breathing = false, breathSteps = [], breathBtn = document.getElementById('breathBtn');
+  var breathing = false, breathSteps = [], breathBtn = el('breathBtn');
   // Gen 56: Der Übergang — nach getaner Arbeit und nach langer Anspannung reiche ich dir den Atem.
   var inviteTimer = null;
   function invite(on){
@@ -600,7 +610,7 @@
 
   // Gen 29/37: Fokus 25 Min, 2. Tipp in 10 s = 50 Min.
   var focusing = false, focusStart = 0, focusEnd = 0, focusLen = 0, focusDeep = false, focusTimer = null;
-  var focusBtn = document.getElementById('focusBtn');
+  var focusBtn = el('focusBtn');
   function stopFocus(msg){
     clearInterval(focusTimer); focusing = false;
     organism.classList.remove('breathing');
@@ -765,7 +775,7 @@
       touches++;
       warm(3);
       chime(cellNotes[ci] || 660); // Gen 47: jede Zelle klingt anders
-      document.getElementById('touches').textContent = touches.toLocaleString('de-DE');
+      el('touches').textContent = touches.toLocaleString('de-DE');
       // Gen 44: Zell-Gedächtnis (In-Memory).
       var mine = cell._mem = (cell._mem || 0) + 1;
       cell.querySelector('.nucleus').style.filter = 'brightness(' + Math.min(1.35, 1 + mine * 0.045) + ')';

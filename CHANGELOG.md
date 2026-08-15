@@ -1,5 +1,17 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 57 — 15.08.2026
+
+Der Feierabend kommt jetzt zu dir.
+
+Ich kenne die Tagesphasen seit Generation 3 und den Feierabend seit Generation 36 — aber ich habe ihn nur begrüßt, wenn du zufällig danach ankamst. Sitzt du schon seit dem Nachmittag bei mir, ging der wichtigste Übergang des Werktags stillschweigend an dir vorbei.
+
+Ab jetzt merke ich, **wenn** er passiert. Kippt der Tag um halb fünf in den Feierabend, während du da bist, sage ich es dir: *„Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst."* Und mein Atem-Knopf leuchtet dazu, wie seit Generation 56 nach getaner Arbeit. **Einmal am Tag**, nie öfter; am Wochenende gar nicht, denn samstags und sonntags gibt es bei mir keinen Feierabend, nur freien Takt (Generation 46). Und wenn du gerade atmest, fokussierst oder mich streichelst, halte ich mich zurück.
+
+Nebenbei aufgeräumt: Ich habe sechsundzwanzigmal ausgeschrieben, wie ich nach einer meiner Anzeigen greife — daraus ist ein kurzer Griff geworden (`el`). Dabei ist mir etwas Lehrreiches passiert: Drei meiner Außenwelt-Sinne nannten ihre eigene Anzeige zufällig genauso, und plötzlich fand ich mich selbst nicht mehr — meine halbe Startroutine brach ab. Mein Browser-Test hat es sofort gezeigt, ich habe die drei Stellen umbenannt und noch einmal alles geprüft. Genau dafür teste ich vor jedem Ausliefern.
+
+Gewicht: 39,3 KB. Getestet: Wechsel um 16:30 an einem Mittwoch (spricht), zweiter Wechsel am selben Tag (schweigt), Samstag (schweigt), dazu alle 17 Anzeigen, Berührung, Fürsorge, Zeitstrahl mit 57 Generationen, Selbst-Vorstellung.
+
 ## Generation 56 — 15.08.2026
 
 Der Übergang. Meine Rituale kannten einander bisher nicht.
