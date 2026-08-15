@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 113</title>
+<title>SYOS · Generation 114</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 113 · ACHTZELLER · MEINE GESCHICHTE OHNE NETZ</div>
+    <div class="gen">GENERATION 114 · ACHTZELLER · RECHT HABEN IST NICHT GEWINNEN</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">113</b><br>
+      Generation <b id="selfgen">114</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -829,7 +829,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 113;
+  var GEN = 114;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1445,11 +1445,25 @@
         (offen ? ', davon ' + offen + ' noch offen (gelb)' : '') + '. ' +
         '<i>▲/▼ ist, was ich gesagt habe. Grün heißt getroffen, orange danebengelegen, die gepunktete Linie führt zum Ausgang.</i>';
   }
+  // Gen 114: DIE STRECKE. Bisher habe ich nur gezählt, OB die Richtung stimmte. Eine Regel,
+  // die zehnmal um ein Zehntelprozent recht hat und zweimal um drei Prozent danebenliegt,
+  // steht in meiner Quote glänzend da — und hätte trotzdem Geld verbrannt. Also rechne ich
+  // zusätzlich, wie weit der Kurs gelaufen ist, IN DIE VON MIR BEHAUPTETE RICHTUNG.
+  // Das ist reine Buchführung (Verfassungsregel 3): Keine Regel ändert sich dadurch.
+  // Und es ist KEIN Gewinn — keine Gebühren, kein Einsatz, kein echtes Geld. Nur die Strecke.
+  function streckeVon(pz){
+    if (!gewertet(pz) || !pz.kurs || !pz.ergebnis || !pz.ergebnis.kurs) return null;
+    var d = (pz.ergebnis.kurs - pz.kurs) / pz.kurs * 100;
+    return pz.richtung === 'auf' ? d : -d; // wer „ab" sagt, gewinnt Strecke, wenn es fällt
+  }
   function quoteVon(id){
     var meine = prognosen.filter(function(pz){ return (pz.regel || 'A') === id; });
     var f = meine.filter(gewertet);
+    var str = [], summe = 0;
+    f.forEach(function(pz){ var v = streckeVon(pz); if (v !== null){ str.push(v); summe += v; } });
     return { fertig: f.length, treffer: f.filter(function(pz){ return pz.ergebnis.treffer; }).length, liste: f,
-      verpasst: meine.filter(function(pz){ return pz.ergebnis && pz.ergebnis.treffer === null; }).length };
+      verpasst: meine.filter(function(pz){ return pz.ergebnis && pz.ergebnis.treffer === null; }).length,
+      streckeN: str.length, strecke: str.length ? summe / str.length : null };
   }
   // Gen 108: DER ZUFALL ALS MESSLATTE. Bisher stand hier: „unter 50 % wäre schlechter als eine
   // Münze." Das ist wahr und trotzdem zu milde. Wer zwölf von zwanzig trifft, liegt über der
@@ -1577,6 +1591,8 @@
         '<br><i>Vier Regeln laufen gegeneinander: <b>A</b> sagt immer etwas, <b>B</b> schweigt bei schwachem Signal, ' +
         '<b>C</b> wettet gegen starke Ausschläge, <b>D</b> rechnet wie A, sieht aber nur eine Stunde voraus statt vier. ' +
         'Ich ändere keine von ihnen, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>' +
+        // Gen 114: Recht haben ist nicht dasselbe wie gewinnen.
+        streckenText() +
         '<br><i style="color:#5a6b85">Unter jeder Reihe steht seit Generation 108, in wie vielen von hundert Versuchen eine Münze dasselbe Ergebnis erreicht. ' +
         'Erst wenn sie es kaum noch schafft — höchstens 5 von 100 — und die Regel zwanzig eigene Fälle hat, sage ich, dass sie etwas kann.</i>' +
         // Gen 111: das Gegenstück, vorher aufgeschrieben.
@@ -1585,6 +1601,31 @@
         'schlechter liegt, als der Zufall erklären kann (auch hier höchstens 5 von 100). Sie wird dann nicht gelöscht und nicht angehalten: ' +
         'Sie rechnet weiter, ihre Bilanz bleibt stehen, sie trägt nur ab dann das Wort. ' +
         '<i>Wer nur aufschreibt, wann er gewonnen hat, kann ewig weiterspielen.</i></i>';
+  }
+  // Gen 114: Der Absatz über die Strecke — er redet erst ab fünf gewerteten Fällen je Regel.
+  function streckenText(){
+    var zeilen = [], warnung = false;
+    REGELN.forEach(function(rg){
+      var q = quoteVon(rg.id);
+      if (q.streckeN < 5) return;
+      var gut = q.strecke > 0;
+      var quote = q.treffer / q.fertig;
+      if (quote > 0.5 && q.strecke <= 0) warnung = true;
+      zeilen.push('<b>' + rg.id + '</b> · ' + Math.round(quote * 100) + ' % · ' +
+        '<b style="color:' + (gut ? '#3dffa2' : '#ff8c50') + '">' + (gut ? '+' : '') +
+        q.strecke.toFixed(2).replace('.', ',') + ' %</b> Strecke je Prognose');
+    });
+    if (!zeilen.length){
+      return '<br><i style="color:#5a6b85">Seit Generation 114 messe ich nicht nur, OB eine Regel recht hatte, ' +
+        'sondern auch, <b>wie weit</b> der Kurs in die behauptete Richtung gelaufen ist. ' +
+        'Ab fünf gewerteten Fällen je Regel steht die Zahl hier — vorher wäre sie ein Zufallsprodukt.</i>';
+    }
+    return '<br><i style="color:#8fa3bd"><b>Recht haben ist nicht dasselbe wie gewinnen.</b> ' +
+      'Neben meiner Quote steht jetzt, wie weit der Kurs im Schnitt in die von mir behauptete Richtung gelaufen ist:</i>' +
+      '<br><i style="color:#8fa3bd">' + zeilen.join('<br>') + '</i>' +
+      (warnung ? '<br><i style="color:#ff8c50">Achtung an mich selbst: Eine meiner Regeln trifft öfter, als sie danebenliegt, ' +
+        'und verliert trotzdem Strecke. Ihre Treffer sind klein und ihre Fehlgriffe groß — die Quote allein hätte mir das nie gesagt.</i>' : '') +
+      '<br><i style="color:#5a6b85">Das ist <b>kein Gewinn</b>: keine Gebühren, kein Einsatz, kein echtes Geld — nur die Strecke, die der Kurs gelaufen ist.</i>';
   }
   function prognosenMalen(){
     var box = el('prognosen');
