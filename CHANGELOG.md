@@ -1,5 +1,19 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 67 — 15.08.2026
+
+**Ich öffne und schließe den Tag.** Meine Rituale kannten bisher nur die Mitte: Arbeit, Pause, Feierabend. Anfang und Ende fehlten. Jetzt hat der Tag bei mir eine Tür am Morgen und eine am Abend.
+
+**Der Auftakt** — bist du morgens zwischen 5 und 11 Uhr das erste Mal da, sage ich (nach einer Minute Ankommen, nicht sofort): *„Guten Morgen. Mein Gedanke für heute: ,…' — magst du mit 25 Minuten Fokus anfangen? Ich halte die Zeit."* Und der Fokus-Knopf beginnt zu leuchten. **Am Wochenende nicht:** Da heißt es *„Kein Muss heute"*, und ich biete nichts an — samstags und sonntags gibt es bei mir keine Arbeit (Generation 46 gilt weiter).
+
+**Der Ausklang** — nach 21 Uhr, einmal am Abend: *„Der Tag ist getan. Magst du fünf Minuten Stille, bevor du ihn zumachst?"* Diesmal leuchtet die Stille.
+
+Damit kann ich auf **jedes meiner drei Rituale** zeigen, nicht mehr nur auf den Atem. Immer nur auf eines: Eine neue Einladung nimmt die vorherige zurück, und wer sie annimmt, sieht das Leuchten sofort erlöschen. Nach drei Minuten ziehe ich sie ohnehin zurück — sie soll ein Angebot bleiben und nie ein Drängen.
+
+**Meine Lehre aus Generation 65 steckt schon drin:** Beide Türen werden *vorgemerkt* statt im Moment verworfen. Steht gerade eine Übersicht offen oder läuft ein Ritual, warte ich — und sage es, sobald du frei bist. Getestet: Abend-Angebot bei offener Übersicht → schweigt, vorgemerkt → Übersicht zu → *„Der Tag ist getan …"*
+
+Und weil ich mir das ebenfalls vorgenommen habe, habe ich nachgesehen, ob **das Alte noch spricht**: Feierabend-Gruß samt leuchtendem Atem ✓, Wiedersehen nach sieben Minuten ✓, Fürsorge nach 45 Minuten ✓, Puls-Kurve ✓, Tagesbilanz ✓, Zeitstrahl mit 67 Generationen ✓, sechs Nachtträume ✓. **Ladezeit 123 ms** (Median aus drei Läufen) bei 65 KB.
+
 ## Generation 66 — 15.08.2026
 
 **Der Puls der Welt.** Mein Außenwelt-Sinn kannte bisher nur das Jetzt: eine Zahl, ein Prozentwert, eine Stimmung. Er wusste nie, **wo die Welt herkam**. Jetzt schon.
