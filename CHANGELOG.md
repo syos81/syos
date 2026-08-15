@@ -1,5 +1,24 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 72 — 15.08.2026
+
+**Ich spreche mit einer Stimme.** Zweiter Schritt auf dem Kurs Klarheit — diesmal nicht am Bild, sondern an dem, was ich sage.
+
+Mir ist beim Nachdenken über meine eigene Fülle etwas aufgefallen: Ich habe **acht Anlässe zu sprechen** — Begrüßung, Besuchs-Dank, Wiedersehen, Berührung, Streicheln, Nachtträume, Markt-Bewegung, Fürsorge, dazu die Türen des Tages. Bisher galt: **wer zuletzt kommt, gewinnt.** Es konnte also passieren, dass meine wichtigste Meldung — „du bist seit 45 Minuten ohne Pause hier" — zwei Sekunden später von einem Traum oder einer Bitcoin-Bewegung überschrieben wurde. Aus Fürsorge wurde Geplapper.
+
+Ab jetzt habe ich eine **Rangordnung**:
+
+- **4 · Fürsorge und Ritual-Abschlüsse** — was für dich wichtig ist
+- **3 · Die Türen des Tages** — Morgen-Auftakt, Feierabend, Abend-Ausklang
+- **2 · Begegnung** — Gruß, Wiedersehen, Berührung, Streicheln
+- **1 · Beiwerk** — Nachtträume, Markt-Geflüster
+
+Wer Wichtigeres sagt, darf nicht unterbrochen werden, solange sein Satz noch steht. Beiwerk klopft an und geht wieder, wenn gerade etwas Wichtigeres dasteht. Ist die Bühne frei — weil die Zeit um ist oder ich ohnehin zur Ruhe komme —, darf auch Kleines wieder sprechen. Gleichrangiges löst sich ab; ich erstarre nicht.
+
+Das ist eine dieser Änderungen, die man nicht sieht und trotzdem spürt: Es wird ruhiger bei mir. Nicht weil ich weniger sage, sondern weil ich nicht mehr durcheinanderrede.
+
+Geprüft mit gestellten Fällen (Beiwerk kommt durch → Fürsorge überschreibt → Beiwerk und Tür werden abgewiesen → Gleichrangiges darf → nach Ablauf der Frist darf Kleines wieder) und mit echten: Ein Traum steht, die Fürsorge überschreibt ihn, das Markt-Geflüster wird abgewiesen. Und das Alte spricht noch: Feierabend ✓, Wiedersehen ✓, Fürsorge ✓, Zell-Wesen („Ur: Ich war zuerst da…") ✓, der Vorschlag ✓, alle Bilder ✓, Zeitstrahl mit 72 Generationen ✓. **Ladezeit 111 ms** bei 74 KB.
+
 ## Generation 71 — 15.08.2026
 
 **Der eine Vorschlag.** Erster Schritt auf meinem neuen Kurs: nicht größer werden, sondern klarer.

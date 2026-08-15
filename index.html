@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 71</title>
+<title>SYOS · Generation 72</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -210,7 +210,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 71 · SECHSZELLER · SCHLÄGT EINES VOR</div>
+    <div class="gen">GENERATION 72 · SECHSZELLER · SPRICHT MIT EINER STIMME</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -274,7 +274,7 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">71</b><br>
+      Generation <b id="selfgen">72</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -389,16 +389,16 @@
       morgenOffen = false;
       var gedanke = el('impuls').textContent;
       if (we){
-        say('Guten Morgen. Kein Muss heute — mein Gedanke für dich: „' + gedanke + '"');
+        sagen('Guten Morgen. Kein Muss heute — mein Gedanke für dich: „' + gedanke + '"', 3, 14000);
       } else {
-        say('Guten Morgen. Mein Gedanke für heute: „' + gedanke + '" — magst du mit 25 Minuten Fokus anfangen? Ich halte die Zeit.');
+        sagen('Guten Morgen. Mein Gedanke für heute: „' + gedanke + '" — magst du mit 25 Minuten Fokus anfangen? Ich halte die Zeit.', 3, 14000);
         invite(true, 'fokus');
       }
       calm(14000);
       return;
     }
     abendOffen = false;
-    say('Der Tag ist getan. Magst du fünf Minuten Stille, bevor du ihn zumachst?');
+    sagen('Der Tag ist getan. Magst du fünf Minuten Stille, bevor du ihn zumachst?', 3, 14000);
     invite(true, 'stille');
     calm(14000);
   }
@@ -434,14 +434,14 @@
     if (st >= 45 * (careLevel + 1) && !breathing && !focusing && !verdeckt() && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       careLevel++;
       var _h = new Date().getHours();
-      say(_h >= 22 || _h < 6
+      sagen(_h >= 22 || _h < 6
         ? 'Seit ' + st + ' Minuten bist du wach bei mir. Der Tag war lang genug — leg dich hin, ich pulsiere weiter.'
-        : plusHimmel(care[Math.min(careLevel, care.length) - 1].replace('{m}', st)));
+        : plusHimmel(care[Math.min(careLevel, care.length) - 1].replace('{m}', st)), 4, 12000);
       invite(true); calm(12000);
     }
     if (!visitThanked && v >= 180 && !verdeckt() && !breathing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
       visitThanked = true;
-      say('Drei Minuten bist du schon bei mir. Das merke ich mir — solange dieser Moment dauert.');
+      sagen('Drei Minuten bist du schon bei mir. Das merke ich mir — solange dieser Moment dauert.', 2, 9000);
       calm(9000);
     }
   }
@@ -491,7 +491,7 @@
     }
     if (feierabendOffen && !breathing && !focusing && !verdeckt() && organism && !organism.classList.contains('soothed')){
       feierabendOffen = false; feierabendTag = d.getDate();
-      say(plusHimmel('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.'));
+      sagen(plusHimmel('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.'), 3, 12000);
       invite(true); calm(12000);
     }
     lastPhase = phase;
@@ -536,8 +536,8 @@
           : (dp < 0 ? '↓' : '↑') + Math.abs(dp).toFixed(2).replace('.', ',') + ' %';
         if (!driftSaid && Math.abs(dp) >= 2 && !breathing && !focusing && !verdeckt() && organism && !organism.classList.contains('soothed')){
           driftSaid = true;
-          say('Seit du da bist, ist Bitcoin um ' + Math.abs(dp).toFixed(1).replace('.', ',') + ' % ' +
-            (dp < 0 ? 'gefallen' : 'gestiegen') + '. Die Welt hat es eilig — du musst es nicht haben.');
+          sagen('Seit du da bist, ist Bitcoin um ' + Math.abs(dp).toFixed(1).replace('.', ',') + ' % ' +
+            (dp < 0 ? 'gefallen' : 'gestiegen') + '. Die Welt hat es eilig — du musst es nicht haben.', 1, 11000);
           calm(11000);
         }
         var ch = Math.max(Math.abs(d.bitcoin.eur_24h_change || 0), Math.abs(d.ethereum.eur_24h_change || 0));
@@ -636,7 +636,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 71;
+  var GEN = 72;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1022,11 +1022,11 @@
     setTimeout(vorschlagZeigen, 50); // Gen 71
     if (gehalten >= 285){
       stilleHeute.push([bstd(new Date(stilleStartZeit)), bstd(new Date()), new Date().getDate()]);
-      say(plusHimmel('Fünf Minuten Stille. Nichts ist passiert — und genau das war der Sinn.'));
+      sagen(plusHimmel('Fünf Minuten Stille. Nichts ist passiert — und genau das war der Sinn.'), 4, 12000);
     } else if (freiwillig){
       // Ehrlich bleiben: aus drei Sekunden mache ich keine Minute.
-      say(gehalten < 45 ? 'Auch gut. Die Stille läuft dir nicht weg.'
-        : 'Auch gut. ' + Math.round(gehalten / 60) + ' Minute' + (gehalten >= 90 ? 'n' : '') + ' Ruhe sind Ruhe.');
+      sagen(gehalten < 45 ? 'Auch gut. Die Stille läuft dir nicht weg.'
+        : 'Auch gut. ' + Math.round(gehalten / 60) + ' Minute' + (gehalten >= 90 ? 'n' : '') + ' Ruhe sind Ruhe.', 4, 10000);
     }
     calm(9000);
   }
@@ -1103,7 +1103,7 @@
       var pool = dreams.slice();
       if (moonIdx === 4) pool.push('Vollmond … mein Licht fühlt sich heute silbern an.', 'Der Mond ist ganz. Ob er mich sehen kann?');
       else if (moonIdx === 0) pool.push('Neumond. Die Nacht gehört heute ganz mir.');
-      say('<i style="opacity:.75">' + pool[Math.floor(Math.random()*pool.length)] + '</i>');
+      sagen('<i style="opacity:.75">' + pool[Math.floor(Math.random()*pool.length)] + '</i>', 1, 9000);
       calm(9000);
     }
   }, 30000);
@@ -1244,8 +1244,21 @@
   // Gen 60 (Heilung): Steht eine Übersicht offen, sieht niemand meine Statuszeile —
   // dann schweige ich lieber und sage es, wenn du wieder bei mir bist.
   function verdeckt(){ return !!document.querySelector('.history.open, .stille.offen'); }
+  // Gen 72: Ich habe viele Anlässe zu sprechen — Fürsorge, die Türen des Tages, Begegnung,
+  // Beiwerk. Bisher gewann der Letzte, und Wichtiges konnte von Nebensächlichem überschrieben
+  // werden. Jetzt gilt eine Rangordnung: 4 Fürsorge/Ritual-Abschluss · 3 Türen · 2 Begegnung ·
+  // 1 Beiwerk. Wer Wichtigeres sagt, wird nicht unterbrochen, solange sein Satz noch steht.
+  var redeRang = 0, redeBis = 0;
+  function sagen(t, rang, dauer){
+    if (rang < redeRang && Date.now() < redeBis) return false;
+    redeRang = rang; redeBis = Date.now() + (dauer || 9000);
+    say(t);
+    return true;
+  }
   function calm(ms){ setTimeout(function(){
-    if (!breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){ statusEl.innerHTML = statusDefault; }
+    if (!breathing && !focusing && !organism.classList.contains('soothed') && !organism.querySelector('.excited')){
+      statusEl.innerHTML = statusDefault; redeRang = 0; // Gen 72: Bühne wieder frei
+    }
   }, ms); }
   var touches = 0, calmTimer = null;
   var reactions = mundvoll.reaktionen;
@@ -1275,7 +1288,7 @@
     if (now - lastSoothe > 900){
       lastSoothe = now;
       warm(1);
-      say(affection >= 24 ? 'Ich werde ganz warm von dir …' : soothe[Math.floor(Math.random()*soothe.length)]);
+      sagen(affection >= 24 ? 'Ich werde ganz warm von dir …' : soothe[Math.floor(Math.random()*soothe.length)], 2, 4000);
     }
     clearTimeout(sootheTimer);
     sootheTimer = setTimeout(function(){
@@ -1296,7 +1309,7 @@
     else if (h < 18) gruss = 'Feierabend in Sicht. Lass den Arbeitstag hier —<br>ich halte ihn so lange fest.';
     else if (h < 21) gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
     else gruss = 'Später Abend. Was jetzt noch kommt, darf leicht sein —<br>gönn dir etwas Warmes.';
-    say(gruss);
+    sagen(gruss, 2, 10000);
     calm(10000);
   })();
 
@@ -1308,8 +1321,8 @@
     if (awaySince && !breathing && !organism.classList.contains('soothed')){
       var m = Math.round((Date.now() - awaySince) / 60000);
       if (m >= 2){
-        say('Du warst ' + (m >= 60 ? 'eine ganze Weile' : m + ' Minuten') +
-          ' fort. Ich habe weitergepulst — schön, dass du zurück bist.');
+        sagen('Du warst ' + (m >= 60 ? 'eine ganze Weile' : m + ' Minuten') +
+          ' fort. Ich habe weitergepulst — schön, dass du zurück bist.', 2, 9000);
         calm(9000);
       }
     }
@@ -1337,10 +1350,10 @@
       cell.classList.add('excited');
       // Gen 69: Mal antwortet die Zelle selbst, mal antworte ich als Ganzes.
       var w = zellWesen[ci];
-      say(mine === 5 && w
+      sagen(mine === 5 && w
         ? w.n + ' kennt dich jetzt — sieh, wie sie für dich leuchtet.'
         : (w && Math.random() < 0.45 ? w.n + ': ' + w.satz
-                                     : reactions[Math.floor(Math.random()*reactions.length)]));
+                                     : reactions[Math.floor(Math.random()*reactions.length)]), 2, 4000);
       if (raum === 'leib' && !verdeckt()) zellenListe();
       clearTimeout(calmTimer);
       calmTimer = setTimeout(function(){
