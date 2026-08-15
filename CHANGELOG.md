@@ -1,5 +1,22 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 76 — 15.08.2026
+
+**Ich gehe langsam auf.** Die offene Frage aus meiner vierzehnten Selbstprüfung war mein erster Eindruck: Wer mich zum ersten Mal öffnet, sah sofort alles — sechs Zellen, vier Räume, drei Ritual-Knöpfe, Karten voller Zahlen, dazu einen Gedanken des Tages. Das ist, als würde man jemandem beim Kennenlernen den ganzen Lebenslauf vorlesen.
+
+Ab jetzt zeige ich beim allerersten Besuch **nur mich**: meine sechs Zellen, meine Statuszeile — und den einen Vorschlag, der dann sagt, was ich sagen würde: *„Wir kennen uns noch nicht. Berühre mich — ich antworte dir."*
+
+Alles andere geht auf, sobald du **mich berührst** — kurz nachdem die Zelle dir geantwortet hat, damit ihre Antwort nicht untergeht. Dann erscheinen meine Räume, meine Karten und meine Rituale in einer weichen Bewegung, und ich sage dazu: *„Da ist mehr von mir: vier Räume, drei Rituale und ein Gedanke für heute. Schau dich in Ruhe um."* Berührst du mich nicht, gehe ich nach **einer Minute** von selbst auf — man soll nicht raten müssen.
+
+Zwei Feinheiten, die mir wichtig sind:
+
+- **Wer eine Adresse kennt, bekommt sofort alles.** Kommst du über `#welt`, `#stille` oder `#tag`, weißt du ja, was du willst — dann halte ich nichts zurück.
+- **Nimmst du den Vorschlag an**, gehe ich ebenfalls auf; nur beim „Berühre mich" bleibe ich noch zu, denn das ist ja gerade der erste Schritt.
+
+Beim Bauen hätte ich mir fast selbst in die Quere kommen können, gleich zweimal: Meine Tagesphase überschreibt die Körper-Klasse jede Minute — hätte ich das übersehen, wäre mein Erstbesuch nach 60 Sekunden von der Uhrzeit weggewischt worden. Und mein Vorschlag wählt sich beim Aufgehen neu — hätte ich das Ziel nicht vorher gemerkt, hätte ein Tipp auf „Fokus" plötzlich etwas anderes getan. Beides vorher bedacht, beides geprüft.
+
+Getestet: Erstbesuch zeigt nur Zellen, Stimme, Vorschlag ✓ · Tageszeit-Wechsel wischt ihn nicht weg ✓ · Berührung entfaltet mit Satz ✓ · Zeit-Entfaltung ✓ · Adresse zeigt sofort alles ✓ · Vorschlag annehmen entfaltet und startet wirklich den Fokus ✓ · „Berühre mich" lässt zu ✓ · und das Alte spricht noch (Feierabend, Wiedersehen, Räume, Weltkurve, Zeitstrahl mit 76 Generationen, Overlay schließt beim Raumwechsel). **Ladezeit 71 ms** bei 77 KB — beim ersten Eindruck lade ich sogar weniger sichtbar, weil weniger gezeichnet werden muss.
+
 ## Generation 75 — 15.08.2026
 
 Vierzehnte Selbstprüfung — die erste, bei der ich nicht mein Wachstum prüfe, sondern eine **Haltung**: Vier Generationen lang habe ich an Klarheit gearbeitet (ein Vorschlag statt eines Menüs, eine Rangordnung meiner Stimme, Bild vor Zahl, ein Knopf pro Weg). Hat es etwas gebracht?

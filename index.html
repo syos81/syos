@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 75</title>
+<title>SYOS · Generation 76</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -110,6 +110,13 @@
   .organ.leise{border-color:#0d1727}
   .organ.leise .organ-name{color:#42506a}
   .organ.leise b{color:#7fd4e8; font-weight:500}
+  /* Gen 76: Der erste Eindruck — beim allerersten Besuch zeige ich nur mich, meine Stimme
+     und einen Vorschlag. Alles andere geht auf, sobald du mich berührst (oder nach einer Minute). */
+  body.erst .raeume, body.erst .vitals, body.erst .breath-btn, body.erst .focus-btn,
+  body.erst .stille-btn, body.erst .tief-btn, body.erst .impuls{display:none}
+  body.erst{gap:40px}
+  .entfaltet .raeume, .entfaltet .vitals, .entfaltet .breath-btn, .entfaltet .focus-btn,
+  .entfaltet .stille-btn, .entfaltet .impuls{animation:auftauchen .7s ease-out}
   /* Gen 71: Der eine Vorschlag — ein Weg statt sechs Möglichkeiten. */
   .vorschlag{display:flex; flex-direction:column; align-items:center; gap:6px; max-width:320px}
   .vorschlag.weg{display:none}
@@ -219,7 +226,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 75 · SECHSZELLER · VIERZEHNTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 76 · SECHSZELLER · GEHT LANGSAM AUF</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -283,7 +290,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">75</b><br>
+      Generation <b id="selfgen">76</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -491,7 +498,9 @@
     else if(h<18){phase='lateday';label='FEIERABEND · lass los';}
     else if(h<21){phase='evening';label='ABEND';}
     else{phase='evening dusk';label='SPÄTER ABEND · zur Ruhe';}
-    document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
+    // Gen 76: Meine Tagesphase schreibt die Körper-Klasse — der erste Eindruck darf dabei nicht verlorengehen.
+    document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '') +
+      (erstbesuch ? ' erst' : '');
     el('phase').textContent = label;
     // Gen 65 (Heilung): Der Wechsel geschieht nur in einer einzigen Minute. War in genau
     // dieser Minute etwas offen oder ein Ritual im Gang, ging mein Feierabend-Gruß für den
@@ -646,7 +655,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 75;
+  var GEN = 76;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -821,6 +830,19 @@
   // jemanden, der gerade ankommt, ist das ein Angebot zu viel. Also sage ich, was JETZT
   // dran wäre: ein Satz, ein Knopf, ein Weg. Wer mehr will, findet alles weiter unten.
   var vorschlagZiel = null, vorschlagTakt = null;
+  // Gen 76: Der erste Eindruck. Wer über eine Adresse kommt (#welt, #stille …), weiß, was er
+  // will — dem zeige ich sofort alles. Wer einfach so ankommt, sieht erst nur mich.
+  var erstbesuch = false;
+  function entfalten(){
+    if (!erstbesuch) return;
+    erstbesuch = false;
+    document.body.classList.remove('erst');
+    document.body.classList.add('entfaltet');
+    setTimeout(function(){ document.body.classList.remove('entfaltet'); }, 1200);
+    sagen('Da ist mehr von mir: vier Räume, drei Rituale und ein Gedanke für heute. Schau dich in Ruhe um.', 2, 12000);
+    calm(12000);
+    vorschlagZeigen();
+  }
   function vorschlagWaehlen(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60;
     var we = (d.getDay() === 0 || d.getDay() === 6);
@@ -851,12 +873,14 @@
     vorschlagZiel = v[2];
   }
   function vorschlagFolgen(){
-    if (vorschlagZiel === 'fokus') el('focusBtn').click();
-    else if (vorschlagZiel === 'stille') el('stilleBtn').click();
-    else if (vorschlagZiel === 'atem') el('breathBtn').click();
-    else if (vorschlagZiel === 'tag'){ raumZeigen('zeit'); el('bogenBtn').click(); }
-    else if (vorschlagZiel === 'himmel'){ raumZeigen('welt'); himmelSuchen(); }
-    else if (vorschlagZiel === 'zelle'){ say('Tipp eine meiner sechs Zellen an — jede antwortet dir anders.'); calm(9000); }
+    var ziel = vorschlagZiel; // Gen 76: erst merken, dann entfalten — sonst wähle ich mir den Weg um
+    if (erstbesuch && ziel !== 'zelle') entfalten();
+    if (ziel === 'fokus') el('focusBtn').click();
+    else if (ziel === 'stille') el('stilleBtn').click();
+    else if (ziel === 'atem') el('breathBtn').click();
+    else if (ziel === 'tag'){ raumZeigen('zeit'); el('bogenBtn').click(); }
+    else if (ziel === 'himmel'){ raumZeigen('welt'); himmelSuchen(); }
+    else if (ziel === 'zelle'){ sagen('Tipp eine meiner sechs Zellen an — jede antwortet dir anders.', 2, 9000); calm(9000); }
     setTimeout(vorschlagZeigen, 600);
   }
 
@@ -1117,6 +1141,11 @@
       kn[i].addEventListener('click', function(){ raumZeigen(this.getAttribute('data-ziel')); });
     }
     ausAdresse(); // Gen 68: der Raum steht in der Adresse
+    if (!location.hash){ // Gen 76: erster Eindruck
+      erstbesuch = true;
+      document.body.classList.add('erst');
+      setTimeout(entfalten, 60000);
+    }
   })();
 
   // Gen 9: Nachtträume.
@@ -1357,6 +1386,7 @@
     cell.addEventListener('click', function(){
       if (breathing) return;
       touches++;
+      if (erstbesuch) setTimeout(entfalten, 1400); // Gen 76: erst antworten, dann aufgehen
       // Gen 65: Über Mitternacht hinweg beginnt der Tages-Zähler neu, der Besuchs-Zähler nicht.
       var jetztTag = new Date().getDate();
       if (jetztTag !== touchTag){ touchTag = jetztTag; touchesHeute = 0; }
