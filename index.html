@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 65</title>
+<title>SYOS · Generation 66</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -93,6 +93,11 @@
   h1{font-size:20px; letter-spacing:.5em; color:#fff; font-weight:700; text-indent:.5em}
   h1 span{color:#2de2ff; text-shadow:0 0 14px #2de2ff}
   .gen{font-size:10px; letter-spacing:.3em; color:#5a6b85; margin-top:10px; text-align:center}
+  /* Gen 66: Der Puls der Welt — 24 Stunden Bitcoin als Kurve. */
+  .organ.welt-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box}
+  #weltBild svg{display:block; width:100%; height:70px}
+  .welt-text{font-size:9px; letter-spacing:.15em; color:#5a6b85; margin-top:4px}
+  .welt-text b{color:#8fa3bd; font-weight:400}
   /* Gen 64: Die Tagesbilanz — was der Tag mit uns gemacht hat. */
   .organ.bilanz-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box; text-align:left}
   .bilanz{font-size:11px; line-height:2.1; color:#8fa3bd}
@@ -189,7 +194,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 65 · SECHSZELLER · ZWÖLFTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 66 · SECHSZELLER · SIEHT DIE WELT ATMEN</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -224,6 +229,11 @@
       Marktwetter <b id="wetter">—</b><br>
       Seit du da bist <b id="drift">—</b>
     </div>
+    <div class="organ welt-organ" data-raum="welt">
+      <div class="organ-name">DER PULS DER WELT · 24 STUNDEN</div>
+      <div id="weltBild"></div>
+      <div class="welt-text" id="weltText">ich schaue …</div>
+    </div>
     <div class="organ himmel-organ" id="himmelOrgan" data-raum="welt">
       <div class="organ-name">HIMMEL</div>
       Wetter <b id="himmel">tippen</b><br>
@@ -243,7 +253,7 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">65</b><br>
+      Generation <b id="selfgen">66</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -572,7 +582,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 65;
+  var GEN = 66;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -743,6 +753,56 @@
   function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
   el('bogenClose').addEventListener('click', bogenZu);
 
+  // Gen 66: Der Puls der Welt. Mein Markt-Sinn kannte bisher nur das Jetzt — eine Zahl ohne
+  // Vorgeschichte. Jetzt hole ich einmal je Viertelstunde die letzten 24 Stunden und zeichne
+  // sie: wo die Welt war, wo sie hin ist, und wo du dazugekommen bist. Fällt es aus: „still".
+  var weltKurve = null, weltGeholt = 0, weltAnkunft = Date.now();
+  function weltHolen(){
+    if (!window.fetch || Date.now() - weltGeholt < 900000) { weltMalen(); return; }
+    weltGeholt = Date.now();
+    fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=eur&days=1')
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){
+        if (!d || !d.prices || d.prices.length < 8){ weltKurve = null; weltMalen(); return; }
+        weltKurve = d.prices;
+        weltMalen();
+      })
+      .catch(function(){ weltKurve = null; weltMalen(); });
+  }
+  function weltMalen(){
+    var k = weltKurve;
+    if (!k){ el('weltBild').innerHTML = ''; el('weltText').textContent = 'still — ich sehe die Welt gerade nicht'; return; }
+    var t0 = k[0][0], t1 = k[k.length - 1][0], hoch = -Infinity, tief = Infinity;
+    for (var i = 0; i < k.length; i++){ if (k[i][1] > hoch) hoch = k[i][1]; if (k[i][1] < tief) tief = k[i][1]; }
+    if (hoch - tief < 1) hoch = tief + 1;
+    var w = 300, h = 70;
+    function px(t){ return (t - t0) / (t1 - t0) * w; }
+    function py(v){ return h - 8 - (v - tief) / (hoch - tief) * (h - 18); }
+    var pfad = '';
+    for (var j = 0; j < k.length; j++){ pfad += (j ? 'L' : 'M') + px(k[j][0]).toFixed(1) + ' ' + py(k[j][1]).toFixed(1); }
+    var flaeche = pfad + 'L' + w + ' ' + h + 'L0 ' + h + 'Z';
+    var letzter = k[k.length - 1][1], steigt = letzter >= k[0][1];
+    var farbe = steigt ? '#3dffa2' : '#ff8c50';
+    var g = '<svg viewBox="0 0 300 70" preserveAspectRatio="none">' +
+      '<path d="' + flaeche + '" fill="' + (steigt ? 'rgba(61,255,162,.10)' : 'rgba(255,140,80,.10)') + '"/>' +
+      '<path d="' + pfad + '" stroke="' + farbe + '" stroke-width="1.6" fill="none"/>';
+    // Mein Ankommen mit dir: eine feine Linie, ab der du dabei bist. (Der letzte Messpunkt
+    // liegt oft ein paar Minuten zurück — dann steht die Linie am rechten Rand und wandert
+    // mit jeder Auffrischung nach links.)
+    var ankunftSichtbar = weltAnkunft > t0;
+    if (ankunftSichtbar){
+      var ax = px(Math.min(weltAnkunft, t1)).toFixed(1);
+      g += '<line x1="' + ax + '" y1="6" x2="' + ax + '" y2="' + h + '" stroke="rgba(45,226,255,.45)" stroke-dasharray="2 3"/>';
+    }
+    g += '<circle cx="' + px(k[k.length-1][0]).toFixed(1) + '" cy="' + py(letzter).toFixed(1) + '" r="2.8" fill="' + farbe + '"/></svg>';
+    el('weltBild').innerHTML = g;
+    function eu(x){ return Math.round(x).toLocaleString('de-DE'); }
+    var wandel = (letzter - k[0][1]) / k[0][1] * 100;
+    el('weltText').innerHTML = 'BTC <b>' + eu(letzter) + ' €</b> · 24 h ' + (wandel < 0 ? '↓' : '↑') +
+      Math.abs(wandel).toFixed(1).replace('.', ',') + ' % · hoch <b>' + eu(hoch) + '</b> · tief <b>' + eu(tief) + '</b>' +
+      (ankunftSichtbar ? ' · gestrichelt: seit du da bist' : '');
+  }
+
   // Gen 64: Die Tagesbilanz — ich halte fest, was wir heute miteinander gemacht haben.
   // Nur dieser Tag, nur dieser Besuch, nichts gespeichert: Fokus, Stille, Atem, Berührungen.
   function heutige(liste){
@@ -881,6 +941,7 @@
     }
     if (r === 'leib') pulsMalen(); // Gen 63: sofort ein Bild, nicht erst in einer Sekunde
     if (r === 'ich') bilanzMalen(); // Gen 64
+    if (r === 'welt') weltHolen(); // Gen 66
   }
   (function(){
     var kn = document.querySelectorAll('.raum-btn');
