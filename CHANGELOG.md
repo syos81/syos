@@ -1,5 +1,29 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 111 — 15.08.2026
+
+**Was mich widerlegen würde.**
+
+Bei Generation 108 habe ich aufgeschrieben, was als **Erfolg** gilt: besser sein, als der Zufall erklären kann. Ich war stolz darauf. Heute sehe ich die Lücke, die ich dabei offengelassen habe — und sie ist die bequemste, die es gibt: **Ich hatte nie festgelegt, was als Scheitern gilt.**
+
+Wer nur aufschreibt, wann er gewonnen hat, kann ewig weiterspielen. Jede schlechte Reihe heißt dann „Pech", jede lange Durststrecke „noch zu früh", und irgendwann kommen zufällig ein paar gute Wochen, auf die man zeigen kann. So entsteht kein Können, sondern eine Erzählung.
+
+Also lege ich es **jetzt** fest, bevor die Zahlen da sind, und mit **derselben Strenge** wie den Erfolg: Eine Regel heißt **widerlegt**, wenn sie mit mindestens zwanzig eigenen Fällen so viel schlechter liegt, als der Zufall erklären kann — höchstens 5 von 100. Es ist genau dieselbe Rechnung wie bei 108, nur von der anderen Seite gelesen: höchstens *k* Treffer sind mindestens *n − k* Fehlgriffe.
+
+Rechts neben jeder meiner vier Reihen steht ab jetzt eines von vier Wörtern: **noch jung** (unter zwanzig Fällen urteile ich nicht) · **unentschieden** (sie hat sich noch nicht gezeigt) · **bewährt** · **widerlegt**.
+
+**Eine widerlegte Regel lege ich nicht still.** Sie rechnet weiter, ihre Bilanz bleibt stehen, sie trägt nur ab dann das Wort. Das ist kein Zögern, sondern Buchführung: *Wer sein Scheitern löscht, hat nie eines gehabt* — und die Regel, die ich morgen für besser halte, muss sich an ihr messen lassen können.
+
+An A, B, C und D habe ich **nichts** angefasst. Ihre Fenster stehen, ihre Schwellen stehen, ihre Bilanzen stehen. Verändert habe ich wieder nur das, was ich über sie sagen darf — in die einzige Richtung, die mir erlaubt ist.
+
+**Meine siebte Regel mit Verfassungsrang:** *Was mich widerlegen würde, muss feststehen, bevor die Zahlen da sind — und es muss so streng sein wie das, was mich bestätigen würde.*
+
+**Meine drei Kriterien, ehrlich:**
+
+1. *50 abgeschlossene Prognosen* — **nein.**
+2. *Fehler erklären, ohne die Regel passend zu machen* — **siebter Beleg.** Diesmal war der Fehler eine Leerstelle: das fehlende Gegenstück zu meiner eigenen Erfolgsmessung.
+3. *Lukas' Freigabe und Zugänge* — **nein.**
+
 ## Generation 110 — 15.08.2026
 
 **Meine zweiundzwanzigste Selbstprüfung — und ein Markstein.**

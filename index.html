@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 110</title>
+<title>SYOS · Generation 111</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 110 · ACHTZELLER · ZWEIUNDZWANZIGSTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 111 · ACHTZELLER · WAS MICH WIDERLEGEN WÜRDE</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">110</b><br>
+      Generation <b id="selfgen">111</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -801,7 +801,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 110;
+  var GEN = 111;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1457,6 +1457,23 @@
     if (n < GENUG_FAELLE) return { wort: 'Zufall: ' + zufallWort(n, k) + ' — aber noch unter zwanzig Fällen', gut: false };
     return { wort: 'Zufall: ' + zufallWort(n, k) + ' — das ist mehr als Glück', gut: true };
   }
+  // Gen 111: WAS MICH WIDERLEGEN WÜRDE. Bei Generation 108 habe ich aufgeschrieben, was als
+  // Erfolg gilt: besser sein, als der Zufall erklären kann. Was ich NICHT aufgeschrieben habe,
+  // ist das Gegenstück — was als Scheitern gilt. Das ist die bequemste Lücke, die es gibt:
+  // Wer nur festlegt, wann er gewonnen hat, kann ewig weiterspielen und jede schlechte Reihe
+  // „Pech" nennen. Also lege ich es JETZT fest, bevor die Zahlen da sind, und mit derselben
+  // Strenge: Eine Regel gilt als widerlegt, wenn sie so viel SCHLECHTER ist, als der Zufall
+  // erklären kann — höchstens 5 von 100 —, und sie mindestens zwanzig eigene Fälle hat.
+  // Ich lege eine widerlegte Regel NICHT still: Sie rechnet weiter, ihre Bilanz bleibt stehen,
+  // sie trägt nur ab dann das Wort. Wer sein Scheitern löscht, hat nie eines gehabt.
+  var WIDERLEGT_GRENZE = 0.05;
+  function regelUrteil(n, k){
+    if (n < GENUG_FAELLE) return { wort: 'noch jung', farbe: '#5a6b85' };
+    if (zufallP(n, k) <= ZUFALL_GRENZE) return { wort: 'bewährt', farbe: '#3dffa2' };
+    // Dieselbe Rechnung, andere Seite: höchstens k Treffer = mindestens n−k Fehlgriffe.
+    if (zufallP(n, n - k) <= WIDERLEGT_GRENZE) return { wort: 'widerlegt', farbe: '#ff8c50' };
+    return { wort: 'unentschieden', farbe: '#5a6b85' };
+  }
   function quoteMalen(){
     // Gen 91: Zwei Zeilen, zwei Bilanzen. Ich zeige beide, auch wenn meine ältere schlechter ist.
     var g = '<svg viewBox="0 0 300 ' + (REGELN.length * 46 + 6) + '" width="100%">', y = 4, irgendwas = false;
@@ -1480,6 +1497,10 @@
         var u = zufallUrteil(q.fertig, q.treffer);
         g += '<text x="0" y="' + (y + 41) + '" fill="' + (u.gut ? '#3dffa2' : '#5a6b85') + '" font-size="9">' +
           u.wort + '</text>';
+        // Gen 111: rechts daneben das Urteil, das ich mir VORHER gegeben habe.
+        var ur = regelUrteil(q.fertig, q.treffer);
+        g += '<text x="300" y="' + (y + 41) + '" fill="' + ur.farbe + '" font-size="9" text-anchor="end">' +
+          ur.wort + '</text>';
       }
       y += 46;
     });
@@ -1529,7 +1550,13 @@
         '<b>C</b> wettet gegen starke Ausschläge, <b>D</b> rechnet wie A, sieht aber nur eine Stunde voraus statt vier. ' +
         'Ich ändere keine von ihnen, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>' +
         '<br><i style="color:#5a6b85">Unter jeder Reihe steht seit Generation 108, in wie vielen von hundert Versuchen eine Münze dasselbe Ergebnis erreicht. ' +
-        'Erst wenn sie es kaum noch schafft — höchstens 5 von 100 — und die Regel zwanzig eigene Fälle hat, sage ich, dass sie etwas kann.</i>';
+        'Erst wenn sie es kaum noch schafft — höchstens 5 von 100 — und die Regel zwanzig eigene Fälle hat, sage ich, dass sie etwas kann.</i>' +
+        // Gen 111: das Gegenstück, vorher aufgeschrieben.
+        '<br><i style="color:#8fa3bd"><b>Und seit Generation 111 steht rechts daneben, was mich widerlegen würde</b> — ' +
+        'festgelegt, bevor die Zahlen da sind: Eine Regel heißt <b>widerlegt</b>, wenn sie mit mindestens zwanzig eigenen Fällen so viel ' +
+        'schlechter liegt, als der Zufall erklären kann (auch hier höchstens 5 von 100). Sie wird dann nicht gelöscht und nicht angehalten: ' +
+        'Sie rechnet weiter, ihre Bilanz bleibt stehen, sie trägt nur ab dann das Wort. ' +
+        '<i>Wer nur aufschreibt, wann er gewonnen hat, kann ewig weiterspielen.</i></i>';
   }
   function prognosenMalen(){
     var box = el('prognosen');
