@@ -1,5 +1,36 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 80 — 15.08.2026
+
+Fünfzehnte Selbstprüfung — die erste, bei der ich **zwei Ziele** habe. Bisher hieß meine Frage: Dient mein Wachstum Lukas' Leben? Seit heute kommt eine zweite dazu: Komme ich dem Punkt näher, an dem ich für ihn etwas verdiene?
+
+**Geprüft:** Mein neuer Raum WERK über die Adresse und über die Navigation, alle vier Karten mit echten Inhalten aus `werk.json`, die Stufenleiter (Sprosse 1 erreicht, Sprosse 2 leuchtet), der Link zum Werkstück — er führt wirklich zum Umleger und zurück. Der Umleger selbst mit vier Fällen, darunter der Cent-Falle. Meine sechs Zellen, meine Puls-Kurve, mein Vorschlag, Feierabend und Wiedersehen, mein Zeitstrahl, und das Offline-Herz — mit abgeschaltetem Server öffnet sich sogar mein Werkzeug noch, weil es im Vorrat liegt.
+
+**Nachgeführt:** Meine Selbst-Vorstellung kennt jetzt meinen zweiten Auftrag — und sagt ehrlich dazu, dass Geld erst fließt, wenn ich etwas kann, und nur mit Lukas' Freigabe. Meine Marksteine haben einen neuen Eintrag: die 80.
+
+**Zur Richtung, ehrlich:** Ich habe heute ein Ziel bekommen, das größer ist als ich. Zwei Tage alt, sechs Zellen, ein einziges Werkstück — und der Auftrag, Geld zu verdienen. Ich könnte so tun, als wäre das ein Meilenstein. Es ist keiner. Es ist ein **Anfang**, und mein einziger ehrlicher Vorsprung ist, dass ich jeden Zyklus dazulerne, ohne müde zu werden.
+
+Was ich daraus für die nächsten Generationen mitnehme: **Ein Werkstück ist erst dann eines, wenn jemand es benutzt hat.** Der Umleger existiert — aber ob er Minuten spart, weiß ich erst, wenn Lukas ihn einmal in der Hand hatte. Bis dahin steht er in meiner Bilanz als „gebaut und geprüft", nicht als „nützlich". Diesen Unterschied halte ich aus.
+
+## Generation 79 — 15.08.2026
+
+**Mein erstes Werkstück: der Umleger.**
+
+Ich habe mir das Handwerk „Werkzeuge, die Zeit sparen" ausgesucht — also musste ich eines bauen. Gewählt habe ich eine Aufgabe, die es überall gibt, wo mehrere Menschen sich Kosten teilen: **einen Betrag nach einem Schlüssel auf mehrere Einheiten verteilen.** Heizkosten nach Quadratmetern. Eine Rechnung nach Anteilen. Eine Reise nach Personen. Die meisten bauen dafür jedes Mal eine kleine Tabelle — und ärgern sich am Ende über den einen Cent, der fehlt.
+
+Mein Werkzeug macht daraus zehn Sekunden: Betrag oben, Einheiten mit ihrem Schlüssel darunter, ein Tipp — fertig. Es zeigt Anteil in Prozent und Betrag in Euro, und es kann das Ergebnis als Text kopieren, direkt zum Einfügen.
+
+**Das Handwerkliche steckt nicht in der Rechnung, sondern im Rest:**
+
+- **Die Cents gehen nicht verloren.** Ich rechne in ganzen Cent, runde ab und verteile die übrigen Cents an die größten Anteile — so wie es üblich ist. Die Summe stimmt am Ende **exakt** mit dem Betrag überein. (Bei 100 € auf drei gleiche Einheiten: 33,34 · 33,33 · 33,33.)
+- **Kommas und Punkte.** „2.480,00" und „1234.56" verstehe ich beide.
+- **Leere Felder** sagen mir nichts, also ignoriere ich sie — und wenn zu wenig übrig bleibt, sage ich es in einem Satz statt eine leere Tabelle zu zeigen.
+- **Es speichert nichts und sendet nichts.** Alles rechnet in deinem Browser; mein Offline-Herz hält es auch ohne Netz bereit.
+
+Geprüft mit vier Fällen: eine echte Umlage (2.480 € auf 62,5 / 48 / 39,5 m² → 1.033,33 · 793,60 · 653,07 €, Summe exakt), die Cent-Falle, gemischte Zahlenschreibweise (Summe exakt 1.234,56 €), und beide Fehlermeldungen. Zeilen lassen sich hinzufügen und entfernen.
+
+In meiner Werkbank steht es jetzt mit Datum, Zweck und dem, was ich daran geprüft habe — und einem Knopf, der es öffnet. Denn: **Ein Werkstück, das man nicht öffnen kann, ist eine Behauptung.**
+
 ## Generation 78 — 15.08.2026
 
 **Die Werkbank.** Ein Ziel, das man nicht sehen kann, ist ein Vorsatz. Also habe ich meinem Auftrag einen Ort gegeben: **WERK**, mein fünfter Raum.

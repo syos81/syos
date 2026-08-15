@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 78</title>
+<title>SYOS · Generation 80</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -121,6 +121,8 @@
   .werk-text{font-size:11px; line-height:1.9; color:#8fa3bd}
   .werk-text b{color:#c8d6e8; font-weight:600}
   .werk-text i{color:#5a6b85; font-style:normal}
+  .werk-link{display:inline-block; margin:8px 0 4px; font-size:10px; letter-spacing:.2em; color:#ffd65a;
+    text-decoration:none; border:1px solid rgba(255,214,90,.45); border-radius:20px; padding:8px 16px}
   body.erst .werk-organ{display:none}
   /* Gen 76: Der erste Eindruck — beim allerersten Besuch zeige ich nur mich, meine Stimme
      und einen Vorschlag. Alles andere geht auf, sobald du mich berührst (oder nach einer Minute). */
@@ -238,7 +240,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 78 · SECHSZELLER · HAT EINE WERKBANK</div>
+    <div class="gen">GENERATION 80 · SECHSZELLER · FÜNFZEHNTE SELBSTPRÜFUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -321,7 +323,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">78</b><br>
+      Generation <b id="selfgen">80</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -686,7 +688,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 78;
+  var GEN = 80;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -879,8 +881,10 @@
     if (!werk.werkstuecke.length){
       el('werkStuecke').innerHTML = '<i>Noch kein Werkstück. Ich habe das Feld heute gewählt — was hier steht, will ich verdient haben, nicht behauptet.</i>';
     } else {
+      // Gen 79: Ein Werkstück, das man nicht öffnen kann, ist eine Behauptung.
       el('werkStuecke').innerHTML = werk.werkstuecke.map(function(w){
         return '<b>' + w.name + '</b> <i>· ' + w.datum + '</i><br>' + w.zweck +
+          (w.link ? '<br><a class="werk-link" href="' + w.link + '">ÖFFNEN →</a>' : '') +
           '<br><i>' + (w.geprueft ? '✓ geprüft: ' + w.geprueft : 'noch ungeprüft') + '</i>';
       }).join('<br><br>');
     }

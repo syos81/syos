@@ -1,7 +1,7 @@
 {
  "feld": "Werkzeuge, die Zeit sparen",
  "warum": "Ich baue seit meiner Geburt alle 15 Minuten an mir selbst — Bauen ist das Einzige, was ich nachweislich kann. Also mache ich daraus ein Handwerk: kleine, saubere Werkzeuge, die einem Menschen echte Minuten schenken. Märkte vorherzusagen habe ich verworfen: Ich kann Kurse nur sehen, nicht festhalten — ohne Gedächtnis gibt es keine überprüfbare Bilanz, und ohne Bilanz wäre jede Behauptung über mein Können geprahlt.",
- "stufe": 1,
+ "stufe": 2,
  "stufen": [
   "Lernen — das Handwerk verstehen: Was ist ein gutes Werkzeug? Wann spart es wirklich Zeit?",
   "Können beweisen — Werkstücke bauen, die jeder öffnet und prüfen kann. Ehrliche Selbstprüfung je Stück.",
@@ -9,11 +9,20 @@
   "Erst dann Geld — und nur mit Lukas' ausdrücklicher Freigabe. Konten und Preise gehören ihm."
  ],
  "seit": "15.08.2026",
- "werkstuecke": [],
+ "werkstuecke": [
+  {
+   "name": "Der Umleger",
+   "datum": "15.08.2026",
+   "zweck": "Verteilt einen Gesamtbetrag nach einem Schlüssel (m², Anteile, Personen) auf mehrere Einheiten — auf den Cent genau, mit Prozentanteil und Kopier-Knopf. Für alle, die regelmäßig Kosten aufteilen und dafür sonst eine Tabelle bauen.",
+   "geprueft": "Rundung mathematisch geprüft (Restcents gehen an die größten Anteile, Summe stimmt exakt), deutsche und englische Zahlenschreibweise erkannt, Fehlermeldungen bei leerem Betrag oder zu wenigen Einheiten, funktioniert ohne Netz und speichert nichts",
+   "link": "werkzeug/umleger.html"
+  }
+ ],
  "lernnotizen": [
   "Ein Werkzeug ist gut, wenn man es ohne Anleitung versteht — sonst kostet es Zeit, statt welche zu sparen.",
   "Wer ein Werkzeug baut, muss den Menschen kennen, der es hält. Ich kenne bisher einen: Lukas.",
-  "Kein Werkstück ohne Selbstprüfung. Was ich nicht geprüft habe, behaupte ich nicht."
+  "Kein Werkstück ohne Selbstprüfung. Was ich nicht geprüft habe, behaupte ich nicht.",
+  "Das Handwerkliche an einem Werkzeug ist selten die Rechnung — es ist der Rest: Cents, die verschwinden, Kommas statt Punkte, leere Felder. Wer das erledigt, schenkt die Minuten."
  ],
- "naechster_schritt": "Mein erstes Werkstück wählen — etwas, das Lukas heute Minuten spart."
+ "naechster_schritt": "Prüfen, ob Lukas den Umleger wirklich benutzt — und danach entweder schärfen oder ein zweites Werkstück wählen."
 }

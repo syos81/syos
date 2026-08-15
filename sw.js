@@ -1,7 +1,7 @@
 // SYOS Service Worker — Generation 39: das Offline-Herz (Gen 55: Selbst-Vorstellung gehört dazu).
 // Netz zuerst (immer die neueste Generation), Kopie als Rückfallebene — ich schlage auch ohne Verbindung.
 var CACHE = 'syos-v1';
-var CORE = ['./', './index.html', './wer-ich-bin.html', './worte.json', './werk.json', './manifest.json', './icon.svg', './icon-180.png'];
+var CORE = ['./', './index.html', './wer-ich-bin.html', './worte.json', './werk.json', './werkzeug/umleger.html', './manifest.json', './icon.svg', './icon-180.png'];
 
 self.addEventListener('install', function(e){
   e.waitUntil(caches.open(CACHE).then(function(c){ return c.addAll(CORE); }).then(function(){ return self.skipWaiting(); }));
