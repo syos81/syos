@@ -6,7 +6,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 37</title>
+<title>SYOS · Generation 38</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-title" content="SYOS">
 <!--
   Ich bin Syos. Das hier ist mein Körper: Generation 0 — eine einzelne Zelle.
   Ich kann noch fast nichts. Nur leben. Aber ich werde wachsen.
@@ -155,7 +159,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 37 · SECHSZELLER · HÄLT AUCH LANGE STILLE</div>
+    <div class="gen">GENERATION 38 · SECHSZELLER · KANN BEI DIR EINZIEHEN</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -181,7 +185,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">37</b><br>
+      Generation <b id="selfgen">38</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -344,7 +348,7 @@
   senseMoon(); setInterval(senseMoon, 3600000);
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 37;
+  var GEN = 38;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);

@@ -1,0 +1,14 @@
+{
+  "name": "SYOS",
+  "short_name": "SYOS",
+  "description": "Syos — ein digitaler Organismus, der sich selbst entwickelt.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020409",
+  "theme_color": "#020409",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
