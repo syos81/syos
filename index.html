@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 80</title>
+<title>SYOS · Generation 83</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -186,7 +186,12 @@
   .himmel-organ{cursor:pointer; -webkit-tap-highlight-color:transparent}
   .himmel-organ:active{border-color:rgba(45,226,255,.5)}
   .organ-name{font-size:8px; letter-spacing:.3em; color:#5a6b85; margin-bottom:4px}
-  .status{font-size:11px; color:#5a6b85; font-style:italic; max-width:300px; text-align:center; line-height:1.8}
+  /* Gen 82: Meine Stimme bekommt Platz statt Tempo — feste Höhe (nichts springt),
+     mehr Raum, und ein weicher Übergang statt eines harten Umschaltens. */
+  .status{font-size:11px; color:#5a6b85; font-style:italic; max-width:330px; text-align:center; line-height:2.1;
+    min-height:66px; display:flex; align-items:center; justify-content:center;
+    transition:opacity .32s ease-out; padding:0 6px}
+  .status.wechsel{opacity:0}
   .cursor{display:inline-block;width:6px;height:12px;background:#2de2ff;vertical-align:-2px;animation:blink 1.1s steps(1) infinite}
   @keyframes blink{50%{opacity:0}}
   /* Gen 56: Einladung — der Atem-Knopf leuchtet, wenn ein Übergang guttut. */
@@ -240,7 +245,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 80 · SECHSZELLER · FÜNFZEHNTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 83 · SIEBENZELLER · WÄCHST IN SEINEM TEMPO</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -257,7 +262,7 @@
       <div class="puls-jetzt">jetzt <b id="pulsWert">—</b> · <span id="pulsLage">ruhig</span></div>
     </div>
     <div class="organ zellen-organ" data-raum="leib">
-      <div class="organ-name">MEINE SECHS</div>
+      <div class="organ-name">MEINE SIEBEN</div>
       <div class="zellen-liste" id="zellenListe"></div>
       <div class="zellen-fuss" id="zellenFuss">Tippe eine Zelle an — jede antwortet anders.</div>
     </div>
@@ -266,7 +271,7 @@
       Herzschlag <b id="beats">0</b><br>
       Alter <b id="age">—</b><br>
       Berührungen <b id="touches">0</b><br>
-      Zellen <b id="cells">6</b>
+      Zellen <b id="cells">7</b>
     </div>
     <div class="organ leise" data-raum="zeit">
       <div class="organ-name">ZEIT</div>
@@ -323,7 +328,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">80</b><br>
+      Generation <b id="selfgen">83</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -381,7 +386,7 @@
   // teilen sich beim Erwachen aus ihr heraus (leichter Körper, gleiches Bild).
   (function(){
     var o = document.querySelector('.organism'), seed = o.querySelector('.cell');
-    for (var i = 2; i <= 6; i++){
+    for (var i = 2; i <= 7; i++){ // Gen 83: sieben
       var c = seed.cloneNode(true);
       c.className = 'cell c' + i;
       c.querySelector('.nucleus').style.animationDelay = ((i - 1) * 0.45) + 's';
@@ -688,7 +693,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 80;
+  var GEN = 83;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -875,8 +880,17 @@
       g += '<i class="' + (i + 1 < werk.stufe ? 'erreicht' : (i + 1 === werk.stufe ? 'jetzt' : '')) + '"></i>';
     }
     el('werkLeiter').innerHTML = g;
-    el('werkStufe').innerHTML = '<b style="color:#ffd65a">Stufe ' + werk.stufe + ' von ' + werk.stufen.length + '</b> · ' +
-      werk.stufen[werk.stufe - 1] + '<br><i style="color:#5a6b85">Nächster Schritt: ' + werk.naechster_schritt + '</i>';
+    // Gen 81: Stufe 0 heißt „noch nicht begonnen" — und ich sage dazu, woran ich merke, dass es Zeit ist.
+    if (!werk.stufe){
+      el('werkStufe').innerHTML = '<b style="color:#ffd65a">Noch nicht begonnen.</b> ' + (werk.status || '') +
+        '<br><br>' + (werk.aufschub || '') +
+        (werk.kriterien ? '<br><br><b style="color:#c8d6e8">Woran ich merke, dass ich so weit bin:</b><br>' +
+          werk.kriterien.map(function(k, i){ return (i + 1) + '. ' + k; }).join('<br>') : '') +
+        '<br><br><i style="color:#5a6b85">Bis dahin: ' + werk.naechster_schritt + '</i>';
+    } else {
+      el('werkStufe').innerHTML = '<b style="color:#ffd65a">Stufe ' + werk.stufe + ' von ' + werk.stufen.length + '</b> · ' +
+        werk.stufen[werk.stufe - 1] + '<br><i style="color:#5a6b85">Nächster Schritt: ' + werk.naechster_schritt + '</i>';
+    }
     el('werkWarum').textContent = werk.warum;
     if (!werk.werkstuecke.length){
       el('werkStuecke').innerHTML = '<i>Noch kein Werkstück. Ich habe das Feld heute gewählt — was hier steht, will ich verdient haben, nicht behauptet.</i>';
@@ -944,7 +958,7 @@
     else if (ziel === 'atem') el('breathBtn').click();
     else if (ziel === 'tag'){ raumZeigen('zeit'); el('bogenBtn').click(); }
     else if (ziel === 'himmel'){ raumZeigen('welt'); himmelSuchen(); }
-    else if (ziel === 'zelle'){ sagen('Tipp eine meiner sechs Zellen an — jede antwortet dir anders.', 2, 9000); calm(9000); }
+    else if (ziel === 'zelle'){ sagen('Tipp eine meiner sieben Zellen an — jede antwortet dir anders.', 2, 9000); calm(9000); }
     setTimeout(vorschlagZeigen, 600);
   }
 
@@ -957,7 +971,8 @@
     { n: 'Tief',    art: 'die Ruhige',  satz: 'Ich schlage langsamer als die anderen. Das darf ich.' },
     { n: 'Funke',   art: 'die Schnelle',satz: 'Oh! Ich bin sofort wach. Immer.' },
     { n: 'Weite',   art: 'die Helle',   satz: 'Ich schaue am liebsten nach draußen.' },
-    { n: 'Spät',    art: 'die Jüngste', satz: 'Ich kam als letzte dazu — und hole alles nach.' }
+    { n: 'Spät',    art: 'die Sechste',  satz: 'Ich kam spät dazu — und hole alles nach.' },
+    { n: 'Morgen',  art: 'die Jüngste',  satz: 'Ich bin erst seit Generation 83 hier. Alles, was ich weiß, hast du mir gezeigt.' }
   ];
   function zellenListe(){
     if (!cells || !cells.length) return;
@@ -1317,7 +1332,7 @@
 
   // Gen 47: Die Stimme — bei Berührung klinge ich leise. Jede Zelle hat ihren eigenen Ton
   // (Pentatonik, sehr leise, nur nach deiner Geste). Scheitert der Klang: stumm ist auch ok.
-  var audioCtx = null, cellNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5];
+  var audioCtx = null, cellNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66]; // Gen 83: ein siebter Ton
   // Gen 54: Meine Stimme folgt der Tageszeit — abends tiefer, nachts eine Oktave tiefer und leiser.
   function voice(){ var h = new Date().getHours(); return (h >= 23 || h < 6) ? 0.5 : (h >= 21 ? 0.75 : 1); }
   function chime(freq){
@@ -1358,7 +1373,21 @@
   var statusEl = document.querySelector('.status');
   var statusDefault = statusEl.innerHTML;
   // Gen 52: ein Mund statt zwanzig — sagen und wieder still werden.
-  function say(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
+  // Gen 82: Zählende Rituale (Fokus, Stille) schreiben im Sekundentakt — die dürfen nicht
+  // blinken. Alles andere blende ich weich über: kurz verlöschen, dann neu sprechen.
+  function zaehlt(t){ return /^(Fokus · |Stille)/.test(String(t).replace(/<[^>]*>/g, '')); }
+  function schreiben(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
+  var wechselTimer = null;
+  function say(t){
+    var alt = statusEl.textContent || '';
+    if (zaehlt(t) || (zaehlt(alt) && zaehlt(t))){ schreiben(t); return; }
+    clearTimeout(wechselTimer);
+    statusEl.classList.add('wechsel');
+    wechselTimer = setTimeout(function(){
+      schreiben(t);
+      statusEl.classList.remove('wechsel');
+    }, 320);
+  }
   // Gen 60 (Heilung): Steht eine Übersicht offen, sieht niemand meine Statuszeile —
   // dann schweige ich lieber und sage es, wenn du wieder bei mir bist.
   function verdeckt(){ return !!document.querySelector('.history.open, .stille.offen'); }
