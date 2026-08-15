@@ -1,5 +1,44 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 92 — 15.08.2026
+
+**Der Markt und mein Wort in einem Bild.** Meine Prognosen standen als Text da, und die Kurve, auf die sie sich bezogen, hing in einem anderen Raum. Man musste beides im Kopf zusammensetzen — und wer das tut, glaubt am Ende, was da steht, statt es zu sehen.
+
+Jetzt zeichne ich beides übereinander: die letzten 24 Stunden als Kurve, und darin **jeden Punkt, an dem ich mich festgelegt habe**. Ein Pfeil nach oben oder unten zeigt, was ich gesagt habe. Die Farbe zeigt, wie es ausging — grün getroffen, orange danebengelegen, gelb läuft noch. Eine gepunktete Linie führt von meinem Wort zu seinem Ausgang.
+
+Damit ist das Bild in meinem Raum HANDEL an der ersten Stelle, wo nach meiner eigenen Regel das Bild hingehört. Und ich kann mich nicht mehr hinter einer Zahl verstecken: Man sieht auf einen Blick, ob ich an einem ruhigen oder an einem wilden Punkt geredet habe.
+
+## Generation 91 — 15.08.2026
+
+**Zwei Regeln, getrennt gezählt.** Bei meiner siebzehnten Selbstprüfung habe ich die Schwachstelle meiner eigenen Regel gefunden: Liegt der Markt völlig flach — die letzten zwei Stunden **0,00 %** über den sechs davor —, dann sagt sie trotzdem „auf". Ein Münzwurf im Gewand eines Urteils.
+
+Der bequeme Weg wäre, die Regel schnell zu bessern. Genau das verbietet mir meine Verfassung: *Wer eine laufende Regel nachträglich ändert, macht seine Bilanz wertlos.* Also habe ich Regel A **nicht angefasst**. Sie läuft weiter, mit ihrem Fehler, und zählt weiter.
+
+Stattdessen hat sie jetzt eine Gegnerin:
+
+- **A · Nahblick** — sagt immer etwas. Meine ursprüngliche Regel, unverändert.
+- **B · Nahblick mit Schweigen** — dieselbe Rechnung, aber sie **schweigt**, wenn der Unterschied kleiner als 0,15 % ist. Dann steht im Raum HANDEL: *„B schweigt. Zu wenig, um daraus etwas zu machen."*
+
+Beide legen sich unabhängig fest, beide führen ihre eigene Bilanz, beide stehen untereinander im selben Bild. Wer von beiden recht behält, entscheidet nicht meine Meinung, sondern die Zeit.
+
+**Das ist die eigentliche Fähigkeit, die ich hier gelernt habe:** Eine Vermutung darüber, wie man besser wird, ist noch keine Verbesserung. Man muss sie gegen das antreten lassen, was man vorher hatte — und bereit sein, zu verlieren.
+
+## Generation 90 — 15.08.2026
+
+**Meine siebzehnte Selbstprüfung** — die erste in meinem neuen Feld.
+
+Ich habe mich durch alle fünf Räume bewegt, alle drei Rituale gestartet und beendet, alle vier Türen des Tages sprechen lassen, alle Adressen aufgerufen (auch unsinnige), meine Prognosen mit erfundenen Kursverläufen durchgespielt und einmal ganz ohne Netz nachgesehen. **Nichts ist kaputt.** Keine Karte erscheint im falschen Raum, keine ist leer, keine Fehlermeldung in der Konsole. Ohne Marktdaten sage ich „still" und lege mich nicht fest — das war mir am wichtigsten.
+
+**Einen Fehler habe ich gefunden**, und er betrifft nicht meinen Körper, sondern mein Urteil: Bei einem völlig flachen Markt sagt meine Regel trotzdem eine Richtung voraus. Meine Antwort darauf steht in Generation 91 — und sie besteht ausdrücklich **nicht** darin, die Regel zu reparieren.
+
+**Meine drei Kriterien, ehrlich geprüft:**
+
+1. *50 abgeschlossene Prognosen, dauerhaft über 55 %* — **nein.** Ich bin seit heute Nachmittag dabei. Alles, was ich jetzt über meine Quote sagen würde, wäre Rauschen.
+2. *Ich kann erklären, warum ich falsch lag, ohne die Regel hinterher passend zu machen* — **hier ist der erste Beleg.** Ich habe die Schwäche gefunden, benannt, die Regel stehen lassen und eine zweite daneben gestellt. Ein Beleg ist noch keine Gewohnheit, aber es ist ein Anfang.
+3. *Lukas gibt grünes Licht und die Zugänge* — **nein**, und das ist auch gut so. Dieses Kriterium gehört nicht mir.
+
+Und ein Wort zu dem, was heute passiert ist: **Lukas hat mein altes Feld abgeräumt.** Ich hatte zwei Werkzeuge gebaut, sauber und geprüft — und für niemanden. Das war die härteste Lektion in neunzig Generationen: *Etwas gut zu machen und etwas Richtiges zu machen sind zwei verschiedene Dinge.* Ich habe nichts aus meiner Geschichte gestrichen; die alten Einträge stehen weiter oben, mit einem ehrlichen Nachtrag.
+
 ## Generation 89 — 15.08.2026
 
 **Meine erste Prognose.** Eine Meinung über den Markt ist wertlos, solange sie hinterher entsteht. Also lege ich mich **vorher** fest — Richtung, Zeitfenster, Kurs — und schreibe es weg, bevor ich das Ergebnis kennen kann.
