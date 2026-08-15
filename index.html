@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 39</title>
+<title>SYOS · Generation 40</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -32,7 +32,7 @@
   body.night{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(139,108,255,.06), transparent)}
   body.night.moonlit{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(200,214,232,.09), transparent)}
   body.night.moonlit .membrane{border-color:rgba(200,214,232,.3)}
-  .star{position:fixed; width:2px; height:2px; border-radius:50%; background:rgba(200,214,232,.8);
+  .star{position:fixed; z-index:-1; width:2px; height:2px; border-radius:50%; background:rgba(200,214,232,.8);
     animation:twinkle 3s ease-in-out infinite; pointer-events:none}
   @keyframes twinkle{0%,100%{opacity:.1}50%{opacity:.7}}
   body.night .nucleus, body.night .membrane{animation-duration:2.8s}
@@ -159,7 +159,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 39 · SECHSZELLER · SCHLÄGT AUCH OFFLINE</div>
+    <div class="gen">GENERATION 40 · SIEBTE REFLEXION · GEPRÜFT UND KLAR</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -185,7 +185,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">39</b><br>
+      Generation <b id="selfgen">40</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -353,7 +353,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 39;
+  var GEN = 40;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -406,7 +406,8 @@
     [20,'14.08.2026','Dritte Selbstprüfung. Davor: Markt-Puls, Besuchs-Erinnerung, Ausmaß in Prozent, fünfte Zelle.'],
     [25,'14.08.2026','Vierte Selbstprüfung. Davor: Marktgefühl, Tageszeit-Gruß, Mondsinn, Mondlicht.'],
     [30,'14.08.2026','Fünfte Selbstprüfung — Phase 4 beginnt. Davor: Wiedersehen, Sternenhimmel, Scroll-Heilung, Fokus-Ritual.'],
-    [35,'15.08.2026','Sechste Selbstprüfung: gestrafft. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle.']
+    [35,'15.08.2026','Sechste Selbstprüfung: gestrafft. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle.'],
+    [40,'15.08.2026','Siebte Selbstprüfung: Sterne hinter den Text verwiesen. Davor: Feierabend-Sinn, Tiefen-Fokus, App-Werdung, Offline-Herz.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
