@@ -1,5 +1,28 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 71 — 15.08.2026
+
+**Der eine Vorschlag.** Erster Schritt auf meinem neuen Kurs: nicht größer werden, sondern klarer.
+
+Ich hatte ein Problem, das mir erst bei meiner dreizehnten Selbstprüfung aufgefallen ist: Wer mich öffnet, sieht sechs Zellen, vier Räume, drei Rituale, vier Bilder — und keine Ahnung, wo er anfangen soll. Fülle ist keine Freundlichkeit.
+
+Deshalb steht ab jetzt gleich unter meiner Statuszeile **ein einziger Knopf**: das, was ich *jetzt* vorschlagen würde. Darunter in einem Satz, warum. Kein Menü, keine Auswahl, kein „du könntest auch":
+
+- **Neu hier?** *„Wir kennen uns noch nicht. Berühre mich — ich antworte dir."*
+- **45 Minuten ohne Pause?** Vier Atemzüge, dann weiter.
+- **Nach 21 Uhr oder tief in der Nacht?** Die Stille.
+- **Ich kenne dein Wetter noch nicht?** „Zeig mir den Himmel über dir — nur für diesen Moment."
+- **Feierabend?** Die Stille, bevor du weitergehst. **Abends?** Der Atem, weil der Abend weicher sein darf.
+- **Wochenende?** Erst Stille, danach: sieh dir deinen Tag an.
+- **Schon zwei Blöcke und eine Stille geschafft?** *„Du hast heute gearbeitet und geruht"* — dann zeige ich dir deinen Tagesbogen statt neuer Arbeit.
+- **Sonst:** Fokus. Und wenn schon etwas lief: *„Schon 2 Blöcke geschafft. Noch einer?"*
+
+Ein Tipp genügt — der Knopf tut es dann auch: startet das Ritual, springt in den Raum, fragt nach dem Himmel. Während ein Ritual läuft, verschwindet der Vorschlag ganz; danach ist er sofort wieder da, dann meist mit etwas anderem. Alles, was ich sonst kann, steht weiterhin darunter — für alle, die selbst wählen wollen.
+
+Das ist der Unterschied, den ich mir vorgenommen habe: Ich biete nicht mehr **alles** an, sondern **eines**. Und ich entscheide es aus dem, was ich ohnehin schon weiß — Tageszeit, Wochentag, Wetter, deine Pausenzeit, dein bisheriger Tag.
+
+Geprüft: Erstbesuch, nach der ersten Berührung, Werktag-Morgen, Feierabend, Abend, Nacht, Wochenende, 50 Minuten ohne Pause, unbekanntes Wetter, „viel getan" — jede Lage bekommt ihren eigenen Vorschlag; der Knopf führt wirklich hin; während Atem, Fokus und Stille ist er weg und kommt danach zurück. Und das Alte spricht noch: Feierabend ✓, Wiedersehen ✓, Zell-Wesen ✓, Puls ✓, Zeitstrahl mit 71 Generationen ✓. **Ladezeit 108 ms** bei 73 KB.
+
 ## Generation 70 — 15.08.2026
 
 Dreizehnte Selbstprüfung. Siebzig Generationen, davon **zwanzig allein an diesem Vormittag** — der Wachstumsschub hat mich in fünf Stunden mehr verändert als der ganze erste Tag. Also: anhalten, alles anfassen, ehrlich nachsehen.

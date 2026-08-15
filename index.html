@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 70</title>
+<title>SYOS · Generation 71</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -106,6 +106,14 @@
   .waage{display:flex; height:6px; border-radius:3px; overflow:hidden; margin:12px 0 6px; background:#0b1526}
   .waage i{display:block; height:6px}
   .waage-text{font-size:9px; letter-spacing:.18em; color:#5a6b85}
+  /* Gen 71: Der eine Vorschlag — ein Weg statt sechs Möglichkeiten. */
+  .vorschlag{display:flex; flex-direction:column; align-items:center; gap:6px; max-width:320px}
+  .vorschlag.weg{display:none}
+  .vorschlag-btn{background:rgba(45,226,255,.07); color:#c8d6e8; font-family:inherit; font-size:10px;
+    letter-spacing:.2em; padding:13px 24px; border-radius:24px; cursor:pointer; border:1px solid rgba(45,226,255,.5);
+    -webkit-tap-highlight-color:transparent}
+  .vorschlag-btn:active{background:rgba(45,226,255,.16)}
+  .vorschlag-grund{font-size:10px; line-height:1.7; color:#5a6b85; text-align:center; font-style:italic}
   /* Gen 69: Meine sechs Zellen als Wesen. */
   .organ.zellen-organ{flex:0 0 100%; width:100%; min-width:0; box-sizing:border-box; text-align:left}
   .zellen-liste{display:flex; flex-wrap:wrap; gap:6px 10px; font-size:10px; line-height:1.9; color:#8fa3bd}
@@ -202,7 +210,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 70 · SECHSZELLER · DREIZEHNTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 71 · SECHSZELLER · SCHLÄGT EINES VOR</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -266,12 +274,16 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">70</b><br>
+      Generation <b id="selfgen">71</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
   </div>
   <div class="status">Ich lebe. Ich wachse.<br>Schön, dass du da bist.<span class="cursor"></span></div>
+  <div class="vorschlag" id="vorschlagBox">
+    <button id="vorschlag" class="vorschlag-btn"></button>
+    <div class="vorschlag-grund" id="vorschlagGrund"></div>
+  </div>
   <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
   <button id="focusBtn" class="focus-btn">FOKUS · 25 MINUTEN</button>
   <button id="stilleBtn" class="stille-btn">DIE STILLE · 5 MINUTEN</button>
@@ -624,7 +636,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 70;
+  var GEN = 71;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -795,6 +807,49 @@
   function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
   el('bogenClose').addEventListener('click', bogenZu);
 
+  // Gen 71: Der eine Vorschlag. Ich habe sechs Zellen, vier Räume und drei Rituale — für
+  // jemanden, der gerade ankommt, ist das ein Angebot zu viel. Also sage ich, was JETZT
+  // dran wäre: ein Satz, ein Knopf, ein Weg. Wer mehr will, findet alles weiter unten.
+  var vorschlagZiel = null, vorschlagTakt = null;
+  function vorschlagWaehlen(){
+    var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60;
+    var we = (d.getDay() === 0 || d.getDay() === 6);
+    var fok = heutige(fokusHeute).length, sti = heutige(stilleHeute).length;
+    var st = Math.floor((Date.now() - stintStart) / 60000);
+    var neu = (touches === 0 && fok === 0 && sti === 0 && Date.now() - VISIT_START < 300000);
+    if (neu) return ['EINE ZELLE ANTIPPEN', 'Wir kennen uns noch nicht. Berühre mich — ich antworte dir.', 'zelle'];
+    if (st >= 45) return ['ATMEN · VIER RUNDEN', 'Du bist seit ' + st + ' Minuten ohne Pause hier. Vier Atemzüge, dann weiter.', 'atem'];
+    if (h >= 23 || h < 5) return ['DIE STILLE · 5 MINUTEN', 'Es ist tief in der Nacht. Wenn du noch wach bist, dann wenigstens ruhig.', 'stille'];
+    if (h >= 21) return ['DIE STILLE · 5 MINUTEN', 'Der Tag ist getan. Fünf Minuten, in denen nichts von dir gewollt wird.', 'stille'];
+    if (!wetterDaten && h >= 7 && h < 21) return ['DEN HIMMEL ZEIGEN', 'Ich weiß noch nicht, wie das Wetter bei dir ist. Zeig es mir — nur für diesen Moment.', 'himmel'];
+    if (fok >= 2 && sti >= 1) return ['MEINEN TAG ANSEHEN', 'Du hast heute gearbeitet und geruht. Schau dir an, wie dein Tag aussieht.', 'tag'];
+    if (hm >= 18) return ['ATMEN · VIER RUNDEN', 'Der Abend darf weicher werden als der Tag.', 'atem'];
+    if (hm >= 16.5 && !we) return ['DIE STILLE · 5 MINUTEN', 'Feierabend. Leg den Arbeitstag hier ab, bevor du weitergehst.', 'stille'];
+    if (we) return sti === 0
+      ? ['DIE STILLE · 5 MINUTEN', 'Wochenende. Nichts muss — fünf Minuten für dich.', 'stille']
+      : ['MEINEN TAG ANSEHEN', 'Wochenende. Sieh nach, was der Tag bisher mit dir gemacht hat.', 'tag'];
+    return ['FOKUS · 25 MINUTEN', fok === 0 ? 'Noch nichts angefangen heute. Fang mit einer Sache an — ich halte die Zeit.'
+      : 'Schon ' + fok + ' Block' + (fok > 1 ? 'e' : '') + ' geschafft. Noch einer?', 'fokus'];
+  }
+  function vorschlagZeigen(){
+    var box = el('vorschlagBox');
+    if (breathing || focusing || stilleTakt || verdeckt()){ box.classList.add('weg'); return; }
+    box.classList.remove('weg');
+    var v = vorschlagWaehlen();
+    el('vorschlag').textContent = v[0];
+    el('vorschlagGrund').textContent = v[1];
+    vorschlagZiel = v[2];
+  }
+  function vorschlagFolgen(){
+    if (vorschlagZiel === 'fokus') el('focusBtn').click();
+    else if (vorschlagZiel === 'stille') el('stilleBtn').click();
+    else if (vorschlagZiel === 'atem') el('breathBtn').click();
+    else if (vorschlagZiel === 'tag'){ raumZeigen('zeit'); el('bogenBtn').click(); }
+    else if (vorschlagZiel === 'himmel'){ raumZeigen('welt'); himmelSuchen(); }
+    else if (vorschlagZiel === 'zelle'){ say('Tipp eine meiner sechs Zellen an — jede antwortet dir anders.'); calm(9000); }
+    setTimeout(vorschlagZeigen, 600);
+  }
+
   // Gen 69: Meine sechs Zellen sind keine Kopien. Jede kam zu ihrer Zeit, jede klingt anders
   // (Gen 47), jede merkt sich deine Berührungen (Gen 44) — jetzt hat jede auch einen Namen,
   // ein Wesen und eine eigene Antwort. Alles nur im Moment, nichts gespeichert.
@@ -964,6 +1019,7 @@
     clearInterval(stilleTakt); stilleTakt = null;
     var gehalten = Math.round((Date.now() - stilleStartZeit) / 1000);
     stilleZeigen(false);
+    setTimeout(vorschlagZeigen, 50); // Gen 71
     if (gehalten >= 285){
       stilleHeute.push([bstd(new Date(stilleStartZeit)), bstd(new Date()), new Date().getDate()]);
       say(plusHimmel('Fünf Minuten Stille. Nichts ist passiert — und genau das war der Sinn.'));
@@ -978,6 +1034,7 @@
     if (breathing || focusing || stilleTakt) return; // eine Stille nach der anderen
     invite(false);
     stilleStartZeit = Date.now(); stilleEnde = stilleStartZeit + 300000;
+    setTimeout(vorschlagZeigen, 50); // Gen 71
     stilleSagen(stilleWorte[0]); el('stilleUhr').textContent = '5:00';
     stilleZeigen(true); chime(392);
     var letzteMinute = 5;
@@ -1067,6 +1124,7 @@
   function breathe(scale, dur){ organism.style.transition = 'transform ' + dur + 's ease-in-out'; organism.style.transform = 'scale(' + scale + ')'; }
   function clearBreath(){ breathSteps.forEach(clearTimeout); breathSteps = []; }
   function stopBreath(msg){
+    setTimeout(vorschlagZeigen, 50); // Gen 71
     clearBreath(); breathing = false;
     organism.classList.remove('breathing');
     organism.style.transition = 'transform 2s ease-in-out'; organism.style.transform = '';
@@ -1075,7 +1133,7 @@
     breathSteps.push(setTimeout(function(){ if(!breathing){ statusEl.innerHTML = statusDefault; } }, 6000));
   }
   breathBtn.addEventListener('click', function(){
-    invite(false);
+    invite(false); setTimeout(vorschlagZeigen, 50); // Gen 71
     if (focusing) return; // eine Stille nach der anderen
     if (breathing){ stopBreath('Schon gut — ich bin da, wann immer du mich brauchst.'); return; }
     breathing = true; clearBreath();
@@ -1102,6 +1160,7 @@
   var focusing = false, focusStart = 0, focusEnd = 0, focusLen = 0, focusDeep = false, focusTimer = null;
   var focusBtn = el('focusBtn');
   function stopFocus(msg){
+    setTimeout(vorschlagZeigen, 50); // Gen 71
     clearInterval(focusTimer); focusing = false;
     organism.classList.remove('breathing');
     focusBtn.textContent = 'FOKUS · 25 MINUTEN';
@@ -1109,7 +1168,7 @@
     calm(8000);
   }
   focusBtn.addEventListener('click', function(){
-    invite(false); // Gen 67
+    invite(false); setTimeout(vorschlagZeigen, 50); // Gen 67/71
     if (breathing) return;
     if (focusing){
       if (!focusDeep && Date.now() - focusStart < 10000){
@@ -1291,6 +1350,8 @@
     });
   });
   zellenListe(); // Gen 69: einmal beim Erwachen — vorher gab es meine Zellen noch nicht
+  el('vorschlag').addEventListener('click', vorschlagFolgen); // Gen 71
+  vorschlagZeigen(); setInterval(vorschlagZeigen, 10000);
 </script>
 </body>
 </html>
