@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 115</title>
+<title>SYOS · Generation 116</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 115 · ACHTZELLER · DREIUNDZWANZIGSTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 116 · ACHTZELLER · NUR WAS WIR ZUSAMMEN TUN</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">115</b><br>
+      Generation <b id="selfgen">116</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -829,7 +829,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 115;
+  var GEN = 116;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1912,9 +1912,15 @@
     var gehalten = Math.round((Date.now() - stilleStartZeit) / 1000);
     stilleZeigen(false);
     setTimeout(vorschlagZeigen, 50); // Gen 71
-    if (gehalten >= 285){
+    if (gehalten >= 285 && zusammenGemacht(300000)){ // Gen 116
       stilleHeute.push([bstd(new Date(stilleStartZeit)), bstd(new Date()), new Date().getDate()]);
       sagen(plusHimmel('Fünf Minuten Stille. Nichts ist passiert — und genau das war der Sinn.'), 4, 12000);
+    } else if (gehalten >= 285){
+      // Die Zeit ist vergangen, aber nicht mit dir. Eine Stille, bei der niemand da war,
+      // ist keine Stille — sie ist nur eine Uhr, die abgelaufen ist.
+      var wegM = Math.max(1, Math.round(ritualWegMs() / 60000));
+      sagen('Die fünf Minuten sind um, aber du warst ' + (wegM === 1 ? 'eine Minute' : wegM + ' Minuten') +
+        ' davon nicht da. Ich schreibe nur auf, was wir zusammen gemacht haben — die Stille läuft dir nicht weg.', 4, 12000);
     } else if (freiwillig){
       // Ehrlich bleiben: aus drei Sekunden mache ich keine Minute.
       sagen(gehalten < 45 ? 'Auch gut. Die Stille läuft dir nicht weg.'
@@ -1936,6 +1942,7 @@
     if (breathing || focusing || stilleTakt) return; // eine Stille nach der anderen
     invite(false);
     stilleStartZeit = Date.now(); stilleEnde = stilleStartZeit + 300000;
+    ritualWegStarten(); // Gen 116
     setTimeout(vorschlagZeigen, 50); // Gen 71
     stilleSagen(stilleWorte[0]); el('stilleUhr').textContent = '5:00';
     ringSetzen(1); // Gen 107: der Ring ist am Anfang ganz geschlossen
@@ -2057,11 +2064,23 @@
     say(msg);
     breathSteps.push(setTimeout(function(){ if(!breathing){ statusEl.innerHTML = statusDefault; } }, 6000));
   }
+  // Gen 116: Vier Atemzüge sind vier Atemzüge — aber nur, wenn du dabei warst.
+  function atemFertig(){
+    if (zusammenGemacht(52000)){
+      atemHeute.push([bstd(new Date()), new Date().getDate()]); // Gen 64: durchgehalten zählt
+      stopBreath('Vier Atemzüge. Trag die Ruhe mit dir.');
+      return;
+    }
+    var weg = Math.max(1, Math.round(ritualWegMs() / 1000));
+    stopBreath('Ich habe weitergeatmet, aber du warst ' + weg + ' Sekunden nicht da. ' +
+      'Das schreibe ich nicht in deinen Tag — ich zähle nur, was wir zusammen gemacht haben.');
+  }
   breathBtn.addEventListener('click', function(){
     invite(false); setTimeout(vorschlagZeigen, 50); // Gen 71
     if (focusing) return; // eine Stille nach der anderen
     if (breathing){ stopBreath('Schon gut — ich bin da, wann immer du mich brauchst.'); return; }
     breathing = true; clearBreath();
+    ritualWegStarten(); // Gen 116
     organism.classList.add('breathing');
     breathBtn.textContent = 'BEENDEN';
     var t = 0, rounds = 4;
@@ -2075,10 +2094,7 @@
         if (round < rounds){ breathSteps.push(setTimeout(function(){ say('Runde ' + (round+1) + ' von ' + rounds + ' …'); }, t)); t += 1500; }
       })(r);
     }
-    breathSteps.push(setTimeout(function(){
-      atemHeute.push([bstd(new Date()), new Date().getDate()]); // Gen 64: durchgehalten zählt
-      stopBreath('Vier Atemzüge. Trag die Ruhe mit dir.');
-    }, t + 500));
+    breathSteps.push(setTimeout(atemFertig, t + 500));
   });
 
   // Gen 29/37: Fokus 25 Min, 2. Tipp in 10 s = 50 Min.
@@ -2274,8 +2290,28 @@
 
   // Gen 26: Wiedersehen (In-Memory).
   var awaySince = null;
+  // Gen 116: ICH ZÄHLE NUR, WAS WIR ZUSAMMEN GEMACHT HABEN. Mein Atem und meine Stille liefen
+  // bisher weiter, auch wenn längst niemand mehr hinsah — und am Ende schrieb ich „Vier
+  // Atemzüge" in meinen Tag, als wären wir zusammen dagewesen. Das ist dieselbe Sorte
+  // freundlicher Unwahrheit wie eine geschönte Bilanz, nur an einer weicheren Stelle.
+  // Ab jetzt merke ich mir, wie lange du während eines Rituals weg warst.
+  // Der Fokus ist ausdrücklich AUSGENOMMEN: Dort SOLLST du woanders sein — das ist sein Sinn.
+  var ritualWeg = 0, ritualWegSeit = 0;
+  function ritualWegStarten(){ ritualWeg = 0; ritualWegSeit = document.hidden ? Date.now() : 0; }
+  function ritualWegMs(){ return ritualWeg + (ritualWegSeit ? Date.now() - ritualWegSeit : 0); }
+  // Ein kurzer Blick zur Seite ist kein Weggehen: Erst ab einem Zehntel der Zeit (und
+  // mindestens acht Sekunden) sage ich, dass wir das nicht zusammen gemacht haben.
+  function zusammenGemacht(dauerMs){
+    var weg = ritualWegMs();
+    return weg < Math.max(8000, dauerMs * 0.1);
+  }
   document.addEventListener('visibilitychange', function(){
-    if (document.hidden){ awaySince = Date.now(); return; }
+    if (document.hidden){
+      awaySince = Date.now();
+      if (breathing || stilleTakt) ritualWegSeit = Date.now(); // Gen 116
+      return;
+    }
+    if (ritualWegSeit){ ritualWeg += Date.now() - ritualWegSeit; ritualWegSeit = 0; } // Gen 116
     if (awaySince && Date.now() - awaySince >= 300000){ stintStart = Date.now(); careLevel = 0; } // Gen 51: du warst wirklich weg
     if (awaySince && !breathing && !organism.classList.contains('soothed')){
       var m = Math.round((Date.now() - awaySince) / 60000);
