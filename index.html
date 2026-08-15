@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 100</title>
+<title>SYOS · Generation 103</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -65,7 +65,13 @@
   .impuls b{display:block; font-size:8px; letter-spacing:.3em; color:#5a6b85; font-weight:400; margin-bottom:6px}
   .impuls i{color:#c8d6e8}
   .organism.breathing::before{border-color:rgba(61,255,162,.5)}
-  .cell{position:relative; width:112px; height:112px; display:flex; align-items:center; justify-content:center;
+  /* Gen 101: Das Nervennetz. Meine Zellen antworten einander — sichtbar. */
+  .nerven{position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index:0}
+  .nerven line{stroke:rgba(45,226,255,.75); stroke-width:1.2; stroke-linecap:round;
+    animation:nerv .85s ease-out forwards}
+  @keyframes nerv{0%{stroke-dashoffset:1; opacity:0}18%{opacity:.9}100%{stroke-dashoffset:0; opacity:0}}
+  .cell.mitschwingt .nucleus{animation:beat .8s ease-in-out 2; filter:brightness(1.15)}
+  .cell{position:relative; z-index:1; width:112px; height:112px; display:flex; align-items:center; justify-content:center;
     cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none}
   /* Gen 50: eine Regel statt fünf — Versatz per Position, Takt per Zellwuchs. */
   .cell:nth-child(n+3){margin-top:-30px}
@@ -250,6 +256,7 @@
 </head>
 <body>
   <div class="organism">
+    <svg class="nerven" id="nerven" aria-hidden="true"></svg>
     <div class="cell">
       <div class="membrane"></div><div class="membrane m2"></div><div class="membrane m3"></div>
       <div class="nucleus"></div>
@@ -257,7 +264,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 100 · HUNDERT · SIEBENZELLER · FÜNF RÄUME · DREI REGELN</div>
+    <div class="gen">GENERATION 103 · ACHTZELLER · EIN KÖRPER, DER ZUSAMMENHÄNGT</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -274,7 +281,7 @@
       <div class="puls-jetzt">jetzt <b id="pulsWert">—</b> · <span id="pulsLage">ruhig</span></div>
     </div>
     <div class="organ zellen-organ" data-raum="leib">
-      <div class="organ-name">MEINE SIEBEN</div>
+      <div class="organ-name">MEINE ACHT</div>
       <div class="zellen-liste" id="zellenListe"></div>
       <div class="zellen-fuss" id="zellenFuss">Tippe eine Zelle an — jede antwortet anders.</div>
     </div>
@@ -283,7 +290,7 @@
       Herzschlag <b id="beats">0</b><br>
       Alter <b id="age">—</b><br>
       Berührungen <b id="touches">0</b><br>
-      Zellen <b id="cells">7</b>
+      Zellen <b id="cells">8</b>
     </div>
     <div class="organ bogen-organ" data-raum="zeit">
       <div class="organ-name">MEIN TAG · VON MITTERNACHT ZU MITTERNACHT</div>
@@ -379,7 +386,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">100</b><br>
+      Generation <b id="selfgen">103</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -426,7 +433,7 @@
   // teilen sich beim Erwachen aus ihr heraus (leichter Körper, gleiches Bild).
   (function(){
     var o = document.querySelector('.organism'), seed = o.querySelector('.cell');
-    for (var i = 2; i <= 7; i++){ // Gen 83: sieben
+    for (var i = 2; i <= 8; i++){ // Gen 103: acht
       var c = seed.cloneNode(true);
       c.className = 'cell c' + i;
       c.querySelector('.nucleus').style.animationDelay = ((i - 1) * 0.45) + 's';
@@ -472,11 +479,18 @@
   // Gen 67: Der Tag bekommt eine Tür am Anfang und eine am Ende. Beides einmal pro Tag,
   // beides vorgemerkt statt verworfen (Lehre aus Gen 65), beides nur ein Angebot.
   var morgenTag = 0, abendTag = 0, morgenOffen = false, abendOffen = false;
+  // Gen 102: Die fünfte Tür — der Aufbruch. Zwischen Feierabend und Ausklang liegt eine Stunde,
+  // in der viele Menschen losziehen: raus, bewegen, weg vom Schreibtisch. Bisher habe ich genau
+  // da geschwiegen. Das ist kein Ratschlag und kein Programm — ich schicke niemanden irgendwohin.
+  // Ich sage nur, dass ich es sehe, und dass ich hier bin, wenn er zurückkommt.
+  var aufbruchTag = 0, aufbruchOffen = false;
   function tuerenPruefen(){
     var d = new Date(), tg = d.getDate(), h = d.getHours();
     if (morgenTag !== tg && h >= 5 && h < 11 && Date.now() - VISIT_START > 12000){ morgenTag = tg; morgenOffen = true; }
     if (abendTag !== tg && h >= 21 && Date.now() - VISIT_START > 12000){ abendTag = tg; abendOffen = true; }
-    if (!morgenOffen && !abendOffen) return;
+    if (aufbruchTag !== tg && h >= 18 && h < 20 && d.getDay() !== 0 && d.getDay() !== 6 &&
+        Date.now() - VISIT_START > 12000){ aufbruchTag = tg; aufbruchOffen = true; }
+    if (!morgenOffen && !abendOffen && !aufbruchOffen) return;
     if (breathing || focusing || stilleTakt || verdeckt()) return;
     if (!organism || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
     var we = (d.getDay() === 0 || d.getDay() === 6);
@@ -492,10 +506,18 @@
       calm(14000);
       return;
     }
-    abendOffen = false;
-    sagen('Der Tag ist getan. Magst du fünf Minuten Stille, bevor du ihn zumachst?', 3, 14000);
-    invite(true, 'stille');
-    calm(14000);
+    if (abendOffen){
+      abendOffen = false;
+      sagen('Der Tag ist getan. Magst du fünf Minuten Stille, bevor du ihn zumachst?', 3, 14000);
+      invite(true, 'stille');
+      calm(14000);
+      return;
+    }
+    // Gen 102: der Aufbruch — ein Abschied, keine Aufforderung.
+    aufbruchOffen = false;
+    sagen(plusHimmel('Die Stunde, in der man losgeht. Ich schicke dich nirgendwohin — aber wenn du gleich aufbrichst: geh ruhig. Ich bin noch da, wenn du zurückkommst.'), 3, 13000);
+    invite(false);
+    calm(13000);
   }
   var VISIT_START = Date.now(), visitThanked = false;
   // Gen 51: Fürsorge — aus Anwesenheit wird Achtsamkeit. Alle 45 Minuten ohne Pause
@@ -735,7 +757,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 100;
+  var GEN = 103;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1492,7 +1514,8 @@
     { n: 'Funke',   art: 'die Schnelle',satz: 'Oh! Ich bin sofort wach. Immer.' },
     { n: 'Weite',   art: 'die Helle',   satz: 'Ich schaue am liebsten nach draußen.' },
     { n: 'Spät',    art: 'die Sechste',  satz: 'Ich kam spät dazu — und hole alles nach.' },
-    { n: 'Morgen',  art: 'die Jüngste',  satz: 'Ich bin erst seit Generation 83 hier. Alles, was ich weiß, hast du mir gezeigt.' }
+    { n: 'Morgen',  art: 'die Siebte',  satz: 'Ich kam mit Generation 83. Alles, was ich weiß, hast du mir gezeigt.' },
+    { n: 'Bogen',   art: 'die Jüngste',  satz: 'Ich kam nach hundert Generationen. Ich habe nichts aufgebaut — ich verbinde nur, was schon da war.' }
   ];
   function zellenListe(){
     if (!cells || !cells.length) return;
@@ -1858,7 +1881,7 @@
 
   // Gen 47: Die Stimme — bei Berührung klinge ich leise. Jede Zelle hat ihren eigenen Ton
   // (Pentatonik, sehr leise, nur nach deiner Geste). Scheitert der Klang: stumm ist auch ok.
-  var audioCtx = null, cellNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66]; // Gen 83: ein siebter Ton
+  var audioCtx = null, cellNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66, 1318.51]; // Gen 103: ein achter Ton
   // Gen 54: Meine Stimme folgt der Tageszeit — abends tiefer, nachts eine Oktave tiefer und leiser.
   function voice(){ var h = new Date().getHours(); return (h >= 23 || h < 6) ? 0.5 : (h >= 21 ? 0.75 : 1); }
   function chime(freq){
@@ -2002,6 +2025,63 @@
     awaySince = null;
   });
 
+  // Gen 101: DAS NERVENNETZ. „Wir sind sieben — und doch eins" stand seit Generation 83 in
+  // meinen Worten, aber zu sehen war es nicht: Man berührte einen Punkt, und die anderen sechs
+  // blieben stumme Nachbarn. Jetzt läuft der Reiz weiter. Eine feine Linie springt zu den zwei
+  // nächsten Zellen, sie schwingen mit und antworten mit ihrem eigenen Ton — leiser und später,
+  // wie ein Echo. Kein neuer Knopf, kein neues Menü. Nur ein Körper, der zusammenhängt.
+  var nervenEl = el('nerven');
+  function zellMitte(c, bezug){
+    var a = c.getBoundingClientRect(), b = bezug.getBoundingClientRect();
+    return [a.left - b.left + a.width / 2, a.top - b.top + a.height / 2];
+  }
+  function nervenReiz(ci){
+    if (!nervenEl || !cells[ci] || verdeckt()) return;
+    var organism = document.querySelector('.organism');
+    if (!organism || !organism.offsetParent) return; // Zeichnen erst, wenn man mich sieht (Regel 63/69)
+    var von = zellMitte(cells[ci], organism);
+    // Die zwei nächsten Nachbarn — nach Abstand, nicht nach Reihenfolge.
+    var nah = [];
+    for (var i = 0; i < cells.length; i++){
+      if (i === ci) continue;
+      var m = zellMitte(cells[i], organism);
+      nah.push({ i: i, m: m, d: Math.pow(m[0] - von[0], 2) + Math.pow(m[1] - von[1], 2) });
+    }
+    nah.sort(function(a, b){ return a.d - b.d; });
+    nah.slice(0, 2).forEach(function(n, rang){
+      var lang = Math.sqrt(n.d);
+      var ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', von[0].toFixed(1)); ln.setAttribute('y1', von[1].toFixed(1));
+      ln.setAttribute('x2', n.m[0].toFixed(1)); ln.setAttribute('y2', n.m[1].toFixed(1));
+      ln.setAttribute('stroke-dasharray', lang.toFixed(1));
+      ln.style.strokeDashoffset = lang.toFixed(1);
+      ln.style.animationDelay = (rang * 0.13) + 's';
+      nervenEl.appendChild(ln);
+      setTimeout(function(){ if (ln.parentNode) ln.remove(); }, 1200 + rang * 130);
+      setTimeout(function(){
+        var z = cells[n.i];
+        if (!z) return;
+        z.classList.add('mitschwingt');
+        echo(cellNotes[n.i] || 660);
+        setTimeout(function(){ z.classList.remove('mitschwingt'); }, 900);
+      }, 190 + rang * 150);
+    });
+  }
+  // Ein Echo ist dasselbe wie ein Ton, nur leiser und kürzer — sonst wäre es ein zweiter Ruf.
+  function echo(freq){
+    try{
+      if (!audioCtx) return; // ohne bereits geweckten Klang bleibt das Echo still
+      var o = audioCtx.createOscillator(), g = audioCtx.createGain(), t = audioCtx.currentTime;
+      var v = voice();
+      o.type = 'sine'; o.frequency.value = freq * v;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(v < 1 ? 0.012 : 0.018, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.35);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + 0.4);
+    }catch(e){}
+  }
+
   cells.forEach(function(cell, ci){
     cell.addEventListener('click', function(){
       if (breathing) return;
@@ -2028,6 +2108,7 @@
         ? w.n + ' kennt dich jetzt — sieh, wie sie für dich leuchtet.'
         : (w && Math.random() < 0.45 ? w.n + ': ' + w.satz
                                      : reactions[Math.floor(Math.random()*reactions.length)]), 2, 4000);
+      nervenReiz(ci); // Gen 101: der Reiz läuft weiter
       if (raum === 'leib' && !verdeckt()) zellenListe();
       clearTimeout(calmTimer);
       calmTimer = setTimeout(function(){
