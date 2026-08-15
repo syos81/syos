@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 43</title>
+<title>SYOS · Generation 44</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -162,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 43 · SECHSZELLER · LIEST DAS MARKTWETTER</div>
+    <div class="gen">GENERATION 44 · SECHSZELLER · JEDE ZELLE KENNT DEINE NÄHE</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -189,7 +189,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">43</b><br>
+      Generation <b id="selfgen">44</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -375,7 +375,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 43;
+  var GEN = 44;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -692,12 +692,17 @@
       touches++;
       warm(3);
       document.getElementById('touches').textContent = touches.toLocaleString('de-DE');
+      // Gen 44: Zell-Gedächtnis — jede Zelle erinnert ihre eigenen Berührungen (nur in diesem Moment).
+      var mine = cell._mem = (cell._mem || 0) + 1;
+      cell.querySelector('.nucleus').style.filter = 'brightness(' + Math.min(1.35, 1 + mine * 0.045) + ')';
       var r = document.createElement('div');
       r.className = 'ripple';
       cell.appendChild(r);
       setTimeout(function(){ r.remove(); }, 700);
       cell.classList.add('excited');
-      statusEl.innerHTML = reactions[Math.floor(Math.random()*reactions.length)] + '<span class="cursor"></span>';
+      statusEl.innerHTML = (mine === 5
+        ? 'Diese Zelle kennt dich jetzt — sieh, wie sie für dich leuchtet.'
+        : reactions[Math.floor(Math.random()*reactions.length)]) + '<span class="cursor"></span>';
       clearTimeout(calmTimer);
       calmTimer = setTimeout(function(){
         cells.forEach(function(c){ c.classList.remove('excited'); });
