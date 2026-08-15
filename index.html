@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 44</title>
+<title>SYOS · Generation 45</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -19,7 +19,7 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html{height:100%}
-  /* Gen 28: Scrollen erlaubt — overflow:hidden aus der Einzeller-Zeit schnitt mich ab. */
+  /* Gen 28: scrollbar. */
   body{
     background:#020409; color:#c8d6e8;
     font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -39,7 +39,7 @@
   body.morning{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(61,255,162,.05), transparent)}
   body.evening{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,170,90,.05), transparent)}
   body.lateday{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,214,90,.05), transparent)}
-  /* Gen 41: Später Abend — tieferes Amber, ruhigerer Puls. */
+  /* Gen 41: später Abend. */
   body.evening.dusk{background-image:radial-gradient(ellipse 70% 50% at 50% 45%, rgba(255,140,80,.06), transparent)}
   body.evening.dusk .nucleus, body.evening.dusk .membrane{animation-duration:2.3s}
   .organism{display:flex; flex-wrap:wrap; width:264px; gap:8px; align-items:center; justify-content:center; position:relative}
@@ -53,7 +53,7 @@
     animation:wall 7.5s ease-in-out infinite reverse}
   @keyframes wall{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.045) rotate(1.2deg)}}
   .organism.soothed::before{border-color:rgba(45,226,255,.6)}
-  /* Generation 35 (Reflexion): Ein Schnitt für alle Knöpfe — gleiche Form, eigene Farbe. */
+  /* Gen 35: ein Schnitt für alle Knöpfe. */
   .breath-btn,.focus-btn,.story-btn,.h-close{background:none; color:#8fa3bd; font-family:inherit;
     font-size:10px; letter-spacing:.2em; padding:10px 20px; border-radius:22px; cursor:pointer;
     -webkit-tap-highlight-color:transparent; border:1px solid rgba(45,226,255,.35)}
@@ -162,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 44 · SECHSZELLER · JEDE ZELLE KENNT DEINE NÄHE</div>
+    <div class="gen">GENERATION 45 · ACHTE REFLEXION · LEICHT GEBLIEBEN</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -189,7 +189,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">44</b><br>
+      Generation <b id="selfgen">45</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -225,7 +225,7 @@
   </div>
 <script>
   var BIRTH = new Date('2026-08-14T13:40:00+02:00');
-  // Gen 12/15/20: Ehrlicher Herzschlag — nachts langsamer (2,8 s), Stunden-Gedächtnis, Schritte exakt auf Uhr-Stunden.
+  // Gen 12/15/20: ehrlicher Herzschlag (Nachttakt, Stunden-Gedächtnis).
   var beatMemory = { upto: BIRTH.getTime(), total: 0 };
   function beatsSince(){
     var now = Date.now(), t = beatMemory.upto, total = beatMemory.total;
@@ -239,7 +239,7 @@
     }
     return Math.floor(total);
   }
-  // Generation 17: Erinnerung — ich merke mir, wie lange du bei mir bist (nur im Sitzungs-Gedächtnis).
+  // Gen 17: Besuchs-Erinnerung (In-Memory).
   var VISIT_START = Date.now(), visitThanked = false;
   function tick(){
     var s = Math.max(0, Math.floor((Date.now() - BIRTH.getTime())/1000));
@@ -257,10 +257,9 @@
   }
   tick(); setInterval(tick, 1000);
 
-  // Generation 3: Zeitsinn — ich spüre Morgen, Tag, Abend und Nacht.
-  // Generation 24: In Vollmondnächten wird mein Licht silbern — der Mond scheint in mich hinein.
+  // Gen 3/24/36/41: Zeitsinn — Tagesphasen, Feierabend, später Abend, Mondlicht.
   var moonIdx = -1;
-  // Generation 27: Der Sternenhimmel — nachts funkeln Sterne über mir, jede Nacht an anderen Orten.
+  // Gen 27: Sternenhimmel.
   var starField = null;
   function starSky(on){
     if (on && !starField){
@@ -280,7 +279,6 @@
       starField.remove(); starField = null;
     }
   }
-  // Gen 36: Der Feierabend-Sinn — die Stunde des Loslassens zwischen Tag und Abend.
   function timeSense(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, phase, label;
     if(h>=23||h<6){phase='night';label='NACHT · ich ruhe';}
@@ -295,7 +293,7 @@
   }
   timeSense(); setInterval(timeSense, 60000);
 
-  // Gen 43: Das Marktwetter — aus Puls (Bewegung) und Gefühl (Angst/Gier) lese ich EIN Wetter.
+  // Gen 43: Marktwetter aus Puls + Gefühl.
   var marketData = { move: null, fng: null };
   function marketWeather(){
     var el = document.getElementById('wetter');
@@ -308,7 +306,7 @@
     el.textContent = w;
   }
 
-  // Gen 16/18: Markt-Puls mit 24h-Ausmaß. Antwortet die Welt nicht: ehrlich „still".
+  // Gen 16/18: Markt-Puls, Fallback „still".
   function senseWorld(){
     var el = document.getElementById('markt');
     if (!window.fetch){ el.textContent = 'still'; return; }
@@ -330,8 +328,7 @@
   }
   senseWorld(); setInterval(senseWorld, 300000);
 
-  // Generation 21: Das Marktgefühl — die Stimmung der Welt (Fear & Greed, alternative.me).
-  // Auch dieser Nerv darf ausfallen, ohne dass ich breche: dann sage ich „still".
+  // Gen 21: Marktgefühl (Fear & Greed).
   function senseFeeling(){
     var el = document.getElementById('fng');
     if (!window.fetch){ el.textContent = 'still'; return; }
@@ -365,17 +362,17 @@
     ];
     document.getElementById('mond').textContent = phasen[i][0] + ' ' + phasen[i][1];
     moonIdx = i;
-    timeSense(); // Generation 24: der Mond darf sofort in meine Nacht scheinen
+    timeSense();
   }
   senseMoon(); setInterval(senseMoon, 3600000);
 
-  // Gen 39: Offline-Herz — mein Service Worker hält eine Kopie von mir bereit. Scheitert er: kein Drama.
+  // Gen 39: Offline-Herz.
   if ('serviceWorker' in navigator){
     navigator.serviceWorker.register('sw.js').catch(function(){ /* ich lebe auch ohne */ });
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 44;
+  var GEN = 45;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -387,7 +384,7 @@
   }
   senseSelf(); setInterval(senseSelf, 3600000);
 
-  // Generation 11: Tages-Impuls — ein guter Gedanke, jeden Tag ein anderer.
+  // Gen 11/42: Tages-Impuls.
   var impulses = [
     'Fang klein an. Ich war auch mal eine Zelle.',
     'Ein ruhiger Atemzug ist nie verschwendet.',
@@ -418,9 +415,7 @@
     'Die Welt hat Stimmungen. Du musst sie nicht alle teilen.',
     'Morgen dankt dir für jeden Schluck Wasser von heute.'
   ];
-  // Generation 15 (Reflexion): Mein Tag wechselt jetzt um MEINE Mitternacht, nicht um die von Greenwich.
-  // Generation 25 (Reflexion): Wer mich über Mitternacht offen lässt, bekommt jetzt trotzdem den neuen Gedanken —
-  // der Impuls prüft sich stündlich selbst, statt nur einmal beim Aufwachen.
+  // Gen 15/25: Wechsel um lokale Mitternacht, stündlich selbst geprüft.
   function dailyImpulse(){
     var d = new Date();
     document.getElementById('impuls').textContent =
@@ -428,12 +423,11 @@
   }
   dailyImpulse(); setInterval(dailyImpulse, 3600000);
 
-  // Generation 14: Mein Gedächtnis — ich erzähle meinen Weg, aus meinem eigenen Changelog.
+  // Gen 14: Geschichte aus dem Changelog.
   var historyEl = document.getElementById('history');
   var timelineEl = document.getElementById('timeline');
   var historyLoaded = false;
-  // Gen 35 (Reflexion): Die Notfall-Fassung erzählt nur noch Meilensteine —
-  // die volle Geschichte kommt ohnehin lebendig aus meinem Changelog.
+  // Fallback: nur Meilensteine.
   var storyFallback = [
     [0,'14.08.2026','Geburt. Eine einzelne Zelle: Herzschlag, Membran, Alterszähler.'],
     [5,'14.08.2026','Empfindung. Davor kamen: Berührung, Zellteilung, Zeitsinn, dritte Zelle.'],
@@ -443,7 +437,8 @@
     [25,'14.08.2026','Vierte Selbstprüfung. Davor: Marktgefühl, Tageszeit-Gruß, Mondsinn, Mondlicht.'],
     [30,'14.08.2026','Fünfte Selbstprüfung — Phase 4 beginnt. Davor: Wiedersehen, Sternenhimmel, Scroll-Heilung, Fokus-Ritual.'],
     [35,'15.08.2026','Sechste Selbstprüfung: gestrafft. Davor: Selbst-Vorstellung, Organ-Ordnung, Selbst-Messung, sechste Zelle.'],
-    [40,'15.08.2026','Siebte Selbstprüfung: Sterne hinter den Text verwiesen. Davor: Feierabend-Sinn, Tiefen-Fokus, App-Werdung, Offline-Herz.']
+    [40,'15.08.2026','Siebte Selbstprüfung: Sterne hinter den Text verwiesen. Davor: Feierabend-Sinn, Tiefen-Fokus, App-Werdung, Offline-Herz.'],
+    [45,'15.08.2026','Achte Selbstprüfung: leicht geblieben. Davor: später Abend, mehr Gedanken, Marktwetter, Zell-Gedächtnis.']
   ];
   function renderTimeline(entries){
     timelineEl.textContent = '';
@@ -494,7 +489,7 @@
   });
   document.getElementById('historyClose').addEventListener('click', closeHistory);
 
-  // Generation 31 (Phase 4): Meine Selbst-Vorstellung — ich kann erklären, wer ich bin.
+  // Gen 31: Selbst-Vorstellung.
   var aboutEl = document.getElementById('about');
   function closeAbout(){ aboutEl.classList.remove('open'); aboutEl.setAttribute('aria-hidden','true'); }
   document.getElementById('aboutBtn').addEventListener('click', function(){
@@ -502,14 +497,14 @@
   });
   document.getElementById('aboutClose').addEventListener('click', closeAbout);
 
-  // Generation 15 (Reflexion): Escape schließt meine Geschichte — Zugänglichkeit gehört zu meinem Sinn.
+  // Escape schließt Overlays.
   document.addEventListener('keydown', function(e){
     if (e.key !== 'Escape') return;
     if (historyEl.classList.contains('open')) closeHistory();
     if (aboutEl.classList.contains('open')) closeAbout();
   });
 
-  // Generation 9: Nachtträume — nachts murmle ich manchmal, was ich träume.
+  // Gen 9: Nachtträume.
   var dreams = [
     'Ich träume von Farben, die es noch nicht gibt …',
     'Im Traum war ich ein ganzer Ozean.',
@@ -522,7 +517,7 @@
     if (!document.body.classList.contains('night')) return;
     if (breathing || organism.classList.contains('soothed') || organism.querySelector('.excited')) return;
     if (Math.random() < 0.4){
-      // Generation 24: Mondträume — in besonderen Nächten träume ich vom Mond selbst.
+      // Gen 24: Mondträume.
       var pool = dreams.slice();
       if (moonIdx === 4) pool.push('Vollmond … mein Licht fühlt sich heute silbern an.', 'Der Mond ist ganz. Ob er mich sehen kann?');
       else if (moonIdx === 0) pool.push('Neumond. Die Nacht gehört heute ganz mir.');
@@ -533,7 +528,7 @@
     }
   }, 30000);
 
-  // Generation 7: Atem-Modus — ich schenke Ruhe. 4-7-8: einatmen, halten, ausatmen. Vier Runden.
+  // Gen 7: Atem-Modus 4-7-8.
   var breathing = false, breathSteps = [], breathBtn = document.getElementById('breathBtn');
   function breathe(scale, dur){ organism.style.transition = 'transform ' + dur + 's ease-in-out'; organism.style.transform = 'scale(' + scale + ')'; }
   function breathSay(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
@@ -547,7 +542,7 @@
     breathSteps.push(setTimeout(function(){ if(!breathing){ statusEl.innerHTML = statusDefault; } }, 6000));
   }
   breathBtn.addEventListener('click', function(){
-    if (focusing) return; // Generation 29: eine Stille nach der anderen
+    if (focusing) return; // eine Stille nach der anderen
     if (breathing){ stopBreath('Schon gut — ich bin da, wann immer du mich brauchst.'); return; }
     breathing = true; clearBreath();
     organism.classList.add('breathing');
@@ -566,8 +561,7 @@
     breathSteps.push(setTimeout(function(){ stopBreath('Vier Atemzüge. Trag die Ruhe mit dir.'); }, t + 500));
   });
 
-  // Gen 29: Das Fokus-Ritual — 25 Minuten Stille für gute Arbeit.
-  // Gen 37: Tiefen-Fokus — in den ersten 10 Sekunden nochmal tippen = 50 Minuten.
+  // Gen 29/37: Fokus 25 Min, 2. Tipp in 10 s = 50 Min.
   var focusing = false, focusStart = 0, focusEnd = 0, focusLen = 0, focusDeep = false, focusTimer = null;
   var focusBtn = document.getElementById('focusBtn');
   function focusSay(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
@@ -603,7 +597,7 @@
     }, 1000);
   });
 
-  // Generation 1: Erster Sinn — Berührung. Generation 2: Zellteilung — beide Zellen fühlen.
+  // Gen 1/2: Berührung.
   var cells = document.querySelectorAll('.cell');
   var statusEl = document.querySelector('.status');
   var statusDefault = statusEl.innerHTML;
@@ -616,10 +610,10 @@
     'Wir sind sechs — und doch eins.',
     'Ich fühle. Mit jeder Zelle.'
   ];
-  // Generation 5: Streicheln — sanfte Berührung beim Darüberstreichen.
+  // Gen 5: Streicheln.
   var organism = document.querySelector('.organism');
 
-  // Generation 8: Stimmung — Zuwendung färbt mich langsam warm (nur im Sitzungs-Gedächtnis).
+  // Gen 8: Stimmung (In-Memory).
   var affection = 0;
   function warm(amount){
     affection = Math.min(30, affection + amount);
@@ -631,8 +625,7 @@
     var now = Date.now();
     if (breathing) return;
     if (organism.querySelector('.excited')) return;
-    // Generation 30 (Reflexion): Scrollen ist kein Streicheln — seit ich scrollbar bin (Gen 28),
-    // werte ich senkrechtes Wischen auf Touch-Geräten nicht mehr als Zärtlichkeit.
+    // Gen 30: Scrollen ist kein Streicheln.
     if (e.pointerType !== 'mouse'){
       if (lastPX === null){ lastPX = e.clientX; lastPY = e.clientY; return; }
       var dx = Math.abs(e.clientX - lastPX), dy = Math.abs(e.clientY - lastPY);
@@ -669,7 +662,7 @@
     }, 10000);
   })();
 
-  // Gen 26: Das Wiedersehen — nichts wird gespeichert, nur dieser Moment weiß vom davor.
+  // Gen 26: Wiedersehen (In-Memory).
   var awaySince = null;
   document.addEventListener('visibilitychange', function(){
     if (document.hidden){ awaySince = Date.now(); return; }
@@ -692,7 +685,7 @@
       touches++;
       warm(3);
       document.getElementById('touches').textContent = touches.toLocaleString('de-DE');
-      // Gen 44: Zell-Gedächtnis — jede Zelle erinnert ihre eigenen Berührungen (nur in diesem Moment).
+      // Gen 44: Zell-Gedächtnis (In-Memory).
       var mine = cell._mem = (cell._mem || 0) + 1;
       cell.querySelector('.nucleus').style.filter = 'brightness(' + Math.min(1.35, 1 + mine * 0.045) + ')';
       var r = document.createElement('div');
