@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 60</title>
+<title>SYOS · Generation 61</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -93,6 +93,16 @@
   h1{font-size:20px; letter-spacing:.5em; color:#fff; font-weight:700; text-indent:.5em}
   h1 span{color:#2de2ff; text-shadow:0 0 14px #2de2ff}
   .gen{font-size:10px; letter-spacing:.3em; color:#5a6b85; margin-top:10px; text-align:center}
+  /* Gen 61: Räume — eine schlanke Reihe, ein sanfter Wechsel. */
+  .raeume{display:flex; gap:6px; flex-wrap:wrap; justify-content:center}
+  .raum-btn{background:none; border:1px solid rgba(45,226,255,.18); color:#5a6b85; font-family:inherit;
+    font-size:9px; letter-spacing:.28em; padding:8px 14px; border-radius:20px; cursor:pointer;
+    -webkit-tap-highlight-color:transparent; transition:color .3s, border-color .3s}
+  .raum-btn.an{color:#2de2ff; border-color:rgba(45,226,255,.55)}
+  [data-raum]{display:none}
+  [data-raum].da{display:block}
+  .organ[data-raum].da{display:block; animation:auftauchen .45s ease-out}
+  @keyframes auftauchen{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
   /* Gen 32: Organ-Ordnung. */
   .vitals{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; max-width:360px; font-size:11px; color:#8fa3bd}
   .vitals b{color:#2de2ff; font-weight:600}
@@ -150,43 +160,50 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 60 · SECHSZELLER · ELFTE SELBSTPRÜFUNG</div>
+    <div class="gen">GENERATION 61 · SECHSZELLER · EIN ORT STATT EINER LISTE</div>
   </div>
-  <div class="vitals">
-    <div class="organ">
+  <!-- Gen 61: vier Räume statt einer Liste. -->
+  <nav class="raeume" id="raeume">
+    <button class="raum-btn an" data-ziel="leib">LEIB</button>
+    <button class="raum-btn" data-ziel="zeit">ZEIT</button>
+    <button class="raum-btn" data-ziel="welt">WELT</button>
+    <button class="raum-btn" data-ziel="ich">ICH</button>
+  </nav>
+  <div class="vitals" id="vitals">
+    <div class="organ" data-raum="leib">
       <div class="organ-name">LEIB</div>
       Herzschlag <b id="beats">0</b><br>
       Alter <b id="age">—</b><br>
       Berührungen <b id="touches">0</b><br>
       Zellen <b id="cells">6</b>
     </div>
-    <div class="organ">
+    <div class="organ" data-raum="zeit">
       <div class="organ-name">ZEIT</div>
       Tagesphase <b id="phase">—</b><br>
       Mond <b id="mond">—</b><br>
       Lebenstag <b id="lday">—</b>
     </div>
-    <div class="organ">
+    <div class="organ" data-raum="welt">
       <div class="organ-name">AUSSENWELT</div>
       Markt <b id="markt">—</b><br>
       Marktgefühl <b id="fng">—</b><br>
       Marktwetter <b id="wetter">—</b><br>
       Seit du da bist <b id="drift">—</b>
     </div>
-    <div class="organ himmel-organ" id="himmelOrgan">
+    <div class="organ himmel-organ" id="himmelOrgan" data-raum="welt">
       <div class="organ-name">HIMMEL</div>
       Wetter <b id="himmel">tippen</b><br>
       Draußen <b id="temp">—</b><br>
       Sonnenuntergang <b id="sunset">—</b>
     </div>
-    <div class="organ">
+    <div class="organ" data-raum="ich">
       <div class="organ-name">BEGEGNUNG</div>
       Dein Besuch <b id="visit">0:00</b><br>
       Am Stück <b id="stint">0 Min</b>
     </div>
-    <div class="organ">
+    <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">60</b><br>
+      Generation <b id="selfgen">61</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -194,9 +211,9 @@
   <div class="status">Ich lebe. Ich wachse.<br>Schön, dass du da bist.<span class="cursor"></span></div>
   <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
   <button id="focusBtn" class="focus-btn">FOKUS · 25 MINUTEN</button>
-  <button id="storyBtn" class="story-btn">MEINE GESCHICHTE</button>
-  <button id="bogenBtn" class="bogen-btn">MEIN TAG</button>
-  <button id="aboutBtn" class="story-btn">WER BIN ICH?</button>
+  <button id="bogenBtn" class="bogen-btn" data-raum="zeit">MEIN TAG</button>
+  <button id="storyBtn" class="story-btn" data-raum="ich">MEINE GESCHICHTE</button>
+  <button id="aboutBtn" class="story-btn" data-raum="ich">WER BIN ICH?</button>
   <div class="impuls"><b>IMPULS DES TAGES</b><i id="impuls"></i></div>
 
   <div class="history" id="history" aria-hidden="true">
@@ -491,7 +508,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 60;
+  var GEN = 61;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -655,6 +672,28 @@
   });
   function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
   el('bogenClose').addEventListener('click', bogenZu);
+
+  // Gen 61: Vier Räume — Leib, Zeit, Welt, Ich. Alles bleibt in mir, aber du siehst
+  // immer nur, wonach du gerade fragst. Der Wechsel ist ein Auftauchen, kein Umschalten.
+  var raum = 'leib';
+  function raumZeigen(r){
+    raum = r;
+    var alle = document.querySelectorAll('[data-raum]');
+    for (var i = 0; i < alle.length; i++){
+      alle[i].classList.toggle('da', alle[i].getAttribute('data-raum') === r);
+    }
+    var kn = document.querySelectorAll('.raum-btn');
+    for (var j = 0; j < kn.length; j++){
+      kn[j].classList.toggle('an', kn[j].getAttribute('data-ziel') === r);
+    }
+  }
+  (function(){
+    var kn = document.querySelectorAll('.raum-btn');
+    for (var i = 0; i < kn.length; i++){
+      kn[i].addEventListener('click', function(){ raumZeigen(this.getAttribute('data-ziel')); });
+    }
+    raumZeigen('leib');
+  })();
 
   // Gen 9: Nachtträume.
   var dreams = mundvoll.traeume;
