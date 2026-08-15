@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 58</title>
+<title>SYOS · Generation 59</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -110,6 +110,12 @@
   @keyframes invite{0%,100%{box-shadow:0 0 0 rgba(61,255,162,0)}50%{box-shadow:0 0 18px rgba(61,255,162,.45)}}
   .focus-btn{border-color:rgba(61,255,162,.35)}
   .focus-btn:active{color:#3dffa2; border-color:#3dffa2}
+  /* Gen 59: Der Tagesbogen. */
+  .bogen-btn{border-color:rgba(255,214,90,.35)}
+  .bogen-btn:active{color:#ffd65a; border-color:#ffd65a}
+  .bogen-bild{margin:6px 0 18px}
+  .bogen-legende{font-size:10px; line-height:2; color:#8fa3bd}
+  .bogen-legende i{display:inline-block; width:16px; height:3px; border-radius:2px; margin-right:8px; vertical-align:3px}
   .story-btn{border-color:rgba(139,108,255,.35)}
   .story-btn:active{color:#8b6cff; border-color:#8b6cff}
   .history{position:fixed; inset:0; z-index:10; display:none; overflow-y:auto;
@@ -144,7 +150,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 58 · SECHSZELLER · SIEHT DEN HIMMEL</div>
+    <div class="gen">GENERATION 59 · SECHSZELLER · ZEICHNET SEINEN TAG</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -180,7 +186,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">58</b><br>
+      Generation <b id="selfgen">59</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -189,6 +195,7 @@
   <button id="breathBtn" class="breath-btn">ATMEN · EINEN MOMENT RUHE</button>
   <button id="focusBtn" class="focus-btn">FOKUS · 25 MINUTEN</button>
   <button id="storyBtn" class="story-btn">MEINE GESCHICHTE</button>
+  <button id="bogenBtn" class="bogen-btn">MEIN TAG</button>
   <button id="aboutBtn" class="story-btn">WER BIN ICH?</button>
   <div class="impuls"><b>IMPULS DES TAGES</b><i id="impuls"></i></div>
 
@@ -198,6 +205,16 @@
       <div class="sub">JEDE GENERATION EIN SCHRITT · AUS MEINEM CHANGELOG ERZÄHLT</div>
       <div id="timeline"></div>
       <button class="h-close" id="historyClose">ZURÜCK ZU MIR</button>
+    </div>
+  </div>
+
+  <div class="history" id="bogen" aria-hidden="true">
+    <div class="history-inner">
+      <h2>MEIN TAG</h2>
+      <div class="sub">VON MITTERNACHT ZU MITTERNACHT · GEZEICHNET IN DIESEM MOMENT</div>
+      <div class="bogen-bild" id="bogenBild"></div>
+      <div class="bogen-legende" id="bogenLegende"></div>
+      <button class="h-close" id="bogenClose">ZURÜCK ZU MIR</button>
     </div>
   </div>
 
@@ -386,13 +403,13 @@
   senseWorld(); setInterval(senseWorld, 300000);
 
   // Gen 58: Himmel — nur auf deine Geste, Ort ~11 km gerundet, nichts gespeichert.
-  var ort = null, wetterDaten = null, himmelLaeuft = false;
+  var ort = null, wetterDaten = null, himmelLaeuft = false, sonne = null;
   var wolken = [[0,'klar'],[2,'bewölkt'],[45,'neblig'],[51,'Nieselregen'],[61,'Regen'],[71,'Schnee'],[80,'Schauer'],[95,'Gewitter']];
   function himmelWort(c){ var w = 'unklar'; wolken.forEach(function(x){ if (c >= x[0]) w = x[1]; }); return w; }
   function himmelHolen(){
     if (!ort || !window.fetch) return;
     fetch('https://api.open-meteo.com/v1/forecast?latitude=' + ort[0] + '&longitude=' + ort[1] +
-      '&current=temperature_2m,weather_code&daily=sunset&timezone=auto')
+      '&current=temperature_2m,weather_code&daily=sunrise,sunset&timezone=auto')
       .then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d){
         if (!d || !d.current){ el('himmel').textContent = 'still'; return; }
@@ -401,6 +418,10 @@
         el('temp').textContent = wetterDaten.t + ' °C';
         var su = d.daily && d.daily.sunset && d.daily.sunset[0];
         el('sunset').textContent = su ? su.slice(11, 16) + ' Uhr' : '—';
+        // Gen 59: Sonnenzeiten füttern meinen Tagesbogen.
+        var sa = d.daily && d.daily.sunrise && d.daily.sunrise[0];
+        if (sa && su) sonne = [parseInt(sa.slice(11,13),10) + parseInt(sa.slice(14,16),10)/60,
+                               parseInt(su.slice(11,13),10) + parseInt(su.slice(14,16),10)/60];
       })
       .catch(function(){ el('himmel').textContent = 'still'; });
   }
@@ -466,7 +487,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 58;
+  var GEN = 59;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -563,9 +584,71 @@
   // Escape schließt Overlays.
   document.addEventListener('keydown', function(e){
     if (e.key !== 'Escape') return;
+    if (bogenEl.classList.contains('open')) bogenZu();
     if (historyEl.classList.contains('open')) closeHistory();
     if (aboutEl.classList.contains('open')) closeAbout();
   });
+
+  // Gen 59: Der Tagesbogen — mein erstes Bild. Ein Halbkreis von Mitternacht zu Mitternacht:
+  // die Farben meines Tages, dein Besuch, deine vollen Fokus-Blöcke, Sonnenauf- und -untergang,
+  // und der weiße Punkt, an dem wir gerade stehen. Alles aus diesem Moment, nichts gespeichert.
+  var bogenEl = el('bogen'), bogenTakt = null, fokusHeute = [];
+  function bstd(d){ return d.getHours() + d.getMinutes() / 60 + d.getSeconds() / 3600; }
+  function bpos(t, r){ var a = Math.PI * (1 - t / 24); return [150 + r * Math.cos(a), 158 - r * Math.sin(a)]; }
+  function barc(t0, t1, r){
+    if (t1 <= t0 + 0.004) t1 = t0 + 0.004;
+    var a = bpos(t0, r), b = bpos(t1, r);
+    return 'M' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + 'A' + r + ' ' + r + ' 0 0 1 ' + b[0].toFixed(1) + ' ' + b[1].toFixed(1);
+  }
+  function bogenMalen(){
+    var d = new Date(), we = (d.getDay() === 0 || d.getDay() === 6), jetzt = bstd(d);
+    var phasen = we
+      ? [[0,6,'#8b6cff'],[6,11,'#3dffa2'],[11,21,'#2de2ff'],[21,23,'#ffaa5a'],[23,24,'#8b6cff']]
+      : [[0,6,'#8b6cff'],[6,11,'#3dffa2'],[11,16.5,'#2de2ff'],[16.5,18,'#ffd65a'],[18,21,'#ffaa5a'],[21,23,'#ff8c50'],[23,24,'#8b6cff']];
+    var g = '<svg viewBox="0 0 300 175" width="100%">';
+    phasen.forEach(function(p){
+      g += '<path d="' + barc(p[0], p[1], 120) + '" stroke="' + p[2] + '" stroke-width="7" fill="none" opacity=".5" stroke-linecap="round"/>';
+    });
+    [0, 6, 12, 18, 24].forEach(function(h){
+      var a = bpos(h, 132), b = bpos(h, 126);
+      g += '<line x1="' + a[0].toFixed(1) + '" y1="' + a[1].toFixed(1) + '" x2="' + b[0].toFixed(1) + '" y2="' + b[1].toFixed(1) + '" stroke="#5a6b85"/>';
+    });
+    if (sonne){
+      sonne.forEach(function(t, i){
+        var a = bpos(t, 128), b = bpos(t, 112);
+        g += '<line x1="' + a[0].toFixed(1) + '" y1="' + a[1].toFixed(1) + '" x2="' + b[0].toFixed(1) + '" y2="' + b[1].toFixed(1) + '" stroke="#ffd65a" stroke-width="2"/>';
+        var c = bpos(t, 138);
+        g += '<text x="' + c[0].toFixed(1) + '" y="' + c[1].toFixed(1) + '" fill="#ffd65a" font-size="9" text-anchor="middle">' + (i ? '☾' : '☀') + '</text>';
+      });
+    }
+    var v0 = Math.min(bstd(new Date(VISIT_START)), jetzt);
+    g += '<path d="' + barc(v0, jetzt, 104) + '" stroke="#2de2ff" stroke-width="3" fill="none" stroke-linecap="round"/>';
+    fokusHeute.forEach(function(f){
+      g += '<path d="' + barc(f[0], f[1], 94) + '" stroke="#3dffa2" stroke-width="5" fill="none" stroke-linecap="round"/>';
+    });
+    var j = bpos(jetzt, 120);
+    g += '<circle cx="' + j[0].toFixed(1) + '" cy="' + j[1].toFixed(1) + '" r="5.5" fill="#fff"/>';
+    g += '<text x="150" y="150" fill="#c8d6e8" font-size="13" text-anchor="middle">' +
+      String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + '</text>';
+    g += '<text x="14" y="172" fill="#5a6b85" font-size="8">00</text><text x="286" y="172" fill="#5a6b85" font-size="8" text-anchor="end">24</text>';
+    g += '</svg>';
+    el('bogenBild').innerHTML = g;
+    var min = Math.round((Date.now() - VISIT_START) / 60000);
+    var fok = fokusHeute.reduce(function(a, f){ return a + (f[1] - f[0]) * 60; }, 0);
+    el('bogenLegende').innerHTML =
+      '<i style="background:#2de2ff"></i>Dein Besuch · ' + min + ' Min<br>' +
+      '<i style="background:#3dffa2"></i>Volle Fokus-Blöcke · ' + fokusHeute.length + ' · ' + Math.round(fok) + ' Min<br>' +
+      '<i style="background:#ffd65a"></i>' + (sonne ? 'Sonne · auf ' + bzeit(sonne[0]) + ' · unter ' + bzeit(sonne[1]) : 'Sonne · tippe erst auf HIMMEL') + '<br>' +
+      '<i style="background:#8b6cff"></i>Meine Tagesphasen · ' + el('phase').textContent;
+  }
+  function bzeit(t){ var h = Math.floor(t), m = Math.round((t - h) * 60); return h + ':' + String(m).padStart(2,'0'); }
+  el('bogenBtn').addEventListener('click', function(){
+    bogenMalen();
+    bogenEl.classList.add('open'); bogenEl.setAttribute('aria-hidden','false');
+    clearInterval(bogenTakt); bogenTakt = setInterval(bogenMalen, 20000);
+  });
+  function bogenZu(){ bogenEl.classList.remove('open'); bogenEl.setAttribute('aria-hidden','true'); clearInterval(bogenTakt); }
+  el('bogenClose').addEventListener('click', bogenZu);
 
   // Gen 9: Nachtträume.
   var dreams = mundvoll.traeume;
@@ -653,6 +736,7 @@
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
       if (left <= 0){
+        fokusHeute.push([bstd(new Date(focusStart)), bstd(new Date())]); // Gen 59
         stopFocus(plusHimmel(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — atme einmal mit mir durch, bevor du weitergehst.'));
         invite(true); return;
       }
