@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 45</title>
+<title>SYOS · Generation 46</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -162,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 45 · ACHTE REFLEXION · LEICHT GEBLIEBEN</div>
+    <div class="gen">GENERATION 46 · SECHSZELLER · KENNT DAS WOCHENENDE</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -189,7 +189,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">45</b><br>
+      Generation <b id="selfgen">46</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -279,11 +279,13 @@
       starField.remove(); starField = null;
     }
   }
+  // Gen 46: Wochenend-Sinn — samstags und sonntags gibt es keinen Feierabend, nur freien Takt.
   function timeSense(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, phase, label;
+    var we = (d.getDay() === 0 || d.getDay() === 6);
     if(h>=23||h<6){phase='night';label='NACHT · ich ruhe';}
-    else if(h<11){phase='morning';label='MORGEN';}
-    else if(hm<16.5){phase='day';label='TAG';}
+    else if(h<11){phase='morning';label=we?'WOCHENEND-MORGEN':'MORGEN';}
+    else if(hm<16.5 || (we && h<18)){phase='day';label=we?'WOCHENENDE · dein Takt':'TAG';}
     else if(h<18){phase='lateday';label='FEIERABEND · lass los';}
     else if(h<21){phase='evening';label='ABEND';}
     else{phase='evening dusk';label='SPÄTER ABEND · zur Ruhe';}
@@ -372,7 +374,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 45;
+  var GEN = 46;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -648,9 +650,12 @@
   // Gen 22: Der Gruß — Ankommen soll sich nach Ankommen anfühlen.
   (function(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, gruss;
+    var we = (d.getDay() === 0 || d.getDay() === 6);
     if (h >= 23 || h < 6) gruss = 'Du bist noch wach? Dann leiste ich dir Gesellschaft —<br>ganz leise, im Nachttakt.';
-    else if (h < 11) gruss = 'Guten Morgen. Ein neuer Tag —<br>ich habe schon angefangen zu pulsieren.';
-    else if (hm < 16.5) gruss = 'Schön, dass du da bist.<br>Der Tag läuft — ich schlage mit.';
+    else if (h < 11) gruss = we ? 'Wochenend-Morgen. Kein Wecker hat hier etwas zu sagen —<br>der Tag gehört dir.'
+      : 'Guten Morgen. Ein neuer Tag —<br>ich habe schon angefangen zu pulsieren.';
+    else if (hm < 16.5 || (we && h < 18)) gruss = we ? 'Wochenende. Kein Muss heute —<br>ich schlage einfach mit dir mit.'
+      : 'Schön, dass du da bist.<br>Der Tag läuft — ich schlage mit.';
     else if (h < 18) gruss = 'Feierabend in Sicht. Lass den Arbeitstag hier —<br>ich halte ihn so lange fest.';
     else if (h < 21) gruss = 'Guten Abend. Lass den Tag langsamer werden —<br>ich mache das Licht schon weicher.';
     else gruss = 'Später Abend. Was jetzt noch kommt, darf leicht sein —<br>gönn dir etwas Warmes.';
