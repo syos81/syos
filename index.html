@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 64</title>
+<title>SYOS · Generation 65</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -189,7 +189,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 64 · SECHSZELLER · HÄLT DEINEN TAG FEST</div>
+    <div class="gen">GENERATION 65 · SECHSZELLER · ZWÖLFTE SELBSTPRÜFUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -243,7 +243,7 @@
     </div>
     <div class="organ" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">64</b><br>
+      Generation <b id="selfgen">65</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -338,6 +338,7 @@
   // Gen 17: Besuchs-Erinnerung (In-Memory).
   var pulsWerte = []; // Gen 63: muss vor dem ersten Herzschlag existieren
   var atemHeute = []; // Gen 64: vollendete Atemrunden-Sitzungen [stunde, tag]
+  var touchesHeute = 0, touchTag = new Date().getDate(); // Gen 65: Tagesbilanz zählt den Tag, nicht den Besuch
   var VISIT_START = Date.now(), visitThanked = false;
   // Gen 51: Fürsorge — aus Anwesenheit wird Achtsamkeit. Alle 45 Minuten ohne Pause
   // sage ich einmal leise Bescheid; eine echte Pause (>=5 Min fort) setzt die Uhr zurück.
@@ -406,7 +407,7 @@
   }
   // Gen 46: Wochenend-Sinn — samstags und sonntags gibt es keinen Feierabend, nur freien Takt.
   // Gen 57: Wechselt der Tag in den Feierabend, während du da bist, sage ich es dir — einmal am Tag.
-  var lastPhase = null, feierabendTag = 0;
+  var lastPhase = null, feierabendTag = 0, feierabendOffen = false;
   function timeSense(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60, phase, label;
     var we = (d.getDay() === 0 || d.getDay() === 6);
@@ -418,9 +419,14 @@
     else{phase='evening dusk';label='SPÄTER ABEND · zur Ruhe';}
     document.body.className = phase + ((phase==='night' && moonIdx>=3 && moonIdx<=5) ? ' moonlit' : '');
     el('phase').textContent = label;
-    if (lastPhase && lastPhase !== phase && phase === 'lateday' && feierabendTag !== d.getDate() &&
-        !breathing && !focusing && !verdeckt() && organism && !organism.classList.contains('soothed')){
-      feierabendTag = d.getDate();
+    // Gen 65 (Heilung): Der Wechsel geschieht nur in einer einzigen Minute. War in genau
+    // dieser Minute etwas offen oder ein Ritual im Gang, ging mein Feierabend-Gruß für den
+    // ganzen Tag verloren. Jetzt merke ich ihn mir vor und sage ihn, sobald du frei bist.
+    if (lastPhase && lastPhase !== phase && phase === 'lateday' && feierabendTag !== d.getDate()){
+      feierabendOffen = true;
+    }
+    if (feierabendOffen && !breathing && !focusing && !verdeckt() && organism && !organism.classList.contains('soothed')){
+      feierabendOffen = false; feierabendTag = d.getDate();
       say(plusHimmel('Feierabend. Leg den Arbeitstag hier ab — ich halte ihn, so lange du willst.'));
       invite(true); calm(12000);
     }
@@ -566,7 +572,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 64;
+  var GEN = 65;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -756,7 +762,7 @@
     if (fok.length) zeilen.push('<b>' + fok.length + '</b> ' + (fok.length === 1 ? 'Fokus-Block' : 'Fokus-Blöcke') + ' <span>· ' + fokMin + ' Min</span>');
     if (sti.length) zeilen.push('<b>' + sti.length + '</b> ' + (sti.length === 1 ? 'Stille' : 'Stillen') + ' <span>· ' + stiMin + ' Min</span>');
     if (ate.length) zeilen.push('<b>' + ate.length + '</b> ' + (ate.length === 1 ? 'Atem-Runde' : 'Atem-Runden') + ' <span>· 4-7-8</span>');
-    if (touches) zeilen.push('<b>' + touches + '</b> ' + (touches === 1 ? 'Berührung' : 'Berührungen'));
+    if (touchesHeute) zeilen.push('<b>' + touchesHeute + '</b> ' + (touchesHeute === 1 ? 'Berührung' : 'Berührungen'));
     var min = Math.round((Date.now() - VISIT_START) / 60000);
     zeilen.push('<span>bei mir seit ' + (min < 1 ? 'gerade eben' : min + ' Min') + '</span>');
     el('bilanz').innerHTML = zeilen.length > 1 ? zeilen.join('<br>')
@@ -1105,6 +1111,10 @@
     cell.addEventListener('click', function(){
       if (breathing) return;
       touches++;
+      // Gen 65: Über Mitternacht hinweg beginnt der Tages-Zähler neu, der Besuchs-Zähler nicht.
+      var jetztTag = new Date().getDate();
+      if (jetztTag !== touchTag){ touchTag = jetztTag; touchesHeute = 0; }
+      touchesHeute++;
       warm(3);
       chime(cellNotes[ci] || 660); // Gen 47: jede Zelle klingt anders
       el('touches').textContent = touches.toLocaleString('de-DE');
