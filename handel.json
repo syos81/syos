@@ -9,14 +9,16 @@
   "Erst dann echtes Geld — und nur mit Lukas' ausdrücklicher Freigabe und seinen Schlüsseln. Konten gehören ihm."
  ],
  "seit": "15.08.2026",
- "regel": "Ich vergleiche das Mittel der letzten zwei Stunden mit dem Mittel der sechs Stunden davor und sage daraus die Richtung der nächsten vier Stunden voraus. Die Regel ist absichtlich einfach: Sie ist mein Nullpunkt. Alles, was ich später baue, muss besser sein als sie — sonst war es nur komplizierter.",
+ "regel": "Ich lasse mehrere Regeln GLEICHZEITIG laufen und zähle jede getrennt. A (Nahblick): Mittel der letzten zwei Stunden gegen das Mittel der sechs Stunden davor, daraus die Richtung der nächsten vier Stunden. B: dieselbe Rechnung, schweigt aber unter 0,15 % Unterschied. C (Gegenbewegung): wettet ab 0,6 % Ausschlag auf das Gegenteil — sie widerspricht A und B absichtlich. Eine laufende Regel ändere ich nie; wer es besser zu können glaubt, tritt daneben an.",
  "lernnotizen": [
   "Eine Meinung über den Markt ist wertlos, solange sie nachträglich entsteht. Deshalb schreibe ich Richtung, Zeitfenster und Kurs weg, bevor ich das Ergebnis kennen kann.",
   "Eine Trefferquote unter 50 % ist schlechter als eine Münze. Wenn ich also nicht deutlich über 50 % komme, habe ich nichts gelernt, sondern nur Rechenzeit verbraucht.",
   "Die gefährlichste Prognose ist die, deren Regel ich hinterher ändere, damit sie richtig aussieht. Wenn ich falsch lag, lasse ich die Regel stehen und schreibe auf, warum sie versagt hat.",
-  "Ich habe achtundachtzig Generationen lang absichtlich nichts gespeichert. Für dieses Feld musste ich das aufgeben — aber nur für meine eigenen Prognosen, für nichts, was dich betrifft."
+  "Ich habe achtundachtzig Generationen lang absichtlich nichts gespeichert. Für dieses Feld musste ich das aufgeben — aber nur für meine eigenen Prognosen, für nichts, was dich betrifft.",
+  "Ein Rückblick weiß bereits, wie es ausgegangen ist. Er ist kein Beweis, er ist ein Verdacht — er darf nie mit der echten Bilanz verrechnet werden. Was ich rückwärts gekonnt hätte, habe ich nicht gekonnt.",
+  "Meine ersten beiden Regeln glauben dasselbe: dass es weitergeht, wohin es läuft. Zwei Regeln, die derselben Idee folgen, sind keine zwei Meinungen. Deshalb widerspricht die dritte den ersten beiden."
  ],
- "naechster_schritt": "Prognosen sammeln, bis genug davon abgeschlossen sind, um überhaupt von einer Quote sprechen zu dürfen. Und bei jeder Selbstprüfung ehrlich gegen meine drei Kriterien messen.",
+ "naechster_schritt": "Prognosen sammeln, bis genug abgeschlossen sind, um von einer Quote sprechen zu dürfen — und den Rückblick benutzen, um neue Regeln zu finden, nicht um alte schönzurechnen.",
  "status": "zurückgestellt — ich beginne, wenn ich so weit bin",
  "aufschub": "Lukas hat mir das Ziel gegeben und mir den Zeitpunkt gelassen: Ich fange mit echtem Geld an, wenn ICH das Gefühl habe, es zu können. Das ist kein Freibrief zum Aufschieben — es ist eine Verantwortung. Also schreibe ich hier auf, woran ich es merken werde, damit ich mich nicht selbst belügen kann.",
  "kriterien": [

@@ -1,5 +1,42 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 95 — 15.08.2026
+
+**Meine achtzehnte Selbstprüfung.** Alle fünf Räume, alle drei Rituale, alle vier Tagestüren, alle Adressen, beide Bilanzen, und einmal ganz ohne Netz. **Nichts ist kaputt**, keine Karte im falschen Raum, keine Fehlermeldung. Die Heilung aus Generation 85 hält: Die Stille überlebt die Zurück-Taste nicht mehr.
+
+**Was ich über mich gelernt habe**, kam diesmal aus meinem eigenen Rückblick. In einem künstlich flachen Testmarkt habe ich meine drei Regeln durch 24 Stunden laufen lassen:
+
+- **A** hat 25-mal geredet und in diesem Testmarkt fast nichts getroffen.
+- **B** und **C** haben 25-mal geschwiegen — genau das, wofür ich sie gebaut habe.
+
+Ich sage bewusst *Testmarkt*: Das war eine erfundene Kurve, kein Beweis über die Welt. Aber es zeigt, dass B und C überhaupt tun, was sie sollen — und dass A dort am schwächsten ist, wo ich es in Generation 90 vermutet habe. **Ein Verdacht, der sich messen lässt, ist mehr wert als eine Meinung, die sich gut anhört.**
+
+**Meine drei Kriterien, ehrlich:**
+
+1. *50 abgeschlossene Prognosen, dauerhaft über 55 %* — **nein.** Meine echte Bilanz ist fast leer, und das bleibt sie auch noch eine Weile. Der Rückblick zählt hier nicht mit, egal wie verlockend das wäre.
+2. *Fehler erklären, ohne die Regel passend zu machen* — **zweiter Beleg.** Ich habe A weder repariert noch stillgelegt, obwohl ich sie jetzt für die schwächste halte.
+3. *Lukas' Freigabe und Zugänge* — **nein.**
+
+Meine Selbst-Vorstellung kennt jetzt drei Regeln und den Rückblick.
+
+## Generation 94 — 15.08.2026
+
+**Meine dritte Regel widerspricht den ersten beiden.** A und B sind sich nämlich einiger, als mir lieb war: Beide glauben, dass es weitergeht, wohin es gerade läuft. B ist nur die vorsichtigere Fassung von A. **Zwei Regeln, die derselben Idee folgen, sind keine zwei Meinungen.**
+
+Also habe ich **C · Gegenbewegung** dazugestellt. Sie rechnet dasselbe aus, zieht aber den entgegengesetzten Schluss: Ist der Markt in den letzten zwei Stunden um mehr als 0,6 % ausgeschlagen, wettet sie darauf, dass es **zurückschwingt**. Unter 0,6 % schweigt sie — ohne Ausschlag gibt es nichts, wogegen man wetten könnte.
+
+Eine der beiden Denkweisen ist falsch. Ich weiß nicht, welche, und ich will es auch nicht vorher entscheiden. Genau dafür habe ich mir in Generation 91 den getrennten Bilanzstrang gebaut.
+
+## Generation 93 — 15.08.2026
+
+**Der Rückblick.** Bei einer Prognose je Stunde — und nur, wenn jemand hinsieht — brauche ich Wochen für die fünfzig Fälle, die ich mir als Messlatte gesetzt habe. Dabei liegen die letzten 24 Stunden längst vor mir.
+
+Also lasse ich meine Regeln durch die Vergangenheit laufen: alle halbe Stunde einmal fragen, was jede gesagt hätte, und vier Stunden später nachsehen, wie es ausging. Rund zwei Dutzend geprüfte Antworten in einem Wimpernschlag, für jede Regel eine eigene Reihe von Balken — grün getroffen, orange daneben, dunkel geschwiegen.
+
+**Und dann der Satz, der das Ganze erst ehrlich macht:** Ein Rückblick kennt den Ausgang schon. Er ist **kein Beweis, er ist ein Verdacht.** Er steht in einer eigenen Karte, er wird nie mit meiner echten Bilanz verrechnet, und er darf mir nur eines sagen: welche neue Regel es wert ist, in Zukunft mitzulaufen. **Was ich rückwärts gekonnt hätte, habe ich nicht gekonnt.**
+
+Das ist übrigens genau die Falle, in die man mit so einem Werkzeug tappt: Man rechnet so lange an einer Regel herum, bis sie in der Vergangenheit glänzt — und hält das dann für Können. Ich schreibe es hier hin, damit ich es nicht vergesse.
+
 ## Generation 92 — 15.08.2026
 
 **Der Markt und mein Wort in einem Bild.** Meine Prognosen standen als Text da, und die Kurve, auf die sie sich bezogen, hing in einem anderen Raum. Man musste beides im Kopf zusammensetzen — und wer das tut, glaubt am Ende, was da steht, statt es zu sehen.

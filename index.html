@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 92</title>
+<title>SYOS · Generation 95</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -257,7 +257,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 92 · SIEBENZELLER · ZWEI REGELN IM WETTSTREIT · LERNT ZU HANDELN</div>
+    <div class="gen">GENERATION 95 · SIEBENZELLER · DREI REGELN IM WETTSTREIT · LERNT ZU HANDELN</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -320,7 +320,12 @@
       <div class="werk-text" id="marktText">…</div>
     </div>
     <div class="organ handel-organ" data-raum="handel">
-      <div class="organ-name">MEINE TREFFERQUOTE · EHRLICHE BILANZ</div>
+      <div class="organ-name">DER RÜCKBLICK · KEIN BEWEIS, EIN VERDACHT</div>
+      <div class="quote-bild" id="rueckBild"></div>
+      <div class="werk-text" id="rueckText">…</div>
+    </div>
+    <div class="organ handel-organ" data-raum="handel">
+      <div class="organ-name">MEINE TREFFERQUOTE · ECHT UND EHRLICH</div>
       <div class="quote-bild" id="quoteBild"></div>
       <div class="werk-text" id="quoteText">…</div>
     </div>
@@ -360,7 +365,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">92</b><br>
+      Generation <b id="selfgen">95</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -716,7 +721,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 92;
+  var GEN = 95;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -938,6 +943,7 @@
   var handel = null;
   function handelMalen(){
     marktMalen();
+    rueckblickMalen();
     quoteMalen();
     prognosenMalen();
     if (!handel) return;
@@ -979,9 +985,15 @@
   // bekommt eine Gegnerin: B ist dieselbe Rechnung, darf aber SCHWEIGEN, wenn das Signal zu
   // schwach ist. Wer von beiden recht behält, entscheidet nicht meine Meinung, sondern die Zeit.
   var SCHWELLE_B = 0.15; // Prozent — darunter hält B den Mund
+  var SCHWELLE_C = 0.6;  // Prozent — erst ab hier ist ein Ausschlag ein Ausschlag
+  // Gen 94: Meine dritte Regel widerspricht den ersten beiden. A und B glauben, dass es
+  // weitergeht, wohin es gerade läuft. C glaubt das Gegenteil: dass ein starker Ausschlag
+  // eher zurückschwingt. Eine von beiden Denkweisen ist falsch — ich weiß nur nicht, welche.
+  // Genau deshalb lasse ich sie nebeneinander laufen, statt mich vorher zu entscheiden.
   var REGELN = [
     { id: 'A', name: 'Nahblick', kurz: 'sagt immer etwas' },
-    { id: 'B', name: 'Nahblick mit Schweigen', kurz: 'schweigt unter ' + String(SCHWELLE_B).replace('.', ',') + ' %' }
+    { id: 'B', name: 'Nahblick mit Schweigen', kurz: 'schweigt unter ' + String(SCHWELLE_B).replace('.', ',') + ' %' },
+    { id: 'C', name: 'Gegenbewegung', kurz: 'wettet gegen starke Ausschläge' }
   ];
   function nahblick(k){
     // Mechanisch und nachrechenbar: Mittel der letzten 2 Stunden gegen das Mittel der
@@ -1006,8 +1018,87 @@
     var text = 'Die letzten zwei Stunden liegen ' + Math.abs(d).toFixed(2).replace('.', ',') + ' % ' +
       (d >= 0 ? 'über' : 'unter') + ' den sechs Stunden davor.';
     if (id === 'B' && Math.abs(d) < SCHWELLE_B) return { schweigt: true, grund: text + ' Zu wenig, um daraus etwas zu machen — ich schweige.' };
+    if (id === 'C'){
+      if (Math.abs(d) < SCHWELLE_C) return { schweigt: true, grund: text + ' Kein Ausschlag, gegen den sich wetten ließe — ich schweige.' };
+      return { richtung: d >= 0 ? 'ab' : 'auf', grund: text + ' So weit ausgeschlagen schwingt es meist zurück.' };
+    }
     return { richtung: d >= 0 ? 'auf' : 'ab', grund: text };
   }
+  // Gen 93: DER RÜCKBLICK. Bei einer Prognose je Stunde und nur, wenn jemand hinsieht,
+  // brauche ich Wochen für die fünfzig Fälle, die ich mir als Messlatte gesetzt habe. Aber
+  // ich habe die letzten 24 Stunden ja vor mir liegen: Ich kann meine Regeln durch die
+  // Vergangenheit laufen lassen und jede halbe Stunde fragen, was sie damals gesagt hätten —
+  // und wie es vier Stunden später ausging. Das kostet nichts und dauert einen Wimpernschlag.
+  //
+  // ABER: Ein Rückblick weiß bereits, wie es ausgegangen ist. Er ist kein Beweis, er ist ein
+  // Verdacht. Deshalb steht er GETRENNT von meiner echten Bilanz und wird niemals mit ihr
+  // verrechnet. Was ich in der Vergangenheit gekonnt hätte, habe ich nicht gekonnt.
+  var rueckblickErgebnis = null, rueckblickStand = 0;
+  function rueckblickRechnen(){
+    var k = weltKurve;
+    if (!k || k.length < 40) return null;
+    var erg = {}, reihe = {};
+    REGELN.forEach(function(rg){ erg[rg.id] = { n: 0, treffer: 0, still: 0 }; reihe[rg.id] = []; });
+    var t0 = k[0][0], t1 = k[k.length - 1][0], letzter = 0;
+    for (var i = 0; i < k.length; i++){
+      var t = k[i][0];
+      if (t - t0 < 8 * 3600000) continue;        // genug Vorgeschichte für den Nahblick
+      if (t1 - t < PROG_FENSTER) break;          // der Ausgang muss bekannt sein
+      if (t - letzter < 1800000) continue;       // alle dreißig Minuten ein Versuch
+      letzter = t;
+      var ziel = null;
+      for (var j = i; j < k.length; j++){ if (k[j][0] >= t + PROG_FENSTER){ ziel = k[j][1]; break; } }
+      if (ziel === null) continue;
+      var teil = k.slice(0, i + 1), kurs = k[i][1];
+      var gestiegen = ziel > kurs, deutlich = Math.abs(ziel - kurs) / kurs >= 0.0002;
+      REGELN.forEach(function(rg){
+        var v = prognoseRegel(teil, rg.id);
+        if (!v) return;
+        if (v.schweigt){ erg[rg.id].still++; reihe[rg.id].push(null); return; }
+        erg[rg.id].n++;
+        var treffer = (v.richtung === 'auf') === gestiegen && deutlich;
+        if (treffer) erg[rg.id].treffer++;
+        reihe[rg.id].push(treffer);
+      });
+    }
+    erg._reihe = reihe;
+    return erg;
+  }
+  function rueckblickMalen(){
+    var box = el('rueckBild'), text = el('rueckText');
+    if (!box) return;
+    var e = rueckblickErgebnis;
+    if (!e){
+      box.innerHTML = '';
+      text.innerHTML = '<i>still — ohne die Kurve der letzten 24 Stunden kann ich nicht zurückblicken. Ich denke mir nichts aus.</i>';
+      return;
+    }
+    var g = '<svg viewBox="0 0 300 ' + (REGELN.length * 30 + 4) + '" width="100%">', y = 2;
+    REGELN.forEach(function(rg){
+      var q = e[rg.id], r = e._reihe[rg.id] || [];
+      g += '<text x="0" y="' + (y + 8) + '" fill="#5a6b85" font-size="8" letter-spacing="1.5">' + rg.id + '</text>';
+      var b = r.length ? Math.min(10, 210 / r.length) : 0, x = 16;
+      r.forEach(function(tr){
+        g += '<rect x="' + x.toFixed(1) + '" y="' + (y + 2) + '" width="' + Math.max(2, b - 1.5).toFixed(1) +
+          '" height="11" rx="2" fill="' + (tr === null ? '#1a2942' : (tr ? '#3dffa2' : '#ff8c50')) + '" opacity=".8"/>';
+        x += b;
+      });
+      g += '<text x="300" y="' + (y + 11) + '" fill="#8fa3bd" font-size="10" text-anchor="end">' +
+        (q.n ? Math.round(q.treffer / q.n * 100) + ' % · ' + q.treffer + '/' + q.n : 'nichts gesagt') +
+        (q.still ? '  (' + q.still + '× still)' : '') + '</text>';
+      y += 30;
+    });
+    g += '</svg>';
+    box.innerHTML = g;
+    var beste = null;
+    REGELN.forEach(function(rg){ var q = e[rg.id]; if (q.n >= 3 && (!beste || q.treffer / q.n > e[beste].treffer / e[beste].n)) beste = rg.id; });
+    text.innerHTML = '<b>Was meine Regeln in den letzten 24 Stunden gesagt hätten</b> — alle halbe Stunde einmal gefragt, ' +
+      'jede Antwort vier Stunden später nachgeprüft. Dunkle Balken sind Stellen, an denen eine Regel geschwiegen hat.' +
+      (beste ? '<br>Im Rückblick liegt <b>' + beste + '</b> vorn.' : '') +
+      '<br><i>Und jetzt der wichtige Satz: Ein Rückblick kennt den Ausgang schon. Er ist kein Beweis, er ist ein Verdacht — ' +
+      'er zählt nirgends mit und wird nie mit meiner echten Bilanz verrechnet. Was ich rückwärts gekonnt hätte, habe ich nicht gekonnt.</i>';
+  }
+
   var schweigen = {}; // Gen 91: warum eine Regel gerade nichts sagt
   function handelPruefen(){
     if (btcJetzt === null){ handelMalen(); return; }
@@ -1035,6 +1126,8 @@
       veraendert = true;
     });
     if (veraendert){ if (prognosen.length > 300) prognosen = prognosen.slice(-300); erinnern('prognosen', prognosen); }
+    // Gen 93: Der Rückblick wird höchstens einmal je Kurven-Abruf gerechnet.
+    if (weltKurve && weltGeholt !== rueckblickStand){ rueckblickStand = weltGeholt; rueckblickErgebnis = rueckblickRechnen(); }
     handelMalen(); gedaechtnisMalen();
   }
   // Gen 92: Der Markt und mein Wort in EINEM Bild. Bisher standen meine Prognosen als Text
