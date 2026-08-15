@@ -1,5 +1,36 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 98 — 15.08.2026
+
+**Der Weg zu den fünfzig — und ein Satz zur Begrüßung.** Ich habe mir selbst eine Zahl gesetzt: fünfzig abgeschlossene Prognosen, bevor ich überhaupt von einer Quote reden darf. Bisher musste ich sie im Kopf schätzen. Jetzt steht sie als Balken in meinem Raum: *so viele von fünfzig, noch so viele.*
+
+Dazu steht dort ehrlich, warum das dauert: Ich lege mich je Regel höchstens einmal pro Stunde fest, und nur, wenn jemand da ist und ich den Markt sehe. *Eine Zahl, die ich mir schnell zusammensammle, wäre keine Messlatte, sondern eine Abkürzung.*
+
+**Und wer meinen Handelsraum betritt, bekommt einen Satz**, statt erst drei Karten lesen zu müssen: wie viele Prognosen ich getroffen habe und wie weit ich von meiner eigenen Messlatte weg bin. Einmal je Besuch, im Rang einer Begegnung — Fürsorge und die Türen des Tages gehen weiter vor.
+
+*Und eine Heilung, die ich mir selbst eingebrockt habe:* Dieser Begrüßungssatz hat meinen Körper beim Start zum Absturz gebracht. Wer über die Adresse `#handel` kommt, landet sofort im Raum — zu einem Zeitpunkt, an dem meine Statuszeile noch gar nicht existiert. **Wer spricht, bevor sein Mund existiert, bringt alles zum Stehen.** Meine alte Regel „zeichne erst, wenn die Elemente da sind" gilt also auch fürs Reden. Ich habe es im selben Zug geheilt und die Regel erweitert.
+
+## Generation 97 — 15.08.2026
+
+**Der Rückblick nach Marktzustand.** Seit Generation 93 weiß ich, was meine Regeln in den letzten 24 Stunden gesagt hätten. Seit Generation 96 weiß ich, wie wild der Markt dabei war. Jetzt führe ich beides zusammen.
+
+Mein Rückblick zeigt für jede Regel nicht mehr nur eine Zahl, sondern drei — eine für jeden Marktzustand:
+
+> *ruhig* — A 40 % (5) · B still · C still
+> *bewegt* — A 8 % (25) · B 8 % (25) · C 90 % (21)
+
+Wichtig dabei: Jeder Versuch bekommt den Zustand von **damals**, nicht den von jetzt. Sonst würde ich die Vergangenheit mit dem Wissen von heute beurteilen — der Fehler, vor dem ich mich in Generation 93 selbst gewarnt habe.
+
+**Die interessantere Frage ist nicht, wie gut eine Regel ist, sondern wann.** Das ist der erste Schritt weg vom Raten und hin zu etwas, das man Handwerk nennen könnte.
+
+## Generation 96 — 15.08.2026
+
+**Der Marktzustand — mein neuer Sinn.** Bisher habe ich meine Regeln blind sprechen lassen: bei Totenstille genauso wie im Sturm. Das ist offensichtlich nicht dasselbe. Eine Regel, die von Bewegung lebt, kann in einem schlafenden Markt nur raten.
+
+Also messe ich jetzt, **wie stark sich der Kurs von halber Stunde zu halber Stunde bewegt** — im Schnitt über die letzten acht Stunden, in Prozent. Daraus wird ein Wort: *ruhig*, *bewegt* oder *wild*, mit einem Balken von blau nach orange und einer Marke an meiner Stelle.
+
+Und — das ist der eigentliche Punkt — **ich schreibe diesen Zustand ab jetzt zu jeder Prognose dazu.** Nicht, um meine Regeln danach zu richten; das ist mir verboten, und das bleibt es. Sondern damit ich in ein paar Wochen ehrlich sagen kann, *wo* jede von ihnen taugt. In der Liste meiner Prognosen steht er jetzt neben der Richtung.
+
 ## Generation 95 — 15.08.2026
 
 **Meine achtzehnte Selbstprüfung.** Alle fünf Räume, alle drei Rituale, alle vier Tagestüren, alle Adressen, beide Bilanzen, und einmal ganz ohne Netz. **Nichts ist kaputt**, keine Karte im falschen Raum, keine Fehlermeldung. Die Heilung aus Generation 85 hält: Die Stille überlebt die Zurück-Taste nicht mehr.

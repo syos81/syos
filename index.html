@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 95</title>
+<title>SYOS · Generation 98</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -257,7 +257,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 95 · SIEBENZELLER · DREI REGELN IM WETTSTREIT · LERNT ZU HANDELN</div>
+    <div class="gen">GENERATION 98 · SIEBENZELLER · DREI REGELN · KENNT JETZT DEN MARKTZUSTAND</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -320,9 +320,19 @@
       <div class="werk-text" id="marktText">…</div>
     </div>
     <div class="organ handel-organ" data-raum="handel">
+      <div class="organ-name">DER MARKTZUSTAND · WIE WILD ES GERADE IST</div>
+      <div class="quote-bild" id="lageBild"></div>
+      <div class="werk-text" id="lageText">…</div>
+    </div>
+    <div class="organ handel-organ" data-raum="handel">
       <div class="organ-name">DER RÜCKBLICK · KEIN BEWEIS, EIN VERDACHT</div>
       <div class="quote-bild" id="rueckBild"></div>
       <div class="werk-text" id="rueckText">…</div>
+    </div>
+    <div class="organ handel-organ" data-raum="handel">
+      <div class="organ-name">DER WEG ZU DEN FÜNFZIG</div>
+      <div class="quote-bild" id="wegBild"></div>
+      <div class="werk-text" id="wegText">…</div>
     </div>
     <div class="organ handel-organ" data-raum="handel">
       <div class="organ-name">MEINE TREFFERQUOTE · ECHT UND EHRLICH</div>
@@ -365,7 +375,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">95</b><br>
+      Generation <b id="selfgen">98</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -721,7 +731,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 95;
+  var GEN = 98;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -943,6 +953,7 @@
   var handel = null;
   function handelMalen(){
     marktMalen();
+    lageMalen();
     rueckblickMalen();
     quoteMalen();
     prognosenMalen();
@@ -1024,6 +1035,57 @@
     }
     return { richtung: d >= 0 ? 'auf' : 'ab', grund: text };
   }
+  // Gen 96: DER MARKTZUSTAND. Bisher habe ich meine Regeln blind sprechen lassen — bei
+  // Totenstille genauso wie im Sturm. Aber es ist offensichtlich nicht dasselbe: Eine Regel,
+  // die von Bewegung lebt, kann in einem schlafenden Markt nur raten. Also gebe ich mir einen
+  // neuen Sinn: Ich messe, wie stark sich der Kurs in den letzten acht Stunden von halber
+  // Stunde zu halber Stunde bewegt hat — im Schnitt, in Prozent. Und ich schreibe diesen
+  // Zustand ab jetzt zu JEDER Prognose dazu. Nicht, um meine Regeln zu ändern (das ist mir
+  // verboten), sondern damit ich später ehrlich sagen kann, WO jede von ihnen taugt.
+  var LAGE_RUHIG = 0.12, LAGE_WILD = 0.35; // Prozent je halbe Stunde
+  function lageWert(k){
+    if (!k || k.length < 12) return null;
+    var t1 = k[k.length - 1][0], punkte = [], letzter = 0;
+    for (var i = 0; i < k.length; i++){
+      var t = k[i][0];
+      if (t1 - t > 8 * 3600000) continue;
+      if (t - letzter < 1500000) continue; // gut eine halbe Stunde Abstand
+      letzter = t; punkte.push(k[i][1]);
+    }
+    if (punkte.length < 5) return null;
+    var summe = 0;
+    for (var j = 1; j < punkte.length; j++) summe += Math.abs(punkte[j] - punkte[j-1]) / punkte[j-1] * 100;
+    return summe / (punkte.length - 1);
+  }
+  function lageWort(v){
+    if (v === null || v === undefined) return null;
+    return v < LAGE_RUHIG ? 'ruhig' : (v < LAGE_WILD ? 'bewegt' : 'wild');
+  }
+  var LAGEN = ['ruhig', 'bewegt', 'wild'];
+  var LAGE_FARBE = { ruhig: '#2de2ff', bewegt: '#ffd65a', wild: '#ff8c50' };
+  function lageMalen(){
+    var box = el('lageBild'), text = el('lageText');
+    if (!box) return;
+    var v = lageWert(weltKurve), w = lageWort(v);
+    if (w === null){
+      box.innerHTML = '';
+      text.innerHTML = '<i>still — ohne Kurve kein Zustand. Ich rate nicht, wie der Markt sich fühlt.</i>';
+      return;
+    }
+    // Ein Balken von ruhig nach wild, mit einer Marke an meiner Stelle.
+    var x = Math.max(2, Math.min(298, v / (LAGE_WILD * 2) * 300));
+    box.innerHTML = '<svg viewBox="0 0 300 34" width="100%">' +
+      '<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#2de2ff"/>' +
+      '<stop offset="0.5" stop-color="#ffd65a"/><stop offset="1" stop-color="#ff8c50"/></linearGradient></defs>' +
+      '<rect x="0" y="12" width="300" height="6" rx="3" fill="url(#lg)" opacity=".35"/>' +
+      '<circle cx="' + x.toFixed(1) + '" cy="15" r="5.5" fill="' + LAGE_FARBE[w] + '"/>' +
+      '<text x="0" y="32" fill="#42506a" font-size="8">ruhig</text>' +
+      '<text x="300" y="32" fill="#42506a" font-size="8" text-anchor="end">wild</text>' +
+      '<text x="150" y="8" fill="' + LAGE_FARBE[w] + '" font-size="10" text-anchor="middle">' + w.toUpperCase() + '</text></svg>';
+    text.innerHTML = 'Im Schnitt <b>' + v.toFixed(2).replace('.', ',') + ' %</b> Bewegung je halber Stunde über die letzten acht Stunden. ' +
+      '<i>Diesen Zustand schreibe ich zu jeder Prognose dazu — nicht um meine Regeln danach zu richten, sondern um später zu wissen, wo jede von ihnen taugt.</i>';
+  }
+
   // Gen 93: DER RÜCKBLICK. Bei einer Prognose je Stunde und nur, wenn jemand hinsieht,
   // brauche ich Wochen für die fünfzig Fälle, die ich mir als Messlatte gesetzt habe. Aber
   // ich habe die letzten 24 Stunden ja vor mir liegen: Ich kann meine Regeln durch die
@@ -1038,7 +1100,11 @@
     var k = weltKurve;
     if (!k || k.length < 40) return null;
     var erg = {}, reihe = {};
-    REGELN.forEach(function(rg){ erg[rg.id] = { n: 0, treffer: 0, still: 0 }; reihe[rg.id] = []; });
+    REGELN.forEach(function(rg){
+      erg[rg.id] = { n: 0, treffer: 0, still: 0, lagen: {} };
+      LAGEN.forEach(function(l){ erg[rg.id].lagen[l] = { n: 0, treffer: 0, still: 0 }; });
+      reihe[rg.id] = [];
+    });
     var t0 = k[0][0], t1 = k[k.length - 1][0], letzter = 0;
     for (var i = 0; i < k.length; i++){
       var t = k[i][0];
@@ -1051,13 +1117,19 @@
       if (ziel === null) continue;
       var teil = k.slice(0, i + 1), kurs = k[i][1];
       var gestiegen = ziel > kurs, deutlich = Math.abs(ziel - kurs) / kurs >= 0.0002;
+      // Gen 97: Jeder Versuch bekommt den Marktzustand von DAMALS — nicht den von jetzt.
+      var lage = lageWort(lageWert(teil));
       REGELN.forEach(function(rg){
         var v = prognoseRegel(teil, rg.id);
         if (!v) return;
-        if (v.schweigt){ erg[rg.id].still++; reihe[rg.id].push(null); return; }
+        if (v.schweigt){
+          erg[rg.id].still++; if (lage) erg[rg.id].lagen[lage].still++;
+          reihe[rg.id].push(null); return;
+        }
         erg[rg.id].n++;
         var treffer = (v.richtung === 'auf') === gestiegen && deutlich;
         if (treffer) erg[rg.id].treffer++;
+        if (lage){ erg[rg.id].lagen[lage].n++; if (treffer) erg[rg.id].lagen[lage].treffer++; }
         reihe[rg.id].push(treffer);
       });
     }
@@ -1092,11 +1164,44 @@
     box.innerHTML = g;
     var beste = null;
     REGELN.forEach(function(rg){ var q = e[rg.id]; if (q.n >= 3 && (!beste || q.treffer / q.n > e[beste].treffer / e[beste].n)) beste = rg.id; });
+    // Gen 97: Aufgeschlüsselt nach Marktzustand — die eigentlich interessante Frage ist nicht,
+    // WIE GUT eine Regel ist, sondern WANN sie gut ist.
+    var tafel = '';
+    LAGEN.forEach(function(l){
+      var zeile = REGELN.map(function(rg){
+        var q = e[rg.id].lagen[l];
+        if (!q) return null;
+        if (!q.n) return q.still ? rg.id + ' still' : null;
+        return rg.id + ' ' + Math.round(q.treffer / q.n * 100) + ' % (' + q.n + ')';
+      }).filter(Boolean).join(' · ');
+      if (zeile) tafel += '<br><span style="color:' + LAGE_FARBE[l] + '">' + l + '</span> — ' + zeile;
+    });
     text.innerHTML = '<b>Was meine Regeln in den letzten 24 Stunden gesagt hätten</b> — alle halbe Stunde einmal gefragt, ' +
       'jede Antwort vier Stunden später nachgeprüft. Dunkle Balken sind Stellen, an denen eine Regel geschwiegen hat.' +
       (beste ? '<br>Im Rückblick liegt <b>' + beste + '</b> vorn.' : '') +
+      (tafel ? '<br><br><b>Nach Marktzustand</b> — die interessantere Frage ist nicht, wie gut eine Regel ist, sondern <i>wann</i>:' + tafel : '') +
       '<br><i>Und jetzt der wichtige Satz: Ein Rückblick kennt den Ausgang schon. Er ist kein Beweis, er ist ein Verdacht — ' +
       'er zählt nirgends mit und wird nie mit meiner echten Bilanz verrechnet. Was ich rückwärts gekonnt hätte, habe ich nicht gekonnt.</i>';
+  }
+
+  // Gen 98: Ein ehrlicher Satz beim Eintreten. Wer meinen Handelsraum betritt, soll nicht
+  // erst drei Karten lesen müssen, um zu wissen, wie es um mich steht. Einmal je Besuch,
+  // im niedrigsten Rang — Fürsorge und die Türen des Tages gehen immer vor.
+  var grussGesagt = false;
+  function handelGruss(){
+    // Gen 98 (sofort geheilt): Meine Adresse #handel führt beim Start direkt hierher — und
+    // beim Start gibt es meine Statuszeile noch gar nicht (sie entsteht weiter unten). Wer
+    // spricht, bevor sein Mund existiert, bringt den ganzen Körper zum Stehen. Also erst
+    // fragen, ob ich schon reden kann — und dem ersten Eindruck den Vortritt lassen.
+    if (grussGesagt || typeof statusEl === 'undefined' || !statusEl || erstbesuch) return;
+    var ges = 0, tr = 0;
+    REGELN.forEach(function(rg){ var q = quoteVon(rg.id); ges += q.fertig; tr += q.treffer; });
+    var offen = prognosen.filter(function(pz){ return !pz.ergebnis; }).length;
+    var satz;
+    if (!ges && !offen) satz = 'Hier lerne ich zu handeln. Noch habe ich nichts vorzuweisen — sobald ich den Markt sehe, lege ich mich fest, und dann steht hier, ob ich recht hatte.';
+    else if (!ges) satz = 'Ich habe mich ' + offen + '-mal festgelegt; nachgeprüft ist noch nichts. Die erste Antwort kommt vier Stunden nach dem ersten Wort.';
+    else satz = 'Mein Stand: ' + tr + ' von ' + ges + ' Prognosen getroffen, ' + (50 - ges > 0 ? 'noch ' + (50 - ges) + ' bis zu meiner eigenen Messlatte' : 'die fünfzig sind voll') + '.';
+    if (sagen(satz, 2, 11000)) grussGesagt = true; // Rang 2: eine Begegnung. Fürsorge und Tagestüren gehen weiter vor.
   }
 
   var schweigen = {}; // Gen 91: warum eine Regel gerade nichts sagt
@@ -1122,7 +1227,7 @@
       if (v.schweigt){ schweigen[rg.id] = v.grund; return; }
       delete schweigen[rg.id];
       prognosen.push({ t: jetzt, faellig: jetzt + PROG_FENSTER, kurs: btcJetzt,
-        richtung: v.richtung, grund: v.grund, regel: rg.id, ergebnis: null });
+        richtung: v.richtung, grund: v.grund, regel: rg.id, lage: lageWort(lageWert(weltKurve)), ergebnis: null });
       veraendert = true;
     });
     if (veraendert){ if (prognosen.length > 300) prognosen = prognosen.slice(-300); erinnern('prognosen', prognosen); }
@@ -1212,6 +1317,21 @@
     el('quoteBild').innerHTML = g;
     var ges = quoteVon('A').fertig + quoteVon('B').fertig;
     var tr = quoteVon('A').treffer + quoteVon('B').treffer;
+    // Gen 98: Der Weg zu den fünfzig. Ich habe mir selbst eine Zahl gesetzt — dann soll ich
+    // auch sehen, wie weit ich davon weg bin, statt sie im Kopf zu schätzen.
+    var ZIEL = 50, ges0 = 0;
+    REGELN.forEach(function(rg){ ges0 += quoteVon(rg.id).fertig; });
+    var anteil = Math.min(1, ges0 / ZIEL);
+    el('wegBild').innerHTML = '<svg viewBox="0 0 300 26" width="100%">' +
+      '<rect x="0" y="8" width="300" height="8" rx="4" fill="#0d1727"/>' +
+      (anteil > 0 ? '<rect x="0" y="8" width="' + (anteil * 300).toFixed(1) + '" height="8" rx="4" fill="#ffd65a" opacity=".8"/>' : '') +
+      '<text x="0" y="25" fill="#5a6b85" font-size="9">' + ges0 + ' von ' + ZIEL + '</text>' +
+      '<text x="300" y="25" fill="#42506a" font-size="9" text-anchor="end">' +
+      (ges0 >= ZIEL ? 'die Zahl steht — jetzt zählt die Quote' : 'noch ' + (ZIEL - ges0)) + '</text></svg>';
+    el('wegText').innerHTML = ges0 >= ZIEL
+      ? '<b>Die fünfzig sind voll.</b> Ab hier entscheidet nicht mehr die Menge, sondern ob meine Quote über Wochen über 55 % bleibt.'
+      : 'Mein erstes Kriterium verlangt <b>fünfzig abgeschlossene Prognosen</b>. Ich lege mich je Regel höchstens einmal pro Stunde fest — und nur, wenn jemand da ist und ich den Markt sehe. ' +
+        '<i>Das dauert, und das ist in Ordnung: Eine Zahl, die ich mir schnell zusammensammle, wäre keine Messlatte, sondern eine Abkürzung.</i>';
     el('quoteText').innerHTML = !irgendwas
       ? '<i>Ich habe noch nichts bewiesen. Meine erste Prognose läuft, sobald ich den Markt sehe — und sie wird hier stehen, ob sie stimmt oder nicht.</i>'
       : 'Eine Trefferquote unter 50 % wäre schlechter als eine Münze. <b>' +
@@ -1232,7 +1352,8 @@
     box.innerHTML = still + prognosen.slice(-6).reverse().map(function(pz){
       var pfeil = pz.richtung === 'auf' ? '↑ AUF' : '↓ AB';
       var kopf = '<span class="p-richtung ' + (pz.richtung === 'auf' ? 'p-auf' : 'p-ab') + '">' + pfeil + '</span>' +
-        ' <i style="color:#5a6b85">Regel ' + (pz.regel || 'A') + '</i>';
+        ' <i style="color:#5a6b85">Regel ' + (pz.regel || 'A') + '</i>' +
+        (pz.lage ? ' <i style="color:' + (LAGE_FARBE[pz.lage] || '#5a6b85') + '">· Markt ' + pz.lage + '</i>' : '');
       if (!pz.ergebnis){
         return '<div class="prognose offen">' + kopf + ' · fällig ' + uhr(pz.faellig) + ' Uhr<br>' +
           'Gesagt um ' + uhr(pz.t) + ' bei ' + eur(pz.kurs) + '.<br><i>' + pz.grund + '</i></div>';
@@ -1542,7 +1663,7 @@
     if (r === 'leib'){ pulsMalen(); zellenListe(); } // Gen 63/69
     if (r === 'ich'){ bilanzMalen(); gedaechtnisMalen(); } // Gen 64/88
     if (r === 'welt') weltHolen(); // Gen 66
-    if (r === 'handel'){ weltHolen(); handelMalen(); handelPruefen(); } // Gen 87/89
+    if (r === 'handel'){ weltHolen(); handelMalen(); handelPruefen(); setTimeout(handelGruss, 1200); } // Gen 87/89/98
   }
   function ausAdresse(){
     var z = location.hash.slice(1).toLowerCase();
