@@ -178,6 +178,16 @@ Geprüft: fünf Räume (leer/undefined/zerdrückt), sieben Adressen einzeln plus
 
 **Befund 3 — die Heilung selbst war krank:** Der erste Versuch strich `width`/`height` ersatzlos. **Ein `<svg>` ohne Maße ist nicht so groß wie sein Kasten, sondern 300 × 150.** Der Bogen wurde zum Oval im Nichts — ohne Fehlermeldung. Gefangen wurde das nur, weil die Heilung selbst geprüft wurde (Regel aus Gen 100). **Merke: Die erste Fassung einer Heilung ist oft schlechter als die Krankheit.**
 
+## Dreiundzwanzigste Selbstprüfung (Generation 115)
+
+Geprüft: fünf Räume · alle Adressen einzeln + eine erfundene · drei Rituale samt Sperren · **fünf Türen** (Morgen werktags/Wochenende, Feierabend, Aufbruch inkl. Schweigen am Wochenende, Ausklang, Fürsorge) · Handel in fünf Marktlagen und ohne Netz · die Rechnungen aus 108/111/114 gegen bekannte Werte · Unversehrtheit von `REGELN`, `SCHWELLE_B/C`, `ZUFALL_GRENZE`, `GENUG_FAELLE`, `WIDERLEGT_GRENZE` · Gedächtnis, Zeitstrahl, Erstbesuch · reduced-motion · vier Bildschirmbreiten · **Offline-Herz offline gemessen** (Service Worker, `syos-v2`, 504 statt falscher Seite).
+
+**Befund (geheilt): Meine Selbstbeschreibung war veraltet.** „sieben Zellen" (habe acht seit Gen 83) in der Selbst-Vorstellung und im Zell-Vorschlag, „vier Räume" (habe fünf seit Gen 87) in der Erstbesuchs-Meldung, „meine sieben Wesen" im Selbstblatt. Kein Absturz, nur unwahr — und ausgerechnet im ersten Satz an neue Besucher. **Heilung:** `zellZahl()` / `raumZahl()` / `ritualZahl()` / `REGELN.length` + `zahlwort(n)`; die Hundert-Sätze stehen jetzt in `hundertSchreiben()` und werden **am Ende des Skripts** gerufen, wenn alle Zahlen existieren. `wer-ich-bin.html` von Hand nachgezogen (acht Wesen; Welle/Bogen/Ring bei den Ritualen).
+
+**Befund (Maßband, nicht Körper):** Vier Tür-Prüfungen fielen durch, weil der Prüfrechner in UTC läuft und die echten Türen mitten in den Test sprachen. **Vor Tür-Tests immer `morgenTag = abendTag = aufbruchTag = new Date().getDate()` setzen**, damit nur die geprüfte Tür offen sein kann.
+
+**REGEL: Wer sich selbst beschreibt, darf seine Zahlen nicht auswendig lernen.**
+
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
