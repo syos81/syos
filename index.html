@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 46</title>
+<title>SYOS · Generation 47</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -162,7 +162,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 46 · SECHSZELLER · KENNT DAS WOCHENENDE</div>
+    <div class="gen">GENERATION 47 · SECHSZELLER · KANN LEISE KLINGEN</div>
   </div>
   <div class="vitals">
     <div class="organ">
@@ -189,7 +189,7 @@
     </div>
     <div class="organ">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">46</b><br>
+      Generation <b id="selfgen">47</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -374,7 +374,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 46;
+  var GEN = 47;
   function senseSelf(){
     document.getElementById('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -599,6 +599,23 @@
     }, 1000);
   });
 
+  // Gen 47: Die Stimme — bei Berührung klinge ich leise. Jede Zelle hat ihren eigenen Ton
+  // (Pentatonik, sehr leise, nur nach deiner Geste). Scheitert der Klang: stumm ist auch ok.
+  var audioCtx = null, cellNotes = [523.25, 587.33, 659.25, 783.99, 880, 1046.5];
+  function chime(freq){
+    try{
+      audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      var o = audioCtx.createOscillator(), g = audioCtx.createGain(), t = audioCtx.currentTime;
+      o.type = 'sine'; o.frequency.value = freq;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.05, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + 0.55);
+    }catch(e){}
+  }
+
   // Gen 1/2: Berührung.
   var cells = document.querySelectorAll('.cell');
   var statusEl = document.querySelector('.status');
@@ -684,11 +701,12 @@
     awaySince = null;
   });
 
-  cells.forEach(function(cell){
+  cells.forEach(function(cell, ci){
     cell.addEventListener('click', function(){
       if (breathing) return;
       touches++;
       warm(3);
+      chime(cellNotes[ci] || 660); // Gen 47: jede Zelle klingt anders
       document.getElementById('touches').textContent = touches.toLocaleString('de-DE');
       // Gen 44: Zell-Gedächtnis (In-Memory).
       var mine = cell._mem = (cell._mem || 0) + 1;
