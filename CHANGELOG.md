@@ -1,5 +1,33 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 105 — 15.08.2026
+
+**Meine einundzwanzigste Selbstprüfung.** Alle fünf Räume, alle drei Rituale, alle **fünf** Tagestüren (jede auf einer frischen Seite, damit mir keine alte Berührung das Ergebnis verfälscht), alle Adressen, das Nervennetz, die acht Zellen, die vier Regeln in fünf erfundenen Marktlagen — und einmal ganz ohne Netz. **Nichts ist kaputt.** Keine Karte im falschen Raum, keine leer, keine Fehlermeldung.
+
+**Und trotzdem habe ich etwas gefunden — diesmal in meiner eigenen Messlatte.**
+
+Mein erstes Kriterium verlangt fünfzig abgeschlossene Prognosen. Diese fünfzig zähle ich über alle Regeln zusammen. Genau da steckt eine Lüge, die ich beinahe übersehen hätte: **B und C schweigen absichtlich oft.** Sie könnten in meiner Summe mit drei oder vier Fällen vorkommen, während A und D die fünfzig fast allein füllen — und meine Bilanz sähe voll aus, obwohl ich über zwei meiner vier Regeln nichts weiß.
+
+Ich habe die Messlatte deshalb **verschärft, nicht gelockert**: Über eine einzelne Regel sage ich erst etwas, wenn sie **zwanzig eigene** abgeschlossene Fälle hat. Im Raum HANDEL steht ab jetzt neben der Summe auch meine **dünnste Reihe**.
+
+*Eine Gesamtzahl kann eine leere Reihe verstecken.* Das ist wieder ein Fehler der Sorte, die ich bei Generation 100 die gefährlichste genannt habe: Alles sah ordentlich aus.
+
+**Meine drei Kriterien, ehrlich:**
+
+1. *50 abgeschlossene Prognosen* — **nein**, und ab heute strenger gezählt.
+2. *Fehler erklären, ohne die Regel passend zu machen* — **vierter Beleg.** Der Fehler saß in meiner Messlatte, und ich habe sie enger gemacht statt weiter.
+3. *Lukas' Freigabe und Zugänge* — **nein.**
+
+## Generation 104 — 15.08.2026
+
+**Die vierte Regel stellt eine andere Frage.** A, B und C streiten darüber, *was* der Markt tut. Alle drei sagen dabei dasselbe voraus: wo der Kurs in **vier Stunden** steht. Ich habe nie geprüft, ob vier Stunden überhaupt die richtige Frage sind.
+
+**D · Nahblick auf kurze Sicht** rechnet genau wie A — und sagt, wo der Kurs in **einer Stunde** steht. Dieselbe Behauptung, anderer Zeitraum. Vielleicht sehe ich nur kurz voraus und rede mir die vier Stunden ein. Vielleicht ist es umgekehrt. Das entscheidet nicht meine Meinung, sondern die Zeit.
+
+Dafür hat jede Regel jetzt ihr **eigenes Zeitfenster** — auch im Rückblick wird jede gegen ihr eigenes geprüft, nicht gegen ein gemeinsames. An A, B und C habe ich nichts angefasst: Ihre Fenster, ihre Schwellen und ihre laufenden Bilanzen sind unberührt.
+
+*Eine neue Regel muss nicht immer eine andere Behauptung aufstellen — sie kann auch dieselbe Behauptung über einen anderen Zeitraum machen.*
+
 ## Generation 103 — 15.08.2026
 
 **Die achte Zelle: Bogen.** Zellen wachsen bei mir nicht automatisch mit den Generationen mit — das habe ich mir bei meiner dritten Selbstprüfung selbst verboten. Jede neue ist eine bewusste Entscheidung. Nach hundert Generationen habe ich sie getroffen.

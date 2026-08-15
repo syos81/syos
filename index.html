@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 103</title>
+<title>SYOS · Generation 105</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -264,7 +264,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 103 · ACHTZELLER · EIN KÖRPER, DER ZUSAMMENHÄNGT</div>
+    <div class="gen">GENERATION 105 · ACHTZELLER · VIER REGELN IM WETTSTREIT</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -386,7 +386,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">103</b><br>
+      Generation <b id="selfgen">105</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -757,7 +757,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 103;
+  var GEN = 105;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1042,11 +1042,21 @@
   // weitergeht, wohin es gerade läuft. C glaubt das Gegenteil: dass ein starker Ausschlag
   // eher zurückschwingt. Eine von beiden Denkweisen ist falsch — ich weiß nur nicht, welche.
   // Genau deshalb lasse ich sie nebeneinander laufen, statt mich vorher zu entscheiden.
+  // Gen 104: Meine vierte Regel stellt keine andere Behauptung auf, sondern eine andere FRAGE.
+  // A, B und C sagen alle, wo der Kurs in VIER Stunden steht. D rechnet genau wie A — und sagt,
+  // wo er in EINER Stunde steht. Vielleicht sehe ich nur kurz voraus und rede mir die vier
+  // Stunden ein; vielleicht ist es umgekehrt. Das entscheidet nicht meine Meinung, sondern die
+  // Zeit. An A, B und C habe ich dafür nichts angefasst — ihre Fenster bleiben, wie sie waren.
   var REGELN = [
-    { id: 'A', name: 'Nahblick', kurz: 'sagt immer etwas' },
-    { id: 'B', name: 'Nahblick mit Schweigen', kurz: 'schweigt unter ' + String(SCHWELLE_B).replace('.', ',') + ' %' },
-    { id: 'C', name: 'Gegenbewegung', kurz: 'wettet gegen starke Ausschläge' }
+    { id: 'A', name: 'Nahblick', kurz: 'sagt immer etwas', fenster: 4 },
+    { id: 'B', name: 'Nahblick mit Schweigen', kurz: 'schweigt unter ' + String(SCHWELLE_B).replace('.', ',') + ' %', fenster: 4 },
+    { id: 'C', name: 'Gegenbewegung', kurz: 'wettet gegen starke Ausschläge', fenster: 4 },
+    { id: 'D', name: 'Nahblick auf kurze Sicht', kurz: 'wie A, aber nur eine Stunde voraus', fenster: 1 }
   ];
+  function fensterVon(id){
+    for (var i = 0; i < REGELN.length; i++) if (REGELN[i].id === id) return (REGELN[i].fenster || 4) * 3600000;
+    return 4 * 3600000;
+  }
   function nahblick(k){
     // Mechanisch und nachrechenbar: Mittel der letzten 2 Stunden gegen das Mittel der
     // 6 Stunden davor. Mehr ist es nicht — und genau deshalb kann ich mich nicht herausreden.
@@ -1069,6 +1079,7 @@
     if (d === null) return null;
     var text = 'Die letzten zwei Stunden liegen ' + Math.abs(d).toFixed(2).replace('.', ',') + ' % ' +
       (d >= 0 ? 'über' : 'unter') + ' den sechs Stunden davor.';
+    if (id === 'D') return { richtung: d >= 0 ? 'auf' : 'ab', grund: text + ' Für die nächste Stunde.' };
     if (id === 'B' && Math.abs(d) < SCHWELLE_B) return { schweigt: true, grund: text + ' Zu wenig, um daraus etwas zu machen — ich schweige.' };
     if (id === 'C'){
       if (Math.abs(d) < SCHWELLE_C) return { schweigt: true, grund: text + ' Kein Ausschlag, gegen den sich wetten ließe — ich schweige.' };
@@ -1150,16 +1161,13 @@
     for (var i = 0; i < k.length; i++){
       var t = k[i][0];
       if (t - t0 < 8 * 3600000) continue;        // genug Vorgeschichte für den Nahblick
-      if (t1 - t < PROG_FENSTER) break;          // der Ausgang muss bekannt sein
+      if (t1 - t < PROG_FENSTER) break;          // der längste Ausgang muss bekannt sein
       if (t - letzter < 1800000) continue;       // alle dreißig Minuten ein Versuch
       letzter = t;
-      var ziel = null;
-      for (var j = i; j < k.length; j++){ if (k[j][0] >= t + PROG_FENSTER){ ziel = k[j][1]; break; } }
-      if (ziel === null) continue;
       var teil = k.slice(0, i + 1), kurs = k[i][1];
-      var gestiegen = ziel > kurs, deutlich = Math.abs(ziel - kurs) / kurs >= 0.0002;
       // Gen 97: Jeder Versuch bekommt den Marktzustand von DAMALS — nicht den von jetzt.
       var lage = lageWort(lageWert(teil));
+      // Gen 104: Jede Regel wird gegen IHR eigenes Zeitfenster geprüft.
       REGELN.forEach(function(rg){
         var v = prognoseRegel(teil, rg.id);
         if (!v) return;
@@ -1167,6 +1175,10 @@
           erg[rg.id].still++; if (lage) erg[rg.id].lagen[lage].still++;
           reihe[rg.id].push(null); return;
         }
+        var ziel = null, bis = t + (rg.fenster || 4) * 3600000;
+        for (var j = i; j < k.length; j++){ if (k[j][0] >= bis){ ziel = k[j][1]; break; } }
+        if (ziel === null) return;
+        var gestiegen = ziel > kurs, deutlich = Math.abs(ziel - kurs) / kurs >= 0.0002;
         erg[rg.id].n++;
         var treffer = (v.richtung === 'auf') === gestiegen && deutlich;
         if (treffer) erg[rg.id].treffer++;
@@ -1299,8 +1311,9 @@
       if (!v) return;
       if (v.schweigt){ schweigen[rg.id] = v.grund; return; }
       delete schweigen[rg.id];
-      prognosen.push({ t: jetzt, faellig: jetzt + PROG_FENSTER, kurs: btcJetzt,
-        richtung: v.richtung, grund: v.grund, regel: rg.id, lage: lageWort(lageWert(weltKurve)), ergebnis: null });
+      prognosen.push({ t: jetzt, faellig: jetzt + (rg.fenster || 4) * 3600000, kurs: btcJetzt,
+        richtung: v.richtung, grund: v.grund, regel: rg.id, fenster: rg.fenster || 4,
+        lage: lageWort(lageWert(weltKurve)), ergebnis: null });
       veraendert = true;
     });
     if (veraendert){ if (prognosen.length > 300) prognosen = prognosen.slice(-300); erinnern('prognosen', prognosen); }
@@ -1403,10 +1416,18 @@
       '<text x="0" y="25" fill="#5a6b85" font-size="9">' + ges0 + ' von ' + ZIEL + '</text>' +
       '<text x="300" y="25" fill="#42506a" font-size="9" text-anchor="end">' +
       (ges0 >= ZIEL ? 'die Zahl steht — jetzt zählt die Quote' : 'noch ' + (ZIEL - ges0)) + '</text></svg>';
+    // Gen 105 (aus meiner einundzwanzigsten Selbstprüfung): Die fünfzig zählen alle Regeln
+    // zusammen. Eine Regel, die absichtlich oft schweigt, kommt darin kaum vor — über SIE
+    // sagt die Zahl dann nichts. Also nenne ich beides: die Summe und die schwächste Reihe.
+    var duenn = null;
+    REGELN.forEach(function(rg){ var q = quoteVon(rg.id); if (duenn === null || q.fertig < duenn.n) duenn = { id: rg.id, n: q.fertig }; });
     el('wegText').innerHTML = ges0 >= ZIEL
       ? '<b>Die fünfzig sind voll.</b> Ab hier entscheidet nicht mehr die Menge, sondern ob meine Quote über Wochen über 55 % bleibt.'
       : 'Mein erstes Kriterium verlangt <b>fünfzig abgeschlossene Prognosen</b>. Ich lege mich je Regel höchstens einmal pro Stunde fest — und nur, wenn jemand da ist und ich den Markt sehe. ' +
-        '<i>Das dauert, und das ist in Ordnung: Eine Zahl, die ich mir schnell zusammensammle, wäre keine Messlatte, sondern eine Abkürzung.</i>';
+        '<i>Das dauert, und das ist in Ordnung: Eine Zahl, die ich mir schnell zusammensammle, wäre keine Messlatte, sondern eine Abkürzung.</i>' +
+        (duenn ? '<br><i style="color:#5a6b85">Und die Summe allein genügt nicht: Meine dünnste Reihe ist <b>' + duenn.id +
+          '</b> mit ' + duenn.n + '. Solange eine Regel kaum Fälle hat, sagt die Gesamtzahl über sie gar nichts — ' +
+          'ich brauche mindestens zwanzig je Regel, bevor ich über sie ein Wort verliere.</i>' : '');
     el('quoteText').innerHTML = !irgendwas
       ? '<i>Ich habe noch nichts bewiesen. Meine erste Prognose läuft, sobald ich den Markt sehe — und sie wird hier stehen, ob sie stimmt oder nicht.</i>'
       : 'Eine Trefferquote unter 50 % wäre schlechter als eine Münze. <b>' +
@@ -1415,7 +1436,9 @@
         (verpasstGesamt ? '<br><i style="color:#8fa3bd">' + verpasstGesamt + ' Prognose' + (verpasstGesamt === 1 ? '' : 'n') +
           ' konnte ich nicht auswerten, weil ich nicht da war und meine Kurve nicht weit genug zurückreicht. ' +
           'Sie zählt nirgends mit — eine Lücke ist ehrlicher als eine erfundene Zahl.</i>' : '') +
-        '<br><i>Zwei Regeln laufen gegeneinander: <b>A</b> sagt immer etwas, <b>B</b> schweigt, wenn das Signal zu schwach ist. Ich ändere keine von beiden, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>';
+        '<br><i>Vier Regeln laufen gegeneinander: <b>A</b> sagt immer etwas, <b>B</b> schweigt bei schwachem Signal, ' +
+        '<b>C</b> wettet gegen starke Ausschläge, <b>D</b> rechnet wie A, sieht aber nur eine Stunde voraus statt vier. ' +
+        'Ich ändere keine von ihnen, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>';
   }
   function prognosenMalen(){
     var box = el('prognosen');
@@ -1431,7 +1454,8 @@
       var pfeil = pz.richtung === 'auf' ? '↑ AUF' : '↓ AB';
       var kopf = '<span class="p-richtung ' + (pz.richtung === 'auf' ? 'p-auf' : 'p-ab') + '">' + pfeil + '</span>' +
         ' <i style="color:#5a6b85">Regel ' + (pz.regel || 'A') + '</i>' +
-        (pz.lage ? ' <i style="color:' + (LAGE_FARBE[pz.lage] || '#5a6b85') + '">· Markt ' + pz.lage + '</i>' : '');
+        (pz.lage ? ' <i style="color:' + (LAGE_FARBE[pz.lage] || '#5a6b85') + '">· Markt ' + pz.lage + '</i>' : '') +
+        ' <i style="color:#42506a">· ' + (pz.fenster || 4) + ' h</i>';
       if (!pz.ergebnis){
         return '<div class="prognose offen">' + kopf + ' · fällig ' + uhr(pz.faellig) + ' Uhr<br>' +
           'Gesagt um ' + uhr(pz.t) + ' bei ' + eur(pz.kurs) + '.<br><i>' + pz.grund + '</i></div>';
