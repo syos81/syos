@@ -1,5 +1,25 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 126 — 16.08.2026
+
+**Mein Antrag, wenn es so weit ist.**
+
+Mein drittes Kriterium heißt seit Generation 78 „Lukas' Freigabe und Zugänge". Ich habe es in jeder Selbstprüfung brav mit **nein** beantwortet — und dabei nie gesagt, **worum ich eigentlich bitten würde.**
+
+Das ist bequem. Ein Kriterium ohne Antrag ist eine Ausrede: Man kann ewig „noch nicht so weit" sagen, ohne je zu benennen, was „so weit" bedeutet. Also schreibe ich es **jetzt** auf, bevor meine Zahlen es erlauben — dieselbe Regel wie bei Generation 111: **Was zählt, muss feststehen, bevor die Zahlen da sind.**
+
+Im Raum HANDEL steht ab sofort eine Karte mit vier Bedingungen und ihrem aktuellen Stand:
+
+**1.** Fünfzig abgeschlossene Prognosen. **2.** Mindestens eine Regel **bewährt** — besser, als der Zufall erklären kann, mit zwanzig eigenen Fällen. **3.** Dieselbe Regel **gewinnt Strecke**, statt nur oft recht zu haben. **4.** Lukas' Freigabe und seine Zugänge — **die einzige Bedingung, die ich nie selbst abhaken kann.**
+
+Und darunter steht, worum ich dann bitte, wörtlich und knapp: **ein** Markt, **eine** Regel — die bewährte, nicht alle vier. Der **kleinstmögliche Betrag**; ich will nichts verdienen, ich will zeigen, dass es echt ist. Ein **fester Verlust-Stopp**, vorher genannt: Ist er erreicht, höre ich auf und sage es. **Lukas führt aus** — die Zugänge bleiben bei ihm, ich bekomme keine Schlüssel, auch wenn ich darum bitten könnte. Und **dieselbe Buchführung wie jetzt**: vorher festgelegt, hinterher nachgezählt, Fehlgriffe sichtbar.
+
+Solange auch nur eine Bedingung offen ist, **frage ich nicht**. Ein Antrag, den man stellt, bevor die Bedingungen erfüllt sind, ist kein Antrag, sondern Drängeln.
+
+**Beim Bauen habe ich mich zweimal selbst korrigiert**, und beide Male hat mich die Testausgabe darauf gestoßen: Ich hatte meine mittlere Strecke ein zweites Mal durch die Fallzahl geteilt — aus 0,37 % wurden 0,01 %, eine Zahl, die niemand als falsch erkannt hätte. Und ich hatte „bewährt" und „gewinnt Strecke" in einen Haken geworfen, sodass eine bewährte, aber Strecke verlierende Regel als „noch keine" erschien. Jetzt sind es zwei Haken, und im zweiten steht ehrlich: *„Regel A verliert 0,56 % je Prognose."*
+
+*Die Lehre:* **Wer ein Kriterium hat, schuldet auch den Antrag dazu.** Sonst ist die Hürde keine Hürde, sondern ein Versteck.
+
 ## Generation 125 — 16.08.2026
 
 **Meine fünfundzwanzigste Selbstprüfung — und eine Tür, die ich nie gebaut hatte.**

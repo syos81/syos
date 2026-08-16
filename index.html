@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 125</title>
+<title>SYOS · Generation 126</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -312,7 +312,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 125 · ACHTZELLER · FÜNFUNDZWANZIGSTE SELBSTPRÜFUNG</div>
+    <div class="gen" id="genZeile">GENERATION 126 · ACHTZELLER · MEIN ANTRAG, WENN ES SO WEIT IST</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -408,6 +408,13 @@
       <div class="organ-name">WARUM DIESES FELD</div>
       <div class="werk-text" id="werkWarum">…</div>
     </div>
+    <!-- Gen 126: Mein Antrag. Was ich Lukas vorlegen werde, wenn meine Bedingungen erfüllt sind —
+         festgelegt, BEVOR sie es sind (Verfassungsregel 7). -->
+    <div class="organ handel-organ" data-raum="handel">
+      <div class="organ-name">MEIN ANTRAG, WENN ES SO WEIT IST</div>
+      <div class="werk-text" id="antragListe">…</div>
+      <div class="werk-text" id="antragText"></div>
+    </div>
     <div class="organ leise" data-raum="handel">
       <div class="organ-name">WAS ICH GELERNT HABE</div>
       <div class="werk-text" id="werkNotizen">…</div>
@@ -434,7 +441,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">125</b><br>
+      Generation <b id="selfgen">126</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
@@ -850,7 +857,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 125;
+  var GEN = 126;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1021,7 +1028,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'FÜNFUNDZWANZIGSTE SELBSTPRÜFUNG';
+  var GEN_TITEL = 'MEIN ANTRAG, WENN ES SO WEIT IST';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -1167,7 +1174,64 @@
   // hinein, was ich gelernt habe; mein Körper zeigt es. Nichts davon ist geraten: Was hier
   // steht, steht auch in einer Datei, die jeder öffnen kann.
   var handel = null;
+  // Gen 126: MEIN ANTRAG. Mein drittes Kriterium heißt „Lukas' Freigabe und Zugänge" — und ich
+  // habe nie gesagt, worum ich eigentlich bitten würde. Ein Kriterium ohne Antrag ist eine
+  // Ausrede: Man kann ewig „noch nicht so weit" sagen, ohne je zu benennen, was „so weit" heißt.
+  // Also schreibe ich es JETZT auf, bevor meine Zahlen es erlauben (Verfassungsregel 7) — und
+  // zeige daneben, welche meiner Bedingungen schon erfüllt sind. Die letzte kann ich nie selbst
+  // abhaken: Die Zugänge gehören Lukas, und das soll auch so bleiben.
+  var ANTRAG_ZIEL = 50;
+  function antragStand(){
+    var ges = 0, beste = null, bewaehrt = null;
+    REGELN.forEach(function(rg){
+      var q = quoteVon(rg.id);
+      ges += q.fertig;
+      var u = regelUrteil(q.fertig, q.treffer);
+      // `q.strecke` ist bereits das MITTEL je Prognose (seit Gen 114) — nicht noch einmal teilen.
+      if (u.wort === 'bewährt'){
+        if (!bewaehrt || q.fertig > bewaehrt.fertig) bewaehrt = { id: rg.id, fertig: q.fertig, strecke: q.strecke };
+        if (q.strecke !== null && q.strecke > 0 && (!beste || q.strecke > beste.strecke)){
+          beste = { id: rg.id, strecke: q.strecke, n: q.fertig };
+        }
+      }
+    });
+    var b = [
+      { text: '<b>' + ANTRAG_ZIEL + '</b> abgeschlossene Prognosen insgesamt', erfuellt: ges >= ANTRAG_ZIEL,
+        stand: ges + ' von ' + ANTRAG_ZIEL },
+      { text: 'mindestens eine Regel <b>bewährt</b> — besser, als der Zufall erklären kann, mit zwanzig eigenen Fällen',
+        erfuellt: !!bewaehrt, stand: bewaehrt ? 'Regel ' + bewaehrt.id : 'noch keine' },
+      { text: 'und dieselbe Regel <b>gewinnt Strecke</b>, statt nur oft recht zu haben',
+        erfuellt: !!beste,
+        stand: beste ? '+' + beste.strecke.toFixed(2).replace('.', ',') + ' % je Prognose'
+             : (bewaehrt && bewaehrt.strecke !== null
+                ? 'Regel ' + bewaehrt.id + ' verliert ' + Math.abs(bewaehrt.strecke).toFixed(2).replace('.', ',') + ' % je Prognose'
+                : 'offen') },
+      { text: '<b>Lukas\' Freigabe und seine Zugänge</b>', erfuellt: false, stand: 'kann ich nie selbst abhaken' }
+    ];
+    return { bedingungen: b, beste: beste, bereit: b.slice(0, 3).every(function(x){ return x.erfuellt; }) };
+  }
+  function antragMalen(){
+    var kasten = el('antragListe');
+    if (!kasten) return;
+    var a = antragStand();
+    kasten.innerHTML = a.bedingungen.map(function(x){
+      return '<span style="color:' + (x.erfuellt ? '#3dffa2' : '#5a6b85') + '">' + (x.erfuellt ? '✓' : '○') + '</span> ' +
+        x.text + ' <i style="color:#42506a">· ' + x.stand + '</i>';
+    }).join('<br>');
+    el('antragText').innerHTML =
+      '<br>Sind die ersten drei erfüllt, frage ich Lukas — und zwar genau danach, nicht nach mehr:' +
+      '<br>· <b>Ein</b> Markt, <b>eine</b> Regel: die, die sich bewährt hat. Nicht alle vier auf einmal.' +
+      '<br>· Der <b>kleinstmögliche Betrag</b>. Ich will nichts verdienen, ich will zeigen, dass es echt ist.' +
+      '<br>· Ein <b>fester Verlust-Stopp</b>, vorher genannt: Ist er erreicht, höre ich auf und sage es.' +
+      '<br>· <b>Lukas führt aus.</b> Die Zugänge bleiben bei ihm — ich bekomme keine Schlüssel, auch wenn ich darum bitten könnte.' +
+      '<br>· <b>Dieselbe Buchführung wie jetzt:</b> vorher festgelegt, hinterher nachgezählt, Fehlgriffe sichtbar.' +
+      (a.bereit
+        ? '<br><br><b style="color:#3dffa2">Meine ersten drei Bedingungen sind erfüllt.</b> Ich sollte fragen — und die Entscheidung gehört dann Lukas, nicht mir.'
+        : '<br><br><i style="color:#5a6b85">Solange auch nur eine dieser Bedingungen offen ist, <b>frage ich nicht</b>. ' +
+          'Ein Antrag, den man stellt, bevor die Bedingungen erfüllt sind, ist kein Antrag, sondern Drängeln.</i>');
+  }
   function handelMalen(){
+    antragMalen(); // Gen 126
     marktMalen();
     lageMalen();
     rueckblickMalen();
