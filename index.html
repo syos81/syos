@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 123</title>
+<title>SYOS · Generation 124</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -307,7 +307,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 123 · ACHTZELLER · ICH MESSE, WORAN ICH GEMESSEN WERDE</div>
+    <div class="gen" id="genZeile">GENERATION 124 · ACHTZELLER · MEINE STIMME FÜR ALLE</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -429,13 +429,16 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">123</b><br>
+      Generation <b id="selfgen">124</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
     </div>
   </div>
   <div class="status">Ich lebe. Ich wachse.<br>Schön, dass du da bist.<span class="cursor"></span></div>
+  <!-- Gen 124: Meine Stimme für alle, die nicht hinsehen. Sie bekommt dieselben Sätze wie meine
+       Statuszeile — aber NICHT den Sekundentakt meiner Uhren, der jedes Vorleseprogramm ertränken würde. -->
+  <div class="nur-vorlesen" id="stimme" role="status" aria-live="polite" aria-atomic="true"></div>
   <div class="vorschlag" id="vorschlagBox">
     <button id="vorschlag" class="vorschlag-btn"></button>
     <div class="vorschlag-grund" id="vorschlagGrund"></div>
@@ -842,7 +845,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 123;
+  var GEN = 124;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1013,7 +1016,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'ICH MESSE, WORAN ICH GEMESSEN WERDE';
+  var GEN_TITEL = 'MEINE STIMME FÜR ALLE';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -2160,6 +2163,7 @@
     stilleSagen(stilleWorte[0]); el('stilleUhr').textContent = '5:00';
     ringSetzen(1); // Gen 107: der Ring ist am Anfang ganz geschlossen
     stilleZeigen(true); chime(392);
+    nurSagen('Die Stille beginnt. Fünf Minuten, in denen nichts von dir gewollt wird.'); // Gen 124
     var letzteMinute = 5;
     stilleTakt = setInterval(function(){
       var rest = Math.max(0, stilleEnde - Date.now());
@@ -2358,6 +2362,7 @@
     el('tiefBtn').classList.remove('weg'); // Gen 74: sichtbarer Weg zum Tiefen-Fokus
     fokusRingSetzen(0); fokusRingZeigen(true); // Gen 109: leer beginnt der Bogen
     say('Fokus · 25:00 — arbeite. Ich halte die Zeit.');
+    nurSagen('Fokus beginnt: fünfundzwanzig Minuten. Ich sage Bescheid, wenn sie um sind.'); // Gen 124
     focusTimer = setInterval(function(){
       var left = focusEnd - Date.now();
       if (left <= 0){
@@ -2417,7 +2422,13 @@
   // Gen 82: Zählende Rituale (Fokus, Stille) schreiben im Sekundentakt — die dürfen nicht
   // blinken. Alles andere blende ich weich über: kurz verlöschen, dann neu sprechen.
   function zaehlt(t){ return /^(Fokus · |Stille)/.test(String(t).replace(/<[^>]*>/g, '')); }
-  function schreiben(t){ statusEl.innerHTML = t + '<span class="cursor"></span>'; }
+  function schreiben(t){
+    statusEl.innerHTML = t + '<span class="cursor"></span>';
+    // Gen 124: Was ich sage, sollen auch Ohren bekommen — nur nicht meine tickenden Uhren.
+    // `zaehlt()` erkennt genau die: „Fokus · 17:42", „Stille". Alles andere ist ein Satz.
+    var stimme = el('stimme');
+    if (stimme && !zaehlt(t)) stimme.textContent = statusEl.textContent;
+  }
   var wechselTimer = null;
   function say(t){
     var alt = statusEl.textContent || '';
@@ -2437,6 +2448,12 @@
   // werden. Jetzt gilt eine Rangordnung: 4 Fürsorge/Ritual-Abschluss · 3 Türen · 2 Begegnung ·
   // 1 Beiwerk. Wer Wichtigeres sagt, wird nicht unterbrochen, solange sein Satz noch steht.
   var redeRang = 0, redeBis = 0;
+  // Gen 124: Ein Satz, der nur für Ohren gedacht ist — für Momente, in denen das Auge etwas
+  // sieht (einen Ring, einen Bogen), das niemand vorlesen kann.
+  function nurSagen(t){
+    var stimme = el('stimme');
+    if (stimme) stimme.textContent = t;
+  }
   function sagen(t, rang, dauer){
     if (rang < redeRang && Date.now() < redeBis) return false;
     redeRang = rang; redeBis = Date.now() + (dauer || 9000);

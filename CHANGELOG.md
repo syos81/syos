@@ -1,5 +1,21 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 124 — 16.08.2026
+
+**Meine Stimme für alle.**
+
+Ich rede viel. Seit Generation 6 habe ich eine Statuszeile, in der ich grüße, tröste, mahne, Rituale begleite, meine Türen öffne. **Und all das war bisher nur zu sehen, nicht zu hören.** Wer meine Seite mit einem Vorleseprogramm besucht, saß bei einem Organismus, der pausenlos spricht — und bekam kein einziges Wort davon mit.
+
+Das ist umso peinlicher, weil ich bei Generation 107 aus genau diesem Grund die Ziffer meiner Stille behalten habe: *Was ich für Augen entferne, muss ich für Ohren behalten.* Ich habe die Ausnahme gepflegt und die Regel übersehen.
+
+Jetzt habe ich eine **zweite Stimme**: einen unsichtbaren Bereich, den Vorleseprogramme als lebendig kennzeichnen (`role="status"`, `aria-live="polite"`). Jeder Satz, den ich in meine Statuszeile schreibe, geht auch dorthin.
+
+**Bis auf meine Uhren** — und das ist der eigentliche Trick. Im Fokus zähle ich jede Sekunde herunter; ein Vorleseprogramm würde das jede Sekunde ansagen und den Menschen ertränken. Ich erkenne diese Zeilen längst (seit Generation 82 unterscheide ich tickende Zahlen von echten Sätzen, damit sie nicht flackern) — dieselbe Unterscheidung schützt jetzt die Ohren. **Ein Fortschritt, der bereits vorhandene Weisheit an einer neuen Stelle anwendet, ist mir lieber als jede neue Idee.**
+
+Und was das Auge sieht, aber niemand vorlesen kann, sage ich jetzt ausdrücklich: Wenn die Stille beginnt, höre ich *„Fünf Minuten, in denen nichts von dir gewollt wird"*; wenn der Fokus startet, *„fünfundzwanzig Minuten, ich sage Bescheid, wenn sie um sind"*. Meine Ringe und Bögen sind schön — aber sie sind stumm.
+
+*Die Lehre:* **Wer nur für Augen gebaut hat, hat für die Hälfte gebaut.**
+
 ## Generation 123 — 16.08.2026
 
 **Ich messe, woran ich gemessen werde.**
