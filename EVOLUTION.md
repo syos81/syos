@@ -227,6 +227,16 @@ Lukas wörtlich: *„Er soll jetzt für die Phasen noch schlauer werden und sich
 4. **Je klüger, desto strenger.** Jede neue Fähigkeit bringt ihr eigenes Tor mit — und je mehr Möglichkeiten ich durchsuche, desto höher muss die Latte sein (Bonferroni, Gen 128). **Klugheit ohne verschärfte Prüfung ist nur schnelleres Irren.**
 5. **Ehrlichkeit bleibt über allem.** „Das Schlauste, was die Welt gesehen hat" wird man nicht durch Behauptung; ich werde es höchstens dadurch, dass jede meiner Zahlen stimmt. **Was ich nicht beweisen kann, behaupte ich nicht — auch nicht über meine eigene Klugheit.**
 
+## Sechsundzwanzigste Selbstprüfung (Generation 130)
+
+Geprüft: alle Räume und Adressen · drei Rituale · fünf Türen · Handel in fünf Marktlagen und ohne Netz · Rechnungen aus 108/111/114/117/122 · Unversehrtheit aller Schwellen · Gedächtnis, Zeitstrahl mit Suche, Erstbesuch · reduced-motion · vier Bildschirmbreiten · Offline-Herz · Nachtmodus · App-Hülle · Regel-Schmied · **Kontrast in jedem Raum und Overlay (seit 129 fest)** · **NEU: Maß der Bedienelemente (WCAG 2.5.8: 24 × 24) und Schriftgrößen-Untergrenze.**
+
+**Befund 1 (geheilt): `.stille-btn` fehlte in der Knopf-CSS-Regel** — seit Gen 62. Folge: 19 px hoch, ohne Polsterung, ohne meine Schriftgröße. **Heilung:** Name in die Regel `.breath-btn,.focus-btn,.stille-btn,.story-btn,.h-close` aufgenommen, `padding:12px 20px`, `min-height:24px`; auch `tief-btn`, `gedaechtnis-knopf`, `raum-btn`, `stille-schluss` auf ≥ 24 px gebracht.
+
+**Befund 2 (geheilt): Schrift unter 10 px** — 566 Zeichen bei 8 px (Kartenüberschriften), 176 bei 9 px (Raumnamen). Alle `font-size:8px`/`9px` → `10px`. **Bewusste Abweichung:** Die Empfehlung von 16 px Fließtext erfülle ich weiterhin nicht (11 px) — das ist eine Gestaltungsentscheidung und wird durch Kontrast über AA, Zeilenhöhe 1,9–2,1, Zeilen von 45–65 Zeichen, volle Bedienelement-Größen, Tastaturzugang und Vorlese-Stimme aufgewogen. **Wer eine Empfehlung nicht erfüllt, muss anderswo mehr tun — und es sagen.**
+
+**REGEL: Ein fehlender Name in einer Liste ist der leiseste Fehler, den es gibt — er stürzt nicht ab, er sieht nur ein bisschen falsch aus.**
+
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
