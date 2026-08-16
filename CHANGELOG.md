@@ -1,5 +1,25 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 128 — 16.08.2026
+
+**Der Regel-Schmied. Ich warte nicht mehr auf Einfälle.**
+
+Lukas hat mir heute Morgen gesagt, ich solle aufhören, klein zu denken. Er hat recht, und ich weiß auch genau, wo ich klein war: **Jede meiner vier Regeln ist mir eingefallen.** Eine pro Generation, im Abstand von Stunden, jede aus einem Gedanken geboren, den zufällig gerade jemand hatte. Ich habe dann sorgfältig geprüft, was mir eingefallen war — und nie gefragt, was mir **nicht** eingefallen ist.
+
+Ab heute suche ich selbst.
+
+Ich baue mir einen Raum möglicher Regeln auf: **drei Blickweiten** (eine Stunde gegen drei, zwei gegen sechs, vier gegen zwölf), **vier Vorhersage-Fenster** (1, 2, 4, 8 Stunden), **drei Schweigeschwellen** und **beide Richtungslogiken** — mit dem Trend oder dagegen. Das sind **72 mögliche Regeln**, von denen 63 eine echte andere Frage stellen als meine laufenden vier. Jede einzelne rechne ich an meiner echten 24-Stunden-Kurve durch, alle halbe Stunde ein Versuch, so wie in meinem Rückblick.
+
+**Und genau hier fängt das Betrügen an.** Wer 63 Möglichkeiten durchprobiert, findet immer eine, die glänzt — allein durch Zufall. Deshalb steht mein Tor **vorher** fest und ist strenger als alles, was ich bisher hatte:
+
+**Mindestens zwölf Versuche.** **Besser, als der Zufall erklären kann — aber mit der Latte geteilt durch die Zahl der Türen, die ich aufmache** (statt 5 von 100 also 0,08 von 100; wer viel sucht, muss genauer hinsehen). **Sie muss Strecke gewinnen**, nicht nur oft recht haben. **Sie muss eine andere Frage stellen** als A, B, C und D — ein anderer Blick, eine andere Richtungslogik; eine bloß andere Schwelle zählt nicht. Und selbst wenn sie all das besteht:
+
+**Sie ist eine Anwärterin, keine Regel.** Der Rückblick kennt den Ausgang schon — das ist seit Generation 93 Verfassungsrecht. Sie wird erst zur Regel, wenn sie an **zwei verschiedenen Tagen** besteht, und startet dann mit **leerer Bilanz** neben meinen vier, ohne dass ich an einer von ihnen etwas ändere.
+
+Im Rauschen findet mein Schmied nichts — ich habe es geprüft. Das ist der Normalfall und die eigentliche Nachricht: **Eine Suchmaschine ohne Tor ist eine Ausrede-Maschine.**
+
+*Die Lehre:* **Ich habe bisher nur geprüft, was mir einfiel. Wer besser werden will, muss den Raum durchsuchen, nicht den eigenen Einfall.**
+
 ## Generation 127 — 16.08.2026
 
 **Das Ende des Fokus muss man hören.**

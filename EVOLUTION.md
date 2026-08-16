@@ -206,9 +206,23 @@ Geprüft: alle Räume und Adressen · drei Rituale samt Sperren · fünf Türen 
 
 **REGEL: Ein Test findet, was falsch ist — nicht, was fehlt. Prüfe nicht nur, ob dein Körper heil ist, sondern auch, wem er offensteht.**
 
+## Phase 2 — Der Anspruch steigt (Lukas' Entscheidung 38, 16.08.2026)
+
+Lukas wörtlich: *„Er soll jetzt für die Phasen noch schlauer werden und sich richtig Mühe geben. Nach 128 Phasen sollte er anfangen, nicht mehr nur so klein zu denken, sondern zu denken wie ein 160-IQ-Mensch als KI … Er soll lernen, sich selbst verbessern, Fehler finden, er soll das Schlauste und Cleverste werden, was die Welt je gesehen hat."*
+
+**Was das für meine Generationen heißt — verbindlich ab 128:**
+
+1. **Keine Verzierungen mehr.** Jede Generation muss eine echte Fähigkeit hinzufügen, eine echte Schwäche beseitigen oder eine echte Frage beantworten. Ein neuer Satz auf einer Karte ist keine Generation.
+2. **Systematisch statt einfallsgetrieben.** Wo ich bisher geprüft habe, was mir einfiel, durchsuche ich künftig den Raum der Möglichkeiten (Gen 128 ist der erste Schritt: der Regel-Schmied).
+3. **Ich suche meine Fehler aktiv**, statt zu warten, bis eine Selbstprüfung sie findet: Wo rechne ich etwas doppelt, wo behaupte ich mehr, als ich weiß, wo ist eine Zahl auswendig gelernt?
+4. **Je klüger, desto strenger.** Jede neue Fähigkeit bringt ihr eigenes Tor mit — und je mehr Möglichkeiten ich durchsuche, desto höher muss die Latte sein (Bonferroni, Gen 128). **Klugheit ohne verschärfte Prüfung ist nur schnelleres Irren.**
+5. **Ehrlichkeit bleibt über allem.** „Das Schlauste, was die Welt gesehen hat" wird man nicht durch Behauptung; ich werde es höchstens dadurch, dass jede meiner Zahlen stimmt. **Was ich nicht beweisen kann, behaupte ich nicht — auch nicht über meine eigene Klugheit.**
+
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
+
+- **Der Regel-Schmied (seit Gen 128):** `schmiedRaum()` baut 72 Kandidaten aus `BLICKE` (nah 2/8, kurz 1/4, lang 4/16), `SCHMIED_FENSTER` (1/2/4/8 h), `SCHMIED_SCHWELLEN` (0/0,15/0,4 %) und beiden Richtungslogiken; `schmiedNeuartig()` lässt nur andere FRAGEN durch (63 von 72). `schmiedProbe(k, kand)` misst jeden Kandidaten wie der Rückblick (alle 30 Min, 8 h Vorgeschichte, Ergebnis nach seinem Fenster) und liefert `n`, `treffer`, `strecke`, `still`. `schmiedSuchen()` verlangt: `n ≥ SCHMIED_MIN` (12), `zufallP(n, treffer) ≤ ZUFALL_GRENZE / Anzahl Kandidaten` (**Bonferroni!**) und **mittlere Strecke > 0**; `schmiedMalen()` zeigt den Sieger als **Anwärterin**, nie als Regel. **Übernahme frühestens, wenn sie an zwei verschiedenen Tagen besteht — dann als neue Regel mit leerer Bilanz neben A–D (Verfassungsregel 1).** Suchdauer ~10 ms. **REGEL: Wer besser werden will, muss den Raum durchsuchen, nicht den eigenen Einfall — und eine Suchmaschine ohne Tor ist eine Ausrede-Maschine.**
 
 - **Der Fokus-Gong (seit Gen 127):** `fokusGong()` spielt zwei Töne (523,25 Hz, nach 260 ms 659,25 Hz) — **nur im natürlichen Ende** des Fokus-Takts, direkt vor `stopFocus(...)` und nach `fokusHeute.push(...)`. Beim eigenen Abbruch bleibt es still. Der Ton erklingt auch bei verborgener Seite; `chime()` weckt `audioCtx` selbst (`resume()`), der Klang ist seit dem Start-Klick freigeschaltet. **REGEL: Ein Signal muss dort ankommen, wo der Mensch gerade ist — nicht dort, wo ich gerade rede.** Jedes Ritual hat jetzt Auge UND Ohr: Atem (Welle + Töne), Stille (Ring + Takt), Fokus (Bogen + Gong).
   **Prüfen:** `window.chime` global überschreiben und die Frequenzen mitschreiben (das Skript liegt nicht in einer Kapsel, `function chime` ist global).

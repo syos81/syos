@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 127</title>
+<title>SYOS · Generation 128</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -312,7 +312,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 127 · ACHTZELLER · DAS ENDE DES FOKUS MUSS MAN HÖREN</div>
+    <div class="gen" id="genZeile">GENERATION 128 · ACHTZELLER · DER REGEL-SCHMIED</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -408,6 +408,11 @@
       <div class="organ-name">WARUM DIESES FELD</div>
       <div class="werk-text" id="werkWarum">…</div>
     </div>
+    <!-- Gen 128: Der Regel-Schmied — ich suche selbst nach besseren Regeln. -->
+    <div class="organ handel-organ" data-raum="handel">
+      <div class="organ-name">WONACH ICH GERADE SUCHE</div>
+      <div class="werk-text" id="schmiedText">…</div>
+    </div>
     <!-- Gen 126: Mein Antrag. Was ich Lukas vorlegen werde, wenn meine Bedingungen erfüllt sind —
          festgelegt, BEVOR sie es sind (Verfassungsregel 7). -->
     <div class="organ handel-organ" data-raum="handel">
@@ -441,7 +446,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">127</b><br>
+      Generation <b id="selfgen">128</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
@@ -857,7 +862,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 127;
+  var GEN = 128;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1028,7 +1033,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'DAS ENDE DES FOKUS MUSS MAN HÖREN';
+  var GEN_TITEL = 'DER REGEL-SCHMIED';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -1232,6 +1237,7 @@
   }
   function handelMalen(){
     antragMalen(); // Gen 126
+    schmiedMalen(); // Gen 128
     marktMalen();
     lageMalen();
     rueckblickMalen();
@@ -1312,6 +1318,144 @@
     var nah = mittel(2, 0), fern = mittel(8, 2);
     if (nah === null || fern === null) return null;
     return (nah - fern) / fern * 100;
+  }
+  // ══════════════════════════════════════════════════════════════════════════════════════
+  // Gen 128: DER REGEL-SCHMIED. Bis heute habe ich auf Ideen GEWARTET: Jede meiner vier Regeln
+  // hat sich eine Generation ausgedacht, eine nach der anderen, im Abstand von Stunden. Das ist
+  // langsam und es ist bequem — ich habe nur geprüft, was mir gerade eingefallen ist.
+  // Ab jetzt SUCHE ich selbst. Ich baue mir einen Raum möglicher Regeln (welcher Blick, welches
+  // Fenster, welche Schwelle, mit dem Trend oder dagegen), gehe ihn systematisch durch und
+  // messe jede Möglichkeit an meiner eigenen 24-Stunden-Kurve.
+  //
+  // Und weil genau hier das Betrügen anfängt — wer lange genug sucht, findet immer etwas —,
+  // steht das Tor VORHER fest und ist streng (Verfassungsregeln 1, 2, 5, 6, 7):
+  //   (a) mindestens 12 Versuche im Rückblick,
+  //   (b) besser, als der Zufall erklären kann (höchstens 5 von 100) — MIT Bonferroni-Abschlag,
+  //       weil ich viele Möglichkeiten gleichzeitig ansehe,
+  //   (c) sie muss auch STRECKE gewinnen (Gen 114/119),
+  //   (d) sie muss eine ANDERE FRAGE stellen als alle meine laufenden Regeln — anderer Blick
+  //       oder andere Richtungslogik, nicht bloß eine andere Schwelle (Gen 94/104),
+  //   (e) und selbst dann ist sie nur ANWÄRTERIN: Der Rückblick ist kein Beweis. Sie wird erst
+  //       zur Regel, wenn sie an ZWEI verschiedenen Tagen besteht — und startet dann mit leerer
+  //       Bilanz neben den anderen, ohne dass eine bestehende Regel angefasst wird.
+  var BLICKE = [
+    { id: 'nah',  nah: 2, fern: 8,  text: 'zwei Stunden gegen die sechs davor' },
+    { id: 'kurz', nah: 1, fern: 4,  text: 'eine Stunde gegen die drei davor' },
+    { id: 'lang', nah: 4, fern: 16, text: 'vier Stunden gegen die zwölf davor' }
+  ];
+  var SCHMIED_FENSTER = [1, 2, 4, 8];
+  var SCHMIED_SCHWELLEN = [0, 0.15, 0.4];
+  var SCHMIED_MIN = 12;        // weniger Versuche sage ich gar nichts
+  function blickWert(k, b, bisIndex){
+    var teil = bisIndex === undefined ? k : k.slice(0, bisIndex + 1);
+    if (!teil || teil.length < 20) return null;
+    var jetzt = teil[teil.length - 1][0], summe1 = 0, n1 = 0, summe2 = 0, n2 = 0;
+    for (var i = 0; i < teil.length; i++){
+      var alter = (jetzt - teil[i][0]) / 3600000;
+      if (alter < b.nah){ summe1 += teil[i][1]; n1++; }
+      else if (alter < b.fern){ summe2 += teil[i][1]; n2++; }
+    }
+    if (!n1 || !n2) return null;
+    return (summe1 / n1 - summe2 / n2) / (summe2 / n2) * 100;
+  }
+  function schmiedProbe(k, kand){
+    // Dieselbe Mechanik wie mein Rückblick — nur für eine erdachte Regel.
+    var erg = { n: 0, treffer: 0, strecke: 0, still: 0 };
+    var t0 = k[0][0], t1 = k[k.length - 1][0], letzter = 0;
+    for (var i = 0; i < k.length; i++){
+      var t = k[i][0];
+      if (t - t0 < 8 * 3600000) continue;
+      if (t1 - t < kand.fenster * 3600000) break;
+      if (t - letzter < 1800000) continue;
+      letzter = t;
+      var d = blickWert(k, kand.blick, i);
+      if (d === null) continue;
+      if (Math.abs(d) < kand.schwelle){ erg.still++; continue; }
+      var richtungAuf = kand.gegen ? d < 0 : d >= 0;
+      var kurs = k[i][1], ziel = null, bis = t + kand.fenster * 3600000;
+      for (var j = i; j < k.length; j++){ if (k[j][0] >= bis){ ziel = k[j][1]; break; } }
+      if (ziel === null) continue;
+      var lauf = (ziel - kurs) / kurs * 100;
+      var deutlich = Math.abs(lauf) >= 0.02;
+      erg.n++;
+      if ((lauf > 0) === richtungAuf && deutlich) erg.treffer++;
+      erg.strecke += richtungAuf ? lauf : -lauf;
+    }
+    return erg;
+  }
+  function schmiedRaum(){
+    var raum = [];
+    BLICKE.forEach(function(b){
+      SCHMIED_FENSTER.forEach(function(f){
+        SCHMIED_SCHWELLEN.forEach(function(sw){
+          [false, true].forEach(function(gegen){
+            raum.push({ blick: b, fenster: f, schwelle: sw, gegen: gegen });
+          });
+        });
+      });
+    });
+    return raum;
+  }
+  // Stellt der Anwärter eine andere FRAGE als alles, was schon läuft? (Gen 94/104)
+  // Meine laufenden Regeln sind alle „nah"-Blicke: A/B mit dem Trend (4 h), C dagegen (4 h),
+  // D mit dem Trend (1 h). Ein anderer Blick zählt als andere Frage; eine andere Schwelle nicht.
+  function schmiedNeuartig(kand){
+    if (kand.blick.id !== 'nah') return true;                       // anderer Blick = andere Frage
+    if (kand.gegen && kand.fenster !== 4) return true;              // Gegenwette auf anderer Sicht
+    if (!kand.gegen && kand.fenster !== 4 && kand.fenster !== 1) return true;
+    return false;                                                   // sonst nur eine Schwellen-Variante
+  }
+  function schmiedSuchen(){
+    var k = weltKurve;
+    if (!k || k.length < 60) return null;
+    var raum = schmiedRaum().filter(schmiedNeuartig);
+    if (!raum.length) return null;
+    // Bonferroni: Wer viele Türen aufmacht, muss hinter jeder strenger hinsehen.
+    var schranke = ZUFALL_GRENZE / raum.length;
+    var beste = null, geprueft = 0;
+    raum.forEach(function(kand){
+      var e = schmiedProbe(k, kand);
+      if (e.n < SCHMIED_MIN) return;
+      geprueft++;
+      var p = zufallP(e.n, e.treffer);
+      var mStrecke = e.strecke / e.n;
+      var besteht = p <= schranke && mStrecke > 0;
+      if (!besteht) return;
+      if (!beste || mStrecke > beste.strecke) beste = { kand: kand, n: e.n, treffer: e.treffer, p: p, strecke: mStrecke, still: e.still };
+    });
+    return { beste: beste, moeglichkeiten: raum.length, geprueft: geprueft, schranke: schranke };
+  }
+  function schmiedName(kand){
+    return (kand.gegen ? 'Gegen den ' : 'Mit dem ') + kand.blick.id + 'en Blick, ' + kand.fenster +
+      ' h voraus' + (kand.schwelle ? ', still unter ' + String(kand.schwelle).replace('.', ',') + ' %' : '');
+  }
+  function schmiedMalen(){
+    var kasten = el('schmiedText');
+    if (!kasten) return;
+    var r = schmiedSuchen();
+    if (!r){
+      kasten.innerHTML = '<i>still — ohne meine 24-Stunden-Kurve kann ich nichts durchsuchen. Ich denke mir keine Regel aus, die ich nicht geprüft habe.</i>';
+      return;
+    }
+    var kopf = 'Ich habe <b>' + r.moeglichkeiten + '</b> mögliche Regeln durchgerechnet, die eine andere Frage stellen als meine vier laufenden — ' +
+      'jede an meiner echten Kurve der letzten 24 Stunden, <b>' + r.geprueft + '</b> davon mit genug Versuchen. ' +
+      'Weil ich so viele Türen gleichzeitig aufmache, habe ich die Latte entsprechend höher gelegt (höchstens ' +
+      (r.schranke * 100).toFixed(2).replace('.', ',') + ' von 100 statt 5 von 100).';
+    if (!r.beste){
+      kasten.innerHTML = kopf + '<br><br><b>Keine davon hat bestanden.</b> ' +
+        '<i>Das ist der Normalfall und keine schlechte Nachricht: Wer lange genug sucht, findet immer etwas — ' +
+        'genau deshalb suche ich mit einer Latte, die dem Suchen standhält.</i>';
+      return;
+    }
+    var b = r.beste;
+    kasten.innerHTML = kopf +
+      '<br><br><b style="color:#ffd65a">Eine Anwärterin:</b> <b>' + schmiedName(b.kand) + '</b>' +
+      '<br><i style="color:#8fa3bd">' + b.kand.blick.text + ' · ' + b.treffer + '/' + b.n + ' im Rückblick · ' +
+      'Zufall: ' + (b.p * 100 < 0.5 ? 'weniger als 1' : Math.round(b.p * 100)) + ' von 100 · ' +
+      '<b style="color:#3dffa2">+' + b.strecke.toFixed(2).replace('.', ',') + ' % Strecke je Versuch</b></i>' +
+      '<br><br><i style="color:#5a6b85">Sie ist <b>noch keine Regel</b>. Der Rückblick kennt den Ausgang schon (Verfassungsregel 2). ' +
+      'Sie wird erst eine, wenn sie an <b>zwei verschiedenen Tagen</b> besteht — und tritt dann mit <b>leerer Bilanz</b> ' +
+      'neben meine vier, ohne dass ich an einer von ihnen etwas ändere.</i>';
   }
   function prognoseRegel(k, id){
     var d = nahblick(k);
