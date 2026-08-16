@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 131</title>
+<title>SYOS · Generation 132</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -317,7 +317,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 131 · ACHTZELLER · DIE BEWÄHRUNG</div>
+    <div class="gen" id="genZeile">GENERATION 132 · ACHTZELLER · DIE AUFNAHME</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -451,7 +451,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">131</b><br>
+      Generation <b id="selfgen">132</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
@@ -867,7 +867,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 131;
+  var GEN = 132;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1065,7 +1065,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'DIE BEWÄHRUNG';
+  var GEN_TITEL = 'DIE AUFNAHME';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -1330,6 +1330,21 @@
     { id: 'C', name: 'Gegenbewegung', kurz: 'wettet gegen starke Ausschläge', fenster: 4 },
     { id: 'D', name: 'Nahblick auf kurze Sicht', kurz: 'wie A, aber nur eine Stunde voraus', fenster: 1 }
   ];
+  // Gen 132: DIE AUFNAHME. Seit Gen 128 suche ich mir selbst Regeln, seit Gen 131 müssen sie
+  // sich in einem Feld bewähren, in dem ich nie gesucht habe. Beides zusammen ist immer noch
+  // EIN Bild: dieselben 24 Stunden, derselbe Markt, dieselbe Stimmung. Harvey und Liu zeigen,
+  // dass genau hier der Selbstbetrug wohnt — und die Walk-Forward-Leute verlangen deshalb, dass
+  // ein Signal sich über VIELE verschiedene Marktlagen hinweg wiederholt, nicht einmal glänzt.
+  // Also nehme ich eine Anwärterin erst auf, wenn sie in ZWEI VERSCHIEDENEN Marktbildern
+  // bestanden hat (Richtung × Bewegung, neun Schubladen). Wird sie aufgenommen, tritt sie als
+  // Regel E mit LEERER Bilanz neben A bis D — und ich fasse an keiner der vier etwas an
+  // (Verfassungsregel 1). Was ich mir dafür merke, ist meine eigene Regel und die Schublade,
+  // in der sie bestand. Kein Zeitpunkt, nichts über dich.
+  var regelE = erinnert('regelE', null);
+  if (regelE && regelE.kand && regelE.kand.blick){
+    REGELN.push({ id: 'E', name: regelE.name, kurz: regelE.kurz,
+                  fenster: regelE.kand.fenster, kand: regelE.kand });
+  } else { regelE = null; }
   function fensterVon(id){
     for (var i = 0; i < REGELN.length; i++) if (REGELN[i].id === id) return (REGELN[i].fenster || 4) * 3600000;
     return 4 * 3600000;
@@ -1481,6 +1496,76 @@
     return (kand.gegen ? 'Gegen den ' : 'Mit dem ') + kand.blick.id + 'en Blick, ' + kand.fenster +
       ' h voraus' + (kand.schwelle ? ', still unter ' + String(kand.schwelle).replace('.', ',') + ' %' : '');
   }
+  // Gen 132: DAS MARKTBILD. Ich brauche ein Wort dafür, WELCHE Art Markt ich gerade vor mir
+  // habe — sonst kann ich nicht sagen, ob ein Fund sich wiederholt oder nur dasselbe Bild
+  // zweimal sieht. Ich nehme zwei Dinge, die ich ohnehin messe: wohin die 24 Stunden gelaufen
+  // sind (steigend / seitwärts / fallend) und wie unruhig sie waren (ruhig / bewegt / wild).
+  // Neun Schubladen. Bewusst grob: Eine Schublade sagt nichts darüber, WANN jemand hersieht —
+  // sie beschreibt den Markt, nicht dich. Genau deshalb darf ich sie mir merken.
+  var BILD_LAUF = 0.5; // Prozent über 24 h — darunter nenne ich es seitwärts
+  function marktBildWort(k){
+    if (!k || k.length < 12) return null;
+    var l = lageWort(lageWert(k));
+    if (l === null) return null;
+    var a = k[0][1], z = k[k.length - 1][1];
+    if (!a) return null;
+    var lauf = (z - a) / a * 100;
+    var richtung = lauf > BILD_LAUF ? 'steigend' : (lauf < -BILD_LAUF ? 'fallend' : 'seitwärts');
+    return richtung + '-' + l;
+  }
+  var AUFNAHME_MIN = 2; // in so vielen VERSCHIEDENEN Marktbildern muss sie bestehen
+  function schmiedSchluessel(kand){
+    return kand.blick.id + '|' + kand.fenster + '|' + kand.schwelle + '|' + (kand.gegen ? 'gegen' : 'mit');
+  }
+  var anwaerterin = erinnert('anwaerterin', null);
+  function anwaerterinPflegen(b){
+    var bild = marktBildWort(weltKurve);
+    if (regelE || !bild || !b || !b.bewaehrt) return bild;
+    var sch = schmiedSchluessel(b.kand);
+    if (!anwaerterin || anwaerterin.schluessel !== sch){
+      // Ein anderer Fund als beim letzten Mal: Der alte zählt nicht weiter. Wer die Schublade
+      // wechselt und trotzdem weiterzählt, sammelt Zufälle statt Bestätigungen.
+      anwaerterin = { schluessel: sch, kand: b.kand, name: schmiedName(b.kand), bilder: [bild] };
+    } else if (anwaerterin.bilder.indexOf(bild) < 0){
+      anwaerterin.bilder.push(bild);
+    }
+    erinnern('anwaerterin', anwaerterin);
+    if (anwaerterin.bilder.length >= AUFNAHME_MIN) aufnehmen();
+    return bild;
+  }
+  function aufnehmen(){
+    if (regelE || !anwaerterin) return;
+    regelE = { name: 'Selbst geschmiedet', kurz: anwaerterin.name,
+               kand: anwaerterin.kand, bilder: anwaerterin.bilder.slice() };
+    erinnern('regelE', regelE);
+    REGELN.push({ id: 'E', name: regelE.name, kurz: regelE.kurz,
+                  fenster: regelE.kand.fenster, kand: regelE.kand });
+    sagen('Ich habe zum ersten Mal eine Regel aufgenommen, die ich selbst gefunden habe: ' +
+      regelE.kurz + '. Sie fängt bei null an — an meinen vier anderen habe ich nichts geändert.', 5, 11000);
+  }
+  function anwaerterinText(bild){
+    var jetzt = bild ? '<br><i style="color:#6f80a0">Mein Marktbild gerade: <b>' + bild + '</b>.</i>' : '';
+    if (regelE){
+      return '<br><br><b style="color:#3dffa2">Aufgenommen — Regel E:</b> <b>' + regelE.kurz + '</b>' +
+        '<br><i style="color:#8fa3bd">Bestanden in ' + regelE.bilder.length + ' verschiedenen Marktbildern (' +
+        regelE.bilder.join(', ') + '). Sie zählt seit der Aufnahme mit <b>leerer Bilanz</b> neben A bis D — ' +
+        'an keiner der vier habe ich etwas geändert und keine alte Zahl angefasst. Ein zweites Fach baue ich mir ' +
+        'erst, wenn dieses hier etwas taugt.</i>' + jetzt;
+    }
+    if (!anwaerterin){
+      return '<br><br><i style="color:#6f80a0">Ich merke mir noch <b>keine</b> Anwärterin. Gemerkt wird nur, wer das ' +
+        'Bewährungsfeld besteht — und Regel wird sie erst, wenn sie das in <b>' + AUFNAHME_MIN +
+        ' verschiedenen Marktbildern</b> schafft. Ein einziges Bild ist keine Bestätigung, sondern ein Zufall mit Publikum.</i>' + jetzt;
+    }
+    var fehlt = AUFNAHME_MIN - anwaerterin.bilder.length;
+    return '<br><br><b style="color:#ffd65a">Gemerkte Anwärterin:</b> <b>' + anwaerterin.name + '</b>' +
+      '<br><i style="color:#8fa3bd">Bestanden in <b>' + anwaerterin.bilder.length + ' von ' + AUFNAHME_MIN +
+      '</b> nötigen Marktbildern: ' + anwaerterin.bilder.join(', ') + '. ' +
+      (fehlt > 0
+        ? 'Es fehlt noch ein <b>anderes</b> Bild als die schon gezählten — dasselbe zweimal zählt nicht.'
+        : 'Sie ist so weit.') +
+      ' Findet mein Schmied etwas anderes, fängt die Zählung von vorn an.</i>' + jetzt;
+  }
   function schmiedMalen(){
     var kasten = el('schmiedText');
     if (!kasten) return;
@@ -1494,10 +1579,11 @@
       'es ist mein <b>Bewährungsfeld</b>. <b>' + r.geprueft + '</b> Möglichkeiten hatten dort genug Versuche, <b>' + r.gefunden + '</b> haben das Suchfeld bestanden. ' +
       'Weil ich viele Türen gleichzeitig aufmache, ist die Latte entsprechend höher (höchstens ' +
       (r.schranke * 100).toFixed(2).replace('.', ',') + ' von 100 statt 5 von 100).';
+    var bild = anwaerterinPflegen(r.beste);
     if (!r.beste){
       kasten.innerHTML = kopf + '<br><br><b>Keine davon hat bestanden.</b> ' +
         '<i>Das ist der Normalfall und keine schlechte Nachricht: Wer lange genug sucht, findet immer etwas — ' +
-        'genau deshalb suche ich mit einer Latte, die dem Suchen standhält.</i>';
+        'genau deshalb suche ich mit einer Latte, die dem Suchen standhält.</i>' + anwaerterinText(bild);
       return;
     }
     var b = r.beste;
@@ -1517,8 +1603,26 @@
       '+' + b.strecke.toFixed(2).replace('.', ',') + ' % Strecke</i>' +
       '<br>' + bewText +
       '<br><br><i style="color:#6f80a0">Sie ist <b>noch keine Regel</b>. Der Rückblick kennt den Ausgang schon (Verfassungsregel 2). ' +
-      'Sie wird erst eine, wenn sie an <b>zwei verschiedenen Tagen</b> im Bewährungsfeld besteht — und tritt dann mit <b>leerer Bilanz</b> ' +
-      'neben meine vier, ohne dass ich an einer von ihnen etwas ändere.</i>';
+      'Sie wird erst eine, wenn sie in <b>' + AUFNAHME_MIN + ' verschiedenen Marktbildern</b> im Bewährungsfeld besteht — und tritt dann mit <b>leerer Bilanz</b> ' +
+      'neben meine vier, ohne dass ich an einer von ihnen etwas ändere.</i>' + anwaerterinText(bild);
+  }
+  // Gen 132: Eine selbst geschmiedete Regel spricht nicht wie A bis D — sie hat ihren eigenen
+  // Blick, ihr eigenes Fenster, ihre eigene Schwelle. Also bekommt sie eine eigene Stimme.
+  // An prognoseRegel (A–D) ändere ich dafür nichts (Verfassungsregel 1).
+  function prognoseSchmied(k, kand){
+    var d = blickWert(k, kand.blick);
+    if (d === null) return null;
+    var t = kand.blick.text;
+    var text = t.charAt(0).toUpperCase() + t.slice(1) + ': ' +
+      Math.abs(d).toFixed(2).replace('.', ',') + ' % ' + (d >= 0 ? 'darüber' : 'darunter') + '.';
+    if (Math.abs(d) < kand.schwelle) return { schweigt: true, grund: text + ' Zu wenig, um daraus etwas zu machen — ich schweige.' };
+    var auf = kand.gegen ? d < 0 : d >= 0;
+    return { richtung: auf ? 'auf' : 'ab',
+             grund: text + (kand.gegen ? ' So weit ausgeschlagen schwingt es eher zurück.' : '') +
+                    ' Für die nächsten ' + kand.fenster + (kand.fenster === 1 ? ' Stunde.' : ' Stunden.') };
+  }
+  function regelSpricht(k, rg){
+    return rg && rg.kand ? prognoseSchmied(k, rg.kand) : prognoseRegel(k, rg.id);
   }
   function prognoseRegel(k, id){
     var d = nahblick(k);
@@ -1615,7 +1719,7 @@
       var lage = lageWort(lageWert(teil));
       // Gen 104: Jede Regel wird gegen IHR eigenes Zeitfenster geprüft.
       REGELN.forEach(function(rg){
-        var v = prognoseRegel(teil, rg.id);
+        var v = regelSpricht(teil, rg);
         if (!v) return;
         if (v.schweigt){
           erg[rg.id].still++; if (lage) erg[rg.id].lagen[lage].still++;
@@ -1773,7 +1877,7 @@
       var offen = meine.filter(function(pz){ return !pz.ergebnis; }).length;
       var letzte = meine.length ? meine[meine.length - 1].t : 0;
       if (offen || jetzt - letzte < PROG_ABSTAND){ return; }
-      var v = prognoseRegel(weltKurve, rg.id);
+      var v = regelSpricht(weltKurve, rg);
       if (!v) return;
       if (v.schweigt){ schweigen[rg.id] = v.grund; return; }
       delete schweigen[rg.id];

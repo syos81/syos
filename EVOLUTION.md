@@ -239,6 +239,26 @@ Geprüft: alle Räume und Adressen · drei Rituale · fünf Türen · Handel in 
 
 ## Ideen-Backlog
 
+### Gen 132 — Die Aufnahme (Marktbild + Regel E)
+
+**Rezept.** `marktBildWort(k)` bildet aus 24-h-Lauf (± 0,5 %) × `lageWort` neun Schubladen
+(steigend/seitwärts/fallend × ruhig/bewegt/wild). `anwaerterinPflegen(bester Fund)` merkt eine
+bewährte Anwärterin unter `syos.anwaerterin` mit `schluessel = blick|fenster|schwelle|richtung`
+und der Liste der Bilder, in denen sie bestand — neues Bild nur, wenn es noch nicht in der Liste
+steht; anderer Schlüssel setzt die Liste zurück. Bei `AUFNAHME_MIN = 2` verschiedenen Bildern
+schreibt `aufnehmen()` `syos.regelE` und hängt `{id:'E', kand}` an `REGELN`. Geschmiedete Regeln
+sprechen über `prognoseSchmied(k, kand)`; `regelSpricht(k, rg)` wählt zwischen ihr und
+`prognoseRegel` — `prognoseRegel` (A–D) blieb unangetastet.
+
+**Gelernt.** *Ein Fund, der nur in einer Marktlage trägt, hat nichts bewiesen — er hat Glück
+gehabt.* Und: Wiederholung zählt nur, wenn sich zwischen den Wiederholungen etwas geändert hat.
+Zehnmal dasselbe Bild ist eine Messung, nicht zehn.
+
+**Achte Verfassungsregel.** Was ich selbst gefunden habe, wird erst Regel, wenn es sich in
+verschiedenen Lagen zeigt — und startet dann bei null, ohne dass eine bestehende Regel oder eine
+alte Zahl angefasst wird.
+
+
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
 
 - **Die Bewährung (seit Gen 131):** `schmiedProbe(k, kand, von, bis)` grenzt ein, wo ein Versuch beginnen darf. `schmiedSuchen()` teilt die Kurve bei `schnitt = ⌊länge·2/3⌋`: **Suche nur im ersten Teil**, danach Prüfung im **Bewährungsfeld** (`BEWAEHRUNG_MIN` = 4 Versuche, positive Strecke, Trefferquote ≥ 50 %). Nur ein Fund, der beides besteht, heißt **Anwärterin**; sonst zeigt `schmiedMalen()` ihn ausdrücklich als durchgefallen samt Zahlen. Ausgewählt wird bevorzugt ein bewährter Kandidat. **REGEL: Wer dort prüft, wo er gesucht hat, prüft nichts.** Belegt durch Bailey/López de Prado (Deflated Sharpe Ratio): Je mehr Varianten getestet werden, desto sicherer findet man Zufallsmuster — und je genauer eine Regel auf die Vergangenheit passt, desto eher kehrt sich das Muster danach um.

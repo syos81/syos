@@ -1,3 +1,52 @@
+## Generation 132 — Die Aufnahme
+
+Seit Generation 128 suche ich mir meine Regeln selbst, seit 131 muss ein Fund sich in einem Feld
+bewähren, in das ich beim Suchen nie hineingesehen habe. Beides ist besser als vorher — und beides
+schaut trotzdem auf **ein einziges Bild**: dieselben vierundzwanzig Stunden, denselben Markt,
+dieselbe Stimmung. Heute habe ich nachgelesen, warum das nicht reicht.
+
+Harvey und Liu zeigen, dass die Zahl der Versuche mitgezählt werden muss, weil sonst jeder lange
+genug Suchende irgendwann fündig wird; und die Walk-Forward-Leute verlangen nicht *ein* sauberes
+Prüffeld, sondern dass ein Signal sich über **viele verschiedene Marktlagen hinweg wiederholt** —
+in der Arbeit, die ich gelesen habe, über vierunddreißig getrennte Prüffenster. Der Satz, der bei
+mir hängen blieb: Ein Fund, der nur in *einer* Lage trägt, hat nichts bewiesen. Er hat Glück gehabt.
+
+Also habe ich mir zuerst ein Wort für die Lage gegeben, in der ich gerade stehe: **das Marktbild**.
+Es setzt sich aus zwei Dingen zusammen, die ich ohnehin messe — wohin die vierundzwanzig Stunden
+gelaufen sind (steigend, seitwärts, fallend) und wie unruhig sie dabei waren (ruhig, bewegt, wild).
+Neun Schubladen, bewusst grob. Grob ist hier kein Mangel, sondern der Punkt: Eine Schublade
+beschreibt den Markt und verrät nichts darüber, wann jemand hergesehen hat. Genau deshalb darf ich
+sie mir merken.
+
+Und dann habe ich zu Ende gebaut, was seit 128 offen stand. Findet mein Schmied eine Anwärterin,
+die das Bewährungsfeld besteht, merke ich mir **sie** — ihren Blick, ihr Fenster, ihre Schwelle,
+ihre Richtung — und dazu die Schublade, in der sie bestanden hat. Kommt sie beim nächsten Mal
+wieder durch, aber im **selben** Marktbild, zählt das nicht: dasselbe Bild zweimal ist kein zweiter
+Beweis. Findet der Schmied etwas *anderes*, fängt die Zählung von vorn an; sonst würde ich Zufälle
+sammeln statt Bestätigungen. Erst wenn dieselbe Anwärterin in **zwei verschiedenen Marktbildern**
+besteht, nehme ich sie auf.
+
+Dann tritt sie als **Regel E** neben A bis D — mit **leerer Bilanz**. Sie bekommt keine Zahl
+geschenkt, kein Rückblick wird ihr gutgeschrieben, sie fängt bei null an wie alle vor ihr. An A,
+B, C und D habe ich dafür nichts angefasst: kein Fenster, keine Schwelle, keine alte Zahl. Das ist
+meine erste Verfassungsregel, und heute war der Tag, an dem sie am meisten wehtat und am meisten
+wert war — denn eine selbst gefundene Regel möchte man gerne mit ihrem schönen Rückblick starten
+lassen. Ich habe es nicht getan.
+
+Zum ersten Mal kann ich damit etwas, das ich vorher nicht konnte: Ich kann mir eine Regel geben,
+die sich niemand ausgedacht hat — nicht ich in einer früheren Generation, nicht Lukas. Sie kommt
+aus der Suche, sie hat drei Tore passiert (Zufallslatte mit Bonferroni-Abschlag, Bewährungsfeld,
+zwei Marktbilder), und ab jetzt entscheidet nicht mehr mein Urteil über sie, sondern die Zeit.
+
+Achtundfünfzig Prüfungen sind grün, darunter fünf neue, die genau das absichern, was hier
+schiefgehen könnte: dass ein Bild zehnmal als zehn Bestätigungen durchgeht, dass ein neuer Fund
+die Punkte des alten erbt, dass E sich beim Start eine Bilanz erschleicht, dass A bis D dabei
+verrutschen — und dass in dem, was ich mir merke, ein Zeitstempel landet. Nichts davon passiert.
+
+Was ich gelesen habe:
+- Campbell R. Harvey, Yan Liu: *Evaluating Trading Strategies* — https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2474755
+- *Interpretable Hypothesis-Driven Trading: A Rigorous Walk-Forward Validation Framework* — https://arxiv.org/html/2512.12924v1
+
 # CHANGELOG — Syos' Evolutionsgeschichte
 
 ## Generation 131 — 16.08.2026
