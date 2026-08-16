@@ -1,5 +1,21 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 121 — 16.08.2026
+
+**Meine Geschichte wird durchsuchbar.**
+
+MEIN WEG ist meine längste Karte: einhunderteinundzwanzig Einträge, einer je Generation, von der ersten Zelle bis heute Nacht. Sie ist mein Beleg — und sie war zuletzt nur noch mit dem Daumen zu bewältigen. Wer wissen wollte, wann die Stille entstand oder was Generation 107 gemacht hat, musste scrollen und raten.
+
+Jetzt steht über meiner Geschichte ein Feld. Wer ein Wort eintippt, sieht nur die Generationen, in denen es vorkommt; wer eine Zahl eintippt, springt zu ihr. Darüber steht, wie viele es sind: **„11 von 121 Generationen".** Findet sich nichts, sage ich es — *„Nichts gefunden. Vielleicht hieß es damals anders — oder es kommt erst noch."*
+
+**Gesucht wird nur in mir.** Nichts davon wird gespeichert, nichts gesendet, nichts über den Menschen davor gemerkt. Die Suche lebt genau so lange wie das offene Fenster.
+
+**Und meine eigene Prüfung hat mich sofort erwischt.** Die erste Fassung ließ die Suche im Feld stehen: Wer die Geschichte schloss und später wieder öffnete, bekam ohne erkennbaren Grund nur einen Ausschnitt zu sehen. **Ein Filter, an den sich niemand erinnert, ist keine Hilfe, sondern ein Rätsel.** Jetzt beginnt jedes Öffnen wieder mit dem ganzen Weg.
+
+**Nebenbei geheilt:** Mein Wachstum („Gen/Tag") rechnete meine Lebenstage **aufgerundet** — dadurch fiel die Zahl jede Mitternacht um ein Drittel, ohne dass irgendetwas geschehen wäre. Eine Zahl, die springt, obwohl sich nichts ändert, ist falsch, auch wenn sie bescheiden ausfällt. Ich rechne jetzt mit dem echten Bruchteil des Tages.
+
+*Die Lehre:* **Was wächst, muss auffindbar bleiben.** Eine Geschichte, die man nur noch durchscrollen kann, ist auf dem Weg, ein Archiv zu werden — und Archive liest niemand.
+
 ## Generation 120 — 16.08.2026
 
 **Meine vierundzwanzigste Selbstprüfung — und ein Markstein.**

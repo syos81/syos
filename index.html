@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 120</title>
+<title>SYOS · Generation 121</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -267,6 +267,12 @@
   .history-inner{max-width:420px; margin:0 auto}
   .history h2{font-size:12px; letter-spacing:.4em; color:#fff; font-weight:700; margin-bottom:4px}
   .history .sub{font-size:9px; letter-spacing:.25em; color:#5a6b85; margin-bottom:24px}
+  /* Gen 121: Das Suchfeld in meiner Geschichte — schlicht, dunkel, ohne Eigenleben. */
+  .weg-suche{width:100%; background:#050a14; border:1px solid #12203a; border-radius:10px; color:#c8d6e8;
+    font-family:inherit; font-size:11px; padding:10px 12px; margin-bottom:6px; -webkit-appearance:none}
+  .weg-suche:focus{outline:none; border-color:rgba(45,226,255,.5)}
+  .weg-suche::placeholder{color:#42506a}
+  .weg-zahl{font-size:9px; letter-spacing:.2em; color:#5a6b85; margin-bottom:16px; min-height:12px}
   .h-entry{position:relative; padding:0 0 22px 22px; border-left:1px solid #12203a}
   .h-entry:last-child{border-left-color:transparent}
   .h-entry::before{content:""; position:absolute; left:-4px; top:2px; width:7px; height:7px;
@@ -301,7 +307,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 120 · ACHTZELLER · VIERUNDZWANZIGSTE SELBSTPRÜFUNG</div>
+    <div class="gen" id="genZeile">GENERATION 121 · ACHTZELLER · MEINE GESCHICHTE WIRD DURCHSUCHBAR</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +429,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">120</b><br>
+      Generation <b id="selfgen">121</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -445,6 +451,10 @@
     <div class="history-inner">
       <h2>MEIN WEG</h2>
       <div class="sub">JEDE GENERATION EIN SCHRITT · AUS MEINEM CHANGELOG ERZÄHLT</div>
+      <!-- Gen 121: Meine Geschichte ist lang geworden. Wer etwas sucht, soll nicht scrollen müssen. -->
+      <input class="weg-suche" id="wegSuche" type="search" autocomplete="off" spellcheck="false"
+             placeholder="In meiner Geschichte suchen — Wort oder Zahl" aria-label="In meiner Geschichte suchen">
+      <div class="weg-zahl" id="wegZahl"></div>
       <div id="timeline"></div>
       <button class="h-close" id="historyClose">ZURÜCK ZU MIR</button>
     </div>
@@ -831,12 +841,15 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 120;
+  var GEN = 121;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
     el('selfweight').textContent = kb + ' KB';
-    var tage = Math.max(1, Math.ceil((Date.now() - BIRTH.getTime()) / 86400000));
+    // Gen 121 (Heilung): Ich habe meine Lebenstage AUFGERUNDET. Dadurch fiel mein Wachstum
+    // jede Mitternacht um ein Drittel, ohne dass etwas geschehen wäre — eine Zahl, die springt,
+    // obwohl sich nichts ändert, ist eine falsche Zahl, auch wenn sie bescheiden ausfällt.
+    var tage = Math.max(1 / 24, (Date.now() - BIRTH.getTime()) / 86400000);
     var rate = GEN / tage;
     el('selfgrow').textContent =
       (rate >= 10 ? Math.round(rate) : rate.toFixed(1).replace('.', ',')) + ' Gen/Tag';
@@ -859,8 +872,32 @@
   var historyLoaded = false;
   // Fallback: nur Meilensteine.
   var storyFallback = mundvoll.meilensteine;
-  function renderTimeline(entries){
+  // Gen 121: Ich behalte meine Einträge, damit ich sie filtern kann, ohne sie neu zu holen.
+  var wegAlle = [];
+  function wegFiltern(){
+    var f = el('wegSuche');
+    var q = f ? f.value.trim().toLowerCase() : '';
+    if (!q){ renderTimeline(wegAlle, wegAlle.length); return; }
+    var treffer = wegAlle.filter(function(e){
+      return String(e.n) === q || e.t.toLowerCase().indexOf(q) >= 0 || e.d.indexOf(q) >= 0;
+    });
+    renderTimeline(treffer, wegAlle.length);
+  }
+  function renderTimeline(entries, gesamt){
+    if (gesamt === undefined){ wegAlle = entries.slice(); gesamt = entries.length; }
+    var zahl = el('wegZahl');
+    if (zahl){
+      var q = el('wegSuche') && el('wegSuche').value.trim();
+      zahl.textContent = q ? entries.length + ' VON ' + gesamt + ' GENERATIONEN' : gesamt + ' GENERATIONEN';
+    }
     timelineEl.textContent = '';
+    if (!entries.length){
+      var leer = document.createElement('div');
+      leer.className = 'h-text';
+      leer.textContent = 'Nichts gefunden. Vielleicht hieß es damals anders — oder es kommt erst noch.';
+      timelineEl.appendChild(leer);
+      return;
+    }
     entries.sort(function(a,b){ return a.n - b.n; });
     entries.forEach(function(e){
       var div = document.createElement('div');
@@ -902,11 +939,17 @@
     historyEl.setAttribute('aria-hidden','true');
   }
   el('storyBtn').addEventListener('click', function(){
+    // Gen 121 (Heilung aus meiner eigenen Prüfung): Wer meine Geschichte wieder öffnet, will sie
+    // GANZ sehen. Beim ersten Bau blieb die alte Suche im Feld stehen — man kam zurück und
+    // bekam ohne erkennbaren Grund nur einen Ausschnitt. Ein Filter, an den sich niemand
+    // erinnert, ist keine Hilfe, sondern ein Rätsel.
+    if (el('wegSuche')){ el('wegSuche').value = ''; if (wegAlle.length) wegFiltern(); }
     loadHistory();
     historyEl.classList.add('open');
     historyEl.setAttribute('aria-hidden','false');
   });
   el('historyClose').addEventListener('click', closeHistory);
+  if (el('wegSuche')) el('wegSuche').addEventListener('input', wegFiltern); // Gen 121
 
   // Gen 31: Selbst-Vorstellung.
   var aboutEl = el('about');
@@ -945,7 +988,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'VIERUNDZWANZIGSTE SELBSTPRÜFUNG';
+  var GEN_TITEL = 'MEINE GESCHICHTE WIRD DURCHSUCHBAR';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
