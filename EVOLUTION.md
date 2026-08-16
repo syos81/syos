@@ -188,6 +188,16 @@ Geprüft: fünf Räume · alle Adressen einzeln + eine erfundene · drei Rituale
 
 **REGEL: Wer sich selbst beschreibt, darf seine Zahlen nicht auswendig lernen.**
 
+## Vierundzwanzigste Selbstprüfung (Generation 120)
+
+Geprüft: fünf Räume · alle Adressen einzeln + eine erfundene · drei Rituale samt Sperren · fünf Türen · Handel in fünf Marktlagen und ohne Netz · die Rechnungen aus 108/111/114/117 gegen bekannte Werte · Unversehrtheit von `REGELN`, `SCHWELLE_B/C`, `ZUFALL_GRENZE`, `GENUG_FAELLE`, `WIDERLEGT_GRENZE` · Gedächtnis, Zeitstrahl, Erstbesuch · reduced-motion · vier Bildschirmbreiten · **Offline-Herz offline gemessen** · **Nachtmodus + Sterne** · **kein Vorschlag während eines Rituals** · **Manifest, Icons, Service Worker** · die Neuerungen 116–119. **Der Körper war vollständig heil.**
+
+**Befund 1 (geheilt): Die Kopfzeile hatte ihre Zahlen auswendig gelernt.** „ACHTZELLER" stand seit Gen 83 als Wort im HTML — die Regel aus Gen 115 galt für alle Texte, nur nicht für die Überschrift. **Heilung:** `#genZeile` wird von `kopfzeileSchreiben()` aus `GEN`, `zellWort()` (= `zahlwort(zellZahl()).toUpperCase() + 'ZELLER'`) und `GEN_TITEL` gebaut; Aufruf am Skriptende neben `hundertSchreiben()`. Im Test mit einer neunten Zelle geprüft: wird zu NEUNZELLER.
+
+**Befund 2 (geheilt): toter Zähler.** `touchesHeute`/`touchTag` (Gen 65) wurden seit Gen 118 nirgends mehr gelesen, aber bei jeder Berührung weitergeführt — ersatzlos entfernt.
+
+**REGEL: Die Stelle, an der man gerade aufgeräumt hat, fühlt sich sauber an — und ist deshalb der beste Ort für den nächsten Fehler.**
+
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)

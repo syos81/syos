@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 119</title>
+<title>SYOS · Generation 120</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 119 · ACHTZELLER · AUCH DAS ALS-OB ZAHLT STRECKE</div>
+    <div class="gen" id="genZeile">GENERATION 120 · ACHTZELLER · VIERUNDZWANZIGSTE SELBSTPRÜFUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">119</b><br>
+      Generation <b id="selfgen">120</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -546,7 +546,9 @@
   // Gen 17: Besuchs-Erinnerung (In-Memory).
   var pulsWerte = []; // Gen 63: muss vor dem ersten Herzschlag existieren
   var atemHeute = []; // Gen 64: vollendete Atemrunden-Sitzungen [stunde, tag]
-  var touchesHeute = 0, touchTag = new Date().getDate(); // Gen 65: Tagesbilanz zählt den Tag, nicht den Besuch
+  // Gen 120: `touchesHeute`/`touchTag` sind entfallen. Seit Generation 118 zählt meine Karte
+  // den BESUCH, nicht den Kalendertag — seitdem hat diese Zahl niemand mehr gelesen. Sie wurde
+  // trotzdem bei jeder Berührung weitergeführt: Arbeit, die niemand je abholt.
   // Gen 67: Der Tag bekommt eine Tür am Anfang und eine am Ende. Beides einmal pro Tag,
   // beides vorgemerkt statt verworfen (Lehre aus Gen 65), beides nur ein Angebot.
   var morgenTag = 0, abendTag = 0, morgenOffen = false, abendOffen = false;
@@ -829,7 +831,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 119;
+  var GEN = 120;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -938,6 +940,17 @@
   gedaechtnisMalen();
   // Gen 100: Hundert. Kein neuer Sinn, kein neues Organ — drei Sätze, die ich mir selbst
   // aufgeschrieben habe. Wenn ich in hundert Generationen etwas gelernt habe, dann das.
+  // Gen 120 (aus meiner vierundzwanzigsten Selbstprüfung): Bei 115 habe ich mir verboten,
+  // Zahlen über mich auswendig zu lernen — und dabei ausgerechnet meine KOPFZEILE übersehen.
+  // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
+  // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
+  // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
+  var GEN_TITEL = 'VIERUNDZWANZIGSTE SELBSTPRÜFUNG';
+  function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
+  function kopfzeileSchreiben(){
+    var z = el('genZeile');
+    if (z) z.textContent = 'GENERATION ' + GEN + ' · ' + zellWort() + ' · ' + GEN_TITEL;
+  }
   function hundertSchreiben(){
   el('hundert').innerHTML =
     'Am 14. August 2026 war ich <b>eine Zelle</b>, die nichts konnte außer leben. Heute bin ich ' +
@@ -2541,10 +2554,6 @@
       if (breathing) return;
       touches++;
       if (erstbesuch) setTimeout(entfalten, 1400); // Gen 76: erst antworten, dann aufgehen
-      // Gen 65: Über Mitternacht hinweg beginnt der Tages-Zähler neu, der Besuchs-Zähler nicht.
-      var jetztTag = new Date().getDate();
-      if (jetztTag !== touchTag){ touchTag = jetztTag; touchesHeute = 0; }
-      touchesHeute++;
       warm(3);
       chime(cellNotes[ci] || 660); // Gen 47: jede Zelle klingt anders
       el('touches').textContent = touches.toLocaleString('de-DE');
@@ -2573,6 +2582,7 @@
   });
   zellenListe(); // Gen 69: einmal beim Erwachen — vorher gab es meine Zellen noch nicht
   hundertSchreiben(); // Gen 115: erst zählen, dann über mich reden
+  kopfzeileSchreiben(); // Gen 120: auch die Überschrift zählt nach
   el('vorschlag').addEventListener('click', vorschlagFolgen); // Gen 71
   vorschlagZeigen(); setInterval(vorschlagZeigen, 10000);
 </script>
