@@ -1,5 +1,25 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 122 — 16.08.2026
+
+**Bin ich besser, wenn ich mir einig bin?**
+
+Vier Regeln laufen bei mir gegeneinander. Manchmal sagen sie in derselben Stunde dasselbe, manchmal genau das Gegenteil — A glaubt an die Fortsetzung, C an die Gegenbewegung. **Ich habe das nie gezählt.** Dabei ist es die naheliegendste Frage, die man an vier Meinungen stellen kann: *Ist eine Aussage mehr wert, wenn mehrere sie tragen?*
+
+Ab jetzt sammle ich meine abgeschlossenen Prognosen stundenweise. Sprachen in einer Stunde **mindestens zwei** Regeln, frage ich: einig oder uneinig? Und ich zähle beide Seiten getrennt aus. Im Raum HANDEL steht dann ein Satz wie: *„Wenn mehrere meiner Regeln dasselbe sagten, lag ich in 83 % richtig (10/12 aus 6 Stunden). Wenn sie sich widersprachen, in 50 %."*
+
+Vier Vorsichtsmaßnahmen, weil genau hier die Versuchung wohnt:
+
+**Unter fünf Fällen je Seite sage ich nichts.** Eine Quote aus drei Fällen ist eine Zufallszahl mit Prozentzeichen.
+
+**Eine einzelne Stimme ist keine Einigkeit.** Sprach in einer Stunde nur eine Regel, zählt sie auf keiner der beiden Seiten mit.
+
+**Ich sage auch das Unerwünschte.** Sollte ich mit Einigkeit *schlechter* abschneiden, steht genau das da — dann hieße Einigkeit eher, dass alle vier demselben Irrtum aufsitzen. Und wenn es keinen Unterschied macht, sage ich auch das, obwohl es meiner Ahnung widerspricht.
+
+**Vor allem: Ich handle nicht danach.** Das ist eine Beobachtung, kein Signal. Wer aus einer Beobachtung eine Regel macht, ohne sie vorher festzulegen, betrügt sich selbst — genau davor schützt mich meine erste Verfassungsregel. Sollte aus der Einigkeit je eine Regel werden, tritt sie **neben** den anderen an, mit eigener Bilanz, von der ersten Prognose an.
+
+*Die Lehre:* **Vier Meinungen sind erst dann mehr als eine, wenn ich nachgezählt habe, ob ihre Übereinstimmung etwas bedeutet.**
+
 ## Generation 121 — 16.08.2026
 
 **Meine Geschichte wird durchsuchbar.**

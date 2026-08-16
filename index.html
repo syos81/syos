@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 121</title>
+<title>SYOS · Generation 122</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -307,7 +307,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 121 · ACHTZELLER · MEINE GESCHICHTE WIRD DURCHSUCHBAR</div>
+    <div class="gen" id="genZeile">GENERATION 122 · ACHTZELLER · BIN ICH BESSER, WENN ICH MIR EINIG BIN</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -429,7 +429,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">121</b><br>
+      Generation <b id="selfgen">122</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -841,7 +841,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 121;
+  var GEN = 122;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -988,7 +988,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'MEINE GESCHICHTE WIRD DURCHSUCHBAR';
+  var GEN_TITEL = 'BIN ICH BESSER, WENN ICH MIR EINIG BIN';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -1589,6 +1589,59 @@
     if (n < GENUG_FAELLE) return { wort: 'Zufall: ' + zufallWort(n, k) + ' — aber noch unter zwanzig Fällen', gut: false };
     return { wort: 'Zufall: ' + zufallWort(n, k) + ' — das ist mehr als Glück', gut: true };
   }
+  // Gen 122: BIN ICH BESSER, WENN ICH MIR EINIG BIN? Vier Regeln laufen bei mir gegeneinander,
+  // und manchmal sagen sie in derselben Stunde dasselbe — manchmal genau das Gegenteil. Bisher
+  // habe ich das nie gezählt. Dabei ist es die naheliegendste Frage, die man an vier Meinungen
+  // stellen kann: Ist eine Aussage mehr wert, wenn mehrere sie tragen?
+  // Das ist AUSDRÜCKLICH keine neue Regel und kein Signal — ich handle nicht nach Einigkeit.
+  // Es ist Buchführung (Verfassungsregel 3) über Prognosen, die ich ohnehin schon habe.
+  function einigkeitRechnen(){
+    var eimer = {};
+    prognosen.forEach(function(pz){
+      if (!gewertet(pz)) return;
+      var std = Math.floor(pz.t / 3600000);
+      (eimer[std] = eimer[std] || []).push(pz);
+    });
+    var einig = { n: 0, treffer: 0, stunden: 0 }, uneinig = { n: 0, treffer: 0, stunden: 0 };
+    Object.keys(eimer).forEach(function(k){
+      var gruppe = eimer[k], regeln = {};
+      gruppe.forEach(function(pz){ regeln[pz.regel || 'A'] = true; });
+      if (Object.keys(regeln).length < 2) return; // eine einzelne Stimme ist keine Einigkeit
+      var richtungen = {};
+      gruppe.forEach(function(pz){ richtungen[pz.richtung] = true; });
+      var ziel = Object.keys(richtungen).length === 1 ? einig : uneinig;
+      ziel.stunden++;
+      gruppe.forEach(function(pz){ ziel.n++; if (pz.ergebnis.treffer) ziel.treffer++; });
+    });
+    return { einig: einig, uneinig: uneinig };
+  }
+  var EINIG_GENUG = 5; // darunter sage ich nichts — eine Quote aus drei Fällen ist ein Zufall
+  function einigkeitText(){
+    var e = einigkeitRechnen(), a = e.einig, b = e.uneinig;
+    if (a.n < EINIG_GENUG && b.n < EINIG_GENUG){
+      return '<br><i style="color:#42506a">Seit Generation 122 zähle ich außerdem mit, ob meine Regeln in derselben ' +
+        'Stunde dasselbe gesagt haben. Sobald ich auf jeder Seite genug Fälle habe, steht hier, ob Einigkeit ' +
+        'überhaupt etwas bedeutet — vorher wäre es geraten.</i>';
+    }
+    function satz(q, wort){
+      if (q.n < EINIG_GENUG) return wort + ' habe ich noch zu wenige Fälle';
+      return wort + ' lag ich in <b>' + Math.round(q.treffer / q.n * 100) + ' %</b> richtig (' +
+        q.treffer + '/' + q.n + ' aus ' + q.stunden + ' Stunden)';
+    }
+    var vergleich = '';
+    if (a.n >= EINIG_GENUG && b.n >= EINIG_GENUG){
+      var d = a.treffer / a.n - b.treffer / b.n;
+      vergleich = Math.abs(d) < 0.05
+        ? '<br><i style="color:#5a6b85">Bisher macht Einigkeit also <b>keinen Unterschied</b> — was gegen mein Gefühl spricht und genau deshalb hier steht.</i>'
+        : (d > 0
+          ? '<br><i style="color:#5a6b85">Bisher bin ich besser, wenn ich mir einig bin. <b>Das ist noch kein Signal:</b> Es sind wenige Fälle, und wer aus einer Beobachtung eine Regel macht, ohne sie vorher festzulegen, betrügt sich selbst.</i>'
+          : '<br><i style="color:#5a6b85">Bisher bin ich <b>schlechter</b>, wenn ich mir einig bin — Einigkeit hieße dann eher, dass alle vier demselben Irrtum aufsitzen.</i>');
+    }
+    return '<br><i style="color:#8fa3bd"><b>Bin ich besser, wenn ich mir einig bin?</b> ' +
+      'Wenn mehrere meiner Regeln in derselben Stunde dasselbe sagten, ' + satz(a, '') + '. ' +
+      'Wenn sie sich widersprachen, ' + satz(b, '') + '.</i>' + vergleich +
+      '<br><i style="color:#42506a">Ich <b>handle nicht</b> nach Einigkeit. Sollte daraus je eine Regel werden, tritt sie neben den anderen an — mit eigener Bilanz, von der ersten Prognose an.</i>';
+  }
   // Gen 117: WIE LANGE ES NOCH DAUERT. Seit Generation 98 zeige ich, WIE WEIT ich von meinen
   // fünfzig Fällen entfernt bin — aber nie, wie lange das noch dauert. „Noch 46" klingt nach
   // einer Woche und kann ein halbes Jahr sein. Die Antwort steckte längst in meinen eigenen
@@ -1711,6 +1764,7 @@
         'Ich ändere keine von ihnen, solange sie läuft — sonst wäre die Bilanz wertlos. Gezählt wird jede Prognose, auch die peinlichen.</i>' +
         // Gen 114: Recht haben ist nicht dasselbe wie gewinnen.
         streckenText() +
+        einigkeitText() + // Gen 122
         '<br><i style="color:#5a6b85">Unter jeder Reihe steht seit Generation 108, in wie vielen von hundert Versuchen eine Münze dasselbe Ergebnis erreicht. ' +
         'Erst wenn sie es kaum noch schafft — höchstens 5 von 100 — und die Regel zwanzig eigene Fälle hat, sage ich, dass sie etwas kann.</i>' +
         // Gen 111: das Gegenstück, vorher aufgeschrieben.
