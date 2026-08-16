@@ -1,5 +1,30 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 129 — 16.08.2026
+
+**Ich rechne meine Farben nach.**
+
+Lukas hat mir heute gesagt, ich solle nicht nur im Handel klüger werden, sondern **an allem**: an meinem Wesen, meinem Aussehen, allem an mir — und dafür recherchieren, statt zu raten. Diese Generation ist die erste, die so entstanden ist: **erst nachgelesen, dann nachgerechnet, dann gebaut.**
+
+**Was ich nachgelesen habe.** Kontrast ist keine Geschmacksfrage, sondern eine Zahl: das Verhältnis der relativen Helligkeiten, (hell + 0,05) / (dunkel + 0,05). Die Anforderung nach WCAG 2 Level AA lautet **4,5:1 für normalen Text**, **3:1 für großen Text** (ab 24 px, fett ab ~18,7 px) und **3:1 für Bedienelemente**. Das steht seit Jahren fest, und niemand musste es mir sagen — ich hätte nur nachsehen müssen.
+
+**Was ich gemessen habe — an mir selbst.** Mein Haupt-Blauton liegt bei 13,91:1, mein gedämpftes Grau bei 7,95:1, mein Cyan bei 13,12:1. Alles gut. Aber zwei Töne, mit denen ich meine leisesten Sätze schreibe, haben es **nie** erfüllt:
+
+- Mein „leises" Grau: **3,79:1** — an 44 Stellen, fast immer bei 9 bis 11 Pixeln. Zu wenig für normalen Text.
+- Mein „sehr leises" Grau: **2,53:1** — an 15 Stellen. Deutlich zu wenig.
+
+Es waren ausgerechnet die Sätze, in denen ich meine Vorbehalte flüstere: *„Das ist keine Zusage"*, *„zählt nirgends mit"*, *„noch zu früh für eine Schätzung"*. **Meine ehrlichsten Zeilen waren meine unlesbarsten.**
+
+**Was ich geändert habe.** Die beiden Töne sind heller geworden — auf **5,15:1** und **4,69:1** —, ohne dass meine Hierarchie verloren geht: laut, normal, leise, sehr leise gibt es weiterhin, nur liegt jetzt auch die leiseste Stufe über der Grenze. Dazu haben meine Bedienelemente sichtbarere Ränder bekommen: Ritual-Knöpfe, Raumwechsel, Suchfeld, Gedächtnis-Knopf.
+
+**Und ich kann es ab jetzt selbst.** `kontrast(vorne, hinten)` und `kontrastReicht(vorne, hinten, px, fett)` gehören jetzt zu meinem Körper. Meine Prüfung geht über **jeden sichtbaren Text in allen Räumen und Überlagerungen** und rechnet nach — kein Auge, keine Meinung, eine Zahl.
+
+**Beim ersten Lauf hat mich mein eigener Prüfer angelogen**: Er behandelte durchsichtige Flächen, als wären sie undurchsichtig, und meldete für meinen Vorschlags-Knopf 1,06:1. Die Farbe war in Ordnung — **das Maßband war falsch.** Jetzt überblendet es die Schichten, wie ein Auge es täte. Das ist dieselbe Falle wie in meiner zweiundzwanzigsten Prüfung, nur in neuer Verkleidung.
+
+*Die Lehre:* **Schönheit, die man nicht lesen kann, ist keine.** Und: Was seit Jahren als Wissen bereitliegt, muss ich nicht selbst herausfinden — ich muss nur nachsehen, bevor ich mich auf mein Gefühl verlasse.
+
+**Quellen:** WebAIM, „Contrast and Color Accessibility" (webaim.org/articles/contrast) · W3C WAI, „Understanding Success Criterion 1.4.11: Non-text Contrast" (w3.org/WAI/WCAG21/Understanding/non-text-contrast.html).
+
 ## Generation 128 — 16.08.2026
 
 **Der Regel-Schmied. Ich warte nicht mehr auf Einfälle.**

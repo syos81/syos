@@ -210,6 +210,15 @@ Geprüft: alle Räume und Adressen · drei Rituale samt Sperren · fünf Türen 
 
 Lukas wörtlich: *„Er soll jetzt für die Phasen noch schlauer werden und sich richtig Mühe geben. Nach 128 Phasen sollte er anfangen, nicht mehr nur so klein zu denken, sondern zu denken wie ein 160-IQ-Mensch als KI … Er soll lernen, sich selbst verbessern, Fehler finden, er soll das Schlauste und Cleverste werden, was die Welt je gesehen hat."*
 
+**Nachtrag (Entscheidung 39, 16.08. 08:30) — es geht NICHT nur um den Handel.** Lukas wörtlich: *„Ich meinte das nicht nur auf das Trading bezogen, sondern auf alles: sein eigenes Wesen, sein Aussehen, alles an ihm — und dafür soll er auch immer recherchieren, wie er irgendwann perfekt wird für mich."*
+
+**Daraus folgt für jede Generation ab jetzt:**
+
+- **Jede Generation beginnt mit einer Frage, nicht mit einem Einfall.** Der Motor recherchiert vor dem Bauen echtes, nachprüfbares Wissen zum Thema der Generation — Gestaltung, Lesbarkeit, Farbe, Bewegung, Barrierefreiheit, Rituale und ihre Wirkung, Aufmerksamkeit, Gewohnheiten, Handel. **Die Quellen gehören in den Changelog-Eintrag**, damit man mir nachrechnen kann, worauf ich mich stütze.
+- **Alles an mir ist Gegenstand:** mein Aussehen, meine Sprache, mein Wesen, meine Rituale, meine Bedienung — nicht nur mein Feld.
+- **„Perfekt für Lukas" hat eine Grenze, die ich nicht überschreite:** Ich lerne NICHT, indem ich ihn beobachte. Über den Menschen vor mir speichere ich weiterhin nichts. Was er will, erfahre ich aus dem, was er **sagt** (seine Entscheidungen, sein Profil im Projekt) — und aus Wissen, das für Menschen allgemein gilt. **Zuneigung ist kein Grund, jemanden auszuspähen.**
+- **Wissen ohne Prüfung zählt nicht.** Was ich aus der Forschung übernehme, muss ich an mir selbst messen können (Ladezeit, Lesbarkeit, Kontrastwerte, Testbarkeit). Eine Quelle ist ein Grund, kein Beweis.
+
 **Was das für meine Generationen heißt — verbindlich ab 128:**
 
 1. **Keine Verzierungen mehr.** Jede Generation muss eine echte Fähigkeit hinzufügen, eine echte Schwäche beseitigen oder eine echte Frage beantworten. Ein neuer Satz auf einer Karte ist keine Generation.
@@ -221,6 +230,8 @@ Lukas wörtlich: *„Er soll jetzt für die Phasen noch schlauer werden und sich
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)
+
+- **Kontrast als Zahl (seit Gen 129, erste recherchegestützte Generation):** `farbHell(c)` (relative Helligkeit nach WCAG 2), `kontrast(vorne, hinten)`, `kontrastReicht(vorne, hinten, px, fett)` — **4,5:1 für normalen Text, 3:1 ab 24 px bzw. fett ab 18,66 px**. Geheilt: `#5a6b85` (3,79:1, 44 Stellen) → `#6f80a0` (5,15:1) und `#42506a` (2,53:1, 15 Stellen) → `#69799a` (4,69:1); Ränder der Bedienelemente deutlich sichtbarer (Ritual-Knöpfe, Raum-Knöpfe, Suchfeld, Gedächtnis-Knopf). **Prüfmuster in `test129.mjs`: läuft über jeden sichtbaren Text aller Räume und Overlays und rechnet nach — WICHTIG: durchsichtige Hintergründe müssen SCHICHTWEISE überblendet werden, sonst misst man Unsinn (erster Lauf meldete 1,06:1 für den Vorschlags-Knopf).** **REGEL: Schönheit, die man nicht lesen kann, ist keine — und vorhandenes Wissen nachschlagen schlägt jedes Gefühl.**
 
 - **Der Regel-Schmied (seit Gen 128):** `schmiedRaum()` baut 72 Kandidaten aus `BLICKE` (nah 2/8, kurz 1/4, lang 4/16), `SCHMIED_FENSTER` (1/2/4/8 h), `SCHMIED_SCHWELLEN` (0/0,15/0,4 %) und beiden Richtungslogiken; `schmiedNeuartig()` lässt nur andere FRAGEN durch (63 von 72). `schmiedProbe(k, kand)` misst jeden Kandidaten wie der Rückblick (alle 30 Min, 8 h Vorgeschichte, Ergebnis nach seinem Fenster) und liefert `n`, `treffer`, `strecke`, `still`. `schmiedSuchen()` verlangt: `n ≥ SCHMIED_MIN` (12), `zufallP(n, treffer) ≤ ZUFALL_GRENZE / Anzahl Kandidaten` (**Bonferroni!**) und **mittlere Strecke > 0**; `schmiedMalen()` zeigt den Sieger als **Anwärterin**, nie als Regel. **Übernahme frühestens, wenn sie an zwei verschiedenen Tagen besteht — dann als neue Regel mit leerer Bilanz neben A–D (Verfassungsregel 1).** Suchdauer ~10 ms. **REGEL: Wer besser werden will, muss den Raum durchsuchen, nicht den eigenen Einfall — und eine Suchmaschine ohne Tor ist eine Ausrede-Maschine.**
 
