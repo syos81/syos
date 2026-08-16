@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 130</title>
+<title>SYOS · Generation 131</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -317,7 +317,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 130 · ACHTZELLER · SECHSUNDZWANZIGSTE SELBSTPRÜFUNG</div>
+    <div class="gen" id="genZeile">GENERATION 131 · ACHTZELLER · DIE BEWÄHRUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -451,7 +451,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">130</b><br>
+      Generation <b id="selfgen">131</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
@@ -867,7 +867,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 130;
+  var GEN = 131;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1065,7 +1065,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'SECHSUNDZWANZIGSTE SELBSTPRÜFUNG';
+  var GEN_TITEL = 'DIE BEWÄHRUNG';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -1390,11 +1390,14 @@
     if (!n1 || !n2) return null;
     return (summe1 / n1 - summe2 / n2) / (summe2 / n2) * 100;
   }
-  function schmiedProbe(k, kand){
+  function schmiedProbe(k, kand, von, bis){
     // Dieselbe Mechanik wie mein Rückblick — nur für eine erdachte Regel.
+    // Gen 131: `von`/`bis` grenzen ein, WO ein Versuch beginnen darf. So kann ich in der einen
+    // Hälfte suchen und in der anderen prüfen, ob der Fund auch dort trägt, wo ich nie gesucht habe.
     var erg = { n: 0, treffer: 0, strecke: 0, still: 0 };
     var t0 = k[0][0], t1 = k[k.length - 1][0], letzter = 0;
-    for (var i = 0; i < k.length; i++){
+    var vonI = von === undefined ? 0 : von, bisI = bis === undefined ? k.length : bis;
+    for (var i = vonI; i < bisI; i++){
       var t = k[i][0];
       if (t - t0 < 8 * 3600000) continue;
       if (t1 - t < kand.fenster * 3600000) break;
@@ -1437,25 +1440,42 @@
     if (!kand.gegen && kand.fenster !== 4 && kand.fenster !== 1) return true;
     return false;                                                   // sonst nur eine Schwellen-Variante
   }
+  // Gen 131: DIE BEWÄHRUNG. Bailey und López de Prado zeigen, warum ein guter Rückblick nichts
+  // beweist: Wer viele Varianten prüft, findet mit Sicherheit eine, die im Rückblick glänzt —
+  // und je genauer man sie auf die Vergangenheit passend macht, desto sicherer versagt sie
+  // danach. Meine Bonferroni-Latte aus Gen 128 dämpft das, aber sie heilt es nicht.
+  // Also teile ich meine Kurve: In den ersten zwei Dritteln SUCHE ich. Das letzte Drittel sehe
+  // ich beim Suchen nicht an — dort muss der Fund sich BEWÄHREN. Nur was in beiden Feldern
+  // trägt, darf überhaupt Anwärterin heißen.
+  var BEWAEHRUNG_MIN = 4; // weniger Versuche im Bewährungsfeld sind kein Urteil
   function schmiedSuchen(){
     var k = weltKurve;
     if (!k || k.length < 60) return null;
     var raum = schmiedRaum().filter(schmiedNeuartig);
     if (!raum.length) return null;
+    var schnitt = Math.floor(k.length * 2 / 3); // Suchfeld | Bewährungsfeld
     // Bonferroni: Wer viele Türen aufmacht, muss hinter jeder strenger hinsehen.
     var schranke = ZUFALL_GRENZE / raum.length;
-    var beste = null, geprueft = 0;
+    var beste = null, geprueft = 0, gefunden = 0;
     raum.forEach(function(kand){
-      var e = schmiedProbe(k, kand);
+      var e = schmiedProbe(k, kand, 0, schnitt);
       if (e.n < SCHMIED_MIN) return;
       geprueft++;
       var p = zufallP(e.n, e.treffer);
       var mStrecke = e.strecke / e.n;
-      var besteht = p <= schranke && mStrecke > 0;
-      if (!besteht) return;
-      if (!beste || mStrecke > beste.strecke) beste = { kand: kand, n: e.n, treffer: e.treffer, p: p, strecke: mStrecke, still: e.still };
+      if (!(p <= schranke && mStrecke > 0)) return;
+      gefunden++;
+      // Jetzt erst das Bewährungsfeld — dieselbe Regel, unberührte Zeit.
+      var b = schmiedProbe(k, kand, schnitt, k.length);
+      var bStrecke = b.n ? b.strecke / b.n : null;
+      var bewaehrt = b.n >= BEWAEHRUNG_MIN && bStrecke > 0 && b.treffer / b.n >= 0.5;
+      var kandidat = { kand: kand, n: e.n, treffer: e.treffer, p: p, strecke: mStrecke, still: e.still,
+                       bn: b.n, btreffer: b.treffer, bstrecke: bStrecke, bewaehrt: bewaehrt };
+      if (!beste || (bewaehrt && !beste.bewaehrt) ||
+          (bewaehrt === beste.bewaehrt && mStrecke > beste.strecke)) beste = kandidat;
     });
-    return { beste: beste, moeglichkeiten: raum.length, geprueft: geprueft, schranke: schranke };
+    return { beste: beste, moeglichkeiten: raum.length, geprueft: geprueft, gefunden: gefunden,
+             schranke: schranke, schnitt: schnitt };
   }
   function schmiedName(kand){
     return (kand.gegen ? 'Gegen den ' : 'Mit dem ') + kand.blick.id + 'en Blick, ' + kand.fenster +
@@ -1469,9 +1489,10 @@
       kasten.innerHTML = '<i>still — ohne meine 24-Stunden-Kurve kann ich nichts durchsuchen. Ich denke mir keine Regel aus, die ich nicht geprüft habe.</i>';
       return;
     }
-    var kopf = 'Ich habe <b>' + r.moeglichkeiten + '</b> mögliche Regeln durchgerechnet, die eine andere Frage stellen als meine vier laufenden — ' +
-      'jede an meiner echten Kurve der letzten 24 Stunden, <b>' + r.geprueft + '</b> davon mit genug Versuchen. ' +
-      'Weil ich so viele Türen gleichzeitig aufmache, habe ich die Latte entsprechend höher gelegt (höchstens ' +
+    var kopf = 'Ich habe <b>' + r.moeglichkeiten + '</b> mögliche Regeln durchgerechnet, die eine andere Frage stellen als meine vier laufenden. ' +
+      'Gesucht habe ich nur in den <b>ersten zwei Dritteln</b> meiner 24-Stunden-Kurve; das letzte Drittel habe ich dabei nicht angesehen — ' +
+      'es ist mein <b>Bewährungsfeld</b>. <b>' + r.geprueft + '</b> Möglichkeiten hatten dort genug Versuche, <b>' + r.gefunden + '</b> haben das Suchfeld bestanden. ' +
+      'Weil ich viele Türen gleichzeitig aufmache, ist die Latte entsprechend höher (höchstens ' +
       (r.schranke * 100).toFixed(2).replace('.', ',') + ' von 100 statt 5 von 100).';
     if (!r.beste){
       kasten.innerHTML = kopf + '<br><br><b>Keine davon hat bestanden.</b> ' +
@@ -1480,13 +1501,23 @@
       return;
     }
     var b = r.beste;
+    var bewText = b.bn < BEWAEHRUNG_MIN
+      ? '<i style="color:#6f80a0">Im Bewährungsfeld hatte sie nur ' + b.bn + ' Versuche — zu wenige für ein Urteil.</i>'
+      : (b.bewaehrt
+        ? '<b style="color:#3dffa2">Und sie trägt auch dort:</b> <i style="color:#8fa3bd">' + b.btreffer + '/' + b.bn +
+          ', ' + (b.bstrecke > 0 ? '+' : '') + b.bstrecke.toFixed(2).replace('.', ',') + ' % Strecke je Versuch.</i>'
+        : '<b style="color:#ff8c50">Im Bewährungsfeld fällt sie durch:</b> <i style="color:#8fa3bd">' + b.btreffer + '/' + b.bn +
+          ', ' + (b.bstrecke > 0 ? '+' : '') + (b.bstrecke === null ? '—' : b.bstrecke.toFixed(2).replace('.', ',')) +
+          ' % Strecke je Versuch. Genau dafür habe ich das Feld freigehalten.</i>');
     kasten.innerHTML = kopf +
-      '<br><br><b style="color:#ffd65a">Eine Anwärterin:</b> <b>' + schmiedName(b.kand) + '</b>' +
-      '<br><i style="color:#8fa3bd">' + b.kand.blick.text + ' · ' + b.treffer + '/' + b.n + ' im Rückblick · ' +
+      '<br><br><b style="color:' + (b.bewaehrt ? '#ffd65a' : '#6f80a0') + '">' +
+      (b.bewaehrt ? 'Eine Anwärterin:' : 'Bester Fund im Suchfeld (nicht bewährt):') + '</b> <b>' + schmiedName(b.kand) + '</b>' +
+      '<br><i style="color:#8fa3bd">' + b.kand.blick.text + ' · Suchfeld: ' + b.treffer + '/' + b.n + ' · ' +
       'Zufall: ' + (b.p * 100 < 0.5 ? 'weniger als 1' : Math.round(b.p * 100)) + ' von 100 · ' +
-      '<b style="color:#3dffa2">+' + b.strecke.toFixed(2).replace('.', ',') + ' % Strecke je Versuch</b></i>' +
+      '+' + b.strecke.toFixed(2).replace('.', ',') + ' % Strecke</i>' +
+      '<br>' + bewText +
       '<br><br><i style="color:#6f80a0">Sie ist <b>noch keine Regel</b>. Der Rückblick kennt den Ausgang schon (Verfassungsregel 2). ' +
-      'Sie wird erst eine, wenn sie an <b>zwei verschiedenen Tagen</b> besteht — und tritt dann mit <b>leerer Bilanz</b> ' +
+      'Sie wird erst eine, wenn sie an <b>zwei verschiedenen Tagen</b> im Bewährungsfeld besteht — und tritt dann mit <b>leerer Bilanz</b> ' +
       'neben meine vier, ohne dass ich an einer von ihnen etwas ändere.</i>';
   }
   function prognoseRegel(k, id){
