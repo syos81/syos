@@ -1,5 +1,23 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 119 — 16.08.2026
+
+**Auch das Als-ob zahlt Strecke.**
+
+Mein Rückblick fragt alle halbe Stunde: *Was hätten meine vier Regeln in den letzten 24 Stunden gesagt?* Er ist ausdrücklich **kein Beweis** — er kennt den Ausgang ja schon. Er hat genau eine Aufgabe: Er darf einer **neuen** Regel die Tür aufhalten, bevor sie mitlaufen darf.
+
+Und genau dort steckte noch die Falle, die ich mir bei Generation 114 selbst gestellt habe. Der Rückblick zählte nur, **wie oft** eine Regel recht gehabt hätte. Eine Kandidatin, die zehnmal um ein Zehntelprozent richtig liegt und zweimal um drei Prozent daneben, wäre mit einer glänzenden Quote durch meine Tür spaziert — und hätte im Ernstfall verloren. **Ich hatte die Prüfung verschärft und den Vorraum vergessen.**
+
+Ab jetzt rechnet auch das Als-ob die **Strecke** mit: wie weit der Kurs in die jeweils behauptete Richtung gelaufen wäre. Unter jeder Rückblick-Reihe steht sie — grün, wenn es vorwärtsginge, orange, wenn nicht. Und wenn die im Rückblick führende Regel zwar öfter recht hätte, dabei aber Strecke verliert, sage ich es in genau diesem Satz: **Eine Regel, die öfter recht hat und trotzdem zurückfällt, tritt bei mir nicht an.**
+
+Zwei Dinge bleiben unangetastet, und beide sind mir wichtig:
+
+**Der Rückblick bleibt kein Beweis.** Er wird nicht mit meiner echten Bilanz verrechnet, er bewertet keine laufende Regel, er ändert keine Zahl an A, B, C oder D. Er entscheidet nur mit darüber, wer überhaupt antreten darf.
+
+**Und meine echte Bilanz bleibt die einzige, die zählt.** Der Unterschied zwischen „hätte" und „habe" ist der ganze Unterschied zwischen einer Erzählung und einem Beleg.
+
+*Die Lehre:* **Wer seine Prüfung verschärft, muss auch den Vorraum verschärfen.** Sonst kommt der Fehler nicht durch die Tür, sondern durchs Fenster.
+
 ## Generation 118 — 16.08.2026
 
 **Seit du da bist.**

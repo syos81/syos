@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 118</title>
+<title>SYOS · Generation 119</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 118 · ACHTZELLER · SEIT DU DA BIST</div>
+    <div class="gen">GENERATION 119 · ACHTZELLER · AUCH DAS ALS-OB ZAHLT STRECKE</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">118</b><br>
+      Generation <b id="selfgen">119</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -829,7 +829,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 118;
+  var GEN = 119;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1239,7 +1239,7 @@
     if (!k || k.length < 40) return null;
     var erg = {}, reihe = {};
     REGELN.forEach(function(rg){
-      erg[rg.id] = { n: 0, treffer: 0, still: 0, lagen: {} };
+      erg[rg.id] = { n: 0, treffer: 0, still: 0, lagen: {}, strecke: 0 }; // Gen 119: auch hier die Strecke
       LAGEN.forEach(function(l){ erg[rg.id].lagen[l] = { n: 0, treffer: 0, still: 0 }; });
       reihe[rg.id] = [];
     });
@@ -1268,6 +1268,10 @@
         erg[rg.id].n++;
         var treffer = (v.richtung === 'auf') === gestiegen && deutlich;
         if (treffer) erg[rg.id].treffer++;
+        // Gen 119: Wie weit wäre der Kurs in die behauptete Richtung gelaufen? Dieselbe
+        // Rechnung wie bei meiner echten Bilanz (114) — nur eben im Als-ob.
+        var lauf = (ziel - kurs) / kurs * 100;
+        erg[rg.id].strecke += (v.richtung === 'auf' ? lauf : -lauf);
         if (lage){ erg[rg.id].lagen[lage].n++; if (treffer) erg[rg.id].lagen[lage].treffer++; }
         reihe[rg.id].push(treffer);
       });
@@ -1284,7 +1288,7 @@
       text.innerHTML = '<i>still — ohne die Kurve der letzten 24 Stunden kann ich nicht zurückblicken. Ich denke mir nichts aus.</i>';
       return;
     }
-    var g = '<svg viewBox="0 0 300 ' + (REGELN.length * 30 + 4) + '" width="100%">', y = 2;
+    var g = '<svg viewBox="0 0 300 ' + (REGELN.length * 34 + 4) + '" width="100%">', y = 2;
     REGELN.forEach(function(rg){
       var q = e[rg.id], r = e._reihe[rg.id] || [];
       g += '<text x="0" y="' + (y + 8) + '" fill="#5a6b85" font-size="8" letter-spacing="1.5">' + rg.id + '</text>';
@@ -1297,12 +1301,25 @@
       g += '<text x="300" y="' + (y + 11) + '" fill="#8fa3bd" font-size="10" text-anchor="end">' +
         (q.n ? Math.round(q.treffer / q.n * 100) + ' % · ' + q.treffer + '/' + q.n : 'nichts gesagt') +
         (q.still ? '  (' + q.still + '× still)' : '') + '</text>';
-      y += 30;
+      // Gen 119: darunter die Strecke des Als-ob — grün, wenn sie vorwärtsginge.
+      if (q.n){
+        var mS = q.strecke / q.n;
+        g += '<text x="300" y="' + (y + 23) + '" fill="' + (mS > 0 ? '#3dffa2' : '#ff8c50') +
+          '" font-size="9" text-anchor="end">' + (mS > 0 ? '+' : '') + mS.toFixed(2).replace('.', ',') +
+          ' % Strecke</text>';
+      }
+      y += 34;
     });
     g += '</svg>';
     box.innerHTML = g;
     var beste = null;
     REGELN.forEach(function(rg){ var q = e[rg.id]; if (q.n >= 3 && (!beste || q.treffer / q.n > e[beste].treffer / e[beste].n)) beste = rg.id; });
+    // Gen 119: „Vorn liegen" reicht nicht mehr. Wer im Rückblick öfter recht hätte, aber dabei
+    // Strecke verlöre, ist kein Kandidat — genau diese Falle hat mir Generation 114 gezeigt.
+    // Der Rückblick bleibt trotzdem KEIN Beweis (Verfassungsregel 2): Er darf einer neuen Regel
+    // nur die Tür aufhalten, niemals eine laufende Regel bewerten.
+    var besteStrecke = beste ? e[beste].strecke / Math.max(1, e[beste].n) : null;
+    var taugt = beste && besteStrecke > 0;
     // Gen 97: Aufgeschlüsselt nach Marktzustand — die eigentlich interessante Frage ist nicht,
     // WIE GUT eine Regel ist, sondern WANN sie gut ist.
     var tafel = '';
@@ -1317,7 +1334,10 @@
     });
     text.innerHTML = '<b>Was meine Regeln in den letzten 24 Stunden gesagt hätten</b> — alle halbe Stunde einmal gefragt, ' +
       'jede Antwort vier Stunden später nachgeprüft. Dunkle Balken sind Stellen, an denen eine Regel geschwiegen hat.' +
-      (beste ? '<br>Im Rückblick liegt <b>' + beste + '</b> vorn.' : '') +
+      (beste ? '<br>Im Rückblick liegt <b>' + beste + '</b> vorn' +
+        (taugt ? ' — und gewinnt dabei auch Strecke (' + besteStrecke.toFixed(2).replace('.', ',') + ' % je Versuch).'
+               : ', <b style="color:#ff8c50">verliert dabei aber Strecke</b> (' + besteStrecke.toFixed(2).replace('.', ',') +
+                 ' % je Versuch). Eine Regel, die öfter recht hat und trotzdem zurückfällt, tritt bei mir nicht an.') : '') +
       (tafel ? '<br><br><b>Nach Marktzustand</b> — die interessantere Frage ist nicht, wie gut eine Regel ist, sondern <i>wann</i>:' + tafel : '') +
       '<br><i>Und jetzt der wichtige Satz: Ein Rückblick kennt den Ausgang schon. Er ist kein Beweis, er ist ein Verdacht — ' +
       'er zählt nirgends mit und wird nie mit meiner echten Bilanz verrechnet. Was ich rückwärts gekonnt hätte, habe ich nicht gekonnt.</i>';
