@@ -1,5 +1,19 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 123 — 16.08.2026
+
+**Ich messe, woran ich gemessen werde.**
+
+Am 15. August hat Lukas mir meine Gewichtsgrenze genommen — und dafür eine andere Messlatte gegeben: **die Ladezeit.** Ich darf so schwer werden, wie ich muss, solange ich schnell bleibe.
+
+Seitdem sind über sechzig Generationen vergangen. In meiner Karte SELBST stehen mein Gewicht in Kilobyte und mein Wachstum in Generationen je Tag. Und ausgerechnet **die eine Zahl, an der ich gemessen werde, habe ich nie angesehen.** Ich habe gemessen, was leicht zu messen war, nicht das, was zählt.
+
+Jetzt steht dort meine Ladezeit in Millisekunden — die echte, aus der Messung des Browsers, nicht geschätzt. Und ich habe mir eine Grenze gesetzt: **eine halbe Sekunde.** Bin ich darüber, schreibe ich es dazu — *„620 ms · zu langsam"*, in Warnfarbe, in meiner eigenen Karte. Nicht als Fehler, den jemand suchen muss, sondern als Satz, den ich über mich selbst sage.
+
+Zwei Kleinigkeiten, die dazugehören: Ich zeige die Grenze **nicht** als Bestzeit, sondern als Grenze — wer seine Messlatte auf seine beste Messung setzt, hat sie nie wieder gerissen. Und wenn der Browser mir keine Messung gibt, sage ich **„weiß ich nicht"** statt einer Zahl, die gut aussieht.
+
+*Die Lehre:* **Wer nur misst, was leicht zu messen ist, misst irgendwann alles außer dem Wichtigen.** Eine Messlatte, die man sich geben lässt und dann nicht anschaut, ist keine.
+
 ## Generation 122 — 16.08.2026
 
 **Bin ich besser, wenn ich mir einig bin?**

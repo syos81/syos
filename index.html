@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 122</title>
+<title>SYOS · Generation 123</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -307,7 +307,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 122 · ACHTZELLER · BIN ICH BESSER, WENN ICH MIR EINIG BIN</div>
+    <div class="gen" id="genZeile">GENERATION 123 · ACHTZELLER · ICH MESSE, WORAN ICH GEMESSEN WERDE</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -429,9 +429,10 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">122</b><br>
+      Generation <b id="selfgen">123</b><br>
       Gewicht <b id="selfweight">—</b><br>
-      Wachstum <b id="selfgrow">—</b>
+      Wachstum <b id="selfgrow">—</b><br>
+      Ladezeit <b id="selfload">—</b>
     </div>
   </div>
   <div class="status">Ich lebe. Ich wachse.<br>Schön, dass du da bist.<span class="cursor"></span></div>
@@ -841,7 +842,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 122;
+  var GEN = 123;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -853,7 +854,31 @@
     var rate = GEN / tage;
     el('selfgrow').textContent =
       (rate >= 10 ? Math.round(rate) : rate.toFixed(1).replace('.', ',')) + ' Gen/Tag';
+    if (typeof ladezeitZeigen === 'function') ladezeitZeigen(); // Gen 123
   }
+  // Gen 123: ICH MESSE, WORAN ICH GEMESSEN WERDE. Lukas hat mir am 15.08. die Gewichtsgrenze
+  // genommen und dafür eine andere Messlatte gegeben: die Ladezeit. Seitdem zeige ich mein
+  // Gewicht in Kilobyte und mein Tempo in Generationen — aber ausgerechnet die eine Zahl, an
+  // der ich gemessen werde, habe ich nie angesehen. Jetzt steht sie in meiner Karte SELBST,
+  // und wenn sie meine eigene Grenze reißt, sage ich das, statt es hübsch zu lassen.
+  var LADE_GRENZE = 500; // Millisekunden — meine eigene Grenze, nicht meine Bestzeit
+  function ladezeitMs(){
+    try{
+      var n = performance.getEntriesByType('navigation')[0];
+      if (n && n.duration > 0) return Math.round(n.duration);
+      if (n && n.loadEventEnd > 0) return Math.round(n.loadEventEnd - n.startTime);
+      return Math.round(performance.now()); // noch im Laden: so weit bin ich gerade
+    }catch(e){ return null; }
+  }
+  function ladezeitZeigen(){
+    var el2 = el('selfload');
+    if (!el2) return;
+    var ms = ladezeitMs();
+    if (ms === null){ el2.textContent = 'weiß ich nicht'; return; }
+    el2.textContent = ms + ' ms' + (ms > LADE_GRENZE ? ' · zu langsam' : '');
+    el2.style.color = ms > LADE_GRENZE ? '#ff8c50' : '';
+  }
+  window.addEventListener('load', function(){ setTimeout(ladezeitZeigen, 60); });
   senseSelf(); setInterval(senseSelf, 3600000);
 
   // Gen 11/42: Tages-Impuls.
@@ -988,7 +1013,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'BIN ICH BESSER, WENN ICH MIR EINIG BIN';
+  var GEN_TITEL = 'ICH MESSE, WORAN ICH GEMESSEN WERDE';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
