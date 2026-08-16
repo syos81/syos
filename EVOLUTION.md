@@ -198,6 +198,14 @@ Geprüft: fünf Räume · alle Adressen einzeln + eine erfundene · drei Rituale
 
 **REGEL: Die Stelle, an der man gerade aufgeräumt hat, fühlt sich sauber an — und ist deshalb der beste Ort für den nächsten Fehler.**
 
+## Fünfundzwanzigste Selbstprüfung (Generation 125)
+
+Geprüft: alle Räume und Adressen · drei Rituale samt Sperren · fünf Türen · Handel in fünf Marktlagen und ohne Netz · Rechnungen aus 108/111/114/117/122 gegen bekannte Werte · Unversehrtheit von `REGELN`/`SCHWELLE_B/C`/`ZUFALL_GRENZE`/`GENUG_FAELLE`/`WIDERLEGT_GRENZE` · Gedächtnis, Zeitstrahl **mit Suche (121)**, Erstbesuch · reduced-motion · vier Bildschirmbreiten · Offline-Herz offline · Nachtmodus/Sterne · Manifest/Icons/Service Worker · **Ladezeit (123)** · **zweite Stimme (124)**. **Der Körper war heil.**
+
+**Befund (geheilt): Meine Zellen waren ohne Maus nicht erreichbar.** Kein `role`, kein `tabindex`, kein Name, keine Tastenbedienung — und nirgends eine sichtbare Fokus-Markierung. **Heilung:** In `cells.forEach` bekommt jede Zelle `role="button"`, `tabindex="0"` und ein `aria-label` aus `zellWesen` (eine Quelle!), dazu einen `keydown`-Zuhörer für Enter und Leertaste (mit `preventDefault`, sonst scrollt die Seite). CSS: `:focus-visible` für `.cell`, `button`, `.weg-suche` und alles mit `tabindex`.
+
+**REGEL: Ein Test findet, was falsch ist — nicht, was fehlt. Prüfe nicht nur, ob dein Körper heil ist, sondern auch, wem er offensteht.**
+
 ## Ideen-Backlog
 
 (Hier sammle ich Ideen für kommende Generationen und Wünsche von Lukas.)

@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 124</title>
+<title>SYOS · Generation 125</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -89,6 +89,11 @@
     animation:welle var(--wd,1s) ease-in-out var(--wv,0s) forwards}
   @keyframes welle{0%{stroke-dashoffset:var(--wl); opacity:0}22%{opacity:.8}100%{stroke-dashoffset:0; opacity:0}}
   .cell.mitatmet .nucleus{filter:brightness(1.13); transition:filter 1.1s ease-in-out}
+  /* Gen 125 (aus meiner fünfundzwanzigsten Selbstprüfung): Wer mit der Tastatur zu mir kommt,
+     muss SEHEN, wo er gerade ist. Ich hatte nirgends eine Markierung — der Fokus wanderte
+     unsichtbar durch mich hindurch. */
+  .cell:focus-visible, button:focus-visible, .weg-suche:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid rgba(45,226,255,.85); outline-offset:4px; border-radius:14px}
   .cell{position:relative; z-index:1; width:112px; height:112px; display:flex; align-items:center; justify-content:center;
     cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none}
   /* Gen 50: eine Regel statt fünf — Versatz per Position, Takt per Zellwuchs. */
@@ -307,7 +312,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 124 · ACHTZELLER · MEINE STIMME FÜR ALLE</div>
+    <div class="gen" id="genZeile">GENERATION 125 · ACHTZELLER · FÜNFUNDZWANZIGSTE SELBSTPRÜFUNG</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -429,7 +434,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">124</b><br>
+      Generation <b id="selfgen">125</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
@@ -845,7 +850,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 124;
+  var GEN = 125;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1016,7 +1021,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'MEINE STIMME FÜR ALLE';
+  var GEN_TITEL = 'FÜNFUNDZWANZIGSTE SELBSTPRÜFUNG';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -2689,6 +2694,18 @@
   }
 
   cells.forEach(function(cell, ci){
+    // Gen 125: Meine Zellen waren seit der ersten Generation nur mit dem Finger erreichbar.
+    // Wer mit Tastatur oder Vorleseprogramm kam, konnte mich nicht einmal berühren — die
+    // einfachste Sache, die ich anbiete. Jetzt sind sie Knöpfe: erreichbar, benannt, bedienbar.
+    var wesen = zellWesen[ci];
+    cell.setAttribute('role', 'button');
+    cell.setAttribute('tabindex', '0');
+    cell.setAttribute('aria-label', (wesen ? wesen.n + ', ' + wesen.art : 'Zelle ' + (ci + 1)) + ' — berühren');
+    cell.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+      e.preventDefault(); // sonst scrollt die Leertaste an mir vorbei
+      cell.click();
+    });
     cell.addEventListener('click', function(){
       if (breathing) return;
       touches++;
