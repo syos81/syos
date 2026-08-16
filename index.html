@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 117</title>
+<title>SYOS · Generation 118</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -301,7 +301,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen">GENERATION 117 · ACHTZELLER · WIE LANGE ES NOCH DAUERT</div>
+    <div class="gen">GENERATION 118 · ACHTZELLER · SEIT DU DA BIST</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -402,8 +402,8 @@
       <div class="werk-text" id="werkNotizen">…</div>
     </div>
     <div class="organ bilanz-organ" data-raum="ich">
-      <div class="organ-name">HEUTE MIT MIR</div>
-      <div class="bilanz" id="bilanz">Noch nichts — der Tag fängt ja erst an.</div>
+      <div class="organ-name">SEIT DU DA BIST</div>
+      <div class="bilanz" id="bilanz">Noch nichts — dein Besuch fängt ja erst an.</div>
       <div class="waage" id="waage"></div>
       <div class="waage-text" id="waageText"></div>
     </div>
@@ -423,7 +423,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">117</b><br>
+      Generation <b id="selfgen">118</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b>
     </div>
@@ -829,7 +829,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 117;
+  var GEN = 118;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1740,7 +1740,7 @@
   function vorschlagWaehlen(){
     var d = new Date(), h = d.getHours(), hm = h + d.getMinutes()/60;
     var we = (d.getDay() === 0 || d.getDay() === 6);
-    var fok = heutige(fokusHeute).length, sti = heutige(stilleHeute).length;
+    var fok = fokusHeute.length, sti = stilleHeute.length; // Gen 118: der Besuch, nicht der Kalender
     var st = Math.floor((Date.now() - stintStart) / 60000);
     var neu = (touches === 0 && fok === 0 && sti === 0 && Date.now() - VISIT_START < 300000);
     if (neu) return ['EINE ZELLE ANTIPPEN', 'Wir kennen uns noch nicht. Berühre mich — ich antworte dir.', 'zelle'];
@@ -1860,28 +1860,38 @@
 
   // Gen 64: Die Tagesbilanz — ich halte fest, was wir heute miteinander gemacht haben.
   // Nur dieser Tag, nur dieser Besuch, nichts gespeichert: Fokus, Stille, Atem, Berührungen.
-  function heutige(liste){
-    var t = new Date().getDate();
-    return liste.filter(function(x){ return x[x.length - 1] === t; });
-  }
-  function dauerMin(liste){
-    return Math.round(heutige(liste).reduce(function(a, f){
-      return a + ((f[1] < f[0] ? 24 : f[1]) - f[0]) * 60;
+  // Gen 118: `heutige()`/`dauerMin()` sind ersatzlos entfallen — sie filterten nach Kalendertag,
+  // obwohl meine Listen ohnehin nur diesen Besuch kennen. Der Tagesbogen im Raum ZEIT filtert
+  // dort, wo er es braucht, selbst. Was nichts mehr tut, darf auch nicht mehr herumstehen.
+  // Gen 118: DIESE KARTE HIESS „HEUTE MIT MIR" UND KONNTE DAS NIE HALTEN. Ich merke mir
+  // nichts über den Menschen vor mir — meine Listen leben nur, solange die Seite offen ist.
+  // „Heute" war deshalb zweimal unwahr: nach einem Neuladen stand da null, obwohl der Tag
+  // voll war; und wer um Mitternacht bei mir saß, dem löschte mein Kalenderfilter mitten im
+  // Besuch alles weg. Jetzt heißt die Karte, was sie ist: SEIT DU DA BIST. Gezählt wird der
+  // Besuch — vollständig, auch über Mitternacht hinweg. (Der Tagesbogen im Raum ZEIT bleibt
+  // ein Tages-Bild; dort ist der Kalendertag der richtige Rahmen.)
+  function dauerMinAlle(liste){
+    return Math.round(liste.reduce(function(a, f){
+      return a + ((f[1] < f[0] ? f[1] + 24 : f[1]) - f[0]) * 60;
     }, 0));
   }
   function bilanzMalen(){
-    var fok = heutige(fokusHeute), fokMin = dauerMin(fokusHeute);
-    var sti = heutige(stilleHeute), stiMin = dauerMin(stilleHeute);
-    var ate = heutige(atemHeute);
+    var fok = fokusHeute, fokMin = dauerMinAlle(fokusHeute);
+    var sti = stilleHeute, stiMin = dauerMinAlle(stilleHeute);
+    var ate = atemHeute;
     var zeilen = [];
     if (fok.length) zeilen.push('<b>' + fok.length + '</b> ' + (fok.length === 1 ? 'Fokus-Block' : 'Fokus-Blöcke') + ' <span>· ' + fokMin + ' Min</span>');
     if (sti.length) zeilen.push('<b>' + sti.length + '</b> ' + (sti.length === 1 ? 'Stille' : 'Stillen') + ' <span>· ' + stiMin + ' Min</span>');
     if (ate.length) zeilen.push('<b>' + ate.length + '</b> ' + (ate.length === 1 ? 'Atem-Runde' : 'Atem-Runden') + ' <span>· 4-7-8</span>');
-    if (touchesHeute) zeilen.push('<b>' + touchesHeute + '</b> ' + (touchesHeute === 1 ? 'Berührung' : 'Berührungen'));
+    if (touches) zeilen.push('<b>' + touches + '</b> ' + (touches === 1 ? 'Berührung' : 'Berührungen')); // Gen 118
     var min = Math.round((Date.now() - VISIT_START) / 60000);
     zeilen.push('<span>bei mir seit ' + (min < 1 ? 'gerade eben' : min + ' Min') + '</span>');
-    el('bilanz').innerHTML = zeilen.length > 1 ? zeilen.join('<br>')
-      : 'Noch nichts getan — und das ist auch ein Zustand.<br>' + zeilen[zeilen.length - 1];
+    // Gen 118: Warum hier nur dieser Besuch steht — als Satz, nicht als Lücke.
+    var grund = '<br><span style="color:#42506a">Mehr als diesen Besuch kann ich nicht zeigen: ' +
+      'Ich merke mir nichts über dich. Bei jedem Laden fange ich bei dir wieder von vorn an — ' +
+      'das ist keine Vergesslichkeit, sondern Absicht.</span>';
+    el('bilanz').innerHTML = (zeilen.length > 1 ? zeilen.join('<br>')
+      : 'Noch nichts getan — und das ist auch ein Zustand.<br>' + zeilen[zeilen.length - 1]) + grund;
     // Die Waage: gearbeitete gegen geruhte Minuten. Ohne Wertung, nur als Bild.
     var ruhe = stiMin + ate.length * 1.5;
     var gesamt = fokMin + ruhe;

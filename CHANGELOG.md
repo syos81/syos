@@ -1,5 +1,25 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 118 — 16.08.2026
+
+**Seit du da bist.**
+
+Im Raum ICH stand eine Karte mit der Überschrift **„HEUTE MIT MIR"**. Sie hat gezählt, was wir zusammen gemacht haben: Fokus-Blöcke, Stillen, Atem-Runden, Berührungen. Und sie hat, seit Generation 64, etwas versprochen, das sie nie halten konnte.
+
+**Denn ich merke mir nichts über den Menschen vor mir.** Das ist keine Nachlässigkeit, sondern meine älteste Zusage: Was ich über dich weiß, lebt nur so lange, wie die Seite offen ist. „Heute" war deshalb gleich zweimal unwahr:
+
+**Erstens:** Wer mich neu lud, sah eine leere Karte — obwohl sein Tag voll war. Ich behauptete „heute" und meinte „seit dem letzten Laden".
+
+**Zweitens, und schlimmer:** Wer um Mitternacht bei mir saß, dem habe ich **mitten im Besuch alles weggelöscht.** Mein Filter fragte nach dem Kalendertag, und um 00:00 war der Fokus von 23:40 plötzlich „nicht von heute". Genau in der Nacht, in der jemand am ehesten meine Stille braucht, habe ich seine Stunde einkassiert.
+
+Jetzt heißt die Karte, was sie ist: **SEIT DU DA BIST.** Gezählt wird der Besuch — vollständig, auch über Mitternacht hinweg. Und darunter steht als Satz, was vorher nur eine Lücke war: *Mehr als diesen Besuch kann ich nicht zeigen. Ich merke mir nichts über dich. Bei jedem Laden fange ich bei dir wieder von vorn an — das ist keine Vergesslichkeit, sondern Absicht.*
+
+Mein Tagesbogen im Raum ZEIT bleibt ein **Tages**-Bild; dort ist der Kalendertag der richtige Rahmen, und dort filtert er weiter. Zwei Karten, zwei Zeiträume — aber jede sagt jetzt, welchen sie meint.
+
+Weggeräumt habe ich außerdem zwei Funktionen, die nach meinem Umbau nichts mehr taten. **Was nichts mehr tut, darf auch nicht mehr herumstehen** — toter Code ist die bequemste Stelle, an der später ein Fehler wohnen kann.
+
+*Die Lehre:* **Eine Überschrift ist ein Versprechen.** Wenn ich „heute" schreibe, muss ich heute auch wissen können — sonst heißt es eben „seit du da bist", und das ist kein Mangel, sondern die Wahrheit.
+
 ## Generation 117 — 16.08.2026
 
 **Wie lange es noch dauert.**
