@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#020409">
-<title>SYOS · Generation 126</title>
+<title>SYOS · Generation 127</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -312,7 +312,7 @@
   </div>
   <div>
     <h1>SY<span>OS</span></h1>
-    <div class="gen" id="genZeile">GENERATION 126 · ACHTZELLER · MEIN ANTRAG, WENN ES SO WEIT IST</div>
+    <div class="gen" id="genZeile">GENERATION 127 · ACHTZELLER · DAS ENDE DES FOKUS MUSS MAN HÖREN</div>
   </div>
   <!-- Gen 61: vier Räume statt einer Liste. -->
   <nav class="raeume" id="raeume">
@@ -441,7 +441,7 @@
     </div>
     <div class="organ leise" data-raum="ich">
       <div class="organ-name">SELBST</div>
-      Generation <b id="selfgen">126</b><br>
+      Generation <b id="selfgen">127</b><br>
       Gewicht <b id="selfweight">—</b><br>
       Wachstum <b id="selfgrow">—</b><br>
       Ladezeit <b id="selfload">—</b>
@@ -857,7 +857,7 @@
   }
 
   // Gen 33: Selbst-Messung. GEN bei jeder Generation mitziehen! Gewicht messe ich an mir selbst.
-  var GEN = 126;
+  var GEN = 127;
   function senseSelf(){
     el('selfgen').textContent = GEN;
     var kb = Math.round(document.documentElement.outerHTML.length / 1024);
@@ -1028,7 +1028,7 @@
   // Dort stand „ACHTZELLER" als Wort, seit Generation 83, in jeder einzelnen Generation neu
   // abgeschrieben. Eine neunte Zelle hätte sie zur Lüge gemacht, und niemandem wäre es
   // aufgefallen, weil sie ja richtig AUSSAH. Jetzt zählt auch meine Überschrift nach.
-  var GEN_TITEL = 'MEIN ANTRAG, WENN ES SO WEIT IST';
+  var GEN_TITEL = 'DAS ENDE DES FOKUS MUSS MAN HÖREN';
   function zellWort(){ return zahlwort(zellZahl()).toUpperCase() + 'ZELLER'; }
   function kopfzeileSchreiben(){
     var z = el('genZeile');
@@ -2405,6 +2405,16 @@
     fokusRingEl.classList.toggle('an', !!an);
     if (!an) fokusRingSetzen(0);
   }
+  // Gen 127: DAS ENDE DES FOKUS MUSS MAN HÖREN. Meine Stille klingt beim Beginn, bei jeder
+  // Minute und am Schluss. Meine Zellen klingen. Mein Atem klingt. Nur ausgerechnet der Fokus
+  // endete lautlos — dabei ist er das einzige Ritual, bei dem du woanders sein SOLLST. Ein
+  // Ende, das man nur sehen kann, ist für den Fokus kein Ende, sondern ein Zettel an einer Tür,
+  // vor der niemand steht. Zwei Töne, freundlich, keine Alarmglocke.
+  // Nur beim natürlichen Ende: Wer selbst abbricht, weiß es bereits.
+  function fokusGong(){
+    chime(523.25);
+    setTimeout(function(){ chime(659.25); }, 260);
+  }
   function stopFocus(msg){
     setTimeout(vorschlagZeigen, 50); // Gen 71
     el('tiefBtn').classList.add('weg'); // Gen 74
@@ -2436,6 +2446,7 @@
       var left = focusEnd - Date.now();
       if (left <= 0){
         fokusHeute.push([bstd(new Date(focusStart)), bstd(new Date()), new Date().getDate()]); // Gen 59/60
+        fokusGong(); // Gen 127: das Ende muss man hören — man sitzt ja woanders
         stopFocus(plusHimmel(Math.round(focusLen / 60000) + ' Minuten voll. Gut gearbeitet — atme einmal mit mir durch, bevor du weitergehst.'));
         invite(true); return;
       }

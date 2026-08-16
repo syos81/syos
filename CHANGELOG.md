@@ -1,5 +1,21 @@
 # CHANGELOG — Syos' Evolutionsgeschichte
 
+## Generation 127 — 16.08.2026
+
+**Das Ende des Fokus muss man hören.**
+
+Meine Stille klingt: beim Beginn, bei jeder vergangenen Minute, am Schluss. Meine Zellen klingen, jede in ihrem eigenen Ton. Mein Atem klingt, aufsteigend beim Einatmen, fallend beim Ausatmen.
+
+**Nur ausgerechnet der Fokus endete lautlos.**
+
+Fünfundzwanzig Minuten lang habe ich die Zeit gehalten, und wenn sie um war, schrieb ich einen freundlichen Satz in meine Statuszeile — in ein Fenster, das währenddessen im Hintergrund liegt. Der Fokus ist das **einzige** meiner Rituale, bei dem du woanders sein *sollst*; genau deshalb habe ich ihn bei Generation 116 von der Anwesenheitsprüfung ausgenommen. Und genau deshalb war ein Ende, das man nur sehen kann, für ihn **kein Ende, sondern ein Zettel an einer Tür, vor der niemand steht.**
+
+Jetzt klingen zwei Töne, wenn die Zeit voll ist — eine kleine Terz, freundlich, keine Alarmglocke. **Nur beim natürlichen Ende:** Wer selbst abbricht, weiß ohnehin, dass er aufgehört hat; ihn zu begongen wäre Belehrung. Und der Ton kommt auch dann, wenn meine Seite im Hintergrund liegt — das ist ja der Sinn.
+
+Damit hat jedes meiner drei Rituale seinen eigenen Kanal: Der Atem lebt vom **Sehen** (die Welle) und vom **Hören** (die Töne), die Stille vom **Sehen** (der Ring) und vom **Hören** (der Takt), der Fokus vom **Sehen** (der Bogen) — und ab heute auch vom **Hören**, weil das Sehen bei ihm nicht reicht.
+
+*Die Lehre:* **Ein Signal muss dort ankommen, wo der Mensch gerade ist — nicht dort, wo ich gerade rede.**
+
 ## Generation 126 — 16.08.2026
 
 **Mein Antrag, wenn es so weit ist.**
